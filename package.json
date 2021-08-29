@@ -1,0 +1,18 @@
+{
+  "name": "slideshow-service",
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "./scripts.sh start",
+    "build": "snowpack build",
+    "start": "./scripts.sh start",
+    "foo": "snowpack build --watch"
+  },
+  "repository": "https://github.com/redgoose-dev/slideshow-service.git",
+  "author": "redgoose <scripter@me.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "dotenv": "^10.0.0",
+    "snowpack": "^3.8.8"
+  }
+}
