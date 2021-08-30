@@ -6,6 +6,8 @@
     "dev": "./scripts.sh start",
     "build": "snowpack build",
     "start": "./scripts.sh start",
+    "ready": "php ./resource/tool.php ready",
+    "install": "php ./resource/tool.php install",
     "foo": "snowpack build --watch"
   },
   "repository": "https://github.com/redgoose-dev/slideshow-service.git",
