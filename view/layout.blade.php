@@ -11,15 +11,20 @@
 <body ontouchstart="">
 <main>
   <header class="header">
-    <h1>
+    <h1 class="header__logo">
       <a href="/">
         <picture>
-          <source srcset="/assets/images/logo.webp" type="image/webp">
-          <img src="/assets/images/logo.png" alt="{{$title}}">
+          <source
+            srcset="/assets/images/img-logo.webp 1x, /assets/images/img-logo@2x.webp 2x"
+            type="image/webp">
+          <source
+            srcset="/assets/images/img-logo.png 1x, /assets/images/img-logo@2x.png 2x"
+            type="image/png">
+          <img src="/assets/images/img-logo.png" alt="{{$title}}">
         </picture>
       </a>
     </h1>
-    <nav>
+    <nav class="header__nav">
       <a href="/create">Create</a>
       <a href="/manage">Manage</a>
       <a href="/about">About</a>
