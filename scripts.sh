@@ -5,7 +5,7 @@
 
 # func / start server
 start() {
-  php -S 0.0.0.0:$port -t ./
+  php -q -S 0.0.0.0:$port -t ./
 }
 
 case "$1" in

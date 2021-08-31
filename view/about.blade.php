@@ -4,6 +4,7 @@ if(!defined("__SLIDESHOW__")){exit();}
 /**
  * index page
  */
+?>
 
 @extends('layout')
 

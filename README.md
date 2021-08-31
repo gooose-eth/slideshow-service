@@ -1,6 +1,6 @@
 # slideshow-service
 
-using slideshow service
+Using slideshow service
 
 
 ## Install
@@ -14,11 +14,20 @@ yarn run ready
 make database table
 
 ```shell
-yarn run install
+yarn run setup
 ```
 
 
 ## Development
 
+Run php server
 
-## Production
+```shell
+yarn run start
+```
+
+Watch mode css & javascript
+
+```shell
+yarn run watch
+```

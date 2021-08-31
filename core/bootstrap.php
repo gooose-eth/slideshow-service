@@ -53,29 +53,34 @@ try
   $_target = $router->match['target'];
   $_params = (object)$router->match['params'];
 
-  var_dump($_target);
   switch($_target)
   {
     case 'index':
       $model = new Model();
       $res = $model->index();
-      var_dump($res);
+      $blade->render('index', (object)[
+        'title' => $_ENV['TITLE'],
+        'paginate' => '',
+      ]);
       break;
 
     case 'view':
       break;
 
     case 'create':
+      var_dump('create');
       break;
 
     case 'manage':
+      var_dump('manage');
       break;
 
     case 'about':
-      $blade->render('about', (object)[]);
+      $blade->render('about', (object)[
+        'title' => $_ENV['TITLE']
+      ]);
       break;
   }
-
 }
 catch(Exception $e)
 {

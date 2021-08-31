@@ -12,8 +12,8 @@ return [
   [ 'GET', '/view/[char:name]', 'view' ],
   [ 'GET', '/view/[char:name]/', 'view' ],
 
-  [ 'GET', '/create/[char:name]', 'create' ],
-  [ 'GET', '/create/[char:name]/', 'create' ],
+  [ 'GET', '/create', 'create' ],
+  [ 'GET', '/create/', 'create' ],
 
   [ 'GET', '/manage/[char:name]', 'manage' ],
   [ 'GET', '/manage/[char:name]/', 'manage' ],
