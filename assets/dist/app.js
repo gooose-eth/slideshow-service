@@ -1,1 +1,1 @@
-!function(o){"function"==typeof define&&define.amd?define(o):o()}((function(){"use strict";console.log("fopooo");var o="foooo";console.log("hello world"),console.log(o),console.log(o),console.log(o)}));
+!function(e){"function"==typeof define&&define.amd?define(e):e()}((function(){"use strict";console.log("hello world")}));

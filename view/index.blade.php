@@ -12,7 +12,9 @@ if(!defined("__SLIDESHOW__")){exit();}
 @endsection
 
 @section('contents')
-<p>content</p>
+<article class="index">
+  .index
+</article>
 @endsection
 
 @section('script')

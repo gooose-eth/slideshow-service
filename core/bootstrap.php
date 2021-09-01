@@ -60,6 +60,7 @@ try
       $res = $model->index();
       $blade->render('index', (object)[
         'title' => $_ENV['TITLE'],
+        'target' => $_target,
         'paginate' => '',
       ]);
       break;
@@ -77,7 +78,8 @@ try
 
     case 'about':
       $blade->render('about', (object)[
-        'title' => $_ENV['TITLE']
+        'title' => $_ENV['TITLE'],
+        'target' => $_target,
       ]);
       break;
   }
