@@ -9,8 +9,8 @@ return [
   [ 'GET', '/about', 'about' ],
   [ 'GET', '/about/', 'about' ],
 
-  [ 'GET', '/view/[char:name]', 'view' ],
-  [ 'GET', '/view/[char:name]/', 'view' ],
+  [ 'GET', '/watch/[char:name]', 'watch' ],
+  [ 'GET', '/watch/[char:name]/', 'watch' ],
 
   [ 'GET', '/create', 'create' ],
   [ 'GET', '/create/', 'create' ],

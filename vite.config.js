@@ -1,4 +1,5 @@
 import path from 'path';
+import vue from '@vitejs/plugin-vue';
 
 const __dirname = path.resolve();
 
@@ -14,18 +15,16 @@ export default {
       name: 'slideshow',
       fileName: (format) => 'app.js',
     },
-    rollupOptions: {
-      external: ['vue'],
-      output: {
-        globals: {
-          vue: 'Vue',
-        },
-      },
-    },
+    rollupOptions: {},
   },
   resolve: {
     alias: {
       '~': path.resolve(__dirname, './assets'),
     },
   },
+  plugins: [
+    vue({
+      //
+    }),
+  ],
 };

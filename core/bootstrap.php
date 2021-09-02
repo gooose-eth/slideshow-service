@@ -61,11 +61,22 @@ try
       $blade->render('index', (object)[
         'title' => $_ENV['TITLE'],
         'target' => $_target,
-        'paginate' => '',
+        'paginate' => (object)[
+          'mobile' => '<div>.paginate-mobile</div>',
+          'desktop' => '<div>.paginate-desktop</div>',
+        ],
       ]);
       break;
 
-    case 'view':
+    case 'watch':
+      $blade->render('index', (object)[
+        'title' => $_ENV['TITLE'],
+        'target' => $_target,
+        'paginate' => (object)[
+          'mobile' => '<div>.paginate-mobile</div>',
+          'desktop' => '<div>.paginate-desktop</div>',
+        ],
+      ]);
       break;
 
     case 'create':

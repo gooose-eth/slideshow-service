@@ -1,7 +1,7 @@
 @import "mixins";
 
 .header {
-  padding: 30px 0 0;
+  padding: 40px 0 0;
   text-align: center;
   &__logo {
     display: flex;
@@ -19,7 +19,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    margin: 20px 0 0;
+    margin: 16px 0 0;
     ul {
       display: flex;
       align-items: center;
@@ -31,11 +31,11 @@
       font-size: 14px;
       font-family: var(--font-eng);
       &:nth-child(n+2) {
-        margin-left: 12px;
+        margin-left: 6px;
         &:before {
           content: '/';
           display: block;
-          margin-right: 12px;
+          margin-right: 6px;
         }
       }
     }
@@ -44,6 +44,7 @@
       color: var(--color-fill);
       cursor: pointer;
       user-select: none;
+      padding: 4px 6px;
       &.active {
         color: var(--color-key);
         font-weight: 600;
@@ -52,9 +53,7 @@
   }
 }
 
-.container {
-  margin: 30px 0 40px;
-}
+.container {}
 
 .footer {
   padding: 0 0 20px;

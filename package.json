@@ -14,7 +14,10 @@
   "license": "MIT",
   "devDependencies": {
     "@rollup/plugin-alias": "^3.1.5",
+    "@vitejs/plugin-vue": "^1.6.0",
+    "@vue/compiler-sfc": "^3.2.7",
     "sass": "^1.38.2",
-    "vite": "^2.5.2"
+    "vite": "^2.5.2",
+    "vue": "^3.2.7"
   }
 }

@@ -1,3 +1,122 @@
+@import "./mixins";
+
 .index {
-  border: 1px solid #000;
+  margin: 30px 0 60px;
+  > h1 {
+    font-size: 0;
+    width: 0;
+    height: 0;
+    overflow: hidden;
+  }
+  > ul {
+    --size-column: 1;
+    --size-side-padding: 20px;
+    --size-gap: 30px;
+    display: grid;
+    gap: var(--size-gap);
+    grid-template-columns: repeat(var(--size-column), 1fr);
+    padding: 0 var(--size-side-padding);
+  }
+  &__paginate {
+    margin: 40px 0 0;
+    text-align: center;
+  }
+
+  @include responsive(tablet) {
+    margin: 40px 0 60px;
+    > ul {
+      --size-column: 2;
+      --size-side-padding: 60px;
+      max-width: none;
+    }
+  }
+  @include responsive(desktop) {
+    margin: 40px 0 80px;
+    > ul {
+      --size-column: 3;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+  }
+  @include responsive(desktop-1280) {
+    > ul {
+      --size-column: 4;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+  }
+}
+
+.index-item {
+  --size-radius: 4px;
+  &__wrap {
+    position: relative;
+    display: block;
+    cursor: pointer;
+    background: #fff;
+    box-shadow: 0 0 30px 0 rgba(0, 0, 0, 0.2);
+    border-radius: var(--size-radius);
+    overflow: hidden;
+    transform-origin: 50% 50%;
+    transition: transform 200ms ease-out;
+    &:after {
+      content: '';
+      position: absolute;
+      display: block;
+      left: 0;
+      right: 0;
+      top: 0;
+      bottom: 0;
+      border-radius: var(--size-radius);
+      transition: box-shadow 200ms ease-out;
+      box-shadow: inset 0 0 0 0 var(--color-key);
+      pointer-events: none;
+    }
+    &:active {
+      will-change: transform;
+      transform: scale(.99);
+      &:after {
+        will-change: box-shadow;
+        box-shadow: inset 0 0 0 3px var(--color-key);
+      }
+    }
+    &:focus {
+      &:after {
+        box-shadow: inset 0 0 0 3px var(--color-key);
+      }
+    }
+  }
+  &__image {
+    background: #ccc;
+    aspect-ratio: 28/18;
+    img {
+      display: block;
+      object-fit: cover;
+      width: 100%;
+      height: auto;
+      user-select: none;
+      aspect-ratio: 28/18;
+    }
+  }
+  &__body {
+    padding: 20px;
+    h2 {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      color: var(--color-fill);
+      font-weight: 600;
+      line-height: 1.25;
+    }
+    p {
+      --font-size: 12px;
+      --line-height: 1.25;
+      margin-top: 4px;
+      font-size: 12px;
+      line-height: var(--line-height);
+      color: #525252;
+      max-height: calc((var(--font-size) * var(--line-height)) * 2);
+      overflow: hidden;
+    }
+  }
 }

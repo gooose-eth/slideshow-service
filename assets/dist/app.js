@@ -1,1 +1,1 @@
-!function(e){"function"==typeof define&&define.amd?define(e):e()}((function(){"use strict";console.log("hello world")}));
+!function(e){"function"==typeof define&&define.amd?define(e):e()}((function(){"use strict";switch(location.pathname.split("/")[1]){case"watch":case"create":console.log("watch");break;case"manage":console.log("manage");break;default:console.log("index")}}));

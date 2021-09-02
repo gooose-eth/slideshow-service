@@ -18,9 +18,15 @@
     </h1>
     <nav class="header__nav">
       <ul>
-        <li><a href="#">Create</a></li>
-        <li><a href="#">Manage</a></li>
-        <li><a href="/about"{!! $target === 'about' ? ' class="active"' : '' !!}>About</a></li>
+        <li>
+          <a href="#" data-link="create">Create</a>
+        </li>
+        <li>
+          <a href="#" data-link="manage">Manage</a>
+        </li>
+        <li>
+          <a href="/about"{!! $target === 'about' ? ' class="active"' : '' !!} data-link="about">About</a>
+        </li>
       </ul>
     </nav>
   </header>
@@ -32,6 +38,6 @@
   </footer>
 </main>
 @yield('script')
-<script src="/assets/dist/app.js"></script>
+<script type="module" src="/assets/dist/app.js"></script>
 </body>
 </html>
