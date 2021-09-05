@@ -16,6 +16,7 @@
     "redgoose/paginate": "^1.0",
     "redgoose/console": "^1.0",
     "eftec/bladeone": "^3.52",
-    "altorouter/altorouter": "^2.0"
+    "altorouter/altorouter": "^2.0",
+    "ext-pdo": "*"
   }
 }

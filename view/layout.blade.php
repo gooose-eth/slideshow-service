@@ -1,7 +1,6 @@
 <!doctype html>
 <html lang="ko">
 <head>
-<title>{{$title}}</title>
 @include('head')
 </head>
 <body ontouchstart="">
@@ -9,23 +8,25 @@
   <header class="header">
     <h1 class="header__logo">
       <a href="/">
-        <picture>
-          <source srcset="/assets/images/img-logo.webp 1x, /assets/images/img-logo@2x.webp 2x" type="image/webp">
-          <source srcset="/assets/images/img-logo.png 1x, /assets/images/img-logo@2x.png 2x" type="image/png">
-          <img src="/assets/images/img-logo.png" alt="{{$title}}">
-        </picture>
+        <span>
+          <picture>
+            <source srcset="/assets/images/img-logo.webp 1x, /assets/images/img-logo@2x.webp 2x" type="image/webp">
+            <source srcset="/assets/images/img-logo.png 1x, /assets/images/img-logo@2x.png 2x" type="image/png">
+            <img src="/assets/images/img-logo.png" alt="{{$title}}">
+          </picture>
+        </span>
       </a>
     </h1>
     <nav class="header__nav">
       <ul>
         <li>
-          <a href="#" data-link="create">Create</a>
+          <a href="/create/">Create</a>
         </li>
         <li>
           <a href="#" data-link="manage">Manage</a>
         </li>
         <li>
-          <a href="/about"{!! $target === 'about' ? ' class="active"' : '' !!} data-link="about">About</a>
+          <a href="/about/"{!! $target === 'about' ? ' class="active"' : '' !!}>About</a>
         </li>
       </ul>
     </nav>

@@ -61,10 +61,7 @@ try
       $blade->render('index', (object)[
         'title' => $_ENV['TITLE'],
         'target' => $_target,
-        'paginate' => (object)[
-          'mobile' => '<div>.paginate-mobile</div>',
-          'desktop' => '<div>.paginate-desktop</div>',
-        ],
+        'paginate' => $res->paginate,
       ]);
       break;
 
@@ -72,15 +69,15 @@ try
       $blade->render('index', (object)[
         'title' => $_ENV['TITLE'],
         'target' => $_target,
-        'paginate' => (object)[
-          'mobile' => '<div>.paginate-mobile</div>',
-          'desktop' => '<div>.paginate-desktop</div>',
-        ],
       ]);
       break;
 
     case 'create':
-      var_dump('create');
+      $model = new Model();
+      $blade->render('create', (object)[
+        'title' => $_ENV['TITLE'],
+        'target' => $_target,
+      ]);
       break;
 
     case 'manage':
