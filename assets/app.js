@@ -2,9 +2,9 @@ import { createApp } from 'vue';
 import { createI18n } from 'vue-i18n/index';
 
 // stylesheet
-import '~/scss/app.scss';
+import './scss/app.scss';
 
-console.log(createApp)
+console.log('=========>', createApp, '=======')
 
 // route
 const routeMode = location.pathname.split('/')[1];

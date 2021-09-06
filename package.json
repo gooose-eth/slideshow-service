@@ -6,19 +6,13 @@
     "ready": "php ./resource/tool.php ready",
     "setup": "php ./resource/tool.php install",
     "start": "./scripts.sh start",
-    "watch": "rm -rf assets/dist && vite build --watch",
-    "build": "rm -rf assets/dist && vite build"
+    "watch": "",
+    "build": "rm -rf assets/dist"
   },
   "repository": "https://github.com/redgoose-dev/slideshow-service.git",
   "author": "redgoose <scripter@me.com>",
   "license": "MIT",
-  "devDependencies": {
-    "@rollup/plugin-alias": "^3.1.5",
-    "@vitejs/plugin-vue": "^1.6.0",
-    "@vue/compiler-sfc": "^3.2.7",
-    "sass": "^1.38.2",
-    "vite": "^2.5.2"
-  },
+  "devDependencies": {},
   "dependencies": {
     "@redgoose/slideshow": "^1.1.6",
     "vue": "^3.2.9",
