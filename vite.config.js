@@ -23,8 +23,6 @@ export default {
     },
   },
   plugins: [
-    vue({
-      //
-    }),
+    vue(),
   ],
 };
