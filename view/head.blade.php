@@ -8,4 +8,4 @@
 <meta property="og:locale" content="ko_KR"/>
 <meta property="og:type" content="website"/>
 @yield('meta')
-<link rel="stylesheet" href="/assets/dist/style.css">
+<link rel="stylesheet" href="/assets/dist/app.css">

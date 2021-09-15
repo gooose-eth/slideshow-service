@@ -6,17 +6,17 @@
     "ready": "php ./resource/tool.php ready",
     "setup": "php ./resource/tool.php install",
     "start": "./scripts.sh start",
-    "watch": "vite build --watch",
+    "watch": "parcel watch assets/app.js --dist-dir assets/dist --no-source-maps",
     "build": "rm -rf assets/dist"
   },
   "repository": "https://github.com/redgoose-dev/slideshow-service.git",
   "author": "redgoose <scripter@me.com>",
   "license": "MIT",
   "devDependencies": {
-    "@vitejs/plugin-vue": "^1.6.2",
-    "@vue/compiler-sfc": "^3.2.11",
-    "sass": "^1.39.2",
-    "vite": "^2.5.6"
+    "@parcel/transformer-sass": "2.0.0-rc.0",
+    "@parcel/transformer-vue": "2.0.0-rc.0",
+    "parcel": "^2.0.0-rc.0",
+    "sass": "^1.39.2"
   },
   "dependencies": {
     "@redgoose/slideshow": "^1.1.8",

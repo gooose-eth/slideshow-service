@@ -1,6 +1,6 @@
 import { createApp } from 'vue';
-import store from '@redgoose/slideshow/docs/bundle/store/index';
-import i18n from '@redgoose/slideshow/docs/bundle/i18n/index';
+import { store, i18n } from '@redgoose/slideshow/docs/resource';
+// import Slideshow from '@redgoose/slideshow';
 
 /**
  * slideshow (watch, create, manage)
@@ -10,7 +10,9 @@ import i18n from '@redgoose/slideshow/docs/bundle/i18n/index';
 function slideshow(mode)
 {
   console.log('call slideshow');
-  console.log('=========>', createApp, '=======')
+  // console.log('=========>', createApp, '=======')
+  console.log(store, i18n)
+  // createApp()
 }
 
 export default slideshow;

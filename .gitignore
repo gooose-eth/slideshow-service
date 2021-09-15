@@ -5,6 +5,7 @@ node_modules/
 .vscode/
 cache/
 .AppleDouble/
+.parcel-cache/
 
 # files
 .DS_Store
