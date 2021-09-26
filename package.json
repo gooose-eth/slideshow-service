@@ -13,9 +13,6 @@
   "author": "redgoose <scripter@me.com>",
   "license": "MIT",
   "devDependencies": {
-    "@parcel/transformer-sass": "2.0.0-rc.0",
-    "@parcel/transformer-vue": "2.0.0-rc.0",
-    "parcel": "^2.0.0-rc.0",
     "sass": "^1.39.2"
   },
   "dependencies": {
