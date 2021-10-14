@@ -1,0 +1,1 @@
+{"version":3,"file":"index.js","sources":["../main/pages/index.js"],"sourcesContent":["/**\n * index page\n *\n */\nfunction index()\n{\n  console.log('call index page');\n}\n\nexport default index;\n"],"names":[],"mappings":"AAIA,iBACA;AACE,UAAQ,IAAI;AAAA;;"}

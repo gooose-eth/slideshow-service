@@ -2,6 +2,7 @@
 <html lang="ko">
 <head>
 @include('head')
+<link rel="stylesheet" href="/assets/dist/main.css">
 </head>
 <body ontouchstart="">
 <main>
@@ -10,9 +11,9 @@
       <a href="/">
         <span>
           <picture>
-            <source srcset="/assets/images/img-logo.webp 1x, /assets/images/img-logo@2x.webp 2x" type="image/webp">
-            <source srcset="/assets/images/img-logo.png 1x, /assets/images/img-logo@2x.png 2x" type="image/png">
-            <img src="/assets/images/img-logo.png" alt="{{$title}}">
+            <source srcset="/assets/main/images/img-logo.webp 1x, /assets/main/images/img-logo@2x.webp 2x" type="image/webp">
+            <source srcset="/assets/main/images/img-logo.png 1x, /assets/main/images/img-logo@2x.png 2x" type="image/png">
+            <img src="/assets/main/images/img-logo.png" alt="{{$title}}">
           </picture>
         </span>
       </a>
@@ -39,6 +40,6 @@
   </footer>
 </main>
 @yield('script')
-<script type="module" src="/assets/dist/app.js"></script>
+<script type="module" crossorigin src="/assets/dist/main.js"></script>
 </body>
 </html>

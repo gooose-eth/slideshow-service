@@ -5,8 +5,8 @@
     "ready": "php ./resource/tool.php ready",
     "setup": "php ./resource/tool.php install",
     "start": "./scripts.sh start",
-    "dev": "vite --config assets/config/vite.dev.config.js",
-    "build": "rm -rf assets/dist/ && vite --config assets/config/vite.prod.config.js"
+    "dev": "vite build --watch --config assets/config/vite.dev.config.js",
+    "build": "rm -rf assets/dist/ && vite build --config assets/config/vite.prod.config.js"
   },
   "repository": "https://github.com/redgoose-dev/slideshow-service.git",
   "author": "redgoose <scripter@me.com>",

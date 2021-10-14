@@ -16,6 +16,6 @@ if(!defined("__SLIDESHOW__")){exit();}
 
 @section('script')
 <script>
-window.APP = {};
+window.Custom = {};
 </script>
 @endsection
