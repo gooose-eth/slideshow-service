@@ -23,7 +23,7 @@ case "$1" in
     fi
     # copy .env
     if [ ! -f .env ]; then
-      cp .env.example .env
+      cp resource/.env.example .env
     fi
     ;;
 

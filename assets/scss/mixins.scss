@@ -99,3 +99,14 @@
     min-height: -webkit-fill-available;
   }
 }
+
+// focus
+@mixin focus()
+{
+  &:focus {
+    @content;
+    &:not(:focus-visible) {
+      outline: none;
+    }
+  }
+}

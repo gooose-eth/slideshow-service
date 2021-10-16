@@ -1,4 +1,5 @@
-import { _ as _export_sfc, i as i18n, o as openBlock, c as createElementBlock, a as createBaseVNode, f as createTextVNode, t as toDisplayString, u as unref, p as pushScopeId, g as popScopeId } from "./slideshow.js";
+import { _ as _export_sfc, i as i18n } from "./slideshow.js";
+import { y as openBlock, z as createElementBlock, F as createBaseVNode, X as createTextVNode, R as toDisplayString, C as unref, M as pushScopeId, O as popScopeId } from "./runtime-dom.esm-bundler.js";
 const name = "slideshow-service";
 const version = "1.0.0";
 const scripts = {
@@ -92,4 +93,3 @@ const _sfc_main = {
 };
 var Information = /* @__PURE__ */ _export_sfc(_sfc_main, [["__scopeId", "data-v-c3b151a0"]]);
 export { Information as default };
-//# sourceMappingURL=Information.js.map

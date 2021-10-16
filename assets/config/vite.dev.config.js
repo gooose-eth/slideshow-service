@@ -9,7 +9,6 @@ export default defineConfig(({ mode }) => {
     base: './',
     build: {
       watch: {
-        // TODO: 슬라이드쇼 소스 부분에서 와치가 잘 안되고 있다.
         include: '../../assets/**',
         exclude: [ 'dist/**', 'node_modules/**' ],
       },

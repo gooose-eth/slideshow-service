@@ -1,5 +1,5 @@
 import { createApp } from 'vue';
-import Slideshow from '../../slideshow/screen/App.vue';
+import Slideshow from '../slideshow/screen/App.vue';
 
 /**
  * slideshow

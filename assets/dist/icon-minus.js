@@ -1,4 +1,5 @@
-import { _ as _export_sfc, o as openBlock, c as createElementBlock } from "./slideshow.js";
+import { _ as _export_sfc } from "./slideshow.js";
+import { y as openBlock, z as createElementBlock } from "./runtime-dom.esm-bundler.js";
 const _sfc_main = {};
 const _hoisted_1 = {
   x1: "5",
@@ -11,4 +12,3 @@ function _sfc_render(_ctx, _cache) {
 }
 var iconMinus = /* @__PURE__ */ _export_sfc(_sfc_main, [["render", _sfc_render]]);
 export { iconMinus as default };
-//# sourceMappingURL=icon-minus.js.map

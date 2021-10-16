@@ -4,7 +4,7 @@ import { paths, fileName } from './options';
 export default {
   build: {
     lib: {
-      entry: paths.resolve(`main/${fileName}.js`),
+      entry: paths.resolve(`${fileName}.js`),
       name: fileName,
       formats: [ 'es' ],
       fileName: (format) => `${fileName}.js`

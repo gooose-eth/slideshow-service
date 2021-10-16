@@ -9,13 +9,13 @@ return [
   [ 'GET', '/about', 'about' ],
   [ 'GET', '/about/', 'about' ],
 
-  [ 'GET', '/watch/[char:name]', 'watch' ],
-  [ 'GET', '/watch/[char:name]/', 'watch' ],
+  [ 'GET', '/watch/[char:id]', 'watch' ],
+  [ 'GET', '/watch/[char:id]/', 'watch' ],
 
   [ 'GET', '/create', 'create' ],
   [ 'GET', '/create/', 'create' ],
 
-  [ 'GET', '/manage/[char:name]', 'manage' ],
-  [ 'GET', '/manage/[char:name]/', 'manage' ],
+  [ 'GET', '/manage/[char:id]', 'manage' ],
+  [ 'GET', '/manage/[char:id]/', 'manage' ],
 
 ];

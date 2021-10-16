@@ -2,18 +2,18 @@
 <html lang="ko">
 <head>
 @include('head')
-<link rel="stylesheet" href="/assets/dist/main.css">
+<link rel="stylesheet" href="{{__ROOT__}}assets/dist/main.css">
 </head>
 <body ontouchstart="">
 <main>
   <header class="header">
     <h1 class="header__logo">
-      <a href="/">
+      <a href="{{__ROOT__}}" title="{{$_ENV['TITLE']}}">
         <span>
           <picture>
-            <source srcset="/assets/main/images/img-logo.webp 1x, /assets/main/images/img-logo@2x.webp 2x" type="image/webp">
-            <source srcset="/assets/main/images/img-logo.png 1x, /assets/main/images/img-logo@2x.png 2x" type="image/png">
-            <img src="/assets/main/images/img-logo.png" alt="{{$title}}">
+            <source srcset="{{__ROOT__}}assets/images/img-logo.webp 1x, {{__ROOT__}}assets/images/img-logo@2x.webp 2x" type="image/webp">
+            <source srcset="{{__ROOT__}}assets/images/img-logo.png 1x, {{__ROOT__}}assets/images/img-logo@2x.png 2x" type="image/png">
+            <img src="{{__ROOT__}}assets/images/img-logo.png" alt="{{$title}}">
           </picture>
         </span>
       </a>
@@ -21,13 +21,19 @@
     <nav class="header__nav">
       <ul>
         <li>
-          <a href="/create/">Create</a>
+          <a href="{{__ROOT__}}create/" target="slideshow" title="Create slideshow">
+            Create
+          </a>
         </li>
         <li>
-          <a href="#" data-link="manage">Manage</a>
+          <a href="#" data-link="manage" title="Manage slideshow">
+            Manage
+          </a>
         </li>
         <li>
-          <a href="/about/"{!! $target === 'about' ? ' class="active"' : '' !!}>About</a>
+          <a href="{{__ROOT__}}about/"{!! $target === 'about' ? ' class="active"' : '' !!} title="About slideshow service">
+            About
+          </a>
         </li>
       </ul>
     </nav>
@@ -40,6 +46,6 @@
   </footer>
 </main>
 @yield('script')
-<script type="module" crossorigin src="/assets/dist/main.js"></script>
+<script type="module" crossorigin src="{{__ROOT__}}assets/dist/main.js"></script>
 </body>
 </html>

@@ -1,4 +1,5 @@
-import { _ as _export_sfc, o as openBlock, c as createElementBlock, F as Fragment, a as createBaseVNode } from "./slideshow.js";
+import { _ as _export_sfc } from "./slideshow.js";
+import { y as openBlock, z as createElementBlock, H as Fragment, F as createBaseVNode } from "./runtime-dom.esm-bundler.js";
 const _sfc_main = {};
 const _hoisted_1 = /* @__PURE__ */ createBaseVNode("line", {
   x1: "18",
@@ -20,4 +21,3 @@ function _sfc_render(_ctx, _cache) {
 }
 var iconX = /* @__PURE__ */ _export_sfc(_sfc_main, [["render", _sfc_render]]);
 export { iconX as default };
-//# sourceMappingURL=icon-x.js.map

@@ -1,4 +1,5 @@
-import { _ as _export_sfc, o as openBlock, c as createElementBlock } from "./slideshow.js";
+import { _ as _export_sfc } from "./slideshow.js";
+import { y as openBlock, z as createElementBlock } from "./runtime-dom.esm-bundler.js";
 const _sfc_main = {};
 const _hoisted_1 = { d: "M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z" };
 function _sfc_render(_ctx, _cache) {
@@ -6,4 +7,3 @@ function _sfc_render(_ctx, _cache) {
 }
 var iconDroplet = /* @__PURE__ */ _export_sfc(_sfc_main, [["render", _sfc_render]]);
 export { iconDroplet as default };
-//# sourceMappingURL=icon-droplet.js.map

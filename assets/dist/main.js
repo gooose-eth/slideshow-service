@@ -1,3 +1,4 @@
+var main = "";
 var app = "";
 const routeMode = location.pathname.split("/")[1];
 switch (routeMode) {
@@ -5,7 +6,7 @@ switch (routeMode) {
   case "create":
   case "manage":
     import("./slideshow.js").then(function(n) {
-      return n.C;
+      return n.e;
     }).then(({ default: slideshow }) => {
       slideshow(routeMode, {});
     });
@@ -14,4 +15,3 @@ switch (routeMode) {
     import("./index.js").then(({ default: index }) => index());
     break;
 }
-//# sourceMappingURL=main.js.map

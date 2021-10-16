@@ -1,5 +1,6 @@
 // stylesheet
-import './scss/app.scss';
+import './scss/main.scss';
+import './slideshow/assets/scss/app.scss';
 
 /**
  * @var {object} window.Main

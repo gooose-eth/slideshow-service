@@ -1,4 +1,5 @@
-import { _ as _export_sfc, o as openBlock, c as createElementBlock, a as createBaseVNode, n as normalizeClass, p as pushScopeId, g as popScopeId } from "./slideshow.js";
+import { _ as _export_sfc } from "./slideshow.js";
+import { y as openBlock, z as createElementBlock, F as createBaseVNode, J as normalizeClass, M as pushScopeId, O as popScopeId } from "./runtime-dom.esm-bundler.js";
 var Switch_scss_vue_type_style_index_0_src_scoped_true_lang = "";
 const _withScopeId = (n) => (pushScopeId("data-v-4bda4914"), n = n(), popScopeId(), n);
 const _hoisted_1 = ["name", "id", "required", "disabled", "checked"];
@@ -39,4 +40,3 @@ const _sfc_main = {
 };
 var FormSwitch = /* @__PURE__ */ _export_sfc(_sfc_main, [["__scopeId", "data-v-4bda4914"]]);
 export { FormSwitch as F };
-//# sourceMappingURL=Switch.js.map

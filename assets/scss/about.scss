@@ -1,0 +1,26 @@
+@use 'mixins';
+
+.about {
+  margin: 60px auto;
+  max-width: 900px;
+  &__title {
+    font-size: 30px;
+    font-weight: 800;
+    letter-spacing: -.25px;
+    line-height: 1.25;
+  }
+  &__description {
+    font-size: 15px;
+    word-break: keep-all;
+    text-align: justify;
+    p {
+      margin: 16px 0;
+    }
+  }
+  &__screen {
+    img {
+      display: block;
+      margin: 30px auto;
+    }
+  }
+}

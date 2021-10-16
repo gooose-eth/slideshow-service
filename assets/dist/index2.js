@@ -17,10 +17,11 @@ var __spreadValues = (a, b) => {
   return a;
 };
 var __spreadProps = (a, b) => __defProps(a, __getOwnPropDescs(b));
-import { q as defineComponent, I as Icon, _ as _export_sfc, v as resolveComponent, o as openBlock, c as createElementBlock, b as createVNode, i as i18n, a as createBaseVNode, t as toDisplayString, u as unref, h as renderSlot, r as reactive, F as Fragment, l as renderList, n as normalizeClass, d as createCommentVNode, e as convertPureObject, w as withCtx, f as createTextVNode, p as pushScopeId, g as popScopeId, k as ref, x as computed, y as createBlock, T as Teleport, z as getFileData, A as getApiData, B as checkTree } from "./slideshow.js";
+import { I as Icon, _ as _export_sfc, i as i18n, c as convertPureObject, a as getFileData, b as getApiData, d as checkTree } from "./slideshow.js";
 import { B as ButtonBasic, v as validUrl, o as objectToString } from "./Basic.js";
 import { F as FormText } from "./Text.js";
 import { F as FormRadio } from "./Radio.js";
+import { Z as defineComponent, _ as resolveComponent, y as openBlock, z as createElementBlock, K as createVNode, F as createBaseVNode, R as toDisplayString, C as unref, Y as renderSlot, r as reactive, H as Fragment, I as renderList, J as normalizeClass, G as createCommentVNode, W as withCtx, X as createTextVNode, M as pushScopeId, O as popScopeId, D as ref, v as computed, A as createBlock, T as Teleport } from "./runtime-dom.esm-bundler.js";
 var ButtonIcon_vue_vue_type_style_index_0_scoped_true_lang = "";
 const _sfc_main$8 = defineComponent({
   name: "PreferenceDataButtonIcon",
@@ -1285,4 +1286,3 @@ const _sfc_main = {
 };
 var index = /* @__PURE__ */ _export_sfc(_sfc_main, [["__scopeId", "data-v-29151e26"]]);
 export { index as default };
-//# sourceMappingURL=index2.js.map

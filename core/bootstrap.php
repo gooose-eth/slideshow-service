@@ -66,22 +66,14 @@ try
       break;
 
     case 'watch':
-      $blade->render('index', (object)[
-        'title' => $_ENV['TITLE'],
-        'target' => $_target,
-      ]);
-      break;
-
     case 'create':
-      $model = new Model();
-      $blade->render('create', (object)[
-        'title' => $_ENV['TITLE'],
-        'target' => $_target,
-      ]);
-      break;
-
     case 'manage':
-      var_dump('manage');
+      $model = new Model();
+      $blade->render('slideshow', (object)[
+        'title' => $_ENV['TITLE'],
+        'mode' => $_target,
+        'id' => $_params->id ?? '',
+      ]);
       break;
 
     case 'about':
@@ -94,5 +86,9 @@ try
 }
 catch(Exception $e)
 {
-  var_dump('ERROR:', $e);
+  $blade->render('error', (object)[
+    'title' => $_ENV['TITLE'],
+    'target' => 'error',
+  ]);
+  Console::log('ERROR: '.$e->getMessage());
 }

@@ -19,7 +19,7 @@ $arr = [1,2,3,4,5,6];
   <ul class="index__list">
     @foreach($arr as $k=>$item)
     <li class="index-item">
-      <a href="#" class="index-item__wrap">
+      <a href="{{__ROOT__}}watch/123/" target="slideshow" class="index-item__wrap">
         <figure class="index-item__image">
           @if (true)
           <img
@@ -31,7 +31,7 @@ $arr = [1,2,3,4,5,6];
         </figure>
         <div class="index-item__body">
           <h2>Pune</h2>
-          <p>ㄴ웋ㄴ ㄴㅇㅎ렌 ㅡㅇ헤ㅡㄴ에 ㄴ으헨으 헨으헨 흐</p>
+          <p>ㄴ웋ㄴ ㄴㅇㅎ렌 ㅡㅇ헤ㅡㄴ에 ㄴ으헨으 헨으헨 흐 sdigmsdg skmpdg msdgpksd mkpsdg sdkgosd sgk[sdgsl[dg sd[g,sd[lg ,s[dg,s[dg,[sd,g[sd,g[d,s[g,</p>
         </div>
       </a>
     </li>
@@ -39,8 +39,10 @@ $arr = [1,2,3,4,5,6];
   </ul>
   @if ($paginate->mobile && $paginate->desktop)
   <nav class="index__paginate">
-    {!! $paginate->mobile !!}
-    {!! $paginate->desktop !!}
+    <div>
+      {!! $paginate->mobile !!}
+      {!! $paginate->desktop !!}
+    </div>
   </nav>
   @endif
 </article>

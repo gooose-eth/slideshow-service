@@ -1,5 +1,6 @@
-import { _ as _export_sfc, i as i18n, r as reactive, o as openBlock, c as createElementBlock, a as createBaseVNode, t as toDisplayString, u as unref, b as createVNode, p as pushScopeId, g as popScopeId, e as convertPureObject } from "./slideshow.js";
+import { _ as _export_sfc, i as i18n, c as convertPureObject } from "./slideshow.js";
 import { F as FormSwitch } from "./Switch.js";
+import { r as reactive, y as openBlock, z as createElementBlock, F as createBaseVNode, R as toDisplayString, C as unref, K as createVNode, M as pushScopeId, O as popScopeId } from "./runtime-dom.esm-bundler.js";
 var Keyboard_scss_vue_type_style_index_0_src_scoped_true_lang = "";
 const _withScopeId = (n) => (pushScopeId("data-v-ef5bdd86"), n = n(), popScopeId(), n);
 const _hoisted_1 = /* @__PURE__ */ _withScopeId(() => /* @__PURE__ */ createBaseVNode("legend", null, "Keyboard fields", -1));
@@ -126,4 +127,3 @@ const _sfc_main = {
 };
 var Keyboard = /* @__PURE__ */ _export_sfc(_sfc_main, [["__scopeId", "data-v-ef5bdd86"]]);
 export { Keyboard as default };
-//# sourceMappingURL=Keyboard.js.map
