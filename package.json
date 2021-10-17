@@ -2,8 +2,7 @@
   "name": "slideshow-service",
   "version": "1.0.0",
   "scripts": {
-    "ready": "php ./resource/tool.php ready",
-    "setup": "php ./resource/tool.php install",
+    "setup": "./scripts.sh setup",
     "start": "./scripts.sh start",
     "dev": "vite build --watch --config assets/config/vite.dev.config.js",
     "build": "rm -rf assets/dist/ && vite build --config assets/config/vite.prod.config.js"
@@ -18,7 +17,7 @@
   },
   "dependencies": {
     "vue": "^3.2.20",
-    "vue-i18n": "^9.1.9",
+    "vue-i18n": "^9.2.0-beta.12",
     "vuex": "^4.0.2"
   }
 }

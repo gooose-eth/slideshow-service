@@ -1,5 +1,5 @@
-import { _ as _export_sfc } from "./slideshow.js";
-import { y as openBlock, z as createElementBlock, Y as renderSlot, J as normalizeClass } from "./runtime-dom.esm-bundler.js";
+import { _ as _export_sfc } from "./main3.js";
+import { y as openBlock, z as createElementBlock, Y as renderSlot, J as normalizeClass } from "./main2.js";
 function twoDigit(day) {
   return `0${day}`.slice(-2);
 }

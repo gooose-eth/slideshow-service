@@ -1,5 +1,5 @@
-import { _ as _export_sfc } from "./slideshow.js";
-import { y as openBlock, z as createElementBlock } from "./runtime-dom.esm-bundler.js";
+import { _ as _export_sfc } from "./main3.js";
+import { y as openBlock, z as createElementBlock } from "./main2.js";
 const _sfc_main = {};
 const _hoisted_1 = { points: "18 15 12 9 6 15" };
 function _sfc_render(_ctx, _cache) {

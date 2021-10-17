@@ -19,6 +19,7 @@ if (window) window.dev = process.env.NODE_ENV === 'development';
 
 const name = 'Slideshow';
 const props = defineProps({
+  mode: String,
   preference: Object,
   group: String,
   tree: [ Object, Array ],
@@ -229,6 +230,7 @@ watch(() => props.group, () => {
 });
 
 // actions
+store.commit('setServiceMode', props.mode); // set service mode
 initCustomEvent();
 fetchPreference();
 updateTheme(store.state.preference.style.screenColor);

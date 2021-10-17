@@ -9,7 +9,7 @@ export default defineConfig(({ mode }) => {
     base: './',
     build: {
       watch: {
-        include: '../../assets/**',
+        include: '../**',
         exclude: [ 'dist/**', 'node_modules/**' ],
       },
       minify: false,

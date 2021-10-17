@@ -1,4 +1,4 @@
-import { V as createApp } from "./runtime-dom.esm-bundler.js";
+import { V as createApp } from "./main2.js";
 function index() {
   console.log("call index page", createApp);
 }

@@ -1,4 +1,4 @@
-import * as vueI18n from 'vue-i18n/index';
+import * as vueI18n from 'vue-i18n/index.mjs';
 import en from './en.json';
 import ko from './ko.json';
 

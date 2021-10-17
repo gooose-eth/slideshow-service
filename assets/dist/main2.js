@@ -3229,7 +3229,7 @@ function createAppAPI(render2, hydrate2) {
     const context = createAppContext();
     const installedPlugins = new Set();
     let isMounted = false;
-    const app = context.app = {
+    const app2 = context.app = {
       _uid: uid++,
       _component: rootComponent,
       _props: rootProps,
@@ -3247,13 +3247,13 @@ function createAppAPI(render2, hydrate2) {
           ;
         else if (plugin && isFunction(plugin.install)) {
           installedPlugins.add(plugin);
-          plugin.install(app, ...options);
+          plugin.install(app2, ...options);
         } else if (isFunction(plugin)) {
           installedPlugins.add(plugin);
-          plugin(app, ...options);
+          plugin(app2, ...options);
         } else
           ;
-        return app;
+        return app2;
       },
       mixin(mixin) {
         {
@@ -3261,21 +3261,21 @@ function createAppAPI(render2, hydrate2) {
             context.mixins.push(mixin);
           }
         }
-        return app;
+        return app2;
       },
       component(name, component) {
         if (!component) {
           return context.components[name];
         }
         context.components[name] = component;
-        return app;
+        return app2;
       },
       directive(name, directive) {
         if (!directive) {
           return context.directives[name];
         }
         context.directives[name] = directive;
-        return app;
+        return app2;
       },
       mount(rootContainer, isHydrate, isSVG) {
         if (!isMounted) {
@@ -3287,23 +3287,23 @@ function createAppAPI(render2, hydrate2) {
             render2(vnode, rootContainer, isSVG);
           }
           isMounted = true;
-          app._container = rootContainer;
-          rootContainer.__vue_app__ = app;
+          app2._container = rootContainer;
+          rootContainer.__vue_app__ = app2;
           return getExposeProxy(vnode.component) || vnode.component.proxy;
         }
       },
       unmount() {
         if (isMounted) {
-          render2(null, app._container);
-          delete app._container.__vue_app__;
+          render2(null, app2._container);
+          delete app2._container.__vue_app__;
         }
       },
       provide(key, value) {
         context.provides[key] = value;
-        return app;
+        return app2;
       }
     };
-    return app;
+    return app2;
   };
 }
 let hasMismatch = false;
@@ -7104,13 +7104,13 @@ const hydrate = (...args) => {
   ensureHydrationRenderer().hydrate(...args);
 };
 const createApp = (...args) => {
-  const app = ensureRenderer().createApp(...args);
-  const { mount } = app;
-  app.mount = (containerOrSelector) => {
+  const app2 = ensureRenderer().createApp(...args);
+  const { mount } = app2;
+  app2.mount = (containerOrSelector) => {
     const container = normalizeContainer(containerOrSelector);
     if (!container)
       return;
-    const component = app._component;
+    const component = app2._component;
     if (!isFunction(component) && !component.render && !component.template) {
       component.template = container.innerHTML;
     }
@@ -7122,18 +7122,18 @@ const createApp = (...args) => {
     }
     return proxy;
   };
-  return app;
+  return app2;
 };
 const createSSRApp = (...args) => {
-  const app = ensureHydrationRenderer().createApp(...args);
-  const { mount } = app;
-  app.mount = (containerOrSelector) => {
+  const app2 = ensureHydrationRenderer().createApp(...args);
+  const { mount } = app2;
+  app2.mount = (containerOrSelector) => {
     const container = normalizeContainer(containerOrSelector);
     if (container) {
       return mount(container, true, container instanceof SVGElement);
     }
   };
-  return app;
+  return app2;
 };
 function normalizeContainer(container) {
   if (isString(container)) {
@@ -7299,4 +7299,21 @@ var runtimeDom_esmBundler = /* @__PURE__ */ Object.freeze({
   withMemo,
   withScopeId
 });
+var main = "";
+var app = "";
+const routeMode = location.pathname.split("/")[1];
+switch (routeMode) {
+  case "watch":
+  case "create":
+  case "manage":
+    import("./main3.js").then(function(n) {
+      return n.e;
+    }).then(({ default: Main }) => {
+      createApp(Main, { mode: routeMode }).mount("#slideshow");
+    });
+    break;
+  default:
+    import("./index.js").then(({ default: index }) => index());
+    break;
+}
 export { createBlock as A, resolveDynamicComponent as B, unref as C, ref as D, EMPTY_OBJ as E, createBaseVNode as F, createCommentVNode as G, Fragment as H, renderList as I, normalizeClass as J, createVNode as K, normalizeStyle as L, pushScopeId as M, NOOP as N, popScopeId as O, PatchFlagNames as P, onMounted as Q, toDisplayString as R, onUnmounted as S, Teleport as T, getCurrentInstance as U, createApp as V, withCtx as W, createTextVNode as X, renderSlot as Y, defineComponent as Z, resolveComponent as _, isObject as a, isArray as b, capitalize as c, camelize as d, extend as e, isSymbol as f, isOn as g, hyphenate as h, isString as i, NO as j, isReservedProp as k, isVoidTag as l, makeMap as m, isHTMLTag as n, isSVGTag as o, parseStringStyle as p, generateCodeFrame as q, reactive as r, runtimeDom_esmBundler as s, toHandlerKey as t, shared_esmBundler as u, computed as v, watch as w, defineAsyncComponent as x, openBlock as y, createElementBlock as z };

@@ -17,7 +17,7 @@ var __spreadValues = (a, b) => {
   return a;
 };
 var __spreadProps = (a, b) => __defProps(a, __getOwnPropDescs(b));
-import { w as watch, r as reactive, i as isString$1, h as hyphenate, N as NOOP, e as extend, a as isObject$3, b as isArray$1, m as makeMap, E as EMPTY_OBJ, c as capitalize, d as camelize$1, P as PatchFlagNames, f as isSymbol$1, g as isOn, t as toHandlerKey, j as NO, k as isReservedProp, l as isVoidTag, n as isHTMLTag, o as isSVGTag, p as parseStringStyle, q as generateCodeFrame$1, s as runtimeDom_esmBundler, u as shared_esmBundler$1, v as computed, x as defineAsyncComponent, y as openBlock, z as createElementBlock, A as createBlock, B as resolveDynamicComponent, C as unref, D as ref, F as createBaseVNode, G as createCommentVNode, H as Fragment, I as renderList, J as normalizeClass, K as createVNode, L as normalizeStyle, M as pushScopeId, O as popScopeId, Q as onMounted, R as toDisplayString$1, S as onUnmounted, T as Teleport, U as getCurrentInstance, V as createApp } from "./runtime-dom.esm-bundler.js";
+import { w as watch, r as reactive, i as isString$1, h as hyphenate, N as NOOP, e as extend, a as isObject$2, b as isArray$1, m as makeMap, E as EMPTY_OBJ, c as capitalize, d as camelize$1, P as PatchFlagNames, f as isSymbol$1, g as isOn, t as toHandlerKey, j as NO, k as isReservedProp, l as isVoidTag, n as isHTMLTag, o as isSVGTag, p as parseStringStyle, q as generateCodeFrame$1, s as runtimeDom_esmBundler, u as shared_esmBundler, v as computed, x as defineAsyncComponent, y as openBlock, z as createElementBlock, A as createBlock, B as resolveDynamicComponent, C as unref, D as ref, F as createBaseVNode, G as createCommentVNode, H as Fragment, I as renderList, J as normalizeClass, K as createVNode, L as normalizeStyle, M as pushScopeId, O as popScopeId, Q as onMounted, R as toDisplayString$1, S as onUnmounted, T as Teleport, U as getCurrentInstance } from "./main2.js";
 function getDevtoolsGlobalHook() {
   return getTarget().__VUE_DEVTOOLS_GLOBAL_HOOK__;
 }
@@ -149,7 +149,7 @@ function forEachValue(obj, fn) {
     return fn(obj[key], key);
   });
 }
-function isObject$2(obj) {
+function isObject$1(obj) {
   return obj !== null && typeof obj === "object";
 }
 function isPromise$1(val) {
@@ -353,7 +353,7 @@ function getNestedState(state2, path) {
   }, state2);
 }
 function unifyObjectStyle(type, payload, options) {
-  if (isObject$2(type) && type.type) {
+  if (isObject$1(type) && type.type) {
     options = payload;
     payload = type;
     type = type.type;
@@ -1062,16 +1062,20 @@ var defaults = {
   mode: null,
   activeSlide: void 0,
   keyboardEvent: true,
-  autoplay: false
+  autoplay: false,
+  serviceMode: void 0
 };
 let state = convertPureObject$1(defaults);
-const prefix = "slideshow";
+let prefix = "slideshow";
 let disableStorage = {
   preference: false,
   tree: false
 };
 function checkObject() {
   return !!window.localStorage;
+}
+function changePrefix(newPrefix) {
+  prefix = newPrefix;
 }
 function get2(key) {
   if (disableStorage[key])
@@ -1230,6 +1234,9 @@ function updateUsePreference(state2, value) {
       break;
   }
 }
+function setServiceMode(state2, value) {
+  state2.serviceMode = value;
+}
 var mutations = /* @__PURE__ */ Object.freeze({
   __proto__: null,
   [Symbol.toStringTag]: "Module",
@@ -1242,13 +1249,15 @@ var mutations = /* @__PURE__ */ Object.freeze({
   updateSlides,
   updateGroup,
   updateAutoplay,
-  updateUsePreference
+  updateUsePreference,
+  setServiceMode
 });
 var store = createStore({
   state,
   mutations,
   actions
 });
+var commonjsGlobal = typeof globalThis !== "undefined" ? globalThis : typeof window !== "undefined" ? window : typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : {};
 function getAugmentedNamespace(n) {
   if (n.__esModule)
     return n;
@@ -1266,17 +1275,24 @@ function getAugmentedNamespace(n) {
 }
 var vueI18n = { exports: {} };
 var vueI18n_cjs_prod = {};
+var coreBase$1 = { exports: {} };
+var coreBase_cjs_prod = {};
+var messageCompiler$1 = { exports: {} };
+var messageCompiler_cjs_prod = {};
+var shared$3 = { exports: {} };
+var shared_cjs_prod = {};
 /*!
-  * @intlify/shared v9.1.9
+  * shared v9.2.0-beta.12
   * (c) 2021 kazuya kawaguchi
   * Released under the MIT License.
   */
+Object.defineProperty(shared_cjs_prod, "__esModule", { value: true });
 const inBrowser = typeof window !== "undefined";
 let mark;
 let measure;
 const RE_ARGS = /\{([0-9a-zA-Z]+)\}/g;
 function format(message, ...args) {
-  if (args.length === 1 && isObject$1(args[0])) {
+  if (args.length === 1 && isObject(args[0])) {
     args = args[0];
   }
   if (!args || !args.hasOwnProperty) {
@@ -1305,23 +1321,23 @@ function warn(msg, err) {
 const assign = Object.assign;
 let _globalThis;
 const getGlobalThis = () => {
-  return _globalThis || (_globalThis = typeof globalThis !== "undefined" ? globalThis : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : typeof global !== "undefined" ? global : {});
+  return _globalThis || (_globalThis = typeof globalThis !== "undefined" ? globalThis : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : typeof commonjsGlobal !== "undefined" ? commonjsGlobal : {});
 };
 function escapeHtml(rawText) {
   return rawText.replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&apos;");
 }
-const hasOwnProperty$1 = Object.prototype.hasOwnProperty;
-function hasOwn$1(obj, key) {
-  return hasOwnProperty$1.call(obj, key);
+const hasOwnProperty = Object.prototype.hasOwnProperty;
+function hasOwn(obj, key) {
+  return hasOwnProperty.call(obj, key);
 }
 const isArray = Array.isArray;
 const isFunction = (val) => typeof val === "function";
 const isString = (val) => typeof val === "string";
 const isBoolean = (val) => typeof val === "boolean";
 const isSymbol = (val) => typeof val === "symbol";
-const isObject$1 = (val) => val !== null && typeof val === "object";
+const isObject = (val) => val !== null && typeof val === "object";
 const isPromise = (val) => {
-  return isObject$1(val) && isFunction(val.then) && isFunction(val.catch);
+  return isObject(val) && isFunction(val.then) && isFunction(val.catch);
 };
 const objectToString = Object.prototype.toString;
 const toTypeString = (value) => objectToString.call(value);
@@ -1384,355 +1400,1730 @@ function createEmitter() {
   };
   return emitter;
 }
-var shared_esmBundler = /* @__PURE__ */ Object.freeze({
-  __proto__: null,
-  [Symbol.toStringTag]: "Module",
-  assign,
-  createEmitter,
-  escapeHtml,
-  format,
-  friendlyJSONstringify,
-  generateCodeFrame,
-  generateFormatCacheKey,
-  getGlobalThis,
-  hasOwn: hasOwn$1,
-  inBrowser,
-  isArray,
-  isBoolean,
-  isDate,
-  isEmptyObject,
-  isFunction,
-  isNumber,
-  isObject: isObject$1,
-  isPlainObject,
-  isPromise,
-  isRegExp,
-  isString,
-  isSymbol,
-  makeSymbol,
-  mark,
-  measure,
-  objectToString,
-  toDisplayString,
-  toTypeString,
-  warn
-});
-/*!
-  * @intlify/message-resolver v9.1.9
-  * (c) 2021 kazuya kawaguchi
-  * Released under the MIT License.
-  */
-const hasOwnProperty = Object.prototype.hasOwnProperty;
-function hasOwn(obj, key) {
-  return hasOwnProperty.call(obj, key);
+shared_cjs_prod.assign = assign;
+shared_cjs_prod.createEmitter = createEmitter;
+shared_cjs_prod.escapeHtml = escapeHtml;
+shared_cjs_prod.format = format;
+shared_cjs_prod.friendlyJSONstringify = friendlyJSONstringify;
+shared_cjs_prod.generateCodeFrame = generateCodeFrame;
+shared_cjs_prod.generateFormatCacheKey = generateFormatCacheKey;
+shared_cjs_prod.getGlobalThis = getGlobalThis;
+shared_cjs_prod.hasOwn = hasOwn;
+shared_cjs_prod.inBrowser = inBrowser;
+shared_cjs_prod.isArray = isArray;
+shared_cjs_prod.isBoolean = isBoolean;
+shared_cjs_prod.isDate = isDate;
+shared_cjs_prod.isEmptyObject = isEmptyObject;
+shared_cjs_prod.isFunction = isFunction;
+shared_cjs_prod.isNumber = isNumber;
+shared_cjs_prod.isObject = isObject;
+shared_cjs_prod.isPlainObject = isPlainObject;
+shared_cjs_prod.isPromise = isPromise;
+shared_cjs_prod.isRegExp = isRegExp;
+shared_cjs_prod.isString = isString;
+shared_cjs_prod.isSymbol = isSymbol;
+shared_cjs_prod.makeSymbol = makeSymbol;
+shared_cjs_prod.mark = mark;
+shared_cjs_prod.measure = measure;
+shared_cjs_prod.objectToString = objectToString;
+shared_cjs_prod.toDisplayString = toDisplayString;
+shared_cjs_prod.toTypeString = toTypeString;
+shared_cjs_prod.warn = warn;
+{
+  shared$3.exports = shared_cjs_prod;
 }
-const isObject = (val) => val !== null && typeof val === "object";
-const pathStateMachine = [];
-pathStateMachine[0] = {
-  ["w"]: [0],
-  ["i"]: [3, 0],
-  ["["]: [4],
-  ["o"]: [7]
-};
-pathStateMachine[1] = {
-  ["w"]: [1],
-  ["."]: [2],
-  ["["]: [4],
-  ["o"]: [7]
-};
-pathStateMachine[2] = {
-  ["w"]: [2],
-  ["i"]: [3, 0],
-  ["0"]: [3, 0]
-};
-pathStateMachine[3] = {
-  ["i"]: [3, 0],
-  ["0"]: [3, 0],
-  ["w"]: [1, 1],
-  ["."]: [2, 1],
-  ["["]: [4, 1],
-  ["o"]: [7, 1]
-};
-pathStateMachine[4] = {
-  ["'"]: [5, 0],
-  ['"']: [6, 0],
-  ["["]: [
-    4,
-    2
-  ],
-  ["]"]: [1, 3],
-  ["o"]: 8,
-  ["l"]: [4, 0]
-};
-pathStateMachine[5] = {
-  ["'"]: [4, 0],
-  ["o"]: 8,
-  ["l"]: [5, 0]
-};
-pathStateMachine[6] = {
-  ['"']: [4, 0],
-  ["o"]: 8,
-  ["l"]: [6, 0]
-};
-const literalValueRE = /^\s?(?:true|false|-?[\d.]+|'[^']*'|"[^"]*")\s?$/;
-function isLiteral(exp) {
-  return literalValueRE.test(exp);
-}
-function stripQuotes(str) {
-  const a = str.charCodeAt(0);
-  const b = str.charCodeAt(str.length - 1);
-  return a === b && (a === 34 || a === 39) ? str.slice(1, -1) : str;
-}
-function getPathCharType(ch) {
-  if (ch === void 0 || ch === null) {
-    return "o";
+var sourceMap$1 = {};
+var sourceMapGenerator = {};
+var base64Vlq = {};
+var base64$1 = {};
+var intToCharMap = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/".split("");
+base64$1.encode = function(number2) {
+  if (0 <= number2 && number2 < intToCharMap.length) {
+    return intToCharMap[number2];
   }
-  const code = ch.charCodeAt(0);
-  switch (code) {
-    case 91:
-    case 93:
-    case 46:
-    case 34:
-    case 39:
-      return ch;
-    case 95:
-    case 36:
-    case 45:
-      return "i";
-    case 9:
-    case 10:
-    case 13:
-    case 160:
-    case 65279:
-    case 8232:
-    case 8233:
-      return "w";
+  throw new TypeError("Must be between 0 and 63: " + number2);
+};
+base64$1.decode = function(charCode) {
+  var bigA = 65;
+  var bigZ = 90;
+  var littleA = 97;
+  var littleZ = 122;
+  var zero = 48;
+  var nine = 57;
+  var plus = 43;
+  var slash = 47;
+  var littleOffset = 26;
+  var numberOffset = 52;
+  if (bigA <= charCode && charCode <= bigZ) {
+    return charCode - bigA;
   }
-  return "i";
-}
-function formatSubPath(path) {
-  const trimmed = path.trim();
-  if (path.charAt(0) === "0" && isNaN(parseInt(path))) {
-    return false;
+  if (littleA <= charCode && charCode <= littleZ) {
+    return charCode - littleA + littleOffset;
   }
-  return isLiteral(trimmed) ? stripQuotes(trimmed) : "*" + trimmed;
+  if (zero <= charCode && charCode <= nine) {
+    return charCode - zero + numberOffset;
+  }
+  if (charCode == plus) {
+    return 62;
+  }
+  if (charCode == slash) {
+    return 63;
+  }
+  return -1;
+};
+var base64 = base64$1;
+var VLQ_BASE_SHIFT = 5;
+var VLQ_BASE = 1 << VLQ_BASE_SHIFT;
+var VLQ_BASE_MASK = VLQ_BASE - 1;
+var VLQ_CONTINUATION_BIT = VLQ_BASE;
+function toVLQSigned(aValue) {
+  return aValue < 0 ? (-aValue << 1) + 1 : (aValue << 1) + 0;
 }
-function parse$1(path) {
-  const keys = [];
-  let index = -1;
-  let mode = 0;
-  let subPathDepth = 0;
-  let c;
-  let key;
-  let newChar;
-  let type;
-  let transition;
-  let action;
-  let typeMap;
-  const actions2 = [];
-  actions2[0] = () => {
-    if (key === void 0) {
-      key = newChar;
+function fromVLQSigned(aValue) {
+  var isNegative = (aValue & 1) === 1;
+  var shifted = aValue >> 1;
+  return isNegative ? -shifted : shifted;
+}
+base64Vlq.encode = function base64VLQ_encode(aValue) {
+  var encoded = "";
+  var digit;
+  var vlq = toVLQSigned(aValue);
+  do {
+    digit = vlq & VLQ_BASE_MASK;
+    vlq >>>= VLQ_BASE_SHIFT;
+    if (vlq > 0) {
+      digit |= VLQ_CONTINUATION_BIT;
+    }
+    encoded += base64.encode(digit);
+  } while (vlq > 0);
+  return encoded;
+};
+base64Vlq.decode = function base64VLQ_decode(aStr, aIndex, aOutParam) {
+  var strLen = aStr.length;
+  var result = 0;
+  var shift = 0;
+  var continuation, digit;
+  do {
+    if (aIndex >= strLen) {
+      throw new Error("Expected more digits in base 64 VLQ value.");
+    }
+    digit = base64.decode(aStr.charCodeAt(aIndex++));
+    if (digit === -1) {
+      throw new Error("Invalid base64 digit: " + aStr.charAt(aIndex - 1));
+    }
+    continuation = !!(digit & VLQ_CONTINUATION_BIT);
+    digit &= VLQ_BASE_MASK;
+    result = result + (digit << shift);
+    shift += VLQ_BASE_SHIFT;
+  } while (continuation);
+  aOutParam.value = fromVLQSigned(result);
+  aOutParam.rest = aIndex;
+};
+var util$5 = {};
+(function(exports) {
+  function getArg(aArgs, aName, aDefaultValue) {
+    if (aName in aArgs) {
+      return aArgs[aName];
+    } else if (arguments.length === 3) {
+      return aDefaultValue;
     } else {
-      key += newChar;
-    }
-  };
-  actions2[1] = () => {
-    if (key !== void 0) {
-      keys.push(key);
-      key = void 0;
-    }
-  };
-  actions2[2] = () => {
-    actions2[0]();
-    subPathDepth++;
-  };
-  actions2[3] = () => {
-    if (subPathDepth > 0) {
-      subPathDepth--;
-      mode = 4;
-      actions2[0]();
-    } else {
-      subPathDepth = 0;
-      if (key === void 0) {
-        return false;
-      }
-      key = formatSubPath(key);
-      if (key === false) {
-        return false;
-      } else {
-        actions2[1]();
-      }
-    }
-  };
-  function maybeUnescapeQuote() {
-    const nextChar = path[index + 1];
-    if (mode === 5 && nextChar === "'" || mode === 6 && nextChar === '"') {
-      index++;
-      newChar = "\\" + nextChar;
-      actions2[0]();
-      return true;
+      throw new Error('"' + aName + '" is a required argument.');
     }
   }
-  while (mode !== null) {
-    index++;
-    c = path[index];
-    if (c === "\\" && maybeUnescapeQuote()) {
-      continue;
-    }
-    type = getPathCharType(c);
-    typeMap = pathStateMachine[mode];
-    transition = typeMap[type] || typeMap["l"] || 8;
-    if (transition === 8) {
-      return;
-    }
-    mode = transition[0];
-    if (transition[1] !== void 0) {
-      action = actions2[transition[1]];
-      if (action) {
-        newChar = c;
-        if (action() === false) {
-          return;
-        }
-      }
-    }
-    if (mode === 7) {
-      return keys;
-    }
-  }
-}
-const cache = new Map();
-function resolveValue(obj, path) {
-  if (!isObject(obj)) {
-    return null;
-  }
-  let hit = cache.get(path);
-  if (!hit) {
-    hit = parse$1(path);
-    if (hit) {
-      cache.set(path, hit);
-    }
-  }
-  if (!hit) {
-    return null;
-  }
-  const len = hit.length;
-  let last2 = obj;
-  let i = 0;
-  while (i < len) {
-    const val = last2[hit[i]];
-    if (val === void 0) {
+  exports.getArg = getArg;
+  var urlRegexp = /^(?:([\w+\-.]+):)?\/\/(?:(\w+:\w+)@)?([\w.-]*)(?::(\d+))?(.*)$/;
+  var dataUrlRegexp = /^data:.+\,.+$/;
+  function urlParse(aUrl) {
+    var match = aUrl.match(urlRegexp);
+    if (!match) {
       return null;
     }
-    last2 = val;
-    i++;
+    return {
+      scheme: match[1],
+      auth: match[2],
+      host: match[3],
+      port: match[4],
+      path: match[5]
+    };
   }
-  return last2;
-}
-function handleFlatJson(obj) {
-  if (!isObject(obj)) {
-    return obj;
-  }
-  for (const key in obj) {
-    if (!hasOwn(obj, key)) {
-      continue;
+  exports.urlParse = urlParse;
+  function urlGenerate(aParsedUrl) {
+    var url = "";
+    if (aParsedUrl.scheme) {
+      url += aParsedUrl.scheme + ":";
     }
-    if (!key.includes(".")) {
-      if (isObject(obj[key])) {
-        handleFlatJson(obj[key]);
+    url += "//";
+    if (aParsedUrl.auth) {
+      url += aParsedUrl.auth + "@";
+    }
+    if (aParsedUrl.host) {
+      url += aParsedUrl.host;
+    }
+    if (aParsedUrl.port) {
+      url += ":" + aParsedUrl.port;
+    }
+    if (aParsedUrl.path) {
+      url += aParsedUrl.path;
+    }
+    return url;
+  }
+  exports.urlGenerate = urlGenerate;
+  function normalize(aPath) {
+    var path = aPath;
+    var url = urlParse(aPath);
+    if (url) {
+      if (!url.path) {
+        return aPath;
+      }
+      path = url.path;
+    }
+    var isAbsolute = exports.isAbsolute(path);
+    var parts = path.split(/\/+/);
+    for (var part, up = 0, i = parts.length - 1; i >= 0; i--) {
+      part = parts[i];
+      if (part === ".") {
+        parts.splice(i, 1);
+      } else if (part === "..") {
+        up++;
+      } else if (up > 0) {
+        if (part === "") {
+          parts.splice(i + 1, up);
+          up = 0;
+        } else {
+          parts.splice(i, 2);
+          up--;
+        }
+      }
+    }
+    path = parts.join("/");
+    if (path === "") {
+      path = isAbsolute ? "/" : ".";
+    }
+    if (url) {
+      url.path = path;
+      return urlGenerate(url);
+    }
+    return path;
+  }
+  exports.normalize = normalize;
+  function join(aRoot, aPath) {
+    if (aRoot === "") {
+      aRoot = ".";
+    }
+    if (aPath === "") {
+      aPath = ".";
+    }
+    var aPathUrl = urlParse(aPath);
+    var aRootUrl = urlParse(aRoot);
+    if (aRootUrl) {
+      aRoot = aRootUrl.path || "/";
+    }
+    if (aPathUrl && !aPathUrl.scheme) {
+      if (aRootUrl) {
+        aPathUrl.scheme = aRootUrl.scheme;
+      }
+      return urlGenerate(aPathUrl);
+    }
+    if (aPathUrl || aPath.match(dataUrlRegexp)) {
+      return aPath;
+    }
+    if (aRootUrl && !aRootUrl.host && !aRootUrl.path) {
+      aRootUrl.host = aPath;
+      return urlGenerate(aRootUrl);
+    }
+    var joined = aPath.charAt(0) === "/" ? aPath : normalize(aRoot.replace(/\/+$/, "") + "/" + aPath);
+    if (aRootUrl) {
+      aRootUrl.path = joined;
+      return urlGenerate(aRootUrl);
+    }
+    return joined;
+  }
+  exports.join = join;
+  exports.isAbsolute = function(aPath) {
+    return aPath.charAt(0) === "/" || urlRegexp.test(aPath);
+  };
+  function relative(aRoot, aPath) {
+    if (aRoot === "") {
+      aRoot = ".";
+    }
+    aRoot = aRoot.replace(/\/$/, "");
+    var level = 0;
+    while (aPath.indexOf(aRoot + "/") !== 0) {
+      var index = aRoot.lastIndexOf("/");
+      if (index < 0) {
+        return aPath;
+      }
+      aRoot = aRoot.slice(0, index);
+      if (aRoot.match(/^([^\/]+:\/)?\/*$/)) {
+        return aPath;
+      }
+      ++level;
+    }
+    return Array(level + 1).join("../") + aPath.substr(aRoot.length + 1);
+  }
+  exports.relative = relative;
+  var supportsNullProto = function() {
+    var obj = Object.create(null);
+    return !("__proto__" in obj);
+  }();
+  function identity(s) {
+    return s;
+  }
+  function toSetString(aStr) {
+    if (isProtoString(aStr)) {
+      return "$" + aStr;
+    }
+    return aStr;
+  }
+  exports.toSetString = supportsNullProto ? identity : toSetString;
+  function fromSetString(aStr) {
+    if (isProtoString(aStr)) {
+      return aStr.slice(1);
+    }
+    return aStr;
+  }
+  exports.fromSetString = supportsNullProto ? identity : fromSetString;
+  function isProtoString(s) {
+    if (!s) {
+      return false;
+    }
+    var length = s.length;
+    if (length < 9) {
+      return false;
+    }
+    if (s.charCodeAt(length - 1) !== 95 || s.charCodeAt(length - 2) !== 95 || s.charCodeAt(length - 3) !== 111 || s.charCodeAt(length - 4) !== 116 || s.charCodeAt(length - 5) !== 111 || s.charCodeAt(length - 6) !== 114 || s.charCodeAt(length - 7) !== 112 || s.charCodeAt(length - 8) !== 95 || s.charCodeAt(length - 9) !== 95) {
+      return false;
+    }
+    for (var i = length - 10; i >= 0; i--) {
+      if (s.charCodeAt(i) !== 36) {
+        return false;
+      }
+    }
+    return true;
+  }
+  function compareByOriginalPositions(mappingA, mappingB, onlyCompareOriginal) {
+    var cmp = strcmp(mappingA.source, mappingB.source);
+    if (cmp !== 0) {
+      return cmp;
+    }
+    cmp = mappingA.originalLine - mappingB.originalLine;
+    if (cmp !== 0) {
+      return cmp;
+    }
+    cmp = mappingA.originalColumn - mappingB.originalColumn;
+    if (cmp !== 0 || onlyCompareOriginal) {
+      return cmp;
+    }
+    cmp = mappingA.generatedColumn - mappingB.generatedColumn;
+    if (cmp !== 0) {
+      return cmp;
+    }
+    cmp = mappingA.generatedLine - mappingB.generatedLine;
+    if (cmp !== 0) {
+      return cmp;
+    }
+    return strcmp(mappingA.name, mappingB.name);
+  }
+  exports.compareByOriginalPositions = compareByOriginalPositions;
+  function compareByGeneratedPositionsDeflated(mappingA, mappingB, onlyCompareGenerated) {
+    var cmp = mappingA.generatedLine - mappingB.generatedLine;
+    if (cmp !== 0) {
+      return cmp;
+    }
+    cmp = mappingA.generatedColumn - mappingB.generatedColumn;
+    if (cmp !== 0 || onlyCompareGenerated) {
+      return cmp;
+    }
+    cmp = strcmp(mappingA.source, mappingB.source);
+    if (cmp !== 0) {
+      return cmp;
+    }
+    cmp = mappingA.originalLine - mappingB.originalLine;
+    if (cmp !== 0) {
+      return cmp;
+    }
+    cmp = mappingA.originalColumn - mappingB.originalColumn;
+    if (cmp !== 0) {
+      return cmp;
+    }
+    return strcmp(mappingA.name, mappingB.name);
+  }
+  exports.compareByGeneratedPositionsDeflated = compareByGeneratedPositionsDeflated;
+  function strcmp(aStr1, aStr2) {
+    if (aStr1 === aStr2) {
+      return 0;
+    }
+    if (aStr1 === null) {
+      return 1;
+    }
+    if (aStr2 === null) {
+      return -1;
+    }
+    if (aStr1 > aStr2) {
+      return 1;
+    }
+    return -1;
+  }
+  function compareByGeneratedPositionsInflated(mappingA, mappingB) {
+    var cmp = mappingA.generatedLine - mappingB.generatedLine;
+    if (cmp !== 0) {
+      return cmp;
+    }
+    cmp = mappingA.generatedColumn - mappingB.generatedColumn;
+    if (cmp !== 0) {
+      return cmp;
+    }
+    cmp = strcmp(mappingA.source, mappingB.source);
+    if (cmp !== 0) {
+      return cmp;
+    }
+    cmp = mappingA.originalLine - mappingB.originalLine;
+    if (cmp !== 0) {
+      return cmp;
+    }
+    cmp = mappingA.originalColumn - mappingB.originalColumn;
+    if (cmp !== 0) {
+      return cmp;
+    }
+    return strcmp(mappingA.name, mappingB.name);
+  }
+  exports.compareByGeneratedPositionsInflated = compareByGeneratedPositionsInflated;
+  function parseSourceMapInput(str) {
+    return JSON.parse(str.replace(/^\)]}'[^\n]*\n/, ""));
+  }
+  exports.parseSourceMapInput = parseSourceMapInput;
+  function computeSourceURL(sourceRoot, sourceURL, sourceMapURL) {
+    sourceURL = sourceURL || "";
+    if (sourceRoot) {
+      if (sourceRoot[sourceRoot.length - 1] !== "/" && sourceURL[0] !== "/") {
+        sourceRoot += "/";
+      }
+      sourceURL = sourceRoot + sourceURL;
+    }
+    if (sourceMapURL) {
+      var parsed = urlParse(sourceMapURL);
+      if (!parsed) {
+        throw new Error("sourceMapURL could not be parsed");
+      }
+      if (parsed.path) {
+        var index = parsed.path.lastIndexOf("/");
+        if (index >= 0) {
+          parsed.path = parsed.path.substring(0, index + 1);
+        }
+      }
+      sourceURL = join(urlGenerate(parsed), sourceURL);
+    }
+    return normalize(sourceURL);
+  }
+  exports.computeSourceURL = computeSourceURL;
+})(util$5);
+var arraySet = {};
+var util$4 = util$5;
+var has = Object.prototype.hasOwnProperty;
+var hasNativeMap = typeof Map !== "undefined";
+function ArraySet$2() {
+  this._array = [];
+  this._set = hasNativeMap ? new Map() : Object.create(null);
+}
+ArraySet$2.fromArray = function ArraySet_fromArray(aArray, aAllowDuplicates) {
+  var set2 = new ArraySet$2();
+  for (var i = 0, len = aArray.length; i < len; i++) {
+    set2.add(aArray[i], aAllowDuplicates);
+  }
+  return set2;
+};
+ArraySet$2.prototype.size = function ArraySet_size() {
+  return hasNativeMap ? this._set.size : Object.getOwnPropertyNames(this._set).length;
+};
+ArraySet$2.prototype.add = function ArraySet_add(aStr, aAllowDuplicates) {
+  var sStr = hasNativeMap ? aStr : util$4.toSetString(aStr);
+  var isDuplicate = hasNativeMap ? this.has(aStr) : has.call(this._set, sStr);
+  var idx = this._array.length;
+  if (!isDuplicate || aAllowDuplicates) {
+    this._array.push(aStr);
+  }
+  if (!isDuplicate) {
+    if (hasNativeMap) {
+      this._set.set(aStr, idx);
+    } else {
+      this._set[sStr] = idx;
+    }
+  }
+};
+ArraySet$2.prototype.has = function ArraySet_has(aStr) {
+  if (hasNativeMap) {
+    return this._set.has(aStr);
+  } else {
+    var sStr = util$4.toSetString(aStr);
+    return has.call(this._set, sStr);
+  }
+};
+ArraySet$2.prototype.indexOf = function ArraySet_indexOf(aStr) {
+  if (hasNativeMap) {
+    var idx = this._set.get(aStr);
+    if (idx >= 0) {
+      return idx;
+    }
+  } else {
+    var sStr = util$4.toSetString(aStr);
+    if (has.call(this._set, sStr)) {
+      return this._set[sStr];
+    }
+  }
+  throw new Error('"' + aStr + '" is not in the set.');
+};
+ArraySet$2.prototype.at = function ArraySet_at(aIdx) {
+  if (aIdx >= 0 && aIdx < this._array.length) {
+    return this._array[aIdx];
+  }
+  throw new Error("No element indexed by " + aIdx);
+};
+ArraySet$2.prototype.toArray = function ArraySet_toArray() {
+  return this._array.slice();
+};
+arraySet.ArraySet = ArraySet$2;
+var mappingList = {};
+var util$3 = util$5;
+function generatedPositionAfter(mappingA, mappingB) {
+  var lineA = mappingA.generatedLine;
+  var lineB = mappingB.generatedLine;
+  var columnA = mappingA.generatedColumn;
+  var columnB = mappingB.generatedColumn;
+  return lineB > lineA || lineB == lineA && columnB >= columnA || util$3.compareByGeneratedPositionsInflated(mappingA, mappingB) <= 0;
+}
+function MappingList$1() {
+  this._array = [];
+  this._sorted = true;
+  this._last = { generatedLine: -1, generatedColumn: 0 };
+}
+MappingList$1.prototype.unsortedForEach = function MappingList_forEach(aCallback, aThisArg) {
+  this._array.forEach(aCallback, aThisArg);
+};
+MappingList$1.prototype.add = function MappingList_add(aMapping) {
+  if (generatedPositionAfter(this._last, aMapping)) {
+    this._last = aMapping;
+    this._array.push(aMapping);
+  } else {
+    this._sorted = false;
+    this._array.push(aMapping);
+  }
+};
+MappingList$1.prototype.toArray = function MappingList_toArray() {
+  if (!this._sorted) {
+    this._array.sort(util$3.compareByGeneratedPositionsInflated);
+    this._sorted = true;
+  }
+  return this._array;
+};
+mappingList.MappingList = MappingList$1;
+var base64VLQ$1 = base64Vlq;
+var util$2 = util$5;
+var ArraySet$1 = arraySet.ArraySet;
+var MappingList = mappingList.MappingList;
+function SourceMapGenerator$1(aArgs) {
+  if (!aArgs) {
+    aArgs = {};
+  }
+  this._file = util$2.getArg(aArgs, "file", null);
+  this._sourceRoot = util$2.getArg(aArgs, "sourceRoot", null);
+  this._skipValidation = util$2.getArg(aArgs, "skipValidation", false);
+  this._sources = new ArraySet$1();
+  this._names = new ArraySet$1();
+  this._mappings = new MappingList();
+  this._sourcesContents = null;
+}
+SourceMapGenerator$1.prototype._version = 3;
+SourceMapGenerator$1.fromSourceMap = function SourceMapGenerator_fromSourceMap(aSourceMapConsumer) {
+  var sourceRoot = aSourceMapConsumer.sourceRoot;
+  var generator = new SourceMapGenerator$1({
+    file: aSourceMapConsumer.file,
+    sourceRoot
+  });
+  aSourceMapConsumer.eachMapping(function(mapping) {
+    var newMapping = {
+      generated: {
+        line: mapping.generatedLine,
+        column: mapping.generatedColumn
+      }
+    };
+    if (mapping.source != null) {
+      newMapping.source = mapping.source;
+      if (sourceRoot != null) {
+        newMapping.source = util$2.relative(sourceRoot, newMapping.source);
+      }
+      newMapping.original = {
+        line: mapping.originalLine,
+        column: mapping.originalColumn
+      };
+      if (mapping.name != null) {
+        newMapping.name = mapping.name;
+      }
+    }
+    generator.addMapping(newMapping);
+  });
+  aSourceMapConsumer.sources.forEach(function(sourceFile) {
+    var sourceRelative = sourceFile;
+    if (sourceRoot !== null) {
+      sourceRelative = util$2.relative(sourceRoot, sourceFile);
+    }
+    if (!generator._sources.has(sourceRelative)) {
+      generator._sources.add(sourceRelative);
+    }
+    var content = aSourceMapConsumer.sourceContentFor(sourceFile);
+    if (content != null) {
+      generator.setSourceContent(sourceFile, content);
+    }
+  });
+  return generator;
+};
+SourceMapGenerator$1.prototype.addMapping = function SourceMapGenerator_addMapping(aArgs) {
+  var generated = util$2.getArg(aArgs, "generated");
+  var original = util$2.getArg(aArgs, "original", null);
+  var source = util$2.getArg(aArgs, "source", null);
+  var name = util$2.getArg(aArgs, "name", null);
+  if (!this._skipValidation) {
+    this._validateMapping(generated, original, source, name);
+  }
+  if (source != null) {
+    source = String(source);
+    if (!this._sources.has(source)) {
+      this._sources.add(source);
+    }
+  }
+  if (name != null) {
+    name = String(name);
+    if (!this._names.has(name)) {
+      this._names.add(name);
+    }
+  }
+  this._mappings.add({
+    generatedLine: generated.line,
+    generatedColumn: generated.column,
+    originalLine: original != null && original.line,
+    originalColumn: original != null && original.column,
+    source,
+    name
+  });
+};
+SourceMapGenerator$1.prototype.setSourceContent = function SourceMapGenerator_setSourceContent(aSourceFile, aSourceContent) {
+  var source = aSourceFile;
+  if (this._sourceRoot != null) {
+    source = util$2.relative(this._sourceRoot, source);
+  }
+  if (aSourceContent != null) {
+    if (!this._sourcesContents) {
+      this._sourcesContents = Object.create(null);
+    }
+    this._sourcesContents[util$2.toSetString(source)] = aSourceContent;
+  } else if (this._sourcesContents) {
+    delete this._sourcesContents[util$2.toSetString(source)];
+    if (Object.keys(this._sourcesContents).length === 0) {
+      this._sourcesContents = null;
+    }
+  }
+};
+SourceMapGenerator$1.prototype.applySourceMap = function SourceMapGenerator_applySourceMap(aSourceMapConsumer, aSourceFile, aSourceMapPath) {
+  var sourceFile = aSourceFile;
+  if (aSourceFile == null) {
+    if (aSourceMapConsumer.file == null) {
+      throw new Error(`SourceMapGenerator.prototype.applySourceMap requires either an explicit source file, or the source map's "file" property. Both were omitted.`);
+    }
+    sourceFile = aSourceMapConsumer.file;
+  }
+  var sourceRoot = this._sourceRoot;
+  if (sourceRoot != null) {
+    sourceFile = util$2.relative(sourceRoot, sourceFile);
+  }
+  var newSources = new ArraySet$1();
+  var newNames = new ArraySet$1();
+  this._mappings.unsortedForEach(function(mapping) {
+    if (mapping.source === sourceFile && mapping.originalLine != null) {
+      var original = aSourceMapConsumer.originalPositionFor({
+        line: mapping.originalLine,
+        column: mapping.originalColumn
+      });
+      if (original.source != null) {
+        mapping.source = original.source;
+        if (aSourceMapPath != null) {
+          mapping.source = util$2.join(aSourceMapPath, mapping.source);
+        }
+        if (sourceRoot != null) {
+          mapping.source = util$2.relative(sourceRoot, mapping.source);
+        }
+        mapping.originalLine = original.line;
+        mapping.originalColumn = original.column;
+        if (original.name != null) {
+          mapping.name = original.name;
+        }
+      }
+    }
+    var source = mapping.source;
+    if (source != null && !newSources.has(source)) {
+      newSources.add(source);
+    }
+    var name = mapping.name;
+    if (name != null && !newNames.has(name)) {
+      newNames.add(name);
+    }
+  }, this);
+  this._sources = newSources;
+  this._names = newNames;
+  aSourceMapConsumer.sources.forEach(function(sourceFile2) {
+    var content = aSourceMapConsumer.sourceContentFor(sourceFile2);
+    if (content != null) {
+      if (aSourceMapPath != null) {
+        sourceFile2 = util$2.join(aSourceMapPath, sourceFile2);
+      }
+      if (sourceRoot != null) {
+        sourceFile2 = util$2.relative(sourceRoot, sourceFile2);
+      }
+      this.setSourceContent(sourceFile2, content);
+    }
+  }, this);
+};
+SourceMapGenerator$1.prototype._validateMapping = function SourceMapGenerator_validateMapping(aGenerated, aOriginal, aSource, aName) {
+  if (aOriginal && typeof aOriginal.line !== "number" && typeof aOriginal.column !== "number") {
+    throw new Error("original.line and original.column are not numbers -- you probably meant to omit the original mapping entirely and only map the generated position. If so, pass null for the original mapping instead of an object with empty or null values.");
+  }
+  if (aGenerated && "line" in aGenerated && "column" in aGenerated && aGenerated.line > 0 && aGenerated.column >= 0 && !aOriginal && !aSource && !aName) {
+    return;
+  } else if (aGenerated && "line" in aGenerated && "column" in aGenerated && aOriginal && "line" in aOriginal && "column" in aOriginal && aGenerated.line > 0 && aGenerated.column >= 0 && aOriginal.line > 0 && aOriginal.column >= 0 && aSource) {
+    return;
+  } else {
+    throw new Error("Invalid mapping: " + JSON.stringify({
+      generated: aGenerated,
+      source: aSource,
+      original: aOriginal,
+      name: aName
+    }));
+  }
+};
+SourceMapGenerator$1.prototype._serializeMappings = function SourceMapGenerator_serializeMappings() {
+  var previousGeneratedColumn = 0;
+  var previousGeneratedLine = 1;
+  var previousOriginalColumn = 0;
+  var previousOriginalLine = 0;
+  var previousName = 0;
+  var previousSource = 0;
+  var result = "";
+  var next;
+  var mapping;
+  var nameIdx;
+  var sourceIdx;
+  var mappings = this._mappings.toArray();
+  for (var i = 0, len = mappings.length; i < len; i++) {
+    mapping = mappings[i];
+    next = "";
+    if (mapping.generatedLine !== previousGeneratedLine) {
+      previousGeneratedColumn = 0;
+      while (mapping.generatedLine !== previousGeneratedLine) {
+        next += ";";
+        previousGeneratedLine++;
       }
     } else {
-      const subKeys = key.split(".");
-      const lastIndex = subKeys.length - 1;
-      let currentObj = obj;
-      for (let i = 0; i < lastIndex; i++) {
-        if (!(subKeys[i] in currentObj)) {
-          currentObj[subKeys[i]] = {};
+      if (i > 0) {
+        if (!util$2.compareByGeneratedPositionsInflated(mapping, mappings[i - 1])) {
+          continue;
         }
-        currentObj = currentObj[subKeys[i]];
+        next += ",";
       }
-      currentObj[subKeys[lastIndex]] = obj[key];
-      delete obj[key];
-      if (isObject(currentObj[subKeys[lastIndex]])) {
-        handleFlatJson(currentObj[subKeys[lastIndex]]);
+    }
+    next += base64VLQ$1.encode(mapping.generatedColumn - previousGeneratedColumn);
+    previousGeneratedColumn = mapping.generatedColumn;
+    if (mapping.source != null) {
+      sourceIdx = this._sources.indexOf(mapping.source);
+      next += base64VLQ$1.encode(sourceIdx - previousSource);
+      previousSource = sourceIdx;
+      next += base64VLQ$1.encode(mapping.originalLine - 1 - previousOriginalLine);
+      previousOriginalLine = mapping.originalLine - 1;
+      next += base64VLQ$1.encode(mapping.originalColumn - previousOriginalColumn);
+      previousOriginalColumn = mapping.originalColumn;
+      if (mapping.name != null) {
+        nameIdx = this._names.indexOf(mapping.name);
+        next += base64VLQ$1.encode(nameIdx - previousName);
+        previousName = nameIdx;
+      }
+    }
+    result += next;
+  }
+  return result;
+};
+SourceMapGenerator$1.prototype._generateSourcesContent = function SourceMapGenerator_generateSourcesContent(aSources, aSourceRoot) {
+  return aSources.map(function(source) {
+    if (!this._sourcesContents) {
+      return null;
+    }
+    if (aSourceRoot != null) {
+      source = util$2.relative(aSourceRoot, source);
+    }
+    var key = util$2.toSetString(source);
+    return Object.prototype.hasOwnProperty.call(this._sourcesContents, key) ? this._sourcesContents[key] : null;
+  }, this);
+};
+SourceMapGenerator$1.prototype.toJSON = function SourceMapGenerator_toJSON() {
+  var map = {
+    version: this._version,
+    sources: this._sources.toArray(),
+    names: this._names.toArray(),
+    mappings: this._serializeMappings()
+  };
+  if (this._file != null) {
+    map.file = this._file;
+  }
+  if (this._sourceRoot != null) {
+    map.sourceRoot = this._sourceRoot;
+  }
+  if (this._sourcesContents) {
+    map.sourcesContent = this._generateSourcesContent(map.sources, map.sourceRoot);
+  }
+  return map;
+};
+SourceMapGenerator$1.prototype.toString = function SourceMapGenerator_toString() {
+  return JSON.stringify(this.toJSON());
+};
+sourceMapGenerator.SourceMapGenerator = SourceMapGenerator$1;
+var sourceMapConsumer = {};
+var binarySearch$1 = {};
+(function(exports) {
+  exports.GREATEST_LOWER_BOUND = 1;
+  exports.LEAST_UPPER_BOUND = 2;
+  function recursiveSearch(aLow, aHigh, aNeedle, aHaystack, aCompare, aBias) {
+    var mid = Math.floor((aHigh - aLow) / 2) + aLow;
+    var cmp = aCompare(aNeedle, aHaystack[mid], true);
+    if (cmp === 0) {
+      return mid;
+    } else if (cmp > 0) {
+      if (aHigh - mid > 1) {
+        return recursiveSearch(mid, aHigh, aNeedle, aHaystack, aCompare, aBias);
+      }
+      if (aBias == exports.LEAST_UPPER_BOUND) {
+        return aHigh < aHaystack.length ? aHigh : -1;
+      } else {
+        return mid;
+      }
+    } else {
+      if (mid - aLow > 1) {
+        return recursiveSearch(aLow, mid, aNeedle, aHaystack, aCompare, aBias);
+      }
+      if (aBias == exports.LEAST_UPPER_BOUND) {
+        return mid;
+      } else {
+        return aLow < 0 ? -1 : aLow;
       }
     }
   }
-  return obj;
-}
-/*!
-  * @intlify/runtime v9.1.9
-  * (c) 2021 kazuya kawaguchi
-  * Released under the MIT License.
-  */
-const DEFAULT_MODIFIER = (str) => str;
-const DEFAULT_MESSAGE = (ctx) => "";
-const DEFAULT_MESSAGE_DATA_TYPE = "text";
-const DEFAULT_NORMALIZE = (values) => values.length === 0 ? "" : values.join("");
-const DEFAULT_INTERPOLATE = toDisplayString;
-function pluralDefault(choice, choicesLength) {
-  choice = Math.abs(choice);
-  if (choicesLength === 2) {
-    return choice ? choice > 1 ? 1 : 0 : 1;
-  }
-  return choice ? Math.min(choice, 2) : 0;
-}
-function getPluralIndex(options) {
-  const index = isNumber(options.pluralIndex) ? options.pluralIndex : -1;
-  return options.named && (isNumber(options.named.count) || isNumber(options.named.n)) ? isNumber(options.named.count) ? options.named.count : isNumber(options.named.n) ? options.named.n : index : index;
-}
-function normalizeNamed(pluralIndex, props) {
-  if (!props.count) {
-    props.count = pluralIndex;
-  }
-  if (!props.n) {
-    props.n = pluralIndex;
-  }
-}
-function createMessageContext(options = {}) {
-  const locale = options.locale;
-  const pluralIndex = getPluralIndex(options);
-  const pluralRule = isObject$1(options.pluralRules) && isString(locale) && isFunction(options.pluralRules[locale]) ? options.pluralRules[locale] : pluralDefault;
-  const orgPluralRule = isObject$1(options.pluralRules) && isString(locale) && isFunction(options.pluralRules[locale]) ? pluralDefault : void 0;
-  const plural = (messages) => messages[pluralRule(pluralIndex, messages.length, orgPluralRule)];
-  const _list = options.list || [];
-  const list = (index) => _list[index];
-  const _named = options.named || {};
-  isNumber(options.pluralIndex) && normalizeNamed(pluralIndex, _named);
-  const named = (key) => _named[key];
-  function message(key) {
-    const msg = isFunction(options.messages) ? options.messages(key) : isObject$1(options.messages) ? options.messages[key] : false;
-    return !msg ? options.parent ? options.parent.message(key) : DEFAULT_MESSAGE : msg;
-  }
-  const _modifier = (name) => options.modifiers ? options.modifiers[name] : DEFAULT_MODIFIER;
-  const normalize = isPlainObject(options.processor) && isFunction(options.processor.normalize) ? options.processor.normalize : DEFAULT_NORMALIZE;
-  const interpolate = isPlainObject(options.processor) && isFunction(options.processor.interpolate) ? options.processor.interpolate : DEFAULT_INTERPOLATE;
-  const type = isPlainObject(options.processor) && isString(options.processor.type) ? options.processor.type : DEFAULT_MESSAGE_DATA_TYPE;
-  const ctx = {
-    ["list"]: list,
-    ["named"]: named,
-    ["plural"]: plural,
-    ["linked"]: (key, modifier) => {
-      const msg = message(key)(ctx);
-      return isString(modifier) ? _modifier(modifier)(msg) : msg;
-    },
-    ["message"]: message,
-    ["type"]: type,
-    ["interpolate"]: interpolate,
-    ["normalize"]: normalize
+  exports.search = function search(aNeedle, aHaystack, aCompare, aBias) {
+    if (aHaystack.length === 0) {
+      return -1;
+    }
+    var index = recursiveSearch(-1, aHaystack.length, aNeedle, aHaystack, aCompare, aBias || exports.GREATEST_LOWER_BOUND);
+    if (index < 0) {
+      return -1;
+    }
+    while (index - 1 >= 0) {
+      if (aCompare(aHaystack[index], aHaystack[index - 1], true) !== 0) {
+        break;
+      }
+      --index;
+    }
+    return index;
   };
-  return ctx;
+})(binarySearch$1);
+var quickSort$1 = {};
+function swap(ary, x, y) {
+  var temp = ary[x];
+  ary[x] = ary[y];
+  ary[y] = temp;
 }
+function randomIntInRange(low, high) {
+  return Math.round(low + Math.random() * (high - low));
+}
+function doQuickSort(ary, comparator, p, r) {
+  if (p < r) {
+    var pivotIndex = randomIntInRange(p, r);
+    var i = p - 1;
+    swap(ary, pivotIndex, r);
+    var pivot = ary[r];
+    for (var j = p; j < r; j++) {
+      if (comparator(ary[j], pivot) <= 0) {
+        i += 1;
+        swap(ary, i, j);
+      }
+    }
+    swap(ary, i + 1, j);
+    var q = i + 1;
+    doQuickSort(ary, comparator, p, q - 1);
+    doQuickSort(ary, comparator, q + 1, r);
+  }
+}
+quickSort$1.quickSort = function(ary, comparator) {
+  doQuickSort(ary, comparator, 0, ary.length - 1);
+};
+var util$1 = util$5;
+var binarySearch = binarySearch$1;
+var ArraySet = arraySet.ArraySet;
+var base64VLQ = base64Vlq;
+var quickSort = quickSort$1.quickSort;
+function SourceMapConsumer(aSourceMap, aSourceMapURL) {
+  var sourceMap2 = aSourceMap;
+  if (typeof aSourceMap === "string") {
+    sourceMap2 = util$1.parseSourceMapInput(aSourceMap);
+  }
+  return sourceMap2.sections != null ? new IndexedSourceMapConsumer(sourceMap2, aSourceMapURL) : new BasicSourceMapConsumer(sourceMap2, aSourceMapURL);
+}
+SourceMapConsumer.fromSourceMap = function(aSourceMap, aSourceMapURL) {
+  return BasicSourceMapConsumer.fromSourceMap(aSourceMap, aSourceMapURL);
+};
+SourceMapConsumer.prototype._version = 3;
+SourceMapConsumer.prototype.__generatedMappings = null;
+Object.defineProperty(SourceMapConsumer.prototype, "_generatedMappings", {
+  configurable: true,
+  enumerable: true,
+  get: function() {
+    if (!this.__generatedMappings) {
+      this._parseMappings(this._mappings, this.sourceRoot);
+    }
+    return this.__generatedMappings;
+  }
+});
+SourceMapConsumer.prototype.__originalMappings = null;
+Object.defineProperty(SourceMapConsumer.prototype, "_originalMappings", {
+  configurable: true,
+  enumerable: true,
+  get: function() {
+    if (!this.__originalMappings) {
+      this._parseMappings(this._mappings, this.sourceRoot);
+    }
+    return this.__originalMappings;
+  }
+});
+SourceMapConsumer.prototype._charIsMappingSeparator = function SourceMapConsumer_charIsMappingSeparator(aStr, index) {
+  var c = aStr.charAt(index);
+  return c === ";" || c === ",";
+};
+SourceMapConsumer.prototype._parseMappings = function SourceMapConsumer_parseMappings(aStr, aSourceRoot) {
+  throw new Error("Subclasses must implement _parseMappings");
+};
+SourceMapConsumer.GENERATED_ORDER = 1;
+SourceMapConsumer.ORIGINAL_ORDER = 2;
+SourceMapConsumer.GREATEST_LOWER_BOUND = 1;
+SourceMapConsumer.LEAST_UPPER_BOUND = 2;
+SourceMapConsumer.prototype.eachMapping = function SourceMapConsumer_eachMapping(aCallback, aContext, aOrder) {
+  var context = aContext || null;
+  var order = aOrder || SourceMapConsumer.GENERATED_ORDER;
+  var mappings;
+  switch (order) {
+    case SourceMapConsumer.GENERATED_ORDER:
+      mappings = this._generatedMappings;
+      break;
+    case SourceMapConsumer.ORIGINAL_ORDER:
+      mappings = this._originalMappings;
+      break;
+    default:
+      throw new Error("Unknown order of iteration.");
+  }
+  var sourceRoot = this.sourceRoot;
+  mappings.map(function(mapping) {
+    var source = mapping.source === null ? null : this._sources.at(mapping.source);
+    source = util$1.computeSourceURL(sourceRoot, source, this._sourceMapURL);
+    return {
+      source,
+      generatedLine: mapping.generatedLine,
+      generatedColumn: mapping.generatedColumn,
+      originalLine: mapping.originalLine,
+      originalColumn: mapping.originalColumn,
+      name: mapping.name === null ? null : this._names.at(mapping.name)
+    };
+  }, this).forEach(aCallback, context);
+};
+SourceMapConsumer.prototype.allGeneratedPositionsFor = function SourceMapConsumer_allGeneratedPositionsFor(aArgs) {
+  var line = util$1.getArg(aArgs, "line");
+  var needle = {
+    source: util$1.getArg(aArgs, "source"),
+    originalLine: line,
+    originalColumn: util$1.getArg(aArgs, "column", 0)
+  };
+  needle.source = this._findSourceIndex(needle.source);
+  if (needle.source < 0) {
+    return [];
+  }
+  var mappings = [];
+  var index = this._findMapping(needle, this._originalMappings, "originalLine", "originalColumn", util$1.compareByOriginalPositions, binarySearch.LEAST_UPPER_BOUND);
+  if (index >= 0) {
+    var mapping = this._originalMappings[index];
+    if (aArgs.column === void 0) {
+      var originalLine = mapping.originalLine;
+      while (mapping && mapping.originalLine === originalLine) {
+        mappings.push({
+          line: util$1.getArg(mapping, "generatedLine", null),
+          column: util$1.getArg(mapping, "generatedColumn", null),
+          lastColumn: util$1.getArg(mapping, "lastGeneratedColumn", null)
+        });
+        mapping = this._originalMappings[++index];
+      }
+    } else {
+      var originalColumn = mapping.originalColumn;
+      while (mapping && mapping.originalLine === line && mapping.originalColumn == originalColumn) {
+        mappings.push({
+          line: util$1.getArg(mapping, "generatedLine", null),
+          column: util$1.getArg(mapping, "generatedColumn", null),
+          lastColumn: util$1.getArg(mapping, "lastGeneratedColumn", null)
+        });
+        mapping = this._originalMappings[++index];
+      }
+    }
+  }
+  return mappings;
+};
+sourceMapConsumer.SourceMapConsumer = SourceMapConsumer;
+function BasicSourceMapConsumer(aSourceMap, aSourceMapURL) {
+  var sourceMap2 = aSourceMap;
+  if (typeof aSourceMap === "string") {
+    sourceMap2 = util$1.parseSourceMapInput(aSourceMap);
+  }
+  var version = util$1.getArg(sourceMap2, "version");
+  var sources = util$1.getArg(sourceMap2, "sources");
+  var names = util$1.getArg(sourceMap2, "names", []);
+  var sourceRoot = util$1.getArg(sourceMap2, "sourceRoot", null);
+  var sourcesContent = util$1.getArg(sourceMap2, "sourcesContent", null);
+  var mappings = util$1.getArg(sourceMap2, "mappings");
+  var file = util$1.getArg(sourceMap2, "file", null);
+  if (version != this._version) {
+    throw new Error("Unsupported version: " + version);
+  }
+  if (sourceRoot) {
+    sourceRoot = util$1.normalize(sourceRoot);
+  }
+  sources = sources.map(String).map(util$1.normalize).map(function(source) {
+    return sourceRoot && util$1.isAbsolute(sourceRoot) && util$1.isAbsolute(source) ? util$1.relative(sourceRoot, source) : source;
+  });
+  this._names = ArraySet.fromArray(names.map(String), true);
+  this._sources = ArraySet.fromArray(sources, true);
+  this._absoluteSources = this._sources.toArray().map(function(s) {
+    return util$1.computeSourceURL(sourceRoot, s, aSourceMapURL);
+  });
+  this.sourceRoot = sourceRoot;
+  this.sourcesContent = sourcesContent;
+  this._mappings = mappings;
+  this._sourceMapURL = aSourceMapURL;
+  this.file = file;
+}
+BasicSourceMapConsumer.prototype = Object.create(SourceMapConsumer.prototype);
+BasicSourceMapConsumer.prototype.consumer = SourceMapConsumer;
+BasicSourceMapConsumer.prototype._findSourceIndex = function(aSource) {
+  var relativeSource = aSource;
+  if (this.sourceRoot != null) {
+    relativeSource = util$1.relative(this.sourceRoot, relativeSource);
+  }
+  if (this._sources.has(relativeSource)) {
+    return this._sources.indexOf(relativeSource);
+  }
+  var i;
+  for (i = 0; i < this._absoluteSources.length; ++i) {
+    if (this._absoluteSources[i] == aSource) {
+      return i;
+    }
+  }
+  return -1;
+};
+BasicSourceMapConsumer.fromSourceMap = function SourceMapConsumer_fromSourceMap(aSourceMap, aSourceMapURL) {
+  var smc = Object.create(BasicSourceMapConsumer.prototype);
+  var names = smc._names = ArraySet.fromArray(aSourceMap._names.toArray(), true);
+  var sources = smc._sources = ArraySet.fromArray(aSourceMap._sources.toArray(), true);
+  smc.sourceRoot = aSourceMap._sourceRoot;
+  smc.sourcesContent = aSourceMap._generateSourcesContent(smc._sources.toArray(), smc.sourceRoot);
+  smc.file = aSourceMap._file;
+  smc._sourceMapURL = aSourceMapURL;
+  smc._absoluteSources = smc._sources.toArray().map(function(s) {
+    return util$1.computeSourceURL(smc.sourceRoot, s, aSourceMapURL);
+  });
+  var generatedMappings = aSourceMap._mappings.toArray().slice();
+  var destGeneratedMappings = smc.__generatedMappings = [];
+  var destOriginalMappings = smc.__originalMappings = [];
+  for (var i = 0, length = generatedMappings.length; i < length; i++) {
+    var srcMapping = generatedMappings[i];
+    var destMapping = new Mapping();
+    destMapping.generatedLine = srcMapping.generatedLine;
+    destMapping.generatedColumn = srcMapping.generatedColumn;
+    if (srcMapping.source) {
+      destMapping.source = sources.indexOf(srcMapping.source);
+      destMapping.originalLine = srcMapping.originalLine;
+      destMapping.originalColumn = srcMapping.originalColumn;
+      if (srcMapping.name) {
+        destMapping.name = names.indexOf(srcMapping.name);
+      }
+      destOriginalMappings.push(destMapping);
+    }
+    destGeneratedMappings.push(destMapping);
+  }
+  quickSort(smc.__originalMappings, util$1.compareByOriginalPositions);
+  return smc;
+};
+BasicSourceMapConsumer.prototype._version = 3;
+Object.defineProperty(BasicSourceMapConsumer.prototype, "sources", {
+  get: function() {
+    return this._absoluteSources.slice();
+  }
+});
+function Mapping() {
+  this.generatedLine = 0;
+  this.generatedColumn = 0;
+  this.source = null;
+  this.originalLine = null;
+  this.originalColumn = null;
+  this.name = null;
+}
+BasicSourceMapConsumer.prototype._parseMappings = function SourceMapConsumer_parseMappings2(aStr, aSourceRoot) {
+  var generatedLine = 1;
+  var previousGeneratedColumn = 0;
+  var previousOriginalLine = 0;
+  var previousOriginalColumn = 0;
+  var previousSource = 0;
+  var previousName = 0;
+  var length = aStr.length;
+  var index = 0;
+  var cachedSegments = {};
+  var temp = {};
+  var originalMappings = [];
+  var generatedMappings = [];
+  var mapping, str, segment, end, value;
+  while (index < length) {
+    if (aStr.charAt(index) === ";") {
+      generatedLine++;
+      index++;
+      previousGeneratedColumn = 0;
+    } else if (aStr.charAt(index) === ",") {
+      index++;
+    } else {
+      mapping = new Mapping();
+      mapping.generatedLine = generatedLine;
+      for (end = index; end < length; end++) {
+        if (this._charIsMappingSeparator(aStr, end)) {
+          break;
+        }
+      }
+      str = aStr.slice(index, end);
+      segment = cachedSegments[str];
+      if (segment) {
+        index += str.length;
+      } else {
+        segment = [];
+        while (index < end) {
+          base64VLQ.decode(aStr, index, temp);
+          value = temp.value;
+          index = temp.rest;
+          segment.push(value);
+        }
+        if (segment.length === 2) {
+          throw new Error("Found a source, but no line and column");
+        }
+        if (segment.length === 3) {
+          throw new Error("Found a source and line, but no column");
+        }
+        cachedSegments[str] = segment;
+      }
+      mapping.generatedColumn = previousGeneratedColumn + segment[0];
+      previousGeneratedColumn = mapping.generatedColumn;
+      if (segment.length > 1) {
+        mapping.source = previousSource + segment[1];
+        previousSource += segment[1];
+        mapping.originalLine = previousOriginalLine + segment[2];
+        previousOriginalLine = mapping.originalLine;
+        mapping.originalLine += 1;
+        mapping.originalColumn = previousOriginalColumn + segment[3];
+        previousOriginalColumn = mapping.originalColumn;
+        if (segment.length > 4) {
+          mapping.name = previousName + segment[4];
+          previousName += segment[4];
+        }
+      }
+      generatedMappings.push(mapping);
+      if (typeof mapping.originalLine === "number") {
+        originalMappings.push(mapping);
+      }
+    }
+  }
+  quickSort(generatedMappings, util$1.compareByGeneratedPositionsDeflated);
+  this.__generatedMappings = generatedMappings;
+  quickSort(originalMappings, util$1.compareByOriginalPositions);
+  this.__originalMappings = originalMappings;
+};
+BasicSourceMapConsumer.prototype._findMapping = function SourceMapConsumer_findMapping(aNeedle, aMappings, aLineName, aColumnName, aComparator, aBias) {
+  if (aNeedle[aLineName] <= 0) {
+    throw new TypeError("Line must be greater than or equal to 1, got " + aNeedle[aLineName]);
+  }
+  if (aNeedle[aColumnName] < 0) {
+    throw new TypeError("Column must be greater than or equal to 0, got " + aNeedle[aColumnName]);
+  }
+  return binarySearch.search(aNeedle, aMappings, aComparator, aBias);
+};
+BasicSourceMapConsumer.prototype.computeColumnSpans = function SourceMapConsumer_computeColumnSpans() {
+  for (var index = 0; index < this._generatedMappings.length; ++index) {
+    var mapping = this._generatedMappings[index];
+    if (index + 1 < this._generatedMappings.length) {
+      var nextMapping = this._generatedMappings[index + 1];
+      if (mapping.generatedLine === nextMapping.generatedLine) {
+        mapping.lastGeneratedColumn = nextMapping.generatedColumn - 1;
+        continue;
+      }
+    }
+    mapping.lastGeneratedColumn = Infinity;
+  }
+};
+BasicSourceMapConsumer.prototype.originalPositionFor = function SourceMapConsumer_originalPositionFor(aArgs) {
+  var needle = {
+    generatedLine: util$1.getArg(aArgs, "line"),
+    generatedColumn: util$1.getArg(aArgs, "column")
+  };
+  var index = this._findMapping(needle, this._generatedMappings, "generatedLine", "generatedColumn", util$1.compareByGeneratedPositionsDeflated, util$1.getArg(aArgs, "bias", SourceMapConsumer.GREATEST_LOWER_BOUND));
+  if (index >= 0) {
+    var mapping = this._generatedMappings[index];
+    if (mapping.generatedLine === needle.generatedLine) {
+      var source = util$1.getArg(mapping, "source", null);
+      if (source !== null) {
+        source = this._sources.at(source);
+        source = util$1.computeSourceURL(this.sourceRoot, source, this._sourceMapURL);
+      }
+      var name = util$1.getArg(mapping, "name", null);
+      if (name !== null) {
+        name = this._names.at(name);
+      }
+      return {
+        source,
+        line: util$1.getArg(mapping, "originalLine", null),
+        column: util$1.getArg(mapping, "originalColumn", null),
+        name
+      };
+    }
+  }
+  return {
+    source: null,
+    line: null,
+    column: null,
+    name: null
+  };
+};
+BasicSourceMapConsumer.prototype.hasContentsOfAllSources = function BasicSourceMapConsumer_hasContentsOfAllSources() {
+  if (!this.sourcesContent) {
+    return false;
+  }
+  return this.sourcesContent.length >= this._sources.size() && !this.sourcesContent.some(function(sc) {
+    return sc == null;
+  });
+};
+BasicSourceMapConsumer.prototype.sourceContentFor = function SourceMapConsumer_sourceContentFor(aSource, nullOnMissing) {
+  if (!this.sourcesContent) {
+    return null;
+  }
+  var index = this._findSourceIndex(aSource);
+  if (index >= 0) {
+    return this.sourcesContent[index];
+  }
+  var relativeSource = aSource;
+  if (this.sourceRoot != null) {
+    relativeSource = util$1.relative(this.sourceRoot, relativeSource);
+  }
+  var url;
+  if (this.sourceRoot != null && (url = util$1.urlParse(this.sourceRoot))) {
+    var fileUriAbsPath = relativeSource.replace(/^file:\/\//, "");
+    if (url.scheme == "file" && this._sources.has(fileUriAbsPath)) {
+      return this.sourcesContent[this._sources.indexOf(fileUriAbsPath)];
+    }
+    if ((!url.path || url.path == "/") && this._sources.has("/" + relativeSource)) {
+      return this.sourcesContent[this._sources.indexOf("/" + relativeSource)];
+    }
+  }
+  if (nullOnMissing) {
+    return null;
+  } else {
+    throw new Error('"' + relativeSource + '" is not in the SourceMap.');
+  }
+};
+BasicSourceMapConsumer.prototype.generatedPositionFor = function SourceMapConsumer_generatedPositionFor(aArgs) {
+  var source = util$1.getArg(aArgs, "source");
+  source = this._findSourceIndex(source);
+  if (source < 0) {
+    return {
+      line: null,
+      column: null,
+      lastColumn: null
+    };
+  }
+  var needle = {
+    source,
+    originalLine: util$1.getArg(aArgs, "line"),
+    originalColumn: util$1.getArg(aArgs, "column")
+  };
+  var index = this._findMapping(needle, this._originalMappings, "originalLine", "originalColumn", util$1.compareByOriginalPositions, util$1.getArg(aArgs, "bias", SourceMapConsumer.GREATEST_LOWER_BOUND));
+  if (index >= 0) {
+    var mapping = this._originalMappings[index];
+    if (mapping.source === needle.source) {
+      return {
+        line: util$1.getArg(mapping, "generatedLine", null),
+        column: util$1.getArg(mapping, "generatedColumn", null),
+        lastColumn: util$1.getArg(mapping, "lastGeneratedColumn", null)
+      };
+    }
+  }
+  return {
+    line: null,
+    column: null,
+    lastColumn: null
+  };
+};
+sourceMapConsumer.BasicSourceMapConsumer = BasicSourceMapConsumer;
+function IndexedSourceMapConsumer(aSourceMap, aSourceMapURL) {
+  var sourceMap2 = aSourceMap;
+  if (typeof aSourceMap === "string") {
+    sourceMap2 = util$1.parseSourceMapInput(aSourceMap);
+  }
+  var version = util$1.getArg(sourceMap2, "version");
+  var sections = util$1.getArg(sourceMap2, "sections");
+  if (version != this._version) {
+    throw new Error("Unsupported version: " + version);
+  }
+  this._sources = new ArraySet();
+  this._names = new ArraySet();
+  var lastOffset = {
+    line: -1,
+    column: 0
+  };
+  this._sections = sections.map(function(s) {
+    if (s.url) {
+      throw new Error("Support for url field in sections not implemented.");
+    }
+    var offset = util$1.getArg(s, "offset");
+    var offsetLine = util$1.getArg(offset, "line");
+    var offsetColumn = util$1.getArg(offset, "column");
+    if (offsetLine < lastOffset.line || offsetLine === lastOffset.line && offsetColumn < lastOffset.column) {
+      throw new Error("Section offsets must be ordered and non-overlapping.");
+    }
+    lastOffset = offset;
+    return {
+      generatedOffset: {
+        generatedLine: offsetLine + 1,
+        generatedColumn: offsetColumn + 1
+      },
+      consumer: new SourceMapConsumer(util$1.getArg(s, "map"), aSourceMapURL)
+    };
+  });
+}
+IndexedSourceMapConsumer.prototype = Object.create(SourceMapConsumer.prototype);
+IndexedSourceMapConsumer.prototype.constructor = SourceMapConsumer;
+IndexedSourceMapConsumer.prototype._version = 3;
+Object.defineProperty(IndexedSourceMapConsumer.prototype, "sources", {
+  get: function() {
+    var sources = [];
+    for (var i = 0; i < this._sections.length; i++) {
+      for (var j = 0; j < this._sections[i].consumer.sources.length; j++) {
+        sources.push(this._sections[i].consumer.sources[j]);
+      }
+    }
+    return sources;
+  }
+});
+IndexedSourceMapConsumer.prototype.originalPositionFor = function IndexedSourceMapConsumer_originalPositionFor(aArgs) {
+  var needle = {
+    generatedLine: util$1.getArg(aArgs, "line"),
+    generatedColumn: util$1.getArg(aArgs, "column")
+  };
+  var sectionIndex = binarySearch.search(needle, this._sections, function(needle2, section2) {
+    var cmp = needle2.generatedLine - section2.generatedOffset.generatedLine;
+    if (cmp) {
+      return cmp;
+    }
+    return needle2.generatedColumn - section2.generatedOffset.generatedColumn;
+  });
+  var section = this._sections[sectionIndex];
+  if (!section) {
+    return {
+      source: null,
+      line: null,
+      column: null,
+      name: null
+    };
+  }
+  return section.consumer.originalPositionFor({
+    line: needle.generatedLine - (section.generatedOffset.generatedLine - 1),
+    column: needle.generatedColumn - (section.generatedOffset.generatedLine === needle.generatedLine ? section.generatedOffset.generatedColumn - 1 : 0),
+    bias: aArgs.bias
+  });
+};
+IndexedSourceMapConsumer.prototype.hasContentsOfAllSources = function IndexedSourceMapConsumer_hasContentsOfAllSources() {
+  return this._sections.every(function(s) {
+    return s.consumer.hasContentsOfAllSources();
+  });
+};
+IndexedSourceMapConsumer.prototype.sourceContentFor = function IndexedSourceMapConsumer_sourceContentFor(aSource, nullOnMissing) {
+  for (var i = 0; i < this._sections.length; i++) {
+    var section = this._sections[i];
+    var content = section.consumer.sourceContentFor(aSource, true);
+    if (content) {
+      return content;
+    }
+  }
+  if (nullOnMissing) {
+    return null;
+  } else {
+    throw new Error('"' + aSource + '" is not in the SourceMap.');
+  }
+};
+IndexedSourceMapConsumer.prototype.generatedPositionFor = function IndexedSourceMapConsumer_generatedPositionFor(aArgs) {
+  for (var i = 0; i < this._sections.length; i++) {
+    var section = this._sections[i];
+    if (section.consumer._findSourceIndex(util$1.getArg(aArgs, "source")) === -1) {
+      continue;
+    }
+    var generatedPosition = section.consumer.generatedPositionFor(aArgs);
+    if (generatedPosition) {
+      var ret = {
+        line: generatedPosition.line + (section.generatedOffset.generatedLine - 1),
+        column: generatedPosition.column + (section.generatedOffset.generatedLine === generatedPosition.line ? section.generatedOffset.generatedColumn - 1 : 0)
+      };
+      return ret;
+    }
+  }
+  return {
+    line: null,
+    column: null
+  };
+};
+IndexedSourceMapConsumer.prototype._parseMappings = function IndexedSourceMapConsumer_parseMappings(aStr, aSourceRoot) {
+  this.__generatedMappings = [];
+  this.__originalMappings = [];
+  for (var i = 0; i < this._sections.length; i++) {
+    var section = this._sections[i];
+    var sectionMappings = section.consumer._generatedMappings;
+    for (var j = 0; j < sectionMappings.length; j++) {
+      var mapping = sectionMappings[j];
+      var source = section.consumer._sources.at(mapping.source);
+      source = util$1.computeSourceURL(section.consumer.sourceRoot, source, this._sourceMapURL);
+      this._sources.add(source);
+      source = this._sources.indexOf(source);
+      var name = null;
+      if (mapping.name) {
+        name = section.consumer._names.at(mapping.name);
+        this._names.add(name);
+        name = this._names.indexOf(name);
+      }
+      var adjustedMapping = {
+        source,
+        generatedLine: mapping.generatedLine + (section.generatedOffset.generatedLine - 1),
+        generatedColumn: mapping.generatedColumn + (section.generatedOffset.generatedLine === mapping.generatedLine ? section.generatedOffset.generatedColumn - 1 : 0),
+        originalLine: mapping.originalLine,
+        originalColumn: mapping.originalColumn,
+        name
+      };
+      this.__generatedMappings.push(adjustedMapping);
+      if (typeof adjustedMapping.originalLine === "number") {
+        this.__originalMappings.push(adjustedMapping);
+      }
+    }
+  }
+  quickSort(this.__generatedMappings, util$1.compareByGeneratedPositionsDeflated);
+  quickSort(this.__originalMappings, util$1.compareByOriginalPositions);
+};
+sourceMapConsumer.IndexedSourceMapConsumer = IndexedSourceMapConsumer;
+var sourceNode = {};
+var SourceMapGenerator = sourceMapGenerator.SourceMapGenerator;
+var util = util$5;
+var REGEX_NEWLINE = /(\r?\n)/;
+var NEWLINE_CODE = 10;
+var isSourceNode = "$$$isSourceNode$$$";
+function SourceNode(aLine, aColumn, aSource, aChunks, aName) {
+  this.children = [];
+  this.sourceContents = {};
+  this.line = aLine == null ? null : aLine;
+  this.column = aColumn == null ? null : aColumn;
+  this.source = aSource == null ? null : aSource;
+  this.name = aName == null ? null : aName;
+  this[isSourceNode] = true;
+  if (aChunks != null)
+    this.add(aChunks);
+}
+SourceNode.fromStringWithSourceMap = function SourceNode_fromStringWithSourceMap(aGeneratedCode, aSourceMapConsumer, aRelativePath) {
+  var node = new SourceNode();
+  var remainingLines = aGeneratedCode.split(REGEX_NEWLINE);
+  var remainingLinesIndex = 0;
+  var shiftNextLine = function() {
+    var lineContents = getNextLine();
+    var newLine = getNextLine() || "";
+    return lineContents + newLine;
+    function getNextLine() {
+      return remainingLinesIndex < remainingLines.length ? remainingLines[remainingLinesIndex++] : void 0;
+    }
+  };
+  var lastGeneratedLine = 1, lastGeneratedColumn = 0;
+  var lastMapping = null;
+  aSourceMapConsumer.eachMapping(function(mapping) {
+    if (lastMapping !== null) {
+      if (lastGeneratedLine < mapping.generatedLine) {
+        addMappingWithCode(lastMapping, shiftNextLine());
+        lastGeneratedLine++;
+        lastGeneratedColumn = 0;
+      } else {
+        var nextLine = remainingLines[remainingLinesIndex] || "";
+        var code2 = nextLine.substr(0, mapping.generatedColumn - lastGeneratedColumn);
+        remainingLines[remainingLinesIndex] = nextLine.substr(mapping.generatedColumn - lastGeneratedColumn);
+        lastGeneratedColumn = mapping.generatedColumn;
+        addMappingWithCode(lastMapping, code2);
+        lastMapping = mapping;
+        return;
+      }
+    }
+    while (lastGeneratedLine < mapping.generatedLine) {
+      node.add(shiftNextLine());
+      lastGeneratedLine++;
+    }
+    if (lastGeneratedColumn < mapping.generatedColumn) {
+      var nextLine = remainingLines[remainingLinesIndex] || "";
+      node.add(nextLine.substr(0, mapping.generatedColumn));
+      remainingLines[remainingLinesIndex] = nextLine.substr(mapping.generatedColumn);
+      lastGeneratedColumn = mapping.generatedColumn;
+    }
+    lastMapping = mapping;
+  }, this);
+  if (remainingLinesIndex < remainingLines.length) {
+    if (lastMapping) {
+      addMappingWithCode(lastMapping, shiftNextLine());
+    }
+    node.add(remainingLines.splice(remainingLinesIndex).join(""));
+  }
+  aSourceMapConsumer.sources.forEach(function(sourceFile) {
+    var content = aSourceMapConsumer.sourceContentFor(sourceFile);
+    if (content != null) {
+      if (aRelativePath != null) {
+        sourceFile = util.join(aRelativePath, sourceFile);
+      }
+      node.setSourceContent(sourceFile, content);
+    }
+  });
+  return node;
+  function addMappingWithCode(mapping, code2) {
+    if (mapping === null || mapping.source === void 0) {
+      node.add(code2);
+    } else {
+      var source = aRelativePath ? util.join(aRelativePath, mapping.source) : mapping.source;
+      node.add(new SourceNode(mapping.originalLine, mapping.originalColumn, source, code2, mapping.name));
+    }
+  }
+};
+SourceNode.prototype.add = function SourceNode_add(aChunk) {
+  if (Array.isArray(aChunk)) {
+    aChunk.forEach(function(chunk) {
+      this.add(chunk);
+    }, this);
+  } else if (aChunk[isSourceNode] || typeof aChunk === "string") {
+    if (aChunk) {
+      this.children.push(aChunk);
+    }
+  } else {
+    throw new TypeError("Expected a SourceNode, string, or an array of SourceNodes and strings. Got " + aChunk);
+  }
+  return this;
+};
+SourceNode.prototype.prepend = function SourceNode_prepend(aChunk) {
+  if (Array.isArray(aChunk)) {
+    for (var i = aChunk.length - 1; i >= 0; i--) {
+      this.prepend(aChunk[i]);
+    }
+  } else if (aChunk[isSourceNode] || typeof aChunk === "string") {
+    this.children.unshift(aChunk);
+  } else {
+    throw new TypeError("Expected a SourceNode, string, or an array of SourceNodes and strings. Got " + aChunk);
+  }
+  return this;
+};
+SourceNode.prototype.walk = function SourceNode_walk(aFn) {
+  var chunk;
+  for (var i = 0, len = this.children.length; i < len; i++) {
+    chunk = this.children[i];
+    if (chunk[isSourceNode]) {
+      chunk.walk(aFn);
+    } else {
+      if (chunk !== "") {
+        aFn(chunk, {
+          source: this.source,
+          line: this.line,
+          column: this.column,
+          name: this.name
+        });
+      }
+    }
+  }
+};
+SourceNode.prototype.join = function SourceNode_join(aSep) {
+  var newChildren;
+  var i;
+  var len = this.children.length;
+  if (len > 0) {
+    newChildren = [];
+    for (i = 0; i < len - 1; i++) {
+      newChildren.push(this.children[i]);
+      newChildren.push(aSep);
+    }
+    newChildren.push(this.children[i]);
+    this.children = newChildren;
+  }
+  return this;
+};
+SourceNode.prototype.replaceRight = function SourceNode_replaceRight(aPattern, aReplacement) {
+  var lastChild = this.children[this.children.length - 1];
+  if (lastChild[isSourceNode]) {
+    lastChild.replaceRight(aPattern, aReplacement);
+  } else if (typeof lastChild === "string") {
+    this.children[this.children.length - 1] = lastChild.replace(aPattern, aReplacement);
+  } else {
+    this.children.push("".replace(aPattern, aReplacement));
+  }
+  return this;
+};
+SourceNode.prototype.setSourceContent = function SourceNode_setSourceContent(aSourceFile, aSourceContent) {
+  this.sourceContents[util.toSetString(aSourceFile)] = aSourceContent;
+};
+SourceNode.prototype.walkSourceContents = function SourceNode_walkSourceContents(aFn) {
+  for (var i = 0, len = this.children.length; i < len; i++) {
+    if (this.children[i][isSourceNode]) {
+      this.children[i].walkSourceContents(aFn);
+    }
+  }
+  var sources = Object.keys(this.sourceContents);
+  for (var i = 0, len = sources.length; i < len; i++) {
+    aFn(util.fromSetString(sources[i]), this.sourceContents[sources[i]]);
+  }
+};
+SourceNode.prototype.toString = function SourceNode_toString() {
+  var str = "";
+  this.walk(function(chunk) {
+    str += chunk;
+  });
+  return str;
+};
+SourceNode.prototype.toStringWithSourceMap = function SourceNode_toStringWithSourceMap(aArgs) {
+  var generated = {
+    code: "",
+    line: 1,
+    column: 0
+  };
+  var map = new SourceMapGenerator(aArgs);
+  var sourceMappingActive = false;
+  var lastOriginalSource = null;
+  var lastOriginalLine = null;
+  var lastOriginalColumn = null;
+  var lastOriginalName = null;
+  this.walk(function(chunk, original) {
+    generated.code += chunk;
+    if (original.source !== null && original.line !== null && original.column !== null) {
+      if (lastOriginalSource !== original.source || lastOriginalLine !== original.line || lastOriginalColumn !== original.column || lastOriginalName !== original.name) {
+        map.addMapping({
+          source: original.source,
+          original: {
+            line: original.line,
+            column: original.column
+          },
+          generated: {
+            line: generated.line,
+            column: generated.column
+          },
+          name: original.name
+        });
+      }
+      lastOriginalSource = original.source;
+      lastOriginalLine = original.line;
+      lastOriginalColumn = original.column;
+      lastOriginalName = original.name;
+      sourceMappingActive = true;
+    } else if (sourceMappingActive) {
+      map.addMapping({
+        generated: {
+          line: generated.line,
+          column: generated.column
+        }
+      });
+      lastOriginalSource = null;
+      sourceMappingActive = false;
+    }
+    for (var idx = 0, length = chunk.length; idx < length; idx++) {
+      if (chunk.charCodeAt(idx) === NEWLINE_CODE) {
+        generated.line++;
+        generated.column = 0;
+        if (idx + 1 === length) {
+          lastOriginalSource = null;
+          sourceMappingActive = false;
+        } else if (sourceMappingActive) {
+          map.addMapping({
+            source: original.source,
+            original: {
+              line: original.line,
+              column: original.column
+            },
+            generated: {
+              line: generated.line,
+              column: generated.column
+            },
+            name: original.name
+          });
+        }
+      } else {
+        generated.column++;
+      }
+    }
+  });
+  this.walkSourceContents(function(sourceFile, sourceContent) {
+    map.setSourceContent(sourceFile, sourceContent);
+  });
+  return { code: generated.code, map };
+};
+sourceNode.SourceNode = SourceNode;
+sourceMap$1.SourceMapGenerator = sourceMapGenerator.SourceMapGenerator;
+sourceMap$1.SourceMapConsumer = sourceMapConsumer.SourceMapConsumer;
+sourceMap$1.SourceNode = sourceNode.SourceNode;
 /*!
-  * @intlify/message-compiler v9.1.9
+  * message-compiler v9.2.0-beta.12
   * (c) 2021 kazuya kawaguchi
   * Released under the MIT License.
   */
-function createCompileError(code, loc, options = {}) {
+Object.defineProperty(messageCompiler_cjs_prod, "__esModule", { value: true });
+var shared$2 = shared$3.exports;
+var sourceMap = sourceMap$1;
+const CompileErrorCodes = {
+  EXPECTED_TOKEN: 1,
+  INVALID_TOKEN_IN_PLACEHOLDER: 2,
+  UNTERMINATED_SINGLE_QUOTE_IN_PLACEHOLDER: 3,
+  UNKNOWN_ESCAPE_SEQUENCE: 4,
+  INVALID_UNICODE_ESCAPE_SEQUENCE: 5,
+  UNBALANCED_CLOSING_BRACE: 6,
+  UNTERMINATED_CLOSING_BRACE: 7,
+  EMPTY_PLACEHOLDER: 8,
+  NOT_ALLOW_NEST_PLACEHOLDER: 9,
+  INVALID_LINKED_FORMAT: 10,
+  MUST_HAVE_MESSAGES_IN_PLURAL: 11,
+  UNEXPECTED_EMPTY_LINKED_MODIFIER: 12,
+  UNEXPECTED_EMPTY_LINKED_KEY: 13,
+  UNEXPECTED_LEXICAL_ANALYSIS: 14,
+  __EXTEND_POINT__: 15
+};
+const errorMessages = {
+  [CompileErrorCodes.EXPECTED_TOKEN]: `Expected token: '{0}'`,
+  [CompileErrorCodes.INVALID_TOKEN_IN_PLACEHOLDER]: `Invalid token in placeholder: '{0}'`,
+  [CompileErrorCodes.UNTERMINATED_SINGLE_QUOTE_IN_PLACEHOLDER]: `Unterminated single quote in placeholder`,
+  [CompileErrorCodes.UNKNOWN_ESCAPE_SEQUENCE]: `Unknown escape sequence: \\{0}`,
+  [CompileErrorCodes.INVALID_UNICODE_ESCAPE_SEQUENCE]: `Invalid unicode escape sequence: {0}`,
+  [CompileErrorCodes.UNBALANCED_CLOSING_BRACE]: `Unbalanced closing brace`,
+  [CompileErrorCodes.UNTERMINATED_CLOSING_BRACE]: `Unterminated closing brace`,
+  [CompileErrorCodes.EMPTY_PLACEHOLDER]: `Empty placeholder`,
+  [CompileErrorCodes.NOT_ALLOW_NEST_PLACEHOLDER]: `Not allowed nest placeholder`,
+  [CompileErrorCodes.INVALID_LINKED_FORMAT]: `Invalid linked format`,
+  [CompileErrorCodes.MUST_HAVE_MESSAGES_IN_PLURAL]: `Plural must have messages`,
+  [CompileErrorCodes.UNEXPECTED_EMPTY_LINKED_MODIFIER]: `Unexpected empty linked modifier`,
+  [CompileErrorCodes.UNEXPECTED_EMPTY_LINKED_KEY]: `Unexpected empty linked key`,
+  [CompileErrorCodes.UNEXPECTED_LEXICAL_ANALYSIS]: `Unexpected lexical analysis in token: '{0}'`
+};
+function createCompileError(code2, loc, options = {}) {
   const { domain, messages, args } = options;
-  const msg = code;
+  const msg = code2;
   const error = new SyntaxError(String(msg));
-  error.code = code;
+  error.code = code2;
   if (loc) {
     error.location = loc;
   }
@@ -1742,6 +3133,10 @@ function createCompileError(code, loc, options = {}) {
 function defaultOnError$1(error) {
   throw error;
 }
+const LocationStub = {
+  start: { line: 1, column: 1, offset: 0 },
+  end: { line: 1, column: 1, offset: 0 }
+};
 function createPosition(line, column, offset) {
   return { line, column, offset };
 }
@@ -1851,13 +3246,13 @@ function createTokenizer(source, options = {}) {
   };
   const context = () => _context;
   const { onError } = options;
-  function emitError2(code, pos, offset, ...args) {
+  function emitError2(code2, pos, offset, ...args) {
     const ctx = context();
     pos.column += offset;
     pos.offset += offset;
     if (onError) {
       const loc = createLocation(ctx.startLoc, pos);
-      const err = createCompileError(code, loc, {
+      const err = createCompileError(code2, loc, {
         domain: ERROR_DOMAIN$1,
         args
       });
@@ -1882,7 +3277,7 @@ function createTokenizer(source, options = {}) {
       scnr.next();
       return ch;
     } else {
-      emitError2(0, currentPosition(), 0, ch);
+      emitError2(CompileErrorCodes.EXPECTED_TOKEN, currentPosition(), 0, ch);
       return "";
     }
   }
@@ -2106,7 +3501,7 @@ function createTokenizer(source, options = {}) {
       name += ch;
     }
     if (scnr.currentChar() === EOF) {
-      emitError2(6, currentPosition(), 0);
+      emitError2(CompileErrorCodes.UNTERMINATED_CLOSING_BRACE, currentPosition(), 0);
     }
     return name;
   }
@@ -2120,7 +3515,7 @@ function createTokenizer(source, options = {}) {
       value += getDigits(scnr);
     }
     if (scnr.currentChar() === EOF) {
-      emitError2(6, currentPosition(), 0);
+      emitError2(CompileErrorCodes.UNTERMINATED_CLOSING_BRACE, currentPosition(), 0);
     }
     return value;
   }
@@ -2139,7 +3534,7 @@ function createTokenizer(source, options = {}) {
     }
     const current = scnr.currentChar();
     if (current === CHAR_LF || current === EOF) {
-      emitError2(2, currentPosition(), 0);
+      emitError2(CompileErrorCodes.UNTERMINATED_SINGLE_QUOTE_IN_PLACEHOLDER, currentPosition(), 0);
       if (current === CHAR_LF) {
         scnr.next();
         eat(scnr, `'`);
@@ -2161,7 +3556,7 @@ function createTokenizer(source, options = {}) {
       case "U":
         return readUnicodeEscapeSequence(scnr, ch, 6);
       default:
-        emitError2(3, currentPosition(), 0, ch);
+        emitError2(CompileErrorCodes.UNKNOWN_ESCAPE_SEQUENCE, currentPosition(), 0, ch);
         return "";
     }
   }
@@ -2171,7 +3566,7 @@ function createTokenizer(source, options = {}) {
     for (let i = 0; i < digits; i++) {
       const ch = takeHexDigit(scnr);
       if (!ch) {
-        emitError2(4, currentPosition(), 0, `\\${unicode}${sequence}${scnr.currentChar()}`);
+        emitError2(CompileErrorCodes.INVALID_UNICODE_ESCAPE_SEQUENCE, currentPosition(), 0, `\\${unicode}${sequence}${scnr.currentChar()}`);
         break;
       }
       sequence += ch;
@@ -2227,7 +3622,7 @@ function createTokenizer(source, options = {}) {
     switch (ch) {
       case "{":
         if (context2.braceNest >= 1) {
-          emitError2(8, currentPosition(), 0);
+          emitError2(CompileErrorCodes.NOT_ALLOW_NEST_PLACEHOLDER, currentPosition(), 0);
         }
         scnr.next();
         token = getToken(context2, 2, "{");
@@ -2236,7 +3631,7 @@ function createTokenizer(source, options = {}) {
         return token;
       case "}":
         if (context2.braceNest > 0 && context2.currentType === 2) {
-          emitError2(7, currentPosition(), 0);
+          emitError2(CompileErrorCodes.EMPTY_PLACEHOLDER, currentPosition(), 0);
         }
         scnr.next();
         token = getToken(context2, 3, "}");
@@ -2248,7 +3643,7 @@ function createTokenizer(source, options = {}) {
         return token;
       case "@":
         if (context2.braceNest > 0) {
-          emitError2(6, currentPosition(), 0);
+          emitError2(CompileErrorCodes.UNTERMINATED_CLOSING_BRACE, currentPosition(), 0);
         }
         token = readTokenInLinked(scnr, context2) || getEndToken(context2);
         context2.braceNest = 0;
@@ -2259,7 +3654,7 @@ function createTokenizer(source, options = {}) {
         let validLiteral = true;
         if (isPluralStart(scnr)) {
           if (context2.braceNest > 0) {
-            emitError2(6, currentPosition(), 0);
+            emitError2(CompileErrorCodes.UNTERMINATED_CLOSING_BRACE, currentPosition(), 0);
           }
           token = getToken(context2, 1, readPlural(scnr));
           context2.braceNest = 0;
@@ -2267,7 +3662,7 @@ function createTokenizer(source, options = {}) {
           return token;
         }
         if (context2.braceNest > 0 && (context2.currentType === 5 || context2.currentType === 6 || context2.currentType === 7)) {
-          emitError2(6, currentPosition(), 0);
+          emitError2(CompileErrorCodes.UNTERMINATED_CLOSING_BRACE, currentPosition(), 0);
           context2.braceNest = 0;
           return readToken(scnr, context2);
         }
@@ -2288,7 +3683,7 @@ function createTokenizer(source, options = {}) {
         }
         if (!validNamedIdentifier && !validListIdentifier && !validLiteral) {
           token = getToken(context2, 13, readInvalidIdentifier(scnr));
-          emitError2(1, currentPosition(), 0, token.value);
+          emitError2(CompileErrorCodes.INVALID_TOKEN_IN_PLACEHOLDER, currentPosition(), 0, token.value);
           skipSpaces(scnr);
           return token;
         }
@@ -2301,7 +3696,7 @@ function createTokenizer(source, options = {}) {
     let token = null;
     const ch = scnr.currentChar();
     if ((currentType === 8 || currentType === 9 || currentType === 12 || currentType === 10) && (ch === CHAR_LF || ch === CHAR_SP)) {
-      emitError2(9, currentPosition(), 0);
+      emitError2(CompileErrorCodes.INVALID_LINKED_FORMAT, currentPosition(), 0);
     }
     switch (ch) {
       case "@":
@@ -2341,7 +3736,7 @@ function createTokenizer(source, options = {}) {
           }
         }
         if (currentType === 8) {
-          emitError2(9, currentPosition(), 0);
+          emitError2(CompileErrorCodes.INVALID_LINKED_FORMAT, currentPosition(), 0);
         }
         context2.braceNest = 0;
         context2.inLinked = false;
@@ -2361,7 +3756,7 @@ function createTokenizer(source, options = {}) {
       case "{":
         return readTokenInPlaceholder(scnr, context2) || getEndToken(context2);
       case "}":
-        emitError2(5, currentPosition(), 0);
+        emitError2(CompileErrorCodes.UNBALANCED_CLOSING_BRACE, currentPosition(), 0);
         scnr.next();
         return getToken(context2, 3, "}");
       case "@":
@@ -2424,13 +3819,13 @@ function fromEscapeSequence(match, codePoint4, codePoint6) {
 function createParser(options = {}) {
   const location = options.location !== false;
   const { onError } = options;
-  function emitError2(tokenzer, code, start, offset, ...args) {
+  function emitError2(tokenzer, code2, start, offset, ...args) {
     const end = tokenzer.currentPosition();
     end.offset += offset;
     end.column += offset;
     if (onError) {
       const loc = createLocation(start, end);
-      const err = createCompileError(code, loc, {
+      const err = createCompileError(code2, loc, {
         domain: ERROR_DOMAIN,
         args
       });
@@ -2497,7 +3892,7 @@ function createParser(options = {}) {
     const { lastOffset: offset, lastStartLoc: loc } = context;
     const node = startNode(8, offset, loc);
     if (token.type !== 12) {
-      emitError2(tokenizer, 11, context.lastStartLoc, 0);
+      emitError2(tokenizer, CompileErrorCodes.UNEXPECTED_EMPTY_LINKED_MODIFIER, context.lastStartLoc, 0);
       node.value = "";
       endNode(node, offset, loc);
       return {
@@ -2506,7 +3901,7 @@ function createParser(options = {}) {
       };
     }
     if (token.value == null) {
-      emitError2(tokenizer, 13, context.lastStartLoc, 0, getTokenCaption(token));
+      emitError2(tokenizer, CompileErrorCodes.UNEXPECTED_LEXICAL_ANALYSIS, context.lastStartLoc, 0, getTokenCaption(token));
     }
     node.value = token.value || "";
     endNode(node, tokenizer.currentOffset(), tokenizer.currentPosition());
@@ -2531,7 +3926,7 @@ function createParser(options = {}) {
       token = parsed.nextConsumeToken || tokenizer.nextToken();
     }
     if (token.type !== 10) {
-      emitError2(tokenizer, 13, context.lastStartLoc, 0, getTokenCaption(token));
+      emitError2(tokenizer, CompileErrorCodes.UNEXPECTED_LEXICAL_ANALYSIS, context.lastStartLoc, 0, getTokenCaption(token));
     }
     token = tokenizer.nextToken();
     if (token.type === 2) {
@@ -2540,30 +3935,30 @@ function createParser(options = {}) {
     switch (token.type) {
       case 11:
         if (token.value == null) {
-          emitError2(tokenizer, 13, context.lastStartLoc, 0, getTokenCaption(token));
+          emitError2(tokenizer, CompileErrorCodes.UNEXPECTED_LEXICAL_ANALYSIS, context.lastStartLoc, 0, getTokenCaption(token));
         }
         linkedNode.key = parseLinkedKey(tokenizer, token.value || "");
         break;
       case 5:
         if (token.value == null) {
-          emitError2(tokenizer, 13, context.lastStartLoc, 0, getTokenCaption(token));
+          emitError2(tokenizer, CompileErrorCodes.UNEXPECTED_LEXICAL_ANALYSIS, context.lastStartLoc, 0, getTokenCaption(token));
         }
         linkedNode.key = parseNamed(tokenizer, token.value || "");
         break;
       case 6:
         if (token.value == null) {
-          emitError2(tokenizer, 13, context.lastStartLoc, 0, getTokenCaption(token));
+          emitError2(tokenizer, CompileErrorCodes.UNEXPECTED_LEXICAL_ANALYSIS, context.lastStartLoc, 0, getTokenCaption(token));
         }
         linkedNode.key = parseList(tokenizer, token.value || "");
         break;
       case 7:
         if (token.value == null) {
-          emitError2(tokenizer, 13, context.lastStartLoc, 0, getTokenCaption(token));
+          emitError2(tokenizer, CompileErrorCodes.UNEXPECTED_LEXICAL_ANALYSIS, context.lastStartLoc, 0, getTokenCaption(token));
         }
         linkedNode.key = parseLiteral(tokenizer, token.value || "");
         break;
       default:
-        emitError2(tokenizer, 12, context.lastStartLoc, 0);
+        emitError2(tokenizer, CompileErrorCodes.UNEXPECTED_EMPTY_LINKED_KEY, context.lastStartLoc, 0);
         const nextContext = tokenizer.context();
         const emptyLinkedKeyNode = startNode(7, nextContext.offset, nextContext.startLoc);
         emptyLinkedKeyNode.value = "";
@@ -2593,25 +3988,25 @@ function createParser(options = {}) {
       switch (token.type) {
         case 0:
           if (token.value == null) {
-            emitError2(tokenizer, 13, context.lastStartLoc, 0, getTokenCaption(token));
+            emitError2(tokenizer, CompileErrorCodes.UNEXPECTED_LEXICAL_ANALYSIS, context.lastStartLoc, 0, getTokenCaption(token));
           }
           node.items.push(parseText2(tokenizer, token.value || ""));
           break;
         case 6:
           if (token.value == null) {
-            emitError2(tokenizer, 13, context.lastStartLoc, 0, getTokenCaption(token));
+            emitError2(tokenizer, CompileErrorCodes.UNEXPECTED_LEXICAL_ANALYSIS, context.lastStartLoc, 0, getTokenCaption(token));
           }
           node.items.push(parseList(tokenizer, token.value || ""));
           break;
         case 5:
           if (token.value == null) {
-            emitError2(tokenizer, 13, context.lastStartLoc, 0, getTokenCaption(token));
+            emitError2(tokenizer, CompileErrorCodes.UNEXPECTED_LEXICAL_ANALYSIS, context.lastStartLoc, 0, getTokenCaption(token));
           }
           node.items.push(parseNamed(tokenizer, token.value || ""));
           break;
         case 7:
           if (token.value == null) {
-            emitError2(tokenizer, 13, context.lastStartLoc, 0, getTokenCaption(token));
+            emitError2(tokenizer, CompileErrorCodes.UNEXPECTED_LEXICAL_ANALYSIS, context.lastStartLoc, 0, getTokenCaption(token));
           }
           node.items.push(parseLiteral(tokenizer, token.value || ""));
           break;
@@ -2641,7 +4036,7 @@ function createParser(options = {}) {
       node.cases.push(msg);
     } while (context.currentType !== 14);
     if (hasEmptyMessage) {
-      emitError2(tokenizer, 10, loc, 0);
+      emitError2(tokenizer, CompileErrorCodes.MUST_HAVE_MESSAGES_IN_PLURAL, loc, 0);
     }
     endNode(node, tokenizer.currentOffset(), tokenizer.currentPosition());
     return node;
@@ -2657,7 +4052,7 @@ function createParser(options = {}) {
     }
   }
   function parse2(source) {
-    const tokenizer = createTokenizer(source, assign({}, options));
+    const tokenizer = createTokenizer(source, shared$2.assign({}, options));
     const context = tokenizer.context();
     const node = startNode(0, context.offset, context.startLoc);
     if (location && node.loc) {
@@ -2665,7 +4060,7 @@ function createParser(options = {}) {
     }
     node.body = parseResource(tokenizer);
     if (context.currentType !== 14) {
-      emitError2(tokenizer, 13, context.lastStartLoc, 0, source[context.offset] || "");
+      emitError2(tokenizer, CompileErrorCodes.UNEXPECTED_LEXICAL_ANALYSIS, context.lastStartLoc, 0, source[context.offset] || "");
     }
     endNode(node, tokenizer.currentOffset(), tokenizer.currentPosition());
     return node;
@@ -2728,7 +4123,7 @@ function transform$1(ast, options = {}) {
   ast.helpers = Array.from(context.helpers);
 }
 function createCodeGenerator(ast, options) {
-  const { sourceMap, filename, breakLineCode, needIndent: _needIndent } = options;
+  const { sourceMap: sourceMap$12, filename, breakLineCode, needIndent: _needIndent } = options;
   const _context = {
     source: ast.loc.source,
     filename,
@@ -2742,8 +4137,14 @@ function createCodeGenerator(ast, options) {
     indentLevel: 0
   };
   const context = () => _context;
-  function push(code, node) {
-    _context.code += code;
+  function push(code2, node) {
+    _context.code += code2;
+    if (_context.map) {
+      if (node && node.loc && node.loc !== LocationStub) {
+        addMapping(node.loc.start, getMappingName(node));
+      }
+      advancePositionWithSource(_context, code2);
+    }
   }
   function _newline(n, withBreakLine = true) {
     const _breakLineCode = withBreakLine ? breakLineCode : "";
@@ -2762,6 +4163,24 @@ function createCodeGenerator(ast, options) {
   }
   const helper = (key) => `_${key}`;
   const needIndent = () => _context.needIndent;
+  function addMapping(loc, name) {
+    _context.map.addMapping({
+      name,
+      source: _context.filename,
+      original: {
+        line: loc.line,
+        column: loc.column - 1
+      },
+      generated: {
+        line: _context.line,
+        column: _context.column - 1
+      }
+    });
+  }
+  if (sourceMap$12) {
+    _context.map = new sourceMap.SourceMapGenerator();
+    _context.map.setSourceContent(filename, _context.source);
+  }
   return {
     context,
     push,
@@ -2857,16 +4276,16 @@ function generateNode(generator, node) {
   }
 }
 const generate$1 = (ast, options = {}) => {
-  const mode = isString(options.mode) ? options.mode : "normal";
-  const filename = isString(options.filename) ? options.filename : "message.intl";
-  const sourceMap = !!options.sourceMap;
+  const mode = shared$2.isString(options.mode) ? options.mode : "normal";
+  const filename = shared$2.isString(options.filename) ? options.filename : "message.intl";
+  const sourceMap2 = !!options.sourceMap;
   const breakLineCode = options.breakLineCode != null ? options.breakLineCode : mode === "arrow" ? ";" : "\n";
   const needIndent = options.needIndent ? options.needIndent : mode !== "arrow";
   const helpers = ast.helpers || [];
   const generator = createCodeGenerator(ast, {
     mode,
     filename,
-    sourceMap,
+    sourceMap: sourceMap2,
     breakLineCode,
     needIndent
   });
@@ -2880,34 +4299,353 @@ const generate$1 = (ast, options = {}) => {
   generateNode(generator, ast);
   generator.deindent(needIndent);
   generator.push(`}`);
-  const { code, map } = generator.context();
+  const { code: code2, map } = generator.context();
   return {
     ast,
-    code,
+    code: code2,
     map: map ? map.toJSON() : void 0
   };
 };
+function getMappingName(node) {
+  switch (node.type) {
+    case 3:
+      return node.value;
+    case 5:
+      return node.index.toString();
+    case 4:
+      return node.key;
+    case 9:
+      return node.value;
+    case 8:
+      return node.value;
+    case 7:
+      return node.value;
+    default:
+      return void 0;
+  }
+}
+function advancePositionWithSource(pos, source, numberOfCharacters = source.length) {
+  let linesCount = 0;
+  let lastNewLinePos = -1;
+  for (let i = 0; i < numberOfCharacters; i++) {
+    if (source.charCodeAt(i) === 10) {
+      linesCount++;
+      lastNewLinePos = i;
+    }
+  }
+  pos.offset += numberOfCharacters;
+  pos.line += linesCount;
+  pos.column = lastNewLinePos === -1 ? pos.column + numberOfCharacters : numberOfCharacters - lastNewLinePos;
+  return pos;
+}
 function baseCompile$1(source, options = {}) {
-  const assignedOptions = assign({}, options);
+  const assignedOptions = shared$2.assign({}, options);
   const parser = createParser(assignedOptions);
   const ast = parser.parse(source);
   transform$1(ast, assignedOptions);
   return generate$1(ast, assignedOptions);
 }
+messageCompiler_cjs_prod.CompileErrorCodes = CompileErrorCodes;
+messageCompiler_cjs_prod.ERROR_DOMAIN = ERROR_DOMAIN;
+messageCompiler_cjs_prod.LocationStub = LocationStub;
+messageCompiler_cjs_prod.baseCompile = baseCompile$1;
+messageCompiler_cjs_prod.createCompileError = createCompileError;
+messageCompiler_cjs_prod.createLocation = createLocation;
+messageCompiler_cjs_prod.createParser = createParser;
+messageCompiler_cjs_prod.createPosition = createPosition;
+messageCompiler_cjs_prod.defaultOnError = defaultOnError$1;
+messageCompiler_cjs_prod.errorMessages = errorMessages;
+{
+  messageCompiler$1.exports = messageCompiler_cjs_prod;
+}
+var devtoolsIf$1 = { exports: {} };
+var devtoolsIf_cjs_prod = {};
 /*!
-  * @intlify/devtools-if v9.1.9
+  * devtools-if v9.2.0-beta.12
   * (c) 2021 kazuya kawaguchi
   * Released under the MIT License.
   */
+Object.defineProperty(devtoolsIf_cjs_prod, "__esModule", { value: true });
 const IntlifyDevToolsHooks = {
   I18nInit: "i18n:init",
   FunctionTranslate: "function:translate"
 };
+devtoolsIf_cjs_prod.IntlifyDevToolsHooks = IntlifyDevToolsHooks;
+{
+  devtoolsIf$1.exports = devtoolsIf_cjs_prod;
+}
 /*!
-  * @intlify/core-base v9.1.9
+  * core-base v9.2.0-beta.12
   * (c) 2021 kazuya kawaguchi
   * Released under the MIT License.
   */
+Object.defineProperty(coreBase_cjs_prod, "__esModule", { value: true });
+var messageCompiler = messageCompiler$1.exports;
+var shared$1 = shared$3.exports;
+var devtoolsIf = devtoolsIf$1.exports;
+const pathStateMachine = [];
+pathStateMachine[0] = {
+  ["w"]: [0],
+  ["i"]: [3, 0],
+  ["["]: [4],
+  ["o"]: [7]
+};
+pathStateMachine[1] = {
+  ["w"]: [1],
+  ["."]: [2],
+  ["["]: [4],
+  ["o"]: [7]
+};
+pathStateMachine[2] = {
+  ["w"]: [2],
+  ["i"]: [3, 0],
+  ["0"]: [3, 0]
+};
+pathStateMachine[3] = {
+  ["i"]: [3, 0],
+  ["0"]: [3, 0],
+  ["w"]: [1, 1],
+  ["."]: [2, 1],
+  ["["]: [4, 1],
+  ["o"]: [7, 1]
+};
+pathStateMachine[4] = {
+  ["'"]: [5, 0],
+  ['"']: [6, 0],
+  ["["]: [
+    4,
+    2
+  ],
+  ["]"]: [1, 3],
+  ["o"]: 8,
+  ["l"]: [4, 0]
+};
+pathStateMachine[5] = {
+  ["'"]: [4, 0],
+  ["o"]: 8,
+  ["l"]: [5, 0]
+};
+pathStateMachine[6] = {
+  ['"']: [4, 0],
+  ["o"]: 8,
+  ["l"]: [6, 0]
+};
+const literalValueRE = /^\s?(?:true|false|-?[\d.]+|'[^']*'|"[^"]*")\s?$/;
+function isLiteral(exp) {
+  return literalValueRE.test(exp);
+}
+function stripQuotes(str) {
+  const a = str.charCodeAt(0);
+  const b = str.charCodeAt(str.length - 1);
+  return a === b && (a === 34 || a === 39) ? str.slice(1, -1) : str;
+}
+function getPathCharType(ch) {
+  if (ch === void 0 || ch === null) {
+    return "o";
+  }
+  const code2 = ch.charCodeAt(0);
+  switch (code2) {
+    case 91:
+    case 93:
+    case 46:
+    case 34:
+    case 39:
+      return ch;
+    case 95:
+    case 36:
+    case 45:
+      return "i";
+    case 9:
+    case 10:
+    case 13:
+    case 160:
+    case 65279:
+    case 8232:
+    case 8233:
+      return "w";
+  }
+  return "i";
+}
+function formatSubPath(path) {
+  const trimmed = path.trim();
+  if (path.charAt(0) === "0" && isNaN(parseInt(path))) {
+    return false;
+  }
+  return isLiteral(trimmed) ? stripQuotes(trimmed) : "*" + trimmed;
+}
+function parse$1(path) {
+  const keys = [];
+  let index = -1;
+  let mode = 0;
+  let subPathDepth = 0;
+  let c;
+  let key;
+  let newChar;
+  let type;
+  let transition;
+  let action;
+  let typeMap;
+  const actions2 = [];
+  actions2[0] = () => {
+    if (key === void 0) {
+      key = newChar;
+    } else {
+      key += newChar;
+    }
+  };
+  actions2[1] = () => {
+    if (key !== void 0) {
+      keys.push(key);
+      key = void 0;
+    }
+  };
+  actions2[2] = () => {
+    actions2[0]();
+    subPathDepth++;
+  };
+  actions2[3] = () => {
+    if (subPathDepth > 0) {
+      subPathDepth--;
+      mode = 4;
+      actions2[0]();
+    } else {
+      subPathDepth = 0;
+      if (key === void 0) {
+        return false;
+      }
+      key = formatSubPath(key);
+      if (key === false) {
+        return false;
+      } else {
+        actions2[1]();
+      }
+    }
+  };
+  function maybeUnescapeQuote() {
+    const nextChar = path[index + 1];
+    if (mode === 5 && nextChar === "'" || mode === 6 && nextChar === '"') {
+      index++;
+      newChar = "\\" + nextChar;
+      actions2[0]();
+      return true;
+    }
+  }
+  while (mode !== null) {
+    index++;
+    c = path[index];
+    if (c === "\\" && maybeUnescapeQuote()) {
+      continue;
+    }
+    type = getPathCharType(c);
+    typeMap = pathStateMachine[mode];
+    transition = typeMap[type] || typeMap["l"] || 8;
+    if (transition === 8) {
+      return;
+    }
+    mode = transition[0];
+    if (transition[1] !== void 0) {
+      action = actions2[transition[1]];
+      if (action) {
+        newChar = c;
+        if (action() === false) {
+          return;
+        }
+      }
+    }
+    if (mode === 7) {
+      return keys;
+    }
+  }
+}
+const cache = new Map();
+function resolveWithKeyValue(obj, path) {
+  return shared$1.isObject(obj) ? obj[path] : null;
+}
+function resolveValue(obj, path) {
+  if (!shared$1.isObject(obj)) {
+    return null;
+  }
+  let hit = cache.get(path);
+  if (!hit) {
+    hit = parse$1(path);
+    if (hit) {
+      cache.set(path, hit);
+    }
+  }
+  if (!hit) {
+    return null;
+  }
+  const len = hit.length;
+  let last2 = obj;
+  let i = 0;
+  while (i < len) {
+    const val = last2[hit[i]];
+    if (val === void 0) {
+      return null;
+    }
+    last2 = val;
+    i++;
+  }
+  return last2;
+}
+const DEFAULT_MODIFIER = (str) => str;
+const DEFAULT_MESSAGE = (ctx) => "";
+const DEFAULT_MESSAGE_DATA_TYPE = "text";
+const DEFAULT_NORMALIZE = (values) => values.length === 0 ? "" : values.join("");
+const DEFAULT_INTERPOLATE = shared$1.toDisplayString;
+function pluralDefault(choice, choicesLength) {
+  choice = Math.abs(choice);
+  if (choicesLength === 2) {
+    return choice ? choice > 1 ? 1 : 0 : 1;
+  }
+  return choice ? Math.min(choice, 2) : 0;
+}
+function getPluralIndex(options) {
+  const index = shared$1.isNumber(options.pluralIndex) ? options.pluralIndex : -1;
+  return options.named && (shared$1.isNumber(options.named.count) || shared$1.isNumber(options.named.n)) ? shared$1.isNumber(options.named.count) ? options.named.count : shared$1.isNumber(options.named.n) ? options.named.n : index : index;
+}
+function normalizeNamed(pluralIndex, props) {
+  if (!props.count) {
+    props.count = pluralIndex;
+  }
+  if (!props.n) {
+    props.n = pluralIndex;
+  }
+}
+function createMessageContext(options = {}) {
+  const locale = options.locale;
+  const pluralIndex = getPluralIndex(options);
+  const pluralRule = shared$1.isObject(options.pluralRules) && shared$1.isString(locale) && shared$1.isFunction(options.pluralRules[locale]) ? options.pluralRules[locale] : pluralDefault;
+  const orgPluralRule = shared$1.isObject(options.pluralRules) && shared$1.isString(locale) && shared$1.isFunction(options.pluralRules[locale]) ? pluralDefault : void 0;
+  const plural = (messages) => messages[pluralRule(pluralIndex, messages.length, orgPluralRule)];
+  const _list = options.list || [];
+  const list = (index) => _list[index];
+  const _named = options.named || {};
+  shared$1.isNumber(options.pluralIndex) && normalizeNamed(pluralIndex, _named);
+  const named = (key) => _named[key];
+  function message(key) {
+    const msg = shared$1.isFunction(options.messages) ? options.messages(key) : shared$1.isObject(options.messages) ? options.messages[key] : false;
+    return !msg ? options.parent ? options.parent.message(key) : DEFAULT_MESSAGE : msg;
+  }
+  const _modifier = (name) => options.modifiers ? options.modifiers[name] : DEFAULT_MODIFIER;
+  const normalize = shared$1.isPlainObject(options.processor) && shared$1.isFunction(options.processor.normalize) ? options.processor.normalize : DEFAULT_NORMALIZE;
+  const interpolate = shared$1.isPlainObject(options.processor) && shared$1.isFunction(options.processor.interpolate) ? options.processor.interpolate : DEFAULT_INTERPOLATE;
+  const type = shared$1.isPlainObject(options.processor) && shared$1.isString(options.processor.type) ? options.processor.type : DEFAULT_MESSAGE_DATA_TYPE;
+  const ctx = {
+    ["list"]: list,
+    ["named"]: named,
+    ["plural"]: plural,
+    ["linked"]: (key, modifier) => {
+      const msg = message(key)(ctx);
+      return shared$1.isString(modifier) ? _modifier(modifier)(msg) : msg;
+    },
+    ["message"]: message,
+    ["type"]: type,
+    ["interpolate"]: interpolate,
+    ["normalize"]: normalize
+  };
+  return ctx;
+}
 let devtools = null;
 function setDevToolsHook(hook) {
   devtools = hook;
@@ -2916,144 +4654,70 @@ function getDevToolsHook() {
   return devtools;
 }
 function initI18nDevTools(i18n2, version, meta) {
-  devtools && devtools.emit(IntlifyDevToolsHooks.I18nInit, {
+  devtools && devtools.emit(devtoolsIf.IntlifyDevToolsHooks.I18nInit, {
     timestamp: Date.now(),
     i18n: i18n2,
     version,
     meta
   });
 }
-const translateDevTools = /* @__PURE__ */ createDevToolsHook(IntlifyDevToolsHooks.FunctionTranslate);
+const translateDevTools = /* @__PURE__ */ createDevToolsHook(devtoolsIf.IntlifyDevToolsHooks.FunctionTranslate);
 function createDevToolsHook(hook) {
   return (payloads) => devtools && devtools.emit(hook, payloads);
 }
+const CoreWarnCodes = {
+  NOT_FOUND_KEY: 1,
+  FALLBACK_TO_TRANSLATE: 2,
+  CANNOT_FORMAT_NUMBER: 3,
+  FALLBACK_TO_NUMBER_FORMAT: 4,
+  CANNOT_FORMAT_DATE: 5,
+  FALLBACK_TO_DATE_FORMAT: 6,
+  __EXTEND_POINT__: 7
+};
 const warnMessages = {
-  [0]: `Not found '{key}' key in '{locale}' locale messages.`,
-  [1]: `Fall back to translate '{key}' key with '{target}' locale.`,
-  [2]: `Cannot format a number value due to not supported Intl.NumberFormat.`,
-  [3]: `Fall back to number format '{key}' key with '{target}' locale.`,
-  [4]: `Cannot format a date value due to not supported Intl.DateTimeFormat.`,
-  [5]: `Fall back to datetime format '{key}' key with '{target}' locale.`
+  [CoreWarnCodes.NOT_FOUND_KEY]: `Not found '{key}' key in '{locale}' locale messages.`,
+  [CoreWarnCodes.FALLBACK_TO_TRANSLATE]: `Fall back to translate '{key}' key with '{target}' locale.`,
+  [CoreWarnCodes.CANNOT_FORMAT_NUMBER]: `Cannot format a number value due to not supported Intl.NumberFormat.`,
+  [CoreWarnCodes.FALLBACK_TO_NUMBER_FORMAT]: `Fall back to number format '{key}' key with '{target}' locale.`,
+  [CoreWarnCodes.CANNOT_FORMAT_DATE]: `Cannot format a date value due to not supported Intl.DateTimeFormat.`,
+  [CoreWarnCodes.FALLBACK_TO_DATE_FORMAT]: `Fall back to datetime format '{key}' key with '{target}' locale.`
 };
-function getWarnMessage(code, ...args) {
-  return format(warnMessages[code], ...args);
+function getWarnMessage(code2, ...args) {
+  return shared$1.format(warnMessages[code2], ...args);
 }
-const VERSION$1 = "9.1.9";
-const NOT_REOSLVED = -1;
-const MISSING_RESOLVE_VALUE = "";
-function getDefaultLinkedModifiers() {
-  return {
-    upper: (val) => isString(val) ? val.toUpperCase() : val,
-    lower: (val) => isString(val) ? val.toLowerCase() : val,
-    capitalize: (val) => isString(val) ? `${val.charAt(0).toLocaleUpperCase()}${val.substr(1)}` : val
-  };
+function fallbackWithSimple(ctx, fallback, start) {
+  return [...new Set([
+    start,
+    ...shared$1.isArray(fallback) ? fallback : shared$1.isObject(fallback) ? Object.keys(fallback) : shared$1.isString(fallback) ? [fallback] : [start]
+  ])];
 }
-let _compiler;
-function registerMessageCompiler(compiler) {
-  _compiler = compiler;
-}
-let _additionalMeta = null;
-const setAdditionalMeta = (meta) => {
-  _additionalMeta = meta;
-};
-const getAdditionalMeta = () => _additionalMeta;
-let _cid = 0;
-function createCoreContext(options = {}) {
-  const version = isString(options.version) ? options.version : VERSION$1;
-  const locale = isString(options.locale) ? options.locale : "en-US";
-  const fallbackLocale = isArray(options.fallbackLocale) || isPlainObject(options.fallbackLocale) || isString(options.fallbackLocale) || options.fallbackLocale === false ? options.fallbackLocale : locale;
-  const messages = isPlainObject(options.messages) ? options.messages : { [locale]: {} };
-  const datetimeFormats = isPlainObject(options.datetimeFormats) ? options.datetimeFormats : { [locale]: {} };
-  const numberFormats = isPlainObject(options.numberFormats) ? options.numberFormats : { [locale]: {} };
-  const modifiers = assign({}, options.modifiers || {}, getDefaultLinkedModifiers());
-  const pluralRules = options.pluralRules || {};
-  const missing = isFunction(options.missing) ? options.missing : null;
-  const missingWarn = isBoolean(options.missingWarn) || isRegExp(options.missingWarn) ? options.missingWarn : true;
-  const fallbackWarn = isBoolean(options.fallbackWarn) || isRegExp(options.fallbackWarn) ? options.fallbackWarn : true;
-  const fallbackFormat = !!options.fallbackFormat;
-  const unresolving = !!options.unresolving;
-  const postTranslation = isFunction(options.postTranslation) ? options.postTranslation : null;
-  const processor = isPlainObject(options.processor) ? options.processor : null;
-  const warnHtmlMessage = isBoolean(options.warnHtmlMessage) ? options.warnHtmlMessage : true;
-  const escapeParameter = !!options.escapeParameter;
-  const messageCompiler = isFunction(options.messageCompiler) ? options.messageCompiler : _compiler;
-  const onWarn = isFunction(options.onWarn) ? options.onWarn : warn;
-  const internalOptions = options;
-  const __datetimeFormatters = isObject$1(internalOptions.__datetimeFormatters) ? internalOptions.__datetimeFormatters : new Map();
-  const __numberFormatters = isObject$1(internalOptions.__numberFormatters) ? internalOptions.__numberFormatters : new Map();
-  const __meta = isObject$1(internalOptions.__meta) ? internalOptions.__meta : {};
-  _cid++;
-  const context = {
-    version,
-    cid: _cid,
-    locale,
-    fallbackLocale,
-    messages,
-    datetimeFormats,
-    numberFormats,
-    modifiers,
-    pluralRules,
-    missing,
-    missingWarn,
-    fallbackWarn,
-    fallbackFormat,
-    unresolving,
-    postTranslation,
-    processor,
-    warnHtmlMessage,
-    escapeParameter,
-    messageCompiler,
-    onWarn,
-    __datetimeFormatters,
-    __numberFormatters,
-    __meta
-  };
-  if (__INTLIFY_PROD_DEVTOOLS__) {
-    initI18nDevTools(context, version, __meta);
-  }
-  return context;
-}
-function isTranslateFallbackWarn(fallback, key) {
-  return fallback instanceof RegExp ? fallback.test(key) : fallback;
-}
-function isTranslateMissingWarn(missing, key) {
-  return missing instanceof RegExp ? missing.test(key) : missing;
-}
-function handleMissing(context, key, locale, missingWarn, type) {
-  const { missing, onWarn } = context;
-  if (missing !== null) {
-    const ret = missing(context, locale, key, type);
-    return isString(ret) ? ret : key;
-  } else {
-    return key;
-  }
-}
-function getLocaleChain(ctx, fallback, start) {
+function fallbackWithLocaleChain(ctx, fallback, start) {
+  const startLocale = shared$1.isString(start) ? start : DEFAULT_LOCALE;
   const context = ctx;
   if (!context.__localeChainCache) {
     context.__localeChainCache = new Map();
   }
-  let chain = context.__localeChainCache.get(start);
+  let chain = context.__localeChainCache.get(startLocale);
   if (!chain) {
     chain = [];
     let block = [start];
-    while (isArray(block)) {
+    while (shared$1.isArray(block)) {
       block = appendBlockToChain(chain, block, fallback);
     }
-    const defaults2 = isArray(fallback) ? fallback : isPlainObject(fallback) ? fallback["default"] ? fallback["default"] : null : fallback;
-    block = isString(defaults2) ? [defaults2] : defaults2;
-    if (isArray(block)) {
+    const defaults2 = shared$1.isArray(fallback) || !shared$1.isPlainObject(fallback) ? fallback : fallback["default"] ? fallback["default"] : null;
+    block = shared$1.isString(defaults2) ? [defaults2] : defaults2;
+    if (shared$1.isArray(block)) {
       appendBlockToChain(chain, block, false);
     }
-    context.__localeChainCache.set(start, chain);
+    context.__localeChainCache.set(startLocale, chain);
   }
   return chain;
 }
 function appendBlockToChain(chain, block, blocks) {
   let follow = true;
-  for (let i = 0; i < block.length && isBoolean(follow); i++) {
+  for (let i = 0; i < block.length && shared$1.isBoolean(follow); i++) {
     const locale = block[i];
-    if (isString(locale)) {
+    if (shared$1.isString(locale)) {
       follow = appendLocaleToChain(chain, block[i], blocks);
     }
   }
@@ -3077,17 +4741,119 @@ function appendItemToChain(chain, target, blocks) {
       follow = target[target.length - 1] !== "!";
       const locale = target.replace(/!/g, "");
       chain.push(locale);
-      if ((isArray(blocks) || isPlainObject(blocks)) && blocks[locale]) {
+      if ((shared$1.isArray(blocks) || shared$1.isPlainObject(blocks)) && blocks[locale]) {
         follow = blocks[locale];
       }
     }
   }
   return follow;
 }
+const VERSION$1 = "9.2.0-beta.12";
+const NOT_REOSLVED = -1;
+const DEFAULT_LOCALE = "en-US";
+const MISSING_RESOLVE_VALUE = "";
+function getDefaultLinkedModifiers() {
+  return {
+    upper: (val) => shared$1.isString(val) ? val.toUpperCase() : val,
+    lower: (val) => shared$1.isString(val) ? val.toLowerCase() : val,
+    capitalize: (val) => shared$1.isString(val) ? `${val.charAt(0).toLocaleUpperCase()}${val.substr(1)}` : val
+  };
+}
+let _compiler;
+function registerMessageCompiler(compiler) {
+  _compiler = compiler;
+}
+let _resolver;
+function registerMessageResolver(resolver) {
+  _resolver = resolver;
+}
+let _fallbacker;
+function registerLocaleFallbacker(fallbacker) {
+  _fallbacker = fallbacker;
+}
+let _additionalMeta = null;
+const setAdditionalMeta = (meta) => {
+  _additionalMeta = meta;
+};
+const getAdditionalMeta = () => _additionalMeta;
+let _cid = 0;
+function createCoreContext(options = {}) {
+  const version = shared$1.isString(options.version) ? options.version : VERSION$1;
+  const locale = shared$1.isString(options.locale) ? options.locale : DEFAULT_LOCALE;
+  const fallbackLocale = shared$1.isArray(options.fallbackLocale) || shared$1.isPlainObject(options.fallbackLocale) || shared$1.isString(options.fallbackLocale) || options.fallbackLocale === false ? options.fallbackLocale : locale;
+  const messages = shared$1.isPlainObject(options.messages) ? options.messages : { [locale]: {} };
+  const datetimeFormats = shared$1.isPlainObject(options.datetimeFormats) ? options.datetimeFormats : { [locale]: {} };
+  const numberFormats = shared$1.isPlainObject(options.numberFormats) ? options.numberFormats : { [locale]: {} };
+  const modifiers = shared$1.assign({}, options.modifiers || {}, getDefaultLinkedModifiers());
+  const pluralRules = options.pluralRules || {};
+  const missing = shared$1.isFunction(options.missing) ? options.missing : null;
+  const missingWarn = shared$1.isBoolean(options.missingWarn) || shared$1.isRegExp(options.missingWarn) ? options.missingWarn : true;
+  const fallbackWarn = shared$1.isBoolean(options.fallbackWarn) || shared$1.isRegExp(options.fallbackWarn) ? options.fallbackWarn : true;
+  const fallbackFormat = !!options.fallbackFormat;
+  const unresolving = !!options.unresolving;
+  const postTranslation = shared$1.isFunction(options.postTranslation) ? options.postTranslation : null;
+  const processor = shared$1.isPlainObject(options.processor) ? options.processor : null;
+  const warnHtmlMessage = shared$1.isBoolean(options.warnHtmlMessage) ? options.warnHtmlMessage : true;
+  const escapeParameter = !!options.escapeParameter;
+  const messageCompiler2 = shared$1.isFunction(options.messageCompiler) ? options.messageCompiler : _compiler;
+  const messageResolver = shared$1.isFunction(options.messageResolver) ? options.messageResolver : _resolver || resolveWithKeyValue;
+  const localeFallbacker = shared$1.isFunction(options.localeFallbacker) ? options.localeFallbacker : _fallbacker || fallbackWithSimple;
+  const onWarn = shared$1.isFunction(options.onWarn) ? options.onWarn : shared$1.warn;
+  const internalOptions = options;
+  const __datetimeFormatters = shared$1.isObject(internalOptions.__datetimeFormatters) ? internalOptions.__datetimeFormatters : new Map();
+  const __numberFormatters = shared$1.isObject(internalOptions.__numberFormatters) ? internalOptions.__numberFormatters : new Map();
+  const __meta = shared$1.isObject(internalOptions.__meta) ? internalOptions.__meta : {};
+  _cid++;
+  const context = {
+    version,
+    cid: _cid,
+    locale,
+    fallbackLocale,
+    messages,
+    modifiers,
+    pluralRules,
+    missing,
+    missingWarn,
+    fallbackWarn,
+    fallbackFormat,
+    unresolving,
+    postTranslation,
+    processor,
+    warnHtmlMessage,
+    escapeParameter,
+    messageCompiler: messageCompiler2,
+    messageResolver,
+    localeFallbacker,
+    onWarn,
+    __meta
+  };
+  {
+    context.datetimeFormats = datetimeFormats;
+    context.numberFormats = numberFormats;
+    context.__datetimeFormatters = __datetimeFormatters;
+    context.__numberFormatters = __numberFormatters;
+  }
+  return context;
+}
+function isTranslateFallbackWarn(fallback, key) {
+  return fallback instanceof RegExp ? fallback.test(key) : fallback;
+}
+function isTranslateMissingWarn(missing, key) {
+  return missing instanceof RegExp ? missing.test(key) : missing;
+}
+function handleMissing(context, key, locale, missingWarn, type) {
+  const { missing, onWarn } = context;
+  if (missing !== null) {
+    const ret = missing(context, locale, key, type);
+    return shared$1.isString(ret) ? ret : key;
+  } else {
+    return key;
+  }
+}
 function updateFallbackLocale(ctx, locale, fallback) {
   const context = ctx;
   context.__localeChainCache = new Map();
-  getLocaleChain(ctx, fallback, locale);
+  ctx.localeFallbacker(ctx, fallback, locale);
 }
 const defaultOnCacheKey = (source) => source;
 let compileCache = Object.create(null);
@@ -3103,31 +4869,44 @@ function compileToFunction(source, options = {}) {
       return cached;
     }
     let occurred = false;
-    const onError = options.onError || defaultOnError$1;
+    const onError = options.onError || messageCompiler.defaultOnError;
     options.onError = (err) => {
       occurred = true;
       onError(err);
     };
-    const { code } = baseCompile$1(source, options);
-    const msg = new Function(`return ${code}`)();
+    const { code: code2 } = messageCompiler.baseCompile(source, options);
+    const msg = new Function(`return ${code2}`)();
     return !occurred ? compileCache[key] = msg : msg;
   }
 }
-function createCoreError(code) {
-  return createCompileError(code, null, void 0);
+let code$1 = messageCompiler.CompileErrorCodes.__EXTEND_POINT__;
+const inc$1 = () => code$1++;
+const CoreErrorCodes = {
+  INVALID_ARGUMENT: code$1,
+  INVALID_DATE_ARGUMENT: inc$1(),
+  INVALID_ISO_DATE_ARGUMENT: inc$1(),
+  __EXTEND_POINT__: inc$1()
+};
+function createCoreError(code2) {
+  return messageCompiler.createCompileError(code2, null, void 0);
 }
+({
+  [CoreErrorCodes.INVALID_ARGUMENT]: "Invalid arguments",
+  [CoreErrorCodes.INVALID_DATE_ARGUMENT]: "The date provided is an invalid Date object.Make sure your Date represents a valid date.",
+  [CoreErrorCodes.INVALID_ISO_DATE_ARGUMENT]: "The argument provided is not a valid ISO date string"
+});
 const NOOP_MESSAGE_FUNCTION = () => "";
-const isMessageFunction = (val) => isFunction(val);
+const isMessageFunction = (val) => shared$1.isFunction(val);
 function translate(context, ...args) {
   const { fallbackFormat, postTranslation, unresolving, fallbackLocale, messages } = context;
   const [key, options] = parseTranslateArgs(...args);
-  const missingWarn = isBoolean(options.missingWarn) ? options.missingWarn : context.missingWarn;
-  const fallbackWarn = isBoolean(options.fallbackWarn) ? options.fallbackWarn : context.fallbackWarn;
-  const escapeParameter = isBoolean(options.escapeParameter) ? options.escapeParameter : context.escapeParameter;
+  const missingWarn = shared$1.isBoolean(options.missingWarn) ? options.missingWarn : context.missingWarn;
+  const fallbackWarn = shared$1.isBoolean(options.fallbackWarn) ? options.fallbackWarn : context.fallbackWarn;
+  const escapeParameter = shared$1.isBoolean(options.escapeParameter) ? options.escapeParameter : context.escapeParameter;
   const resolvedMessage = !!options.resolvedMessage;
-  const defaultMsgOrKey = isString(options.default) || isBoolean(options.default) ? !isBoolean(options.default) ? options.default : key : fallbackFormat ? key : "";
+  const defaultMsgOrKey = shared$1.isString(options.default) || shared$1.isBoolean(options.default) ? !shared$1.isBoolean(options.default) ? options.default : key : fallbackFormat ? key : "";
   const enableDefaultMsg = fallbackFormat || defaultMsgOrKey !== "";
-  const locale = isString(options.locale) ? options.locale : context.locale;
+  const locale = shared$1.isString(options.locale) ? options.locale : context.locale;
   escapeParameter && escapeParams(options);
   let [format2, targetLocale, message] = !resolvedMessage ? resolveMessageFormat(context, key, locale, fallbackLocale, fallbackWarn, missingWarn) : [
     key,
@@ -3135,13 +4914,13 @@ function translate(context, ...args) {
     messages[locale] || {}
   ];
   let cacheBaseKey = key;
-  if (!resolvedMessage && !(isString(format2) || isMessageFunction(format2))) {
+  if (!resolvedMessage && !(shared$1.isString(format2) || isMessageFunction(format2))) {
     if (enableDefaultMsg) {
       format2 = defaultMsgOrKey;
       cacheBaseKey = format2;
     }
   }
-  if (!resolvedMessage && (!(isString(format2) || isMessageFunction(format2)) || !isString(targetLocale))) {
+  if (!resolvedMessage && (!(shared$1.isString(format2) || isMessageFunction(format2)) || !shared$1.isString(targetLocale))) {
     return unresolving ? NOT_REOSLVED : key;
   }
   let occurred = false;
@@ -3156,33 +4935,22 @@ function translate(context, ...args) {
   const msgContext = createMessageContext(ctxOptions);
   const messaged = evaluateMessage(context, msg, msgContext);
   const ret = postTranslation ? postTranslation(messaged) : messaged;
-  if (__INTLIFY_PROD_DEVTOOLS__) {
-    const payloads = {
-      timestamp: Date.now(),
-      key: isString(key) ? key : isMessageFunction(format2) ? format2.key : "",
-      locale: targetLocale || (isMessageFunction(format2) ? format2.locale : ""),
-      format: isString(format2) ? format2 : isMessageFunction(format2) ? format2.source : "",
-      message: ret
-    };
-    payloads.meta = assign({}, context.__meta, getAdditionalMeta() || {});
-    translateDevTools(payloads);
-  }
   return ret;
 }
 function escapeParams(options) {
-  if (isArray(options.list)) {
-    options.list = options.list.map((item) => isString(item) ? escapeHtml(item) : item);
-  } else if (isObject$1(options.named)) {
+  if (shared$1.isArray(options.list)) {
+    options.list = options.list.map((item) => shared$1.isString(item) ? shared$1.escapeHtml(item) : item);
+  } else if (shared$1.isObject(options.named)) {
     Object.keys(options.named).forEach((key) => {
-      if (isString(options.named[key])) {
-        options.named[key] = escapeHtml(options.named[key]);
+      if (shared$1.isString(options.named[key])) {
+        options.named[key] = shared$1.escapeHtml(options.named[key]);
       }
     });
   }
 }
 function resolveMessageFormat(context, key, locale, fallbackLocale, fallbackWarn, missingWarn) {
-  const { messages, onWarn } = context;
-  const locales = getLocaleChain(context, fallbackLocale, locale);
+  const { messages, onWarn, messageResolver: resolveValue2, localeFallbacker } = context;
+  const locales = localeFallbacker(context, fallbackLocale, locale);
   let message = {};
   let targetLocale;
   let format2 = null;
@@ -3190,10 +4958,10 @@ function resolveMessageFormat(context, key, locale, fallbackLocale, fallbackWarn
   for (let i = 0; i < locales.length; i++) {
     targetLocale = locales[i];
     message = messages[targetLocale] || {};
-    if ((format2 = resolveValue(message, key)) === null) {
+    if ((format2 = resolveValue2(message, key)) === null) {
       format2 = message[key];
     }
-    if (isString(format2) || isFunction(format2))
+    if (shared$1.isString(format2) || shared$1.isFunction(format2))
       break;
     const missingRet = handleMissing(context, key, targetLocale, missingWarn, type);
     if (missingRet !== key) {
@@ -3203,14 +4971,14 @@ function resolveMessageFormat(context, key, locale, fallbackLocale, fallbackWarn
   return [format2, targetLocale, message];
 }
 function compileMessageFormat(context, key, targetLocale, format2, cacheBaseKey, errorDetector) {
-  const { messageCompiler, warnHtmlMessage } = context;
+  const { messageCompiler: messageCompiler2, warnHtmlMessage } = context;
   if (isMessageFunction(format2)) {
     const msg2 = format2;
     msg2.locale = msg2.locale || targetLocale;
     msg2.key = msg2.key || key;
     return msg2;
   }
-  const msg = messageCompiler(format2, getCompileOptions(context, targetLocale, cacheBaseKey, format2, warnHtmlMessage, errorDetector));
+  const msg = messageCompiler2(format2, getCompileOptions(context, targetLocale, cacheBaseKey, format2, warnHtmlMessage, errorDetector));
   msg.locale = targetLocale;
   msg.key = key;
   msg.source = format2;
@@ -3223,25 +4991,25 @@ function evaluateMessage(context, msg, msgCtx) {
 function parseTranslateArgs(...args) {
   const [arg1, arg2, arg3] = args;
   const options = {};
-  if (!isString(arg1) && !isNumber(arg1) && !isMessageFunction(arg1)) {
-    throw createCoreError(14);
+  if (!shared$1.isString(arg1) && !shared$1.isNumber(arg1) && !isMessageFunction(arg1)) {
+    throw createCoreError(CoreErrorCodes.INVALID_ARGUMENT);
   }
-  const key = isNumber(arg1) ? String(arg1) : isMessageFunction(arg1) ? arg1 : arg1;
-  if (isNumber(arg2)) {
+  const key = shared$1.isNumber(arg1) ? String(arg1) : isMessageFunction(arg1) ? arg1 : arg1;
+  if (shared$1.isNumber(arg2)) {
     options.plural = arg2;
-  } else if (isString(arg2)) {
+  } else if (shared$1.isString(arg2)) {
     options.default = arg2;
-  } else if (isPlainObject(arg2) && !isEmptyObject(arg2)) {
+  } else if (shared$1.isPlainObject(arg2) && !shared$1.isEmptyObject(arg2)) {
     options.named = arg2;
-  } else if (isArray(arg2)) {
+  } else if (shared$1.isArray(arg2)) {
     options.list = arg2;
   }
-  if (isNumber(arg3)) {
+  if (shared$1.isNumber(arg3)) {
     options.plural = arg3;
-  } else if (isString(arg3)) {
+  } else if (shared$1.isString(arg3)) {
     options.default = arg3;
-  } else if (isPlainObject(arg3)) {
-    assign(options, arg3);
+  } else if (shared$1.isPlainObject(arg3)) {
+    shared$1.assign(options, arg3);
   }
   return [key, options];
 }
@@ -3254,14 +5022,14 @@ function getCompileOptions(context, locale, key, source, warnHtmlMessage, errorD
         throw err;
       }
     },
-    onCacheKey: (source2) => generateFormatCacheKey(locale, key, source2)
+    onCacheKey: (source2) => shared$1.generateFormatCacheKey(locale, key, source2)
   };
 }
 function getMessageContextOptions(context, locale, message, options) {
-  const { modifiers, pluralRules } = context;
+  const { modifiers, pluralRules, messageResolver: resolveValue2 } = context;
   const resolveMessage = (key) => {
-    const val = resolveValue(message, key);
-    if (isString(val)) {
+    const val = resolveValue2(message, key);
+    if (shared$1.isString(val)) {
       let occurred = false;
       const errorDetector = () => {
         occurred = true;
@@ -3289,21 +5057,21 @@ function getMessageContextOptions(context, locale, message, options) {
   if (options.named) {
     ctxOptions.named = options.named;
   }
-  if (isNumber(options.plural)) {
+  if (shared$1.isNumber(options.plural)) {
     ctxOptions.pluralIndex = options.plural;
   }
   return ctxOptions;
 }
 function datetime(context, ...args) {
-  const { datetimeFormats, unresolving, fallbackLocale, onWarn } = context;
+  const { datetimeFormats, unresolving, fallbackLocale, onWarn, localeFallbacker } = context;
   const { __datetimeFormatters } = context;
   const [key, value, options, overrides] = parseDateTimeArgs(...args);
-  const missingWarn = isBoolean(options.missingWarn) ? options.missingWarn : context.missingWarn;
-  isBoolean(options.fallbackWarn) ? options.fallbackWarn : context.fallbackWarn;
+  const missingWarn = shared$1.isBoolean(options.missingWarn) ? options.missingWarn : context.missingWarn;
+  shared$1.isBoolean(options.fallbackWarn) ? options.fallbackWarn : context.fallbackWarn;
   const part = !!options.part;
-  const locale = isString(options.locale) ? options.locale : context.locale;
-  const locales = getLocaleChain(context, fallbackLocale, locale);
-  if (!isString(key) || key === "") {
+  const locale = shared$1.isString(options.locale) ? options.locale : context.locale;
+  const locales = localeFallbacker(context, fallbackLocale, locale);
+  if (!shared$1.isString(key) || key === "") {
     return new Intl.DateTimeFormat(locale).format(value);
   }
   let datetimeFormat = {};
@@ -3314,20 +5082,20 @@ function datetime(context, ...args) {
     targetLocale = locales[i];
     datetimeFormat = datetimeFormats[targetLocale] || {};
     format2 = datetimeFormat[key];
-    if (isPlainObject(format2))
+    if (shared$1.isPlainObject(format2))
       break;
     handleMissing(context, key, targetLocale, missingWarn, type);
   }
-  if (!isPlainObject(format2) || !isString(targetLocale)) {
+  if (!shared$1.isPlainObject(format2) || !shared$1.isString(targetLocale)) {
     return unresolving ? NOT_REOSLVED : key;
   }
   let id = `${targetLocale}__${key}`;
-  if (!isEmptyObject(overrides)) {
+  if (!shared$1.isEmptyObject(overrides)) {
     id = `${id}__${JSON.stringify(overrides)}`;
   }
   let formatter = __datetimeFormatters.get(id);
   if (!formatter) {
-    formatter = new Intl.DateTimeFormat(targetLocale, assign({}, format2, overrides));
+    formatter = new Intl.DateTimeFormat(targetLocale, shared$1.assign({}, format2, overrides));
     __datetimeFormatters.set(id, formatter);
   }
   return !part ? formatter.format(value) : formatter.formatToParts(value);
@@ -3337,37 +5105,39 @@ function parseDateTimeArgs(...args) {
   let options = {};
   let overrides = {};
   let value;
-  if (isString(arg1)) {
-    if (!/\d{4}-\d{2}-\d{2}(T.*)?/.test(arg1)) {
-      throw createCoreError(16);
+  if (shared$1.isString(arg1)) {
+    const matches = arg1.match(/(\d{4}-\d{2}-\d{2})(T|\s)?(.*)/);
+    if (!matches) {
+      throw createCoreError(CoreErrorCodes.INVALID_ISO_DATE_ARGUMENT);
     }
-    value = new Date(arg1);
+    const dateTime = matches[3] ? matches[3].trim().startsWith("T") ? `${matches[1].trim()}${matches[3].trim()}` : `${matches[1].trim()}T${matches[3].trim()}` : matches[1].trim();
+    value = new Date(dateTime);
     try {
       value.toISOString();
     } catch (e) {
-      throw createCoreError(16);
+      throw createCoreError(CoreErrorCodes.INVALID_ISO_DATE_ARGUMENT);
     }
-  } else if (isDate(arg1)) {
+  } else if (shared$1.isDate(arg1)) {
     if (isNaN(arg1.getTime())) {
-      throw createCoreError(15);
+      throw createCoreError(CoreErrorCodes.INVALID_DATE_ARGUMENT);
     }
     value = arg1;
-  } else if (isNumber(arg1)) {
+  } else if (shared$1.isNumber(arg1)) {
     value = arg1;
   } else {
-    throw createCoreError(14);
+    throw createCoreError(CoreErrorCodes.INVALID_ARGUMENT);
   }
-  if (isString(arg2)) {
+  if (shared$1.isString(arg2)) {
     options.key = arg2;
-  } else if (isPlainObject(arg2)) {
+  } else if (shared$1.isPlainObject(arg2)) {
     options = arg2;
   }
-  if (isString(arg3)) {
+  if (shared$1.isString(arg3)) {
     options.locale = arg3;
-  } else if (isPlainObject(arg3)) {
+  } else if (shared$1.isPlainObject(arg3)) {
     overrides = arg3;
   }
-  if (isPlainObject(arg4)) {
+  if (shared$1.isPlainObject(arg4)) {
     overrides = arg4;
   }
   return [options.key || "", value, options, overrides];
@@ -3383,15 +5153,15 @@ function clearDateTimeFormat(ctx, locale, format2) {
   }
 }
 function number(context, ...args) {
-  const { numberFormats, unresolving, fallbackLocale, onWarn } = context;
+  const { numberFormats, unresolving, fallbackLocale, onWarn, localeFallbacker } = context;
   const { __numberFormatters } = context;
   const [key, value, options, overrides] = parseNumberArgs(...args);
-  const missingWarn = isBoolean(options.missingWarn) ? options.missingWarn : context.missingWarn;
-  isBoolean(options.fallbackWarn) ? options.fallbackWarn : context.fallbackWarn;
+  const missingWarn = shared$1.isBoolean(options.missingWarn) ? options.missingWarn : context.missingWarn;
+  shared$1.isBoolean(options.fallbackWarn) ? options.fallbackWarn : context.fallbackWarn;
   const part = !!options.part;
-  const locale = isString(options.locale) ? options.locale : context.locale;
-  const locales = getLocaleChain(context, fallbackLocale, locale);
-  if (!isString(key) || key === "") {
+  const locale = shared$1.isString(options.locale) ? options.locale : context.locale;
+  const locales = localeFallbacker(context, fallbackLocale, locale);
+  if (!shared$1.isString(key) || key === "") {
     return new Intl.NumberFormat(locale).format(value);
   }
   let numberFormat = {};
@@ -3402,20 +5172,20 @@ function number(context, ...args) {
     targetLocale = locales[i];
     numberFormat = numberFormats[targetLocale] || {};
     format2 = numberFormat[key];
-    if (isPlainObject(format2))
+    if (shared$1.isPlainObject(format2))
       break;
     handleMissing(context, key, targetLocale, missingWarn, type);
   }
-  if (!isPlainObject(format2) || !isString(targetLocale)) {
+  if (!shared$1.isPlainObject(format2) || !shared$1.isString(targetLocale)) {
     return unresolving ? NOT_REOSLVED : key;
   }
   let id = `${targetLocale}__${key}`;
-  if (!isEmptyObject(overrides)) {
+  if (!shared$1.isEmptyObject(overrides)) {
     id = `${id}__${JSON.stringify(overrides)}`;
   }
   let formatter = __numberFormatters.get(id);
   if (!formatter) {
-    formatter = new Intl.NumberFormat(targetLocale, assign({}, format2, overrides));
+    formatter = new Intl.NumberFormat(targetLocale, shared$1.assign({}, format2, overrides));
     __numberFormatters.set(id, formatter);
   }
   return !part ? formatter.format(value) : formatter.formatToParts(value);
@@ -3424,21 +5194,21 @@ function parseNumberArgs(...args) {
   const [arg1, arg2, arg3, arg4] = args;
   let options = {};
   let overrides = {};
-  if (!isNumber(arg1)) {
-    throw createCoreError(14);
+  if (!shared$1.isNumber(arg1)) {
+    throw createCoreError(CoreErrorCodes.INVALID_ARGUMENT);
   }
   const value = arg1;
-  if (isString(arg2)) {
+  if (shared$1.isString(arg2)) {
     options.key = arg2;
-  } else if (isPlainObject(arg2)) {
+  } else if (shared$1.isPlainObject(arg2)) {
     options = arg2;
   }
-  if (isString(arg3)) {
+  if (shared$1.isString(arg3)) {
     options.locale = arg3;
-  } else if (isPlainObject(arg3)) {
+  } else if (shared$1.isPlainObject(arg3)) {
     overrides = arg3;
   }
-  if (isPlainObject(arg4)) {
+  if (shared$1.isPlainObject(arg4)) {
     overrides = arg4;
   }
   return [options.key || "", value, options, overrides];
@@ -3453,51 +5223,51 @@ function clearNumberFormat(ctx, locale, format2) {
     context.__numberFormatters.delete(id);
   }
 }
+coreBase_cjs_prod.CompileErrorCodes = messageCompiler.CompileErrorCodes;
+coreBase_cjs_prod.createCompileError = messageCompiler.createCompileError;
+coreBase_cjs_prod.CoreErrorCodes = CoreErrorCodes;
+coreBase_cjs_prod.CoreWarnCodes = CoreWarnCodes;
+coreBase_cjs_prod.DEFAULT_LOCALE = DEFAULT_LOCALE;
+coreBase_cjs_prod.DEFAULT_MESSAGE_DATA_TYPE = DEFAULT_MESSAGE_DATA_TYPE;
+coreBase_cjs_prod.MISSING_RESOLVE_VALUE = MISSING_RESOLVE_VALUE;
+coreBase_cjs_prod.NOT_REOSLVED = NOT_REOSLVED;
+coreBase_cjs_prod.VERSION = VERSION$1;
+coreBase_cjs_prod.clearCompileCache = clearCompileCache;
+coreBase_cjs_prod.clearDateTimeFormat = clearDateTimeFormat;
+coreBase_cjs_prod.clearNumberFormat = clearNumberFormat;
+coreBase_cjs_prod.compileToFunction = compileToFunction;
+coreBase_cjs_prod.createCoreContext = createCoreContext;
+coreBase_cjs_prod.createCoreError = createCoreError;
+coreBase_cjs_prod.createMessageContext = createMessageContext;
+coreBase_cjs_prod.datetime = datetime;
+coreBase_cjs_prod.fallbackWithLocaleChain = fallbackWithLocaleChain;
+coreBase_cjs_prod.fallbackWithSimple = fallbackWithSimple;
+coreBase_cjs_prod.getAdditionalMeta = getAdditionalMeta;
+coreBase_cjs_prod.getDevToolsHook = getDevToolsHook;
+coreBase_cjs_prod.getWarnMessage = getWarnMessage;
+coreBase_cjs_prod.handleMissing = handleMissing;
+coreBase_cjs_prod.initI18nDevTools = initI18nDevTools;
+coreBase_cjs_prod.isMessageFunction = isMessageFunction;
+coreBase_cjs_prod.isTranslateFallbackWarn = isTranslateFallbackWarn;
+coreBase_cjs_prod.isTranslateMissingWarn = isTranslateMissingWarn;
+coreBase_cjs_prod.number = number;
+coreBase_cjs_prod.parse = parse$1;
+coreBase_cjs_prod.parseDateTimeArgs = parseDateTimeArgs;
+coreBase_cjs_prod.parseNumberArgs = parseNumberArgs;
+coreBase_cjs_prod.parseTranslateArgs = parseTranslateArgs;
+coreBase_cjs_prod.registerLocaleFallbacker = registerLocaleFallbacker;
+coreBase_cjs_prod.registerMessageCompiler = registerMessageCompiler;
+coreBase_cjs_prod.registerMessageResolver = registerMessageResolver;
+coreBase_cjs_prod.resolveValue = resolveValue;
+coreBase_cjs_prod.resolveWithKeyValue = resolveWithKeyValue;
+coreBase_cjs_prod.setAdditionalMeta = setAdditionalMeta;
+coreBase_cjs_prod.setDevToolsHook = setDevToolsHook;
+coreBase_cjs_prod.translate = translate;
+coreBase_cjs_prod.translateDevTools = translateDevTools;
+coreBase_cjs_prod.updateFallbackLocale = updateFallbackLocale;
 {
-  if (typeof __INTLIFY_PROD_DEVTOOLS__ !== "boolean") {
-    getGlobalThis().__INTLIFY_PROD_DEVTOOLS__ = false;
-  }
+  coreBase$1.exports = coreBase_cjs_prod;
 }
-var coreBase_esmBundler = /* @__PURE__ */ Object.freeze({
-  __proto__: null,
-  [Symbol.toStringTag]: "Module",
-  MISSING_RESOLVE_VALUE,
-  NOT_REOSLVED,
-  VERSION: VERSION$1,
-  clearCompileCache,
-  clearDateTimeFormat,
-  clearNumberFormat,
-  compileToFunction,
-  createCoreContext,
-  createCoreError,
-  datetime,
-  getAdditionalMeta,
-  getDevToolsHook,
-  getLocaleChain,
-  getWarnMessage,
-  handleMissing,
-  initI18nDevTools,
-  isMessageFunction,
-  isTranslateFallbackWarn,
-  isTranslateMissingWarn,
-  number,
-  parseDateTimeArgs,
-  parseNumberArgs,
-  parseTranslateArgs,
-  registerMessageCompiler,
-  setAdditionalMeta,
-  setDevToolsHook,
-  translate,
-  translateDevTools,
-  updateFallbackLocale,
-  createCompileError,
-  handleFlatJson,
-  parse: parse$1,
-  resolveValue,
-  DEFAULT_MESSAGE_DATA_TYPE,
-  createMessageContext
-});
-var require$$0$1 = /* @__PURE__ */ getAugmentedNamespace(coreBase_esmBundler);
 var vue$1 = { exports: {} };
 var vue_cjs_prod = {};
 function defaultOnError(error) {
@@ -3505,10 +5275,10 @@ function defaultOnError(error) {
 }
 function defaultOnWarn(msg) {
 }
-function createCompilerError(code, loc, messages, additionalMessage) {
-  const msg = code;
+function createCompilerError(code2, loc, messages, additionalMessage) {
+  const msg = code2;
   const error = new SyntaxError(String(msg));
-  error.code = code;
+  error.code = code2;
   error.loc = loc;
   return error;
 }
@@ -4037,7 +5807,7 @@ function hasScopeRef(node, ids) {
     case 4:
       return !node.isStatic && isSimpleIdentifier(node.content) && !!ids[node.content];
     case 8:
-      return node.children.some((c) => isObject$3(c) && hasScopeRef(c, ids));
+      return node.children.some((c) => isObject$2(c) && hasScopeRef(c, ids));
     case 5:
     case 12:
       return hasScopeRef(node.content, ids);
@@ -4739,12 +6509,12 @@ function advanceSpaces(context) {
 function getNewPosition(context, start, numberOfCharacters) {
   return advancePositionWithClone(start, context.originalSource.slice(start.offset, numberOfCharacters), numberOfCharacters);
 }
-function emitError(context, code, offset, loc = getCursor(context)) {
+function emitError(context, code2, offset, loc = getCursor(context)) {
   if (offset) {
     loc.offset += offset;
     loc.column += offset;
   }
-  context.options.onError(createCompilerError(code, {
+  context.options.onError(createCompilerError(code2, {
     start: loc,
     end: loc,
     source: ""
@@ -5242,11 +7012,11 @@ function createStructuralDirectiveTransform(name, fn) {
   };
 }
 const PURE_ANNOTATION = `/*#__PURE__*/`;
-function createCodegenContext(ast, { mode = "function", prefixIdentifiers = mode === "module", sourceMap = false, filename = `template.vue.html`, scopeId = null, optimizeImports = false, runtimeGlobalName = `Vue`, runtimeModuleName = `vue`, ssrRuntimeModuleName = "vue/server-renderer", ssr = false, isTS = false, inSSR = false }) {
+function createCodegenContext(ast, { mode = "function", prefixIdentifiers = mode === "module", sourceMap: sourceMap2 = false, filename = `template.vue.html`, scopeId = null, optimizeImports = false, runtimeGlobalName = `Vue`, runtimeModuleName = `vue`, ssrRuntimeModuleName = "vue/server-renderer", ssr = false, isTS = false, inSSR = false }) {
   const context = {
     mode,
     prefixIdentifiers,
-    sourceMap,
+    sourceMap: sourceMap2,
     filename,
     scopeId,
     optimizeImports,
@@ -5267,8 +7037,8 @@ function createCodegenContext(ast, { mode = "function", prefixIdentifiers = mode
     helper(key) {
       return `_${helperNameMap[key]}`;
     },
-    push(code, node) {
-      context.code += code;
+    push(code2, node) {
+      context.code += code2;
     },
     indent() {
       newline(++context.indentLevel);
@@ -6305,7 +8075,7 @@ const transformElement = (node, context) => {
     const { tag, props } = node;
     const isComponent2 = node.tagType === 1;
     let vnodeTag = isComponent2 ? resolveComponentType(node, context) : `"${tag}"`;
-    const isDynamicComponent = isObject$3(vnodeTag) && vnodeTag.callee === RESOLVE_DYNAMIC_COMPONENT;
+    const isDynamicComponent = isObject$2(vnodeTag) && vnodeTag.callee === RESOLVE_DYNAMIC_COMPONENT;
     let vnodeProps;
     let vnodeChildren;
     let vnodePatchFlag;
@@ -7287,8 +9057,8 @@ const parseInlineCSS = (cssText, loc) => {
   const normalized = parseStringStyle(cssText);
   return createSimpleExpression(JSON.stringify(normalized), false, loc, 3);
 };
-function createDOMCompilerError(code, loc) {
-  return createCompilerError(code, loc);
+function createDOMCompilerError(code2, loc) {
+  return createCompilerError(code2, loc);
 }
 const transformVHtml = (dir, node, context) => {
   const { exp, loc } = dir;
@@ -7642,12 +9412,12 @@ var compilerDom_esmBundler = /* @__PURE__ */ Object.freeze({
 });
 var require$$0 = /* @__PURE__ */ getAugmentedNamespace(compilerDom_esmBundler);
 var require$$1 = /* @__PURE__ */ getAugmentedNamespace(runtimeDom_esmBundler);
-var require$$2$1 = /* @__PURE__ */ getAugmentedNamespace(shared_esmBundler$1);
+var require$$2 = /* @__PURE__ */ getAugmentedNamespace(shared_esmBundler);
 (function(exports) {
   Object.defineProperty(exports, "__esModule", { value: true });
   var compilerDom = require$$0;
   var runtimeDom = require$$1;
-  var shared2 = require$$2$1;
+  var shared2 = require$$2;
   function _interopNamespace(e) {
     if (e && e.__esModule)
       return e;
@@ -7679,12 +9449,12 @@ var require$$2$1 = /* @__PURE__ */ getAugmentedNamespace(shared_esmBundler$1);
       const el = document.querySelector(template);
       template = el ? el.innerHTML : ``;
     }
-    const { code } = compilerDom.compile(template, shared2.extend({
+    const { code: code2 } = compilerDom.compile(template, shared2.extend({
       hoistStatic: true,
       onError: void 0,
       onWarn: shared2.NOOP
     }, options));
-    const render = new Function("Vue", code)(runtimeDom__namespace);
+    const render = new Function("Vue", code2)(runtimeDom__namespace);
     render._rc = true;
     return compileCache2[key] = render;
   }
@@ -7698,51 +9468,95 @@ var require$$2$1 = /* @__PURE__ */ getAugmentedNamespace(shared_esmBundler$1);
 {
   vue$1.exports = vue_cjs_prod;
 }
-var require$$2 = /* @__PURE__ */ getAugmentedNamespace(shared_esmBundler);
 /*!
-  * vue-i18n v9.1.9
+  * vue-i18n v9.2.0-beta.12
   * (c) 2021 kazuya kawaguchi
   * Released under the MIT License.
   */
 Object.defineProperty(vueI18n_cjs_prod, "__esModule", { value: true });
-var coreBase = require$$0$1;
+var coreBase = coreBase$1.exports;
 var vue = vue$1.exports;
-var shared = require$$2;
-const VERSION = "9.1.9";
-function createI18nError(code, ...args) {
-  return coreBase.createCompileError(code, null, void 0);
+var shared = shared$3.exports;
+const VERSION = "9.2.0-beta.12";
+let code = coreBase.CompileErrorCodes.__EXTEND_POINT__;
+const inc = () => code++;
+const I18nErrorCodes = {
+  UNEXPECTED_RETURN_TYPE: code,
+  INVALID_ARGUMENT: inc(),
+  MUST_BE_CALL_SETUP_TOP: inc(),
+  NOT_INSLALLED: inc(),
+  NOT_AVAILABLE_IN_LEGACY_MODE: inc(),
+  REQUIRED_VALUE: inc(),
+  INVALID_VALUE: inc(),
+  CANNOT_SETUP_VUE_DEVTOOLS_PLUGIN: inc(),
+  NOT_INSLALLED_WITH_PROVIDE: inc(),
+  UNEXPECTED_ERROR: inc(),
+  NOT_COMPATIBLE_LEGACY_VUE_I18N: inc(),
+  BRIDGE_SUPPORT_VUE_2_ONLY: inc(),
+  __EXTEND_POINT__: inc()
+};
+function createI18nError(code2, ...args) {
+  return coreBase.createCompileError(code2, null, void 0);
 }
-const TransrateVNodeSymbol = shared.makeSymbol("__transrateVNode");
-const DatetimePartsSymbol = shared.makeSymbol("__datetimeParts");
-const NumberPartsSymbol = shared.makeSymbol("__numberParts");
-shared.makeSymbol("__enableEmitter");
-shared.makeSymbol("__disableEmitter");
+const TransrateVNodeSymbol = /* @__PURE__ */ shared.makeSymbol("__transrateVNode");
+const DatetimePartsSymbol = /* @__PURE__ */ shared.makeSymbol("__datetimeParts");
+const NumberPartsSymbol = /* @__PURE__ */ shared.makeSymbol("__numberParts");
 const SetPluralRulesSymbol = shared.makeSymbol("__setPluralRules");
 shared.makeSymbol("__intlifyMeta");
-const InejctWithOption = shared.makeSymbol("__injectWithOption");
-let composerID = 0;
-function defineCoreMissingHandler(missing) {
-  return (ctx, locale, key, type) => {
-    return missing(locale, key, vue.getCurrentInstance() || void 0, type);
-  };
+const InejctWithOption = /* @__PURE__ */ shared.makeSymbol("__injectWithOption");
+function handleFlatJson(obj) {
+  if (!shared.isObject(obj)) {
+    return obj;
+  }
+  for (const key in obj) {
+    if (!shared.hasOwn(obj, key)) {
+      continue;
+    }
+    if (!key.includes(".")) {
+      if (shared.isObject(obj[key])) {
+        handleFlatJson(obj[key]);
+      }
+    } else {
+      const subKeys = key.split(".");
+      const lastIndex = subKeys.length - 1;
+      let currentObj = obj;
+      for (let i = 0; i < lastIndex; i++) {
+        if (!(subKeys[i] in currentObj)) {
+          currentObj[subKeys[i]] = {};
+        }
+        currentObj = currentObj[subKeys[i]];
+      }
+      currentObj[subKeys[lastIndex]] = obj[key];
+      delete obj[key];
+      if (shared.isObject(currentObj[subKeys[lastIndex]])) {
+        handleFlatJson(currentObj[subKeys[lastIndex]]);
+      }
+    }
+  }
+  return obj;
 }
 function getLocaleMessages(locale, options) {
-  const { messages, __i18n } = options;
+  const { messages, __i18n, messageResolver, flatJson } = options;
   const ret = shared.isPlainObject(messages) ? messages : shared.isArray(__i18n) ? {} : { [locale]: {} };
   if (shared.isArray(__i18n)) {
-    __i18n.forEach(({ locale: locale2, resource }) => {
-      if (locale2) {
-        ret[locale2] = ret[locale2] || {};
-        deepCopy(resource, ret[locale2]);
+    __i18n.forEach((custom) => {
+      if ("locale" in custom && "resource" in custom) {
+        const { locale: locale2, resource } = custom;
+        if (locale2) {
+          ret[locale2] = ret[locale2] || {};
+          deepCopy(resource, ret[locale2]);
+        } else {
+          deepCopy(resource, ret);
+        }
       } else {
-        deepCopy(resource, ret);
+        shared.isString(custom) && deepCopy(JSON.parse(custom), ret);
       }
     });
   }
-  if (options.flatJson) {
+  if (messageResolver == null && flatJson) {
     for (const key in ret) {
       if (shared.hasOwn(ret, key)) {
-        coreBase.handleFlatJson(ret[key]);
+        handleFlatJson(ret[key]);
       }
     }
   }
@@ -7751,7 +9565,7 @@ function getLocaleMessages(locale, options) {
 const isNotObjectOrIsArray = (val) => !shared.isObject(val) || shared.isArray(val);
 function deepCopy(src, des) {
   if (isNotObjectOrIsArray(src) || isNotObjectOrIsArray(des)) {
-    throw createI18nError(20);
+    throw createI18nError(I18nErrorCodes.INVALID_VALUE);
   }
   for (const key in src) {
     if (shared.hasOwn(src, key)) {
@@ -7763,11 +9577,20 @@ function deepCopy(src, des) {
     }
   }
 }
-function createComposer(options = {}) {
+function getComponentOptions(instance) {
+  return instance.type;
+}
+let composerID = 0;
+function defineCoreMissingHandler(missing) {
+  return (ctx, locale, key, type) => {
+    return missing(locale, key, vue.getCurrentInstance() || void 0, type);
+  };
+}
+function createComposer(options = {}, VueI18nLegacy) {
   const { __root } = options;
   const _isGlobal = __root === void 0;
   let _inheritLocale = shared.isBoolean(options.inheritLocale) ? options.inheritLocale : true;
-  const _locale = vue.ref(__root && _inheritLocale ? __root.locale.value : shared.isString(options.locale) ? options.locale : "en-US");
+  const _locale = vue.ref(__root && _inheritLocale ? __root.locale.value : shared.isString(options.locale) ? options.locale : coreBase.DEFAULT_LOCALE);
   const _fallbackLocale = vue.ref(__root && _inheritLocale ? __root.fallbackLocale.value : shared.isString(options.fallbackLocale) || shared.isArray(options.fallbackLocale) || shared.isPlainObject(options.fallbackLocale) || options.fallbackLocale === false ? options.fallbackLocale : _locale.value);
   const _messages = vue.ref(getLocaleMessages(_locale.value, options));
   const _datetimeFormats = vue.ref(shared.isPlainObject(options.datetimeFormats) ? options.datetimeFormats : { [_locale.value]: {} });
@@ -7785,13 +9608,11 @@ function createComposer(options = {}) {
   let _pluralRules = options.pluralRules || __root && __root.pluralRules;
   let _context;
   function getCoreContext() {
-    return coreBase.createCoreContext({
+    const ctxOptions = {
       version: VERSION,
       locale: _locale.value,
       fallbackLocale: _fallbackLocale.value,
       messages: _messages.value,
-      datetimeFormats: _datetimeFormats.value,
-      numberFormats: _numberFormats.value,
       modifiers: _modifiers,
       pluralRules: _pluralRules,
       missing: _runtimeMissing === null ? void 0 : _runtimeMissing,
@@ -7802,11 +9623,16 @@ function createComposer(options = {}) {
       postTranslation: _postTranslation === null ? void 0 : _postTranslation,
       warnHtmlMessage: _warnHtmlMessage,
       escapeParameter: _escapeParameter,
-      __datetimeFormatters: shared.isPlainObject(_context) ? _context.__datetimeFormatters : void 0,
-      __numberFormatters: shared.isPlainObject(_context) ? _context.__numberFormatters : void 0,
-      __v_emitter: shared.isPlainObject(_context) ? _context.__v_emitter : void 0,
+      messageResolver: options.messageResolver,
       __meta: { framework: "vue" }
-    });
+    };
+    {
+      ctxOptions.datetimeFormats = _datetimeFormats.value;
+      ctxOptions.numberFormats = _numberFormats.value;
+      ctxOptions.__datetimeFormatters = shared.isPlainObject(_context) ? _context.__datetimeFormatters : void 0;
+      ctxOptions.__numberFormatters = shared.isPlainObject(_context) ? _context.__numberFormatters : void 0;
+    }
+    return coreBase.createCoreContext(ctxOptions);
   }
   _context = getCoreContext();
   coreBase.updateFallbackLocale(_context, _locale.value, _fallbackLocale.value);
@@ -7835,8 +9661,8 @@ function createComposer(options = {}) {
     }
   });
   const messages = vue.computed(() => _messages.value);
-  const datetimeFormats = vue.computed(() => _datetimeFormats.value);
-  const numberFormats = vue.computed(() => _numberFormats.value);
+  const datetimeFormats = /* @__PURE__ */ vue.computed(() => _datetimeFormats.value);
+  const numberFormats = /* @__PURE__ */ vue.computed(() => _numberFormats.value);
   function getPostTranslationHandler() {
     return shared.isFunction(_postTranslation) ? _postTranslation : null;
   }
@@ -7866,24 +9692,24 @@ function createComposer(options = {}) {
     } else if (successCondition(ret)) {
       return ret;
     } else {
-      throw createI18nError(14);
+      throw createI18nError(I18nErrorCodes.UNEXPECTED_RETURN_TYPE);
     }
   }
   function t(...args) {
-    return wrapWithDeps((context) => coreBase.translate(context, ...args), () => coreBase.parseTranslateArgs(...args), "translate", (root) => root.t(...args), (key) => key, (val) => shared.isString(val));
+    return wrapWithDeps((context) => Reflect.apply(coreBase.translate, null, [context, ...args]), () => coreBase.parseTranslateArgs(...args), "translate", (root) => Reflect.apply(root.t, root, [...args]), (key) => key, (val) => shared.isString(val));
   }
   function rt(...args) {
     const [arg1, arg2, arg3] = args;
     if (arg3 && !shared.isObject(arg3)) {
-      throw createI18nError(15);
+      throw createI18nError(I18nErrorCodes.INVALID_ARGUMENT);
     }
     return t(...[arg1, arg2, shared.assign({ resolvedMessage: true }, arg3 || {})]);
   }
   function d(...args) {
-    return wrapWithDeps((context) => coreBase.datetime(context, ...args), () => coreBase.parseDateTimeArgs(...args), "datetime format", (root) => root.d(...args), () => coreBase.MISSING_RESOLVE_VALUE, (val) => shared.isString(val));
+    return wrapWithDeps((context) => Reflect.apply(coreBase.datetime, null, [context, ...args]), () => coreBase.parseDateTimeArgs(...args), "datetime format", (root) => Reflect.apply(root.d, root, [...args]), () => coreBase.MISSING_RESOLVE_VALUE, (val) => shared.isString(val));
   }
   function n(...args) {
-    return wrapWithDeps((context) => coreBase.number(context, ...args), () => coreBase.parseNumberArgs(...args), "number format", (root) => root.n(...args), () => coreBase.MISSING_RESOLVE_VALUE, (val) => shared.isString(val));
+    return wrapWithDeps((context) => Reflect.apply(coreBase.number, null, [context, ...args]), () => coreBase.parseNumberArgs(...args), "number format", (root) => Reflect.apply(root.n, root, [...args]), () => coreBase.MISSING_RESOLVE_VALUE, (val) => shared.isString(val));
   }
   function normalize(values) {
     return values.map((val) => shared.isString(val) ? vue.createVNode(vue.Text, null, val, 0) : val);
@@ -7900,7 +9726,7 @@ function createComposer(options = {}) {
       const _context2 = context;
       try {
         _context2.processor = processor;
-        ret = coreBase.translate(_context2, ...args);
+        ret = Reflect.apply(coreBase.translate, null, [_context2, ...args]);
       } finally {
         _context2.processor = null;
       }
@@ -7908,10 +9734,10 @@ function createComposer(options = {}) {
     }, () => coreBase.parseTranslateArgs(...args), "translate", (root) => root[TransrateVNodeSymbol](...args), (key) => [vue.createVNode(vue.Text, null, key, 0)], (val) => shared.isArray(val));
   }
   function numberParts(...args) {
-    return wrapWithDeps((context) => coreBase.number(context, ...args), () => coreBase.parseNumberArgs(...args), "number format", (root) => root[NumberPartsSymbol](...args), () => [], (val) => shared.isString(val) || shared.isArray(val));
+    return wrapWithDeps((context) => Reflect.apply(coreBase.number, null, [context, ...args]), () => coreBase.parseNumberArgs(...args), "number format", (root) => root[NumberPartsSymbol](...args), () => [], (val) => shared.isString(val) || shared.isArray(val));
   }
   function datetimeParts(...args) {
-    return wrapWithDeps((context) => coreBase.datetime(context, ...args), () => coreBase.parseDateTimeArgs(...args), "datetime format", (root) => root[DatetimePartsSymbol](...args), () => [], (val) => shared.isString(val) || shared.isArray(val));
+    return wrapWithDeps((context) => Reflect.apply(coreBase.datetime, null, [context, ...args]), () => coreBase.parseDateTimeArgs(...args), "datetime format", (root) => root[DatetimePartsSymbol](...args), () => [], (val) => shared.isString(val) || shared.isArray(val));
   }
   function setPluralRules(rules) {
     _pluralRules = rules;
@@ -7920,14 +9746,14 @@ function createComposer(options = {}) {
   function te(key, locale2) {
     const targetLocale = shared.isString(locale2) ? locale2 : _locale.value;
     const message = getLocaleMessage(targetLocale);
-    return coreBase.resolveValue(message, key) !== null;
+    return _context.messageResolver(message, key) !== null;
   }
   function resolveMessages(key) {
     let messages2 = null;
-    const locales = coreBase.getLocaleChain(_context, _fallbackLocale.value, _locale.value);
+    const locales = coreBase.fallbackWithLocaleChain(_context, _fallbackLocale.value, _locale.value);
     for (let i = 0; i < locales.length; i++) {
       const targetLocaleMessages = _messages.value[locales[i]] || {};
-      const messageValue = coreBase.resolveValue(targetLocaleMessages, key);
+      const messageValue = _context.messageResolver(targetLocaleMessages, key);
       if (messageValue != null) {
         messages2 = messageValue;
         break;
@@ -8013,8 +9839,6 @@ function createComposer(options = {}) {
       return Object.keys(_messages.value).sort();
     },
     messages,
-    datetimeFormats,
-    numberFormats,
     get modifiers() {
       return _modifiers;
     },
@@ -8066,34 +9890,40 @@ function createComposer(options = {}) {
       _context.escapeParameter = val;
     },
     t,
-    rt,
-    d,
-    n,
-    te,
-    tm,
     getLocaleMessage,
     setLocaleMessage,
     mergeLocaleMessage,
-    getDateTimeFormat,
-    setDateTimeFormat,
-    mergeDateTimeFormat,
-    getNumberFormat,
-    setNumberFormat,
-    mergeNumberFormat,
     getPostTranslationHandler,
     setPostTranslationHandler,
     getMissingHandler,
     setMissingHandler,
-    [TransrateVNodeSymbol]: transrateVNode,
-    [NumberPartsSymbol]: numberParts,
-    [DatetimePartsSymbol]: datetimeParts,
-    [SetPluralRulesSymbol]: setPluralRules,
-    [InejctWithOption]: options.__injectWithOption
+    [SetPluralRulesSymbol]: setPluralRules
   };
+  {
+    composer.datetimeFormats = datetimeFormats;
+    composer.numberFormats = numberFormats;
+    composer.rt = rt;
+    composer.te = te;
+    composer.tm = tm;
+    composer.d = d;
+    composer.n = n;
+    composer.getDateTimeFormat = getDateTimeFormat;
+    composer.setDateTimeFormat = setDateTimeFormat;
+    composer.mergeDateTimeFormat = mergeDateTimeFormat;
+    composer.getNumberFormat = getNumberFormat;
+    composer.setNumberFormat = setNumberFormat;
+    composer.mergeNumberFormat = mergeNumberFormat;
+    composer[InejctWithOption] = options.__injectWithOption;
+    {
+      composer[TransrateVNodeSymbol] = transrateVNode;
+      composer[NumberPartsSymbol] = numberParts;
+      composer[DatetimePartsSymbol] = datetimeParts;
+    }
+  }
   return composer;
 }
 function convertComposerOptions(options) {
-  const locale = shared.isString(options.locale) ? options.locale : "en-US";
+  const locale = shared.isString(options.locale) ? options.locale : coreBase.DEFAULT_LOCALE;
   const fallbackLocale = shared.isString(options.fallbackLocale) || shared.isArray(options.fallbackLocale) || shared.isPlainObject(options.fallbackLocale) || options.fallbackLocale === false ? options.fallbackLocale : locale;
   const missing = shared.isFunction(options.missing) ? options.missing : void 0;
   const missingWarn = shared.isBoolean(options.silentTranslationWarn) || shared.isRegExp(options.silentTranslationWarn) ? !options.silentTranslationWarn : true;
@@ -8137,212 +9967,223 @@ function convertComposerOptions(options) {
     postTranslation,
     warnHtmlMessage,
     escapeParameter,
+    messageResolver: options.messageResolver,
     inheritLocale,
     __i18n,
     __root,
     __injectWithOption
   };
 }
-function createVueI18n(options = {}) {
-  const composer = createComposer(convertComposerOptions(options));
-  const vueI18n2 = {
-    id: composer.id,
-    get locale() {
-      return composer.locale.value;
-    },
-    set locale(val) {
-      composer.locale.value = val;
-    },
-    get fallbackLocale() {
-      return composer.fallbackLocale.value;
-    },
-    set fallbackLocale(val) {
-      composer.fallbackLocale.value = val;
-    },
-    get messages() {
-      return composer.messages.value;
-    },
-    get datetimeFormats() {
-      return composer.datetimeFormats.value;
-    },
-    get numberFormats() {
-      return composer.numberFormats.value;
-    },
-    get availableLocales() {
-      return composer.availableLocales;
-    },
-    get formatter() {
-      return {
-        interpolate() {
-          return [];
+function createVueI18n(options = {}, VueI18nLegacy) {
+  {
+    const composer = createComposer(convertComposerOptions(options));
+    const vueI18n2 = {
+      id: composer.id,
+      get locale() {
+        return composer.locale.value;
+      },
+      set locale(val) {
+        composer.locale.value = val;
+      },
+      get fallbackLocale() {
+        return composer.fallbackLocale.value;
+      },
+      set fallbackLocale(val) {
+        composer.fallbackLocale.value = val;
+      },
+      get messages() {
+        return composer.messages.value;
+      },
+      get datetimeFormats() {
+        return composer.datetimeFormats.value;
+      },
+      get numberFormats() {
+        return composer.numberFormats.value;
+      },
+      get availableLocales() {
+        return composer.availableLocales;
+      },
+      get formatter() {
+        return {
+          interpolate() {
+            return [];
+          }
+        };
+      },
+      set formatter(val) {
+      },
+      get missing() {
+        return composer.getMissingHandler();
+      },
+      set missing(handler) {
+        composer.setMissingHandler(handler);
+      },
+      get silentTranslationWarn() {
+        return shared.isBoolean(composer.missingWarn) ? !composer.missingWarn : composer.missingWarn;
+      },
+      set silentTranslationWarn(val) {
+        composer.missingWarn = shared.isBoolean(val) ? !val : val;
+      },
+      get silentFallbackWarn() {
+        return shared.isBoolean(composer.fallbackWarn) ? !composer.fallbackWarn : composer.fallbackWarn;
+      },
+      set silentFallbackWarn(val) {
+        composer.fallbackWarn = shared.isBoolean(val) ? !val : val;
+      },
+      get modifiers() {
+        return composer.modifiers;
+      },
+      get formatFallbackMessages() {
+        return composer.fallbackFormat;
+      },
+      set formatFallbackMessages(val) {
+        composer.fallbackFormat = val;
+      },
+      get postTranslation() {
+        return composer.getPostTranslationHandler();
+      },
+      set postTranslation(handler) {
+        composer.setPostTranslationHandler(handler);
+      },
+      get sync() {
+        return composer.inheritLocale;
+      },
+      set sync(val) {
+        composer.inheritLocale = val;
+      },
+      get warnHtmlInMessage() {
+        return composer.warnHtmlMessage ? "warn" : "off";
+      },
+      set warnHtmlInMessage(val) {
+        composer.warnHtmlMessage = val !== "off";
+      },
+      get escapeParameterHtml() {
+        return composer.escapeParameter;
+      },
+      set escapeParameterHtml(val) {
+        composer.escapeParameter = val;
+      },
+      get preserveDirectiveContent() {
+        return true;
+      },
+      set preserveDirectiveContent(val) {
+      },
+      get pluralizationRules() {
+        return composer.pluralRules || {};
+      },
+      __composer: composer,
+      t(...args) {
+        const [arg1, arg2, arg3] = args;
+        const options2 = {};
+        let list = null;
+        let named = null;
+        if (!shared.isString(arg1)) {
+          throw createI18nError(I18nErrorCodes.INVALID_ARGUMENT);
         }
-      };
-    },
-    set formatter(val) {
-    },
-    get missing() {
-      return composer.getMissingHandler();
-    },
-    set missing(handler) {
-      composer.setMissingHandler(handler);
-    },
-    get silentTranslationWarn() {
-      return shared.isBoolean(composer.missingWarn) ? !composer.missingWarn : composer.missingWarn;
-    },
-    set silentTranslationWarn(val) {
-      composer.missingWarn = shared.isBoolean(val) ? !val : val;
-    },
-    get silentFallbackWarn() {
-      return shared.isBoolean(composer.fallbackWarn) ? !composer.fallbackWarn : composer.fallbackWarn;
-    },
-    set silentFallbackWarn(val) {
-      composer.fallbackWarn = shared.isBoolean(val) ? !val : val;
-    },
-    get modifiers() {
-      return composer.modifiers;
-    },
-    get formatFallbackMessages() {
-      return composer.fallbackFormat;
-    },
-    set formatFallbackMessages(val) {
-      composer.fallbackFormat = val;
-    },
-    get postTranslation() {
-      return composer.getPostTranslationHandler();
-    },
-    set postTranslation(handler) {
-      composer.setPostTranslationHandler(handler);
-    },
-    get sync() {
-      return composer.inheritLocale;
-    },
-    set sync(val) {
-      composer.inheritLocale = val;
-    },
-    get warnHtmlInMessage() {
-      return composer.warnHtmlMessage ? "warn" : "off";
-    },
-    set warnHtmlInMessage(val) {
-      composer.warnHtmlMessage = val !== "off";
-    },
-    get escapeParameterHtml() {
-      return composer.escapeParameter;
-    },
-    set escapeParameterHtml(val) {
-      composer.escapeParameter = val;
-    },
-    get preserveDirectiveContent() {
-      return true;
-    },
-    set preserveDirectiveContent(val) {
-    },
-    get pluralizationRules() {
-      return composer.pluralRules || {};
-    },
-    __composer: composer,
-    t(...args) {
-      const [arg1, arg2, arg3] = args;
-      const options2 = {};
-      let list = null;
-      let named = null;
-      if (!shared.isString(arg1)) {
-        throw createI18nError(15);
+        const key = arg1;
+        if (shared.isString(arg2)) {
+          options2.locale = arg2;
+        } else if (shared.isArray(arg2)) {
+          list = arg2;
+        } else if (shared.isPlainObject(arg2)) {
+          named = arg2;
+        }
+        if (shared.isArray(arg3)) {
+          list = arg3;
+        } else if (shared.isPlainObject(arg3)) {
+          named = arg3;
+        }
+        return Reflect.apply(composer.t, composer, [
+          key,
+          list || named || {},
+          options2
+        ]);
+      },
+      rt(...args) {
+        return Reflect.apply(composer.rt, composer, [...args]);
+      },
+      tc(...args) {
+        const [arg1, arg2, arg3] = args;
+        const options2 = { plural: 1 };
+        let list = null;
+        let named = null;
+        if (!shared.isString(arg1)) {
+          throw createI18nError(I18nErrorCodes.INVALID_ARGUMENT);
+        }
+        const key = arg1;
+        if (shared.isString(arg2)) {
+          options2.locale = arg2;
+        } else if (shared.isNumber(arg2)) {
+          options2.plural = arg2;
+        } else if (shared.isArray(arg2)) {
+          list = arg2;
+        } else if (shared.isPlainObject(arg2)) {
+          named = arg2;
+        }
+        if (shared.isString(arg3)) {
+          options2.locale = arg3;
+        } else if (shared.isArray(arg3)) {
+          list = arg3;
+        } else if (shared.isPlainObject(arg3)) {
+          named = arg3;
+        }
+        return Reflect.apply(composer.t, composer, [
+          key,
+          list || named || {},
+          options2
+        ]);
+      },
+      te(key, locale) {
+        return composer.te(key, locale);
+      },
+      tm(key) {
+        return composer.tm(key);
+      },
+      getLocaleMessage(locale) {
+        return composer.getLocaleMessage(locale);
+      },
+      setLocaleMessage(locale, message) {
+        composer.setLocaleMessage(locale, message);
+      },
+      mergeLocaleMessage(locale, message) {
+        composer.mergeLocaleMessage(locale, message);
+      },
+      d(...args) {
+        return Reflect.apply(composer.d, composer, [...args]);
+      },
+      getDateTimeFormat(locale) {
+        return composer.getDateTimeFormat(locale);
+      },
+      setDateTimeFormat(locale, format2) {
+        composer.setDateTimeFormat(locale, format2);
+      },
+      mergeDateTimeFormat(locale, format2) {
+        composer.mergeDateTimeFormat(locale, format2);
+      },
+      n(...args) {
+        return Reflect.apply(composer.n, composer, [...args]);
+      },
+      getNumberFormat(locale) {
+        return composer.getNumberFormat(locale);
+      },
+      setNumberFormat(locale, format2) {
+        composer.setNumberFormat(locale, format2);
+      },
+      mergeNumberFormat(locale, format2) {
+        composer.mergeNumberFormat(locale, format2);
+      },
+      getChoiceIndex(choice, choicesLength) {
+        return -1;
+      },
+      __onComponentInstanceCreated(target) {
+        const { componentInstanceCreatedListener } = options;
+        if (componentInstanceCreatedListener) {
+          componentInstanceCreatedListener(target, vueI18n2);
+        }
       }
-      const key = arg1;
-      if (shared.isString(arg2)) {
-        options2.locale = arg2;
-      } else if (shared.isArray(arg2)) {
-        list = arg2;
-      } else if (shared.isPlainObject(arg2)) {
-        named = arg2;
-      }
-      if (shared.isArray(arg3)) {
-        list = arg3;
-      } else if (shared.isPlainObject(arg3)) {
-        named = arg3;
-      }
-      return composer.t(key, list || named || {}, options2);
-    },
-    rt(...args) {
-      return composer.rt(...args);
-    },
-    tc(...args) {
-      const [arg1, arg2, arg3] = args;
-      const options2 = { plural: 1 };
-      let list = null;
-      let named = null;
-      if (!shared.isString(arg1)) {
-        throw createI18nError(15);
-      }
-      const key = arg1;
-      if (shared.isString(arg2)) {
-        options2.locale = arg2;
-      } else if (shared.isNumber(arg2)) {
-        options2.plural = arg2;
-      } else if (shared.isArray(arg2)) {
-        list = arg2;
-      } else if (shared.isPlainObject(arg2)) {
-        named = arg2;
-      }
-      if (shared.isString(arg3)) {
-        options2.locale = arg3;
-      } else if (shared.isArray(arg3)) {
-        list = arg3;
-      } else if (shared.isPlainObject(arg3)) {
-        named = arg3;
-      }
-      return composer.t(key, list || named || {}, options2);
-    },
-    te(key, locale) {
-      return composer.te(key, locale);
-    },
-    tm(key) {
-      return composer.tm(key);
-    },
-    getLocaleMessage(locale) {
-      return composer.getLocaleMessage(locale);
-    },
-    setLocaleMessage(locale, message) {
-      composer.setLocaleMessage(locale, message);
-    },
-    mergeLocaleMessage(locale, message) {
-      composer.mergeLocaleMessage(locale, message);
-    },
-    d(...args) {
-      return composer.d(...args);
-    },
-    getDateTimeFormat(locale) {
-      return composer.getDateTimeFormat(locale);
-    },
-    setDateTimeFormat(locale, format2) {
-      composer.setDateTimeFormat(locale, format2);
-    },
-    mergeDateTimeFormat(locale, format2) {
-      composer.mergeDateTimeFormat(locale, format2);
-    },
-    n(...args) {
-      return composer.n(...args);
-    },
-    getNumberFormat(locale) {
-      return composer.getNumberFormat(locale);
-    },
-    setNumberFormat(locale, format2) {
-      composer.setNumberFormat(locale, format2);
-    },
-    mergeNumberFormat(locale, format2) {
-      composer.mergeNumberFormat(locale, format2);
-    },
-    getChoiceIndex(choice, choicesLength) {
-      return -1;
-    },
-    __onComponentInstanceCreated(target) {
-      const { componentInstanceCreatedListener } = options;
-      if (componentInstanceCreatedListener) {
-        componentInstanceCreatedListener(target, vueI18n2);
-      }
-    }
-  };
-  return vueI18n2;
+    };
+    return vueI18n2;
+  }
 }
 const baseFormatProps = {
   tag: {
@@ -8360,7 +10201,7 @@ const baseFormatProps = {
     type: Object
   }
 };
-const Translation = {
+const Translation = /* @__PURE__ */ vue.defineComponent({
   name: "i18n-t",
   props: shared.assign({
     keypath: {
@@ -8390,10 +10231,11 @@ const Translation = {
       const arg = getInterpolateArg(context, keys);
       const children = i18n2[TransrateVNodeSymbol](props.keypath, arg, options);
       const assignedAttrs = shared.assign({}, attrs);
-      return shared.isString(props.tag) ? vue.h(props.tag, assignedAttrs, children) : shared.isObject(props.tag) ? vue.h(props.tag, assignedAttrs, children) : vue.h(vue.Fragment, assignedAttrs, children);
+      const tag = shared.isString(props.tag) || shared.isObject(props.tag) ? props.tag : vue.Fragment;
+      return vue.h(tag, assignedAttrs, children);
     };
   }
-};
+});
 function getInterpolateArg({ slots }, keys) {
   if (keys.length === 1 && keys[0] === "default") {
     return slots.default ? slots.default() : [];
@@ -8436,7 +10278,8 @@ function renderFormatter(props, context, slotKeys, partFormatter) {
       children = [parts];
     }
     const assignedAttrs = shared.assign({}, attrs);
-    return shared.isString(props.tag) ? vue.h(props.tag, assignedAttrs, children) : shared.isObject(props.tag) ? vue.h(props.tag, assignedAttrs, children) : vue.h(vue.Fragment, assignedAttrs, children);
+    const tag = shared.isString(props.tag) || shared.isObject(props.tag) ? props.tag : vue.Fragment;
+    return vue.h(tag, assignedAttrs, children);
   };
 }
 const NUMBER_FORMAT_KEYS = [
@@ -8456,7 +10299,7 @@ const NUMBER_FORMAT_KEYS = [
   "notation",
   "formatMatcher"
 ];
-const NumberFormat = {
+const NumberFormat = /* @__PURE__ */ vue.defineComponent({
   name: "i18n-n",
   props: shared.assign({
     value: {
@@ -8471,7 +10314,7 @@ const NumberFormat = {
     const i18n2 = props.i18n || useI18n({ useScope: "parent", __useComponent: true });
     return renderFormatter(props, context, NUMBER_FORMAT_KEYS, (...args) => i18n2[NumberPartsSymbol](...args));
   }
-};
+});
 const DATETIME_FORMAT_KEYS = [
   "dateStyle",
   "timeStyle",
@@ -8494,7 +10337,7 @@ const DATETIME_FORMAT_KEYS = [
   "second",
   "timeZoneName"
 ];
-const DatetimeFormat = {
+const DatetimeFormat = /* @__PURE__ */ vue.defineComponent({
   name: "i18n-d",
   props: shared.assign({
     value: {
@@ -8509,7 +10352,7 @@ const DatetimeFormat = {
     const i18n2 = props.i18n || useI18n({ useScope: "parent", __useComponent: true });
     return renderFormatter(props, context, DATETIME_FORMAT_KEYS, (...args) => i18n2[DatetimePartsSymbol](...args));
   }
-};
+});
 function getComposer$1(i18n2, instance) {
   const i18nInternal = i18n2;
   if (i18n2.mode === "composition") {
@@ -8522,11 +10365,13 @@ function getComposer$1(i18n2, instance) {
 function vTDirective(i18n2) {
   const bind = (el, { instance, value, modifiers }) => {
     if (!instance || !instance.$) {
-      throw createI18nError(22);
+      throw createI18nError(I18nErrorCodes.UNEXPECTED_ERROR);
     }
     const composer = getComposer$1(i18n2, instance.$);
     const parsedValue = parseValue(value);
-    el.textContent = composer.t(...makeParams(parsedValue));
+    el.textContent = Reflect.apply(composer.t, composer, [
+      ...makeParams(parsedValue)
+    ]);
   };
   return {
     beforeMount: bind,
@@ -8538,11 +10383,11 @@ function parseValue(value) {
     return { path: value };
   } else if (shared.isPlainObject(value)) {
     if (!("path" in value)) {
-      throw createI18nError(19, "path");
+      throw createI18nError(I18nErrorCodes.REQUIRED_VALUE, "path");
     }
     return value;
   } else {
-    throw createI18nError(20);
+    throw createI18nError(I18nErrorCodes.INVALID_VALUE);
   }
 }
 function makeParams(value) {
@@ -8569,14 +10414,16 @@ function apply(app, i18n2, ...options) {
     app.component(NumberFormat.name, NumberFormat);
     app.component(DatetimeFormat.name, DatetimeFormat);
   }
-  app.directive("t", vTDirective(i18n2));
+  {
+    app.directive("t", vTDirective(i18n2));
+  }
 }
 function defineMixin(vuei18n, composer, i18n2) {
   return {
     beforeCreate() {
       const instance = vue.getCurrentInstance();
       if (!instance) {
-        throw createI18nError(22);
+        throw createI18nError(I18nErrorCodes.UNEXPECTED_ERROR);
       }
       const options = this.$options;
       if (options.i18n) {
@@ -8616,20 +10463,22 @@ function defineMixin(vuei18n, composer, i18n2) {
     },
     mounted() {
     },
-    beforeUnmount() {
+    unmounted() {
       const instance = vue.getCurrentInstance();
       if (!instance) {
-        throw createI18nError(22);
+        throw createI18nError(I18nErrorCodes.UNEXPECTED_ERROR);
       }
-      delete this.$t;
-      delete this.$rt;
-      delete this.$tc;
-      delete this.$te;
-      delete this.$d;
-      delete this.$n;
-      delete this.$tm;
-      i18n2.__deleteInstance(instance);
-      delete this.$i18n;
+      vue.nextTick(() => {
+        delete this.$t;
+        delete this.$rt;
+        delete this.$tc;
+        delete this.$te;
+        delete this.$d;
+        delete this.$n;
+        delete this.$tm;
+        i18n2.__deleteInstance(instance);
+        delete this.$i18n;
+      });
     }
   };
 }
@@ -8658,73 +10507,130 @@ function mergeToRoot(root, options) {
   }
   return root;
 }
-function createI18n(options = {}) {
+const I18nInjectionKey = /* @__PURE__ */ shared.makeSymbol("global-vue-i18n");
+function createI18n(options = {}, VueI18nLegacy) {
   const __legacyMode = shared.isBoolean(options.legacy) ? options.legacy : true;
   const __globalInjection = !!options.globalInjection;
   const __instances = new Map();
-  const __global = __legacyMode ? createVueI18n(options) : createComposer(options);
+  const __global = createGlobal(options, __legacyMode);
   const symbol = shared.makeSymbol("");
-  const i18n2 = {
-    get mode() {
-      return __legacyMode ? "legacy" : "composition";
-    },
-    async install(app, ...options2) {
-      app.__VUE_I18N_SYMBOL__ = symbol;
-      app.provide(app.__VUE_I18N_SYMBOL__, i18n2);
-      if (!__legacyMode && __globalInjection) {
-        injectGlobalFields(app, i18n2.global);
-      }
-      {
-        apply(app, i18n2, ...options2);
-      }
-      if (__legacyMode) {
-        app.mixin(defineMixin(__global, __global.__composer, i18n2));
-      }
-    },
-    get global() {
-      return __global;
-    },
-    __instances,
-    __getInstance(component) {
-      return __instances.get(component) || null;
-    },
-    __setInstance(component, instance) {
-      __instances.set(component, instance);
-    },
-    __deleteInstance(component) {
-      __instances.delete(component);
-    }
-  };
-  return i18n2;
+  function __getInstance(component) {
+    return __instances.get(component) || null;
+  }
+  function __setInstance(component, instance) {
+    __instances.set(component, instance);
+  }
+  function __deleteInstance(component) {
+    __instances.delete(component);
+  }
+  {
+    const i18n2 = {
+      get mode() {
+        return __legacyMode ? "legacy" : "composition";
+      },
+      async install(app, ...options2) {
+        {
+          app.__VUE_I18N_SYMBOL__ = symbol;
+          app.provide(app.__VUE_I18N_SYMBOL__, i18n2);
+        }
+        if (!__legacyMode && __globalInjection) {
+          injectGlobalFields(app, i18n2.global);
+        }
+        {
+          apply(app, i18n2, ...options2);
+        }
+        if (__legacyMode) {
+          app.mixin(defineMixin(__global, __global.__composer, i18n2));
+        }
+      },
+      get global() {
+        return __global;
+      },
+      __instances,
+      __getInstance,
+      __setInstance,
+      __deleteInstance
+    };
+    return i18n2;
+  }
 }
 function useI18n(options = {}) {
   const instance = vue.getCurrentInstance();
   if (instance == null) {
-    throw createI18nError(16);
+    throw createI18nError(I18nErrorCodes.MUST_BE_CALL_SETUP_TOP);
   }
-  if (!instance.appContext.app.__VUE_I18N_SYMBOL__) {
-    throw createI18nError(17);
+  if (!instance.isCE && instance.appContext.app != null && !instance.appContext.app.__VUE_I18N_SYMBOL__) {
+    throw createI18nError(I18nErrorCodes.NOT_INSLALLED);
   }
-  const i18n2 = vue.inject(instance.appContext.app.__VUE_I18N_SYMBOL__);
-  if (!i18n2) {
-    throw createI18nError(22);
-  }
-  const global2 = i18n2.mode === "composition" ? i18n2.global : i18n2.global.__composer;
-  const scope = shared.isEmptyObject(options) ? "__i18n" in instance.type ? "local" : "global" : !options.useScope ? "local" : options.useScope;
+  const i18n2 = getI18nInstance(instance);
+  const global2 = getGlobalComposer(i18n2);
+  const componentOptions = getComponentOptions(instance);
+  const scope = getScope(options, componentOptions);
   if (scope === "global") {
-    let messages = shared.isObject(options.messages) ? options.messages : {};
-    if ("__i18nGlobal" in instance.type) {
-      messages = getLocaleMessages(global2.locale.value, {
-        messages,
-        __i18n: instance.type.__i18nGlobal
-      });
+    adjustI18nResources(global2, options, componentOptions);
+    return global2;
+  }
+  if (scope === "parent") {
+    let composer2 = getComposer(i18n2, instance, options.__useComponent);
+    if (composer2 == null) {
+      composer2 = global2;
     }
-    const locales = Object.keys(messages);
-    if (locales.length) {
-      locales.forEach((locale) => {
-        global2.mergeLocaleMessage(locale, messages[locale]);
-      });
+    return composer2;
+  }
+  if (i18n2.mode === "legacy") {
+    throw createI18nError(I18nErrorCodes.NOT_AVAILABLE_IN_LEGACY_MODE);
+  }
+  const i18nInternal = i18n2;
+  let composer = i18nInternal.__getInstance(instance);
+  if (composer == null) {
+    const composerOptions = shared.assign({}, options);
+    if ("__i18n" in componentOptions) {
+      composerOptions.__i18n = componentOptions.__i18n;
     }
+    if (global2) {
+      composerOptions.__root = global2;
+    }
+    composer = createComposer(composerOptions);
+    setupLifeCycle(i18nInternal, instance);
+    i18nInternal.__setInstance(instance, composer);
+  }
+  return composer;
+}
+function createGlobal(options, legacyMode, VueI18nLegacy) {
+  {
+    return legacyMode ? createVueI18n(options) : createComposer(options);
+  }
+}
+function getI18nInstance(instance) {
+  {
+    const i18n2 = vue.inject(!instance.isCE ? instance.appContext.app.__VUE_I18N_SYMBOL__ : I18nInjectionKey);
+    if (!i18n2) {
+      throw createI18nError(!instance.isCE ? I18nErrorCodes.UNEXPECTED_ERROR : I18nErrorCodes.NOT_INSLALLED_WITH_PROVIDE);
+    }
+    return i18n2;
+  }
+}
+function getScope(options, componentOptions) {
+  return shared.isEmptyObject(options) ? "__i18n" in componentOptions ? "local" : "global" : !options.useScope ? "local" : options.useScope;
+}
+function getGlobalComposer(i18n2) {
+  return i18n2.mode === "composition" ? i18n2.global : i18n2.global.__composer;
+}
+function adjustI18nResources(global2, options, componentOptions) {
+  let messages = shared.isObject(options.messages) ? options.messages : {};
+  if ("__i18nGlobal" in componentOptions) {
+    messages = getLocaleMessages(global2.locale.value, {
+      messages,
+      __i18n: componentOptions.__i18nGlobal
+    });
+  }
+  const locales = Object.keys(messages);
+  if (locales.length) {
+    locales.forEach((locale) => {
+      global2.mergeLocaleMessage(locale, messages[locale]);
+    });
+  }
+  {
     if (shared.isObject(options.datetimeFormats)) {
       const locales2 = Object.keys(options.datetimeFormats);
       if (locales2.length) {
@@ -8741,34 +10647,7 @@ function useI18n(options = {}) {
         });
       }
     }
-    return global2;
   }
-  if (scope === "parent") {
-    let composer2 = getComposer(i18n2, instance, options.__useComponent);
-    if (composer2 == null) {
-      composer2 = global2;
-    }
-    return composer2;
-  }
-  if (i18n2.mode === "legacy") {
-    throw createI18nError(18);
-  }
-  const i18nInternal = i18n2;
-  let composer = i18nInternal.__getInstance(instance);
-  if (composer == null) {
-    const type = instance.type;
-    const composerOptions = shared.assign({}, options);
-    if (type.__i18n) {
-      composerOptions.__i18n = type.__i18n;
-    }
-    if (global2) {
-      composerOptions.__root = global2;
-    }
-    composer = createComposer(composerOptions);
-    setupLifeCycle(i18nInternal, instance);
-    i18nInternal.__setInstance(instance, composer);
-  }
-  return composer;
 }
 function getComposer(i18n2, target, useComponent = false) {
   let composer = null;
@@ -8779,12 +10658,14 @@ function getComposer(i18n2, target, useComponent = false) {
     if (i18n2.mode === "composition") {
       composer = i18nInternal.__getInstance(current);
     } else {
-      const vueI18n2 = i18nInternal.__getInstance(current);
-      if (vueI18n2 != null) {
-        composer = vueI18n2.__composer;
-      }
-      if (useComponent && composer && !composer[InejctWithOption]) {
-        composer = null;
+      {
+        const vueI18n2 = i18nInternal.__getInstance(current);
+        if (vueI18n2 != null) {
+          composer = vueI18n2.__composer;
+          if (useComponent && composer && !composer[InejctWithOption]) {
+            composer = null;
+          }
+        }
       }
     }
     if (composer != null) {
@@ -8798,11 +10679,13 @@ function getComposer(i18n2, target, useComponent = false) {
   return composer;
 }
 function setupLifeCycle(i18n2, target, composer) {
-  vue.onMounted(() => {
-  }, target);
-  vue.onUnmounted(() => {
-    i18n2.__deleteInstance(target);
-  }, target);
+  {
+    vue.onMounted(() => {
+    }, target);
+    vue.onUnmounted(() => {
+      i18n2.__deleteInstance(target);
+    }, target);
+  }
 }
 const globalExportProps = [
   "locale",
@@ -8815,7 +10698,7 @@ function injectGlobalFields(app, composer) {
   globalExportProps.forEach((prop) => {
     const desc = Object.getOwnPropertyDescriptor(composer, prop);
     if (!desc) {
-      throw createI18nError(22);
+      throw createI18nError(I18nErrorCodes.UNEXPECTED_ERROR);
     }
     const wrap = vue.isRef(desc.value) ? {
       get() {
@@ -8835,13 +10718,16 @@ function injectGlobalFields(app, composer) {
   globalExportMethods.forEach((method) => {
     const desc = Object.getOwnPropertyDescriptor(composer, method);
     if (!desc || !desc.value) {
-      throw createI18nError(22);
+      throw createI18nError(I18nErrorCodes.UNEXPECTED_ERROR);
     }
     Object.defineProperty(app.config.globalProperties, `$${method}`, desc);
   });
 }
 coreBase.registerMessageCompiler(coreBase.compileToFunction);
+coreBase.registerMessageResolver(coreBase.resolveValue);
+coreBase.registerLocaleFallbacker(coreBase.fallbackWithLocaleChain);
 vueI18n_cjs_prod.DatetimeFormat = DatetimeFormat;
+vueI18n_cjs_prod.I18nInjectionKey = I18nInjectionKey;
 vueI18n_cjs_prod.NumberFormat = NumberFormat;
 vueI18n_cjs_prod.Translation = Translation;
 vueI18n_cjs_prod.VERSION = VERSION;
@@ -9270,11 +11156,11 @@ let baseOptions = {
   preference: void 0,
   tree: []
 };
-let main = null;
+let main$1 = null;
 let slides = null;
 let useProps = null;
 function setup(o, use) {
-  main = o;
+  main$1 = o;
   useProps = use;
 }
 function setupSlides(o) {
@@ -9424,7 +11310,7 @@ var _export_sfc = (sfc, props) => {
   return sfc;
 };
 const _hoisted_1$e = ["aria-labelledby"];
-const _sfc_main$h = {
+const _sfc_main$i = {
   props: {
     iconName: { type: String, required: true }
   },
@@ -9479,6 +11365,8 @@ const _sfc_main$h = {
             return defineAsyncComponent(() => import("./icon-folder.js"));
           case "minus":
             return defineAsyncComponent(() => import("./icon-minus.js"));
+          case "save":
+            return defineAsyncComponent(() => import("./icon-save.js"));
           default:
             return null;
         }
@@ -9499,7 +11387,7 @@ const _sfc_main$h = {
     };
   }
 };
-var Icon = /* @__PURE__ */ _export_sfc(_sfc_main$h, [["__scopeId", "data-v-b27865ce"]]);
+var Icon = /* @__PURE__ */ _export_sfc(_sfc_main$i, [["__scopeId", "data-v-10a87351"]]);
 var Images_scss_vue_type_style_index_0_src_scoped_true_lang = "";
 const _withScopeId$1 = (n) => (pushScopeId("data-v-153702b0"), n = n(), popScopeId(), n);
 const _hoisted_1$d = {
@@ -9512,14 +11400,14 @@ const _hoisted_3$9 = {
   class: "empty-image"
 };
 const _hoisted_4$7 = /* @__PURE__ */ _withScopeId$1(() => /* @__PURE__ */ createBaseVNode("strong", null, "no image", -1));
-const _hoisted_5$5 = ["src", "alt", "onError"];
+const _hoisted_5$6 = ["src", "alt", "onError"];
 const _hoisted_6$4 = {
   key: 1,
   class: "last"
 };
 const _hoisted_7$3 = ["src", "alt"];
-const _hoisted_8 = /* @__PURE__ */ _withScopeId$1(() => /* @__PURE__ */ createBaseVNode("i", { class: "overlay" }, null, -1));
-const _sfc_main$g = {
+const _hoisted_8$1 = /* @__PURE__ */ _withScopeId$1(() => /* @__PURE__ */ createBaseVNode("i", { class: "overlay" }, null, -1));
+const _sfc_main$h = {
   props: {
     items: { type: Array, required: true },
     initialActive: { type: Number, default: 0 },
@@ -9725,7 +11613,7 @@ const _sfc_main$g = {
                 src: item.src,
                 alt: item.title,
                 onError: ($event) => onErrorImage(key)
-              }, null, 40, _hoisted_5$5)) : createCommentVNode("", true)
+              }, null, 40, _hoisted_5$6)) : createCommentVNode("", true)
             ], 2);
           }), 256)),
           unref(state2).computedShowLastItem ? (openBlock(), createElementBlock("figure", _hoisted_6$4, [
@@ -9736,12 +11624,12 @@ const _sfc_main$g = {
             }, null, 8, _hoisted_7$3)) : createCommentVNode("", true)
           ])) : createCommentVNode("", true)
         ], 512),
-        _hoisted_8
+        _hoisted_8$1
       ], 6);
     };
   }
 };
-var Images = /* @__PURE__ */ _export_sfc(_sfc_main$g, [["__scopeId", "data-v-153702b0"]]);
+var Images = /* @__PURE__ */ _export_sfc(_sfc_main$h, [["__scopeId", "data-v-153702b0"]]);
 function shuffle($el, options) {
   options = Object.assign({}, {
     text: "",
@@ -9836,7 +11724,7 @@ function shuffle($el, options) {
 var Caption_scss_vue_type_style_index_0_src_scoped_true_lang = "";
 const _hoisted_1$c = { key: 0 };
 const _hoisted_2$9 = { key: 1 };
-const _sfc_main$f = {
+const _sfc_main$g = {
   props: {
     active: { type: Number, required: true },
     title: { type: String, default: "Untitled" },
@@ -9932,10 +11820,10 @@ const _sfc_main$f = {
     };
   }
 };
-var Caption = /* @__PURE__ */ _export_sfc(_sfc_main$f, [["__scopeId", "data-v-0d330e4b"]]);
+var Caption = /* @__PURE__ */ _export_sfc(_sfc_main$g, [["__scopeId", "data-v-0d330e4b"]]);
 var Paginate_vue_vue_type_style_index_0_scoped_true_lang = "";
 const _hoisted_1$b = { class: "slideshow-paginate" };
-const _sfc_main$e = {
+const _sfc_main$f = {
   props: {
     total: { type: Number, default: 0 },
     current: { type: Number, default: 0 }
@@ -9946,12 +11834,12 @@ const _sfc_main$e = {
     };
   }
 };
-var Paginate = /* @__PURE__ */ _export_sfc(_sfc_main$e, [["__scopeId", "data-v-6a79e958"]]);
+var Paginate = /* @__PURE__ */ _export_sfc(_sfc_main$f, [["__scopeId", "data-v-6a79e958"]]);
 var Controller_scss_vue_type_style_index_0_src_scoped_true_lang = "";
 const _hoisted_1$a = { class: "controller" };
 const _hoisted_2$8 = ["disabled", "title"];
 const _hoisted_3$8 = ["disabled", "title"];
-const _sfc_main$d = {
+const _sfc_main$e = {
   props: {
     showPrev: { type: Boolean, default: true },
     showNext: { type: Boolean, default: true },
@@ -9989,9 +11877,9 @@ const _sfc_main$d = {
     };
   }
 };
-var Controller = /* @__PURE__ */ _export_sfc(_sfc_main$d, [["__scopeId", "data-v-4ab80943"]]);
+var Controller = /* @__PURE__ */ _export_sfc(_sfc_main$e, [["__scopeId", "data-v-4ab80943"]]);
 var index_scss_vue_type_style_index_0_src_lang = "";
-const _sfc_main$c = {
+const _sfc_main$d = {
   setup(__props, { expose }) {
     const images = ref(null);
     let state2 = reactive({
@@ -10326,11 +12214,11 @@ const _sfc_main$c = {
     };
   }
 };
-var Empty_scss_vue_type_style_index_0_src_scoped_true_lang = "";
+var Empty_vue_vue_type_style_index_0_scoped_true_lang = "";
 const _hoisted_1$9 = { class: "empty__wrap" };
 const _hoisted_2$7 = { class: "empty__title" };
 const _hoisted_3$7 = { class: "empty__description" };
-const _sfc_main$b = {
+const _sfc_main$c = {
   props: {
     title: String,
     description: String
@@ -10359,25 +12247,29 @@ const _sfc_main$b = {
     };
   }
 };
-var SlidesEmpty = /* @__PURE__ */ _export_sfc(_sfc_main$b, [["__scopeId", "data-v-537221a2"]]);
-var index_scss_vue_type_style_index_0_src_scoped_true_lang$3 = "";
+var SlidesEmpty = /* @__PURE__ */ _export_sfc(_sfc_main$c, [["__scopeId", "data-v-1e16b580"]]);
+var index_vue_vue_type_style_index_0_lang = "";
 const _hoisted_1$8 = {
   key: 0,
   class: "slideshow-navigation__item"
 };
-const _hoisted_2$6 = ["title"];
-const _hoisted_3$6 = {
+const _hoisted_2$6 = {
   key: 1,
   class: "slideshow-navigation__item"
 };
-const _hoisted_4$6 = ["title"];
-const _hoisted_5$4 = {
+const _hoisted_3$6 = ["title"];
+const _hoisted_4$6 = {
   key: 2,
   class: "slideshow-navigation__item"
 };
-const _hoisted_6$3 = ["title"];
-const _hoisted_7$2 = { key: 0 };
-const _sfc_main$a = {
+const _hoisted_5$5 = ["title"];
+const _hoisted_6$3 = {
+  key: 3,
+  class: "slideshow-navigation__item"
+};
+const _hoisted_7$2 = ["title"];
+const _hoisted_8 = { key: 0 };
+const _sfc_main$b = {
   setup(__props, { expose }) {
     const { t } = i18n.global;
     let state2 = reactive({
@@ -10444,6 +12336,9 @@ const _sfc_main$a = {
     function onClickGroup() {
       store.dispatch("changeMode", "group");
     }
+    function onClickSave() {
+      console.log("click save");
+    }
     function blur() {
       switchActiveMenu(false);
     }
@@ -10464,7 +12359,16 @@ const _sfc_main$a = {
         onTouchstart: onTouchStart,
         onClick: onClickWrapper
       }, [
-        unref(computes).visibleAutoplay ? (openBlock(), createElementBlock("div", _hoisted_1$8, [
+        (openBlock(), createElementBlock("div", _hoisted_1$8, [
+          createBaseVNode("button", {
+            type: "button",
+            title: "Save",
+            onClick: onClickSave
+          }, [
+            createVNode(Icon, { "icon-name": "save" })
+          ])
+        ])),
+        unref(computes).visibleAutoplay ? (openBlock(), createElementBlock("div", _hoisted_2$6, [
           createBaseVNode("button", {
             type: "button",
             title: unref(t)("base.autoplay"),
@@ -10472,9 +12376,9 @@ const _sfc_main$a = {
             onClick: onClickAutoplayButton
           }, [
             createVNode(Icon, { "icon-name": "play-circle" })
-          ], 10, _hoisted_2$6)
+          ], 10, _hoisted_3$6)
         ])) : createCommentVNode("", true),
-        unref(computes).visibleGroup ? (openBlock(), createElementBlock("div", _hoisted_3$6, [
+        unref(computes).visibleGroup ? (openBlock(), createElementBlock("div", _hoisted_4$6, [
           createBaseVNode("button", {
             type: "button",
             title: unref(t)("base.group"),
@@ -10484,9 +12388,9 @@ const _sfc_main$a = {
               "icon-name": "folder",
               class: "folder"
             })
-          ], 8, _hoisted_4$6)
+          ], 8, _hoisted_5$5)
         ])) : createCommentVNode("", true),
-        unref(store).state.preference.general.visibleHudContents.menu ? (openBlock(), createElementBlock("div", _hoisted_5$4, [
+        unref(store).state.preference.general.visibleHudContents.menu ? (openBlock(), createElementBlock("div", _hoisted_6$3, [
           createBaseVNode("button", {
             type: "button",
             title: unref(t)("base.menu"),
@@ -10494,7 +12398,7 @@ const _sfc_main$a = {
             onClick: onClickMenuButton
           }, [
             createVNode(Icon, { "icon-name": "menu" })
-          ], 10, _hoisted_6$3),
+          ], 10, _hoisted_7$2),
           createBaseVNode("div", {
             class: normalizeClass([
               "slideshow-navigation-context",
@@ -10508,7 +12412,7 @@ const _sfc_main$a = {
                   onClick: _cache[0] || (_cache[0] = ($event) => onClickContextItem("preference"))
                 }, toDisplayString$1(unref(t)("base.preference")), 1)
               ]),
-              unref(computes).visibleThumbnail ? (openBlock(), createElementBlock("li", _hoisted_7$2, [
+              unref(computes).visibleThumbnail ? (openBlock(), createElementBlock("li", _hoisted_8, [
                 createBaseVNode("button", {
                   type: "button",
                   onClick: _cache[1] || (_cache[1] = ($event) => onClickContextItem("thumbnail"))
@@ -10528,16 +12432,15 @@ const _sfc_main$a = {
     };
   }
 };
-var Navigation = /* @__PURE__ */ _export_sfc(_sfc_main$a, [["__scopeId", "data-v-00d387fe"]]);
 var Side_scss_vue_type_style_index_0_src_scoped_true_lang = "";
 const _hoisted_1$7 = { class: "preference-side" };
 const _hoisted_2$5 = ["title", "disabled"];
 const _hoisted_3$5 = ["title", "disabled"];
 const _hoisted_4$5 = ["title", "disabled"];
-const _hoisted_5$3 = ["title", "disabled"];
+const _hoisted_5$4 = ["title", "disabled"];
 const _hoisted_6$2 = ["title", "disabled"];
 const _hoisted_7$1 = ["title", "disabled"];
-const _sfc_main$9 = {
+const _sfc_main$a = {
   props: {
     mode: { type: String, required: true }
   },
@@ -10597,7 +12500,7 @@ const _sfc_main$9 = {
               createVNode(Icon, { "icon-name": "database" }),
               createBaseVNode("em", null, toDisplayString$1(unref(t)("base.data")), 1)
             ])
-          ], 8, _hoisted_5$3)) : createCommentVNode("", true),
+          ], 8, _hoisted_5$4)) : createCommentVNode("", true),
           unref(store).state.usePreference.keyboard ? (openBlock(), createElementBlock("button", {
             key: 3,
             type: "button",
@@ -10629,14 +12532,14 @@ const _sfc_main$9 = {
     };
   }
 };
-var Side = /* @__PURE__ */ _export_sfc(_sfc_main$9, [["__scopeId", "data-v-e89805e6"]]);
+var Side = /* @__PURE__ */ _export_sfc(_sfc_main$a, [["__scopeId", "data-v-10bceea3"]]);
 var index_scss_vue_type_style_index_0_src_scoped_true_lang$2 = "";
 const _hoisted_1$6 = { class: "preference-header" };
 const _hoisted_2$4 = { class: "preference-header__body" };
 const _hoisted_3$4 = { class: "preference-header__nav" };
 const _hoisted_4$4 = ["title"];
-const _hoisted_5$2 = ["title"];
-const _sfc_main$8 = {
+const _hoisted_5$3 = ["title"];
+const _sfc_main$9 = {
   setup(__props) {
     const { t } = i18n.global;
     const preference2 = convertPureObject$1(store.state.preference);
@@ -10752,10 +12655,10 @@ const _sfc_main$8 = {
           store.dispatch("changeGroup", Object.keys(tree2)[0]);
         }
         if (useProps.preference || useProps.tree) {
-          main.update("preference");
-          main.update("tree");
+          main$1.update("preference");
+          main$1.update("tree");
         } else {
-          main.restart().then();
+          main$1.restart().then();
         }
       } catch (e2) {
         if (window.dev)
@@ -10811,7 +12714,7 @@ const _sfc_main$8 = {
                   onClick: onClose
                 }, [
                   createVNode(Icon, { "icon-name": "x" })
-                ], 8, _hoisted_5$2)
+                ], 8, _hoisted_5$3)
               ])
             ]),
             createBaseVNode("div", {
@@ -10832,16 +12735,17 @@ const _sfc_main$8 = {
     };
   }
 };
-var Preference = /* @__PURE__ */ _export_sfc(_sfc_main$8, [["__scopeId", "data-v-38efed1e"]]);
-var Item_scss_vue_type_style_index_0_src_scoped_true_lang = "";
-const _hoisted_1$5 = { class: "group-item__image" };
-const _hoisted_2$3 = ["src"];
-const _hoisted_3$3 = { class: "group-item__body" };
-const _hoisted_4$3 = {
+var Preference = /* @__PURE__ */ _export_sfc(_sfc_main$9, [["__scopeId", "data-v-38efed1e"]]);
+var Item_vue_vue_type_style_index_0_scoped_true_lang = "";
+const _hoisted_1$5 = { class: "group-item" };
+const _hoisted_2$3 = { class: "group-item__image" };
+const _hoisted_3$3 = ["src", "alt"];
+const _hoisted_4$3 = { class: "group-item__body" };
+const _hoisted_5$2 = {
   key: 0,
   class: "group-item__meta"
 };
-const _sfc_main$7 = {
+const _sfc_main$8 = {
   props: {
     src: String,
     name: String,
@@ -10851,52 +12755,44 @@ const _sfc_main$7 = {
   },
   emits: ["select"],
   setup(__props, { emit: emits }) {
-    const name = "GroupItem";
+    const props = __props;
     function onSelectItem(e) {
       e.preventDefault();
       emits("select");
     }
     return (_ctx, _cache) => {
-      return openBlock(), createElementBlock("div", {
-        class: normalizeClass([
-          "group-item",
-          __props.selected && "group-item--selected"
-        ])
-      }, [
+      return openBlock(), createElementBlock("div", _hoisted_1$5, [
         createBaseVNode("a", {
-          class: normalizeClass([
-            "group-item-wrap",
-            __props.selected && "group-item-wrap--selected"
-          ]),
+          class: normalizeClass(["group-item-wrap", props.selected && "group-item-wrap--selected"]),
           onClick: onSelectItem
         }, [
-          createBaseVNode("figure", _hoisted_1$5, [
-            __props.src ? (openBlock(), createElementBlock("img", {
+          createBaseVNode("figure", _hoisted_2$3, [
+            props.src ? (openBlock(), createElementBlock("img", {
               key: 0,
-              src: __props.src,
-              alt: name
-            }, null, 8, _hoisted_2$3)) : (openBlock(), createBlock(Icon, {
+              src: props.src,
+              alt: props.name
+            }, null, 8, _hoisted_3$3)) : (openBlock(), createBlock(Icon, {
               key: 1,
               "icon-name": "x"
             }))
           ]),
-          createBaseVNode("div", _hoisted_3$3, [
+          createBaseVNode("div", _hoisted_4$3, [
             createBaseVNode("h3", {
-              class: normalizeClass([!name])
-            }, toDisplayString$1(name), 3),
-            createBaseVNode("p", null, toDisplayString$1(__props.description), 1),
-            __props.count !== void 0 ? (openBlock(), createElementBlock("ul", _hoisted_4$3, [
+              class: normalizeClass([!props.name && "none"])
+            }, toDisplayString$1(props.name ? props.name : "None"), 3),
+            createBaseVNode("p", null, toDisplayString$1(props.description), 1),
+            props.count !== void 0 ? (openBlock(), createElementBlock("ul", _hoisted_5$2, [
               createBaseVNode("li", null, [
-                createBaseVNode("b", null, "Count: " + toDisplayString$1(__props.count), 1)
+                createBaseVNode("b", null, "Count: " + toDisplayString$1(props.count), 1)
               ])
             ])) : createCommentVNode("", true)
           ])
         ], 2)
-      ], 2);
+      ]);
     };
   }
 };
-var Item = /* @__PURE__ */ _export_sfc(_sfc_main$7, [["__scopeId", "data-v-5283558d"]]);
+var Item = /* @__PURE__ */ _export_sfc(_sfc_main$8, [["__scopeId", "data-v-3c9f0abc"]]);
 var index_scss_vue_type_style_index_0_src_scoped_true_lang$1 = "";
 const _hoisted_1$4 = { class: "groups-header" };
 const _hoisted_2$2 = { class: "groups-header__body" };
@@ -10904,7 +12800,7 @@ const _hoisted_3$2 = { class: "groups-header__nav" };
 const _hoisted_4$2 = ["title"];
 const _hoisted_5$1 = { class: "groups__body" };
 const _hoisted_6$1 = { class: "groups-index" };
-const _sfc_main$6 = {
+const _sfc_main$7 = {
   setup(__props) {
     const { t } = i18n.global;
     let computes = reactive({
@@ -10944,8 +12840,8 @@ const _sfc_main$6 = {
         return;
       store.dispatch("changeGroup", key);
       store.dispatch("changeMode", null);
-      main.update("group");
-      main.restart();
+      main$1.update("group");
+      main$1.restart();
     }
     onMounted(() => {
       if (slides)
@@ -11004,10 +12900,10 @@ const _sfc_main$6 = {
     };
   }
 };
-var Group = /* @__PURE__ */ _export_sfc(_sfc_main$6, [["__scopeId", "data-v-46c58cdf"]]);
+var Group = /* @__PURE__ */ _export_sfc(_sfc_main$7, [["__scopeId", "data-v-46c58cdf"]]);
 var Close_vue_vue_type_style_index_0_scoped_true_lang = "";
 const _hoisted_1$3 = ["title"];
-const _sfc_main$5 = {
+const _sfc_main$6 = {
   props: { title: String },
   emits: { "close": null },
   setup(__props, { emit: emits }) {
@@ -11023,7 +12919,7 @@ const _sfc_main$5 = {
     };
   }
 };
-var ButtonClose = /* @__PURE__ */ _export_sfc(_sfc_main$5, [["__scopeId", "data-v-bb92cd88"]]);
+var ButtonClose = /* @__PURE__ */ _export_sfc(_sfc_main$6, [["__scopeId", "data-v-bb92cd88"]]);
 var index_scss_vue_type_style_index_0_src_scoped_true_lang = "";
 const _hoisted_1$2 = {
   key: 0,
@@ -11041,7 +12937,7 @@ const _hoisted_7 = {
   key: 1,
   class: "thumbnail__empty"
 };
-const _sfc_main$4 = {
+const _sfc_main$5 = {
   setup(__props) {
     const { t } = i18n.global;
     let computes = reactive({
@@ -11116,9 +13012,9 @@ const _sfc_main$4 = {
     };
   }
 };
-var Thumbnail = /* @__PURE__ */ _export_sfc(_sfc_main$4, [["__scopeId", "data-v-093f0972"]]);
+var Thumbnail = /* @__PURE__ */ _export_sfc(_sfc_main$5, [["__scopeId", "data-v-093f0972"]]);
 var Container_scss_vue_type_style_index_0_src_scoped_true_lang = "";
-const _sfc_main$3 = {
+const _sfc_main$4 = {
   props: { error: Object },
   setup(__props) {
     const props = __props;
@@ -11189,8 +13085,8 @@ const _sfc_main$3 = {
             store.dispatch("changeMode", "thumbnail");
             break;
           case 82:
-            if (confirm(t("confirm.restart")) && main) {
-              main.restart().then();
+            if (confirm(t("confirm.restart")) && main$1) {
+              main$1.restart().then();
             }
             break;
           case 71:
@@ -11235,7 +13131,7 @@ const _sfc_main$3 = {
           unref(store).state.preference.general.hoverVisibleHud && "slideshow--hover"
         ])
       }, [
-        unref(computes).existSlides ? (openBlock(), createBlock(_sfc_main$c, {
+        unref(computes).existSlides ? (openBlock(), createBlock(_sfc_main$d, {
           key: 0,
           ref: (_value, _refs) => {
             _refs["slides"] = _value;
@@ -11247,7 +13143,7 @@ const _sfc_main$3 = {
           title: unref(computes).emptyTitle,
           description: unref(computes).emptyDescription
         }, null, 8, ["title", "description"])),
-        unref(store).state.preference.general.hud ? (openBlock(), createBlock(Navigation, {
+        unref(store).state.preference.general.hud ? (openBlock(), createBlock(_sfc_main$b, {
           key: 2,
           ref: (_value, _refs) => {
             _refs["navigation"] = _value;
@@ -11264,9 +13160,9 @@ const _sfc_main$3 = {
     };
   }
 };
-var Container = /* @__PURE__ */ _export_sfc(_sfc_main$3, [["__scopeId", "data-v-09f51736"]]);
+var Container = /* @__PURE__ */ _export_sfc(_sfc_main$4, [["__scopeId", "data-v-09f51736"]]);
 var Unit_vue_vue_type_style_index_0_scoped_true_lang = "";
-const _sfc_main$2 = {};
+const _sfc_main$3 = {};
 const _withScopeId = (n) => (pushScopeId("data-v-0ed25ebf"), n = n(), popScopeId(), n);
 const _hoisted_1$1 = { class: "loading-unit" };
 const _hoisted_2 = /* @__PURE__ */ _withScopeId(() => /* @__PURE__ */ createBaseVNode("span", null, null, -1));
@@ -11278,10 +13174,10 @@ const _hoisted_4 = [
 function _sfc_render(_ctx, _cache) {
   return openBlock(), createElementBlock("p", _hoisted_1$1, _hoisted_4);
 }
-var LoadingUnit = /* @__PURE__ */ _export_sfc(_sfc_main$2, [["render", _sfc_render], ["__scopeId", "data-v-0ed25ebf"]]);
+var LoadingUnit = /* @__PURE__ */ _export_sfc(_sfc_main$3, [["render", _sfc_render], ["__scopeId", "data-v-0ed25ebf"]]);
 var Intro_vue_vue_type_style_index_0_scoped_true_lang = "";
 const _hoisted_1 = { class: "loading-intro loading-intro--move" };
-const _sfc_main$1 = {
+const _sfc_main$2 = {
   setup(__props) {
     const { t } = i18n.global;
     let state2 = reactive({ show: false });
@@ -11306,9 +13202,10 @@ const _sfc_main$1 = {
     };
   }
 };
-var LoadingIntro = /* @__PURE__ */ _export_sfc(_sfc_main$1, [["__scopeId", "data-v-45331494"]]);
-const _sfc_main = {
+var LoadingIntro = /* @__PURE__ */ _export_sfc(_sfc_main$2, [["__scopeId", "data-v-45331494"]]);
+const _sfc_main$1 = {
   props: {
+    mode: String,
     preference: Object,
     group: String,
     tree: [Object, Array]
@@ -11477,6 +13374,7 @@ const _sfc_main = {
       fetchGroup();
       restart().then();
     });
+    store.commit("setServiceMode", props.mode);
     initCustomEvent();
     fetchPreference();
     updateTheme(store.state.preference.style.screenColor);
@@ -11495,12 +13393,63 @@ const _sfc_main = {
     };
   }
 };
-function slideshow(mode, options) {
-  createApp(_sfc_main).mount("#slideshow");
+function getInitializeData(mode) {
+  let preference2 = void 0;
+  let tree = void 0;
+  let group = void 0;
+  switch (mode) {
+    case "watch":
+      break;
+    case "manage":
+      break;
+    case "create":
+      preference2 = defaults.preference;
+      tree = defaults.tree;
+      group = defaults.group;
+      break;
+  }
+  return {
+    preference: preference2,
+    tree,
+    group
+  };
 }
-var slideshow$1 = /* @__PURE__ */ Object.freeze({
+const _sfc_main = {
+  props: {
+    mode: String
+  },
+  setup(__props) {
+    const props = __props;
+    changePrefix("slideshowService");
+    let state2 = reactive(__spreadValues({}, getInitializeData(props.mode)));
+    function onUpdatePreference(res) {
+      state2.preference = res;
+      console.log("call onUpdatePreference()", res);
+    }
+    function onUpdateTree(res) {
+      state2.tree = res;
+      console.log("call onUpdateTree()", res);
+    }
+    function onUpdateGroup(res) {
+      state2.group = res;
+      console.log("call onUpdateGroup()", res);
+    }
+    return (_ctx, _cache) => {
+      return openBlock(), createBlock(_sfc_main$1, {
+        mode: props.mode,
+        preference: unref(state2).preference,
+        group: unref(state2).group,
+        tree: unref(state2).tree,
+        onUpdatePreference,
+        onUpdateTree,
+        onUpdateGroup
+      }, null, 8, ["mode", "preference", "group", "tree"]);
+    };
+  }
+};
+var main = /* @__PURE__ */ Object.freeze({
   __proto__: null,
   [Symbol.toStringTag]: "Module",
-  "default": slideshow
+  "default": _sfc_main
 });
-export { Icon as I, _export_sfc as _, getFileData as a, getApiData as b, convertPureObject$1 as c, checkTree as d, slideshow$1 as e, getValueFromType as g, i18n as i, main as m, store as s };
+export { Icon as I, _export_sfc as _, getFileData as a, getApiData as b, convertPureObject$1 as c, checkTree as d, main as e, getValueFromType as g, i18n as i, main$1 as m, store as s };

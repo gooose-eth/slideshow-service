@@ -68,6 +68,8 @@ let state = reactive({
         return defineAsyncComponent(() => import('./src/icon-folder.vue'));
       case 'minus':
         return defineAsyncComponent(() => import('./src/icon-minus.vue'));
+      case 'save':
+        return defineAsyncComponent(() => import('./src/icon-save.vue'));
       default:
         return null;
     }

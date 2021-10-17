@@ -97,3 +97,14 @@ export function updateUsePreference(state, value)
       break;
   }
 }
+
+/**
+ * set service mode
+ *
+ * @param state
+ * @param {string} value
+ */
+export function setServiceMode(state, value)
+{
+  state.serviceMode = value;
+}

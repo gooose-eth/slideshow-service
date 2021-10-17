@@ -1,4 +1,4 @@
-const prefix = 'slideshow';
+let prefix = 'slideshow';
 let disableStorage = {
   preference: false,
   tree: false,
@@ -12,6 +12,16 @@ let disableStorage = {
 function checkObject()
 {
   return !!window.localStorage;
+}
+
+/**
+ * change prefix
+ *
+ * @param {string} newPrefix
+ */
+export function changePrefix(newPrefix)
+{
+  prefix = newPrefix;
 }
 
 /**

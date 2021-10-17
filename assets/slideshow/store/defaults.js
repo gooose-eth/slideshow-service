@@ -57,4 +57,5 @@ export default {
   activeSlide: undefined,
   keyboardEvent: true,
   autoplay: false,
+  serviceMode: undefined,
 };

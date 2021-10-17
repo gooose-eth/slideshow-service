@@ -1,3 +1,5 @@
+import { createApp } from 'vue';
+
 // stylesheet
 import './scss/main.scss';
 import './slideshow/assets/scss/app.scss';
@@ -14,11 +16,8 @@ switch(routeMode)
   case 'watch':
   case 'create':
   case 'manage':
-    /**
-     * @param {function} slideshow
-     */
-    import('./pages/slideshow').then(({ default: slideshow }) => {
-      slideshow(routeMode, {});
+    import('./slideshow/main.vue').then(({ default: Main }) => {
+      createApp(Main, { mode: routeMode }).mount('#slideshow');
     });
     break;
   default:

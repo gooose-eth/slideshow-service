@@ -1,8 +1,8 @@
-import { _ as _export_sfc, I as Icon, i as i18n, c as convertPureObject, s as store, m as main } from "./slideshow.js";
+import { _ as _export_sfc, I as Icon, i as i18n, c as convertPureObject, s as store, m as main } from "./main3.js";
 import { B as ButtonBasic, t as twoDigit } from "./Basic.js";
 import { F as FormSelect } from "./Select.js";
 import { F as FormSwitch } from "./Switch.js";
-import { y as openBlock, z as createElementBlock, F as createBaseVNode, K as createVNode, R as toDisplayString, G as createCommentVNode, r as reactive, C as unref, W as withCtx, X as createTextVNode, M as pushScopeId, O as popScopeId } from "./runtime-dom.esm-bundler.js";
+import { y as openBlock, z as createElementBlock, F as createBaseVNode, K as createVNode, R as toDisplayString, G as createCommentVNode, r as reactive, C as unref, W as withCtx, X as createTextVNode, M as pushScopeId, O as popScopeId } from "./main2.js";
 var Checkbox_scss_vue_type_style_index_0_src_scoped_true_lang = "";
 const _hoisted_1$1 = { class: "form-checkbox" };
 const _hoisted_2$1 = { class: "form-checkbox__body" };
