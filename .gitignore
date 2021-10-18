@@ -16,3 +16,6 @@ yarn.lock
 package.lock.json
 .env
 composer.lock
+
+# TODO: 개발을 위하여 잠시 추가
+assets/dist/

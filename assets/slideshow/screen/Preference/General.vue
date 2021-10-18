@@ -131,7 +131,7 @@
       </div>
     </div>
     <hr class="field-line">
-    <div class="field-basic">
+    <div v-if="showManageArea" class="field-basic">
       <h3 class="field-title">
         <label>
           {{t('title.backupOrRestore')}}
@@ -155,7 +155,7 @@
         </div>
       </div>
     </div>
-    <div class="field-basic">
+    <div v-if="showManageArea" class="field-basic">
       <h3 class="field-title">
         <label>{{t('base.reset')}}</label>
       </h3>
@@ -170,6 +170,7 @@
     </div>
   </div>
 </fieldset>
+
 </template>
 
 <script setup>
@@ -198,6 +199,7 @@ let state = reactive({
   clickVisibleHud: props.structure.clickVisibleHud,
   visibleHudContents: object.convertPureObject(props.structure.visibleHudContents),
 });
+const showManageArea = store.state.serviceMode !== 'watch';
 
 // methods
 function onSave()

@@ -21,7 +21,7 @@
     <nav class="header__nav">
       <ul>
         <li>
-          <a href="{{__ROOT__}}create/" target="slideshow" title="Create slideshow">
+          <a href="{{__ROOT__}}create/" target="_blank" title="Create slideshow">
             Create
           </a>
         </li>
@@ -45,6 +45,7 @@
     <p class="footer__copyright">Copyright {{date('Y')}} redgoose. All right reserved.</p>
   </footer>
 </main>
+<div id="service"></div>
 @yield('script')
 <script type="module" crossorigin src="{{__ROOT__}}assets/dist/main.js"></script>
 </body>

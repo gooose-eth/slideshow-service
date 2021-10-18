@@ -61,6 +61,12 @@ html.slideshow-page {
     position: fixed;
   }
 }
+html.mode-modal {
+  overflow: hidden;
+  body {
+    overflow: hidden;
+  }
+}
 
 @import './layout';
 @import './index';

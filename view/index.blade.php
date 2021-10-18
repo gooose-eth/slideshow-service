@@ -19,7 +19,7 @@ $arr = [1,2,3,4,5,6];
   <ul class="index__list">
     @foreach($arr as $k=>$item)
     <li class="index-item">
-      <a href="{{__ROOT__}}watch/123/" target="slideshow" class="index-item__wrap">
+      <a href="{{__ROOT__}}watch/123/" target="_blank" class="index-item__wrap">
         <figure class="index-item__image">
           @if (true)
           <img
