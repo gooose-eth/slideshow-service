@@ -10,7 +10,7 @@ import Authorization from '../components/authorization/index.vue';
 
 // set values
 let state = reactive({
-  showAuthorization: false,
+  showAuthorization: true, // TODO: 작업을 위하여 true로 변경
 });
 
 /**

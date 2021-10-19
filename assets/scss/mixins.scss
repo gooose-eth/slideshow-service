@@ -101,10 +101,11 @@
 }
 
 // focus
-@mixin focus()
+@mixin focus($offset, $stroke-width: 2px)
 {
   &:focus {
-    @content;
+    outline: $stroke-width dashed var(--color-key);
+    outline-offset: $offset;
     &:not(:focus-visible) {
       outline: none;
     }

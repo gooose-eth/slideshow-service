@@ -183,10 +183,7 @@
     color: var(--color-fill);
     transition: opacity 200ms ease-out;
     -webkit-tap-highlight-color: transparent;
-    @include mixins.focus() {
-      outline: 1px dashed var(--color-key);
-      outline-offset: -1px;
-    }
+    @include mixins.focus(-1px);
   }
   > strong {
     position: relative;

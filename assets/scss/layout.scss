@@ -14,10 +14,7 @@
       width: 80px;
       aspect-ratio: 80/97;
       overflow: hidden;
-      @include mixins.focus() {
-        outline: 1px dashed var(--color-key);
-        outline-offset: 10px;
-      }
+      @include mixins.focus(10px);
     }
     span {
       position: relative;
@@ -83,10 +80,7 @@
         color: var(--color-key);
         cursor: default;
       }
-      @include mixins.focus() {
-        outline: 1px dashed var(--color-key);
-        outline-offset: 2px;
-      }
+      @include mixins.focus(2px);
     }
   }
 
