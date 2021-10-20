@@ -1,7 +1,7 @@
 <template>
 <article class="authorization" @click="emits('close')">
   <div class="authorization__wrap" @click.stop="">
-    <h1 class="authorization__title">Authorization</h1>
+    <h1 class="authorization__title">{{title}}</h1>
     <form
       method="post"
       class="authorization__form"
@@ -10,6 +10,7 @@
         <label for="slideshow_id">Slideshow ID</label>
         <label class="authorization__input">
           <input
+            ref="slideshow_id"
             type="text"
             name="slideshow_id"
             id="slideshow_id"
@@ -32,7 +33,7 @@
       </div>
       <nav class="authorization__nav">
         <button type="submit">Submit</button>
-        <button type="button">Close</button>
+        <button type="button" @click="emits('close')">Close</button>
       </nav>
     </form>
   </div>
@@ -40,9 +41,12 @@
 </template>
 
 <script setup>
-import { reactive, onUnmounted, onBeforeMount } from 'vue';
+import { reactive, onBeforeMount, onMounted, onUnmounted, ref } from 'vue';
+
+const slideshow_id = ref();
 const props = defineProps({
   show: Boolean,
+  title: { type: String, default: 'Authorization' },
 });
 const emits = defineEmits([ 'close' ]);
 let state = reactive({
@@ -53,12 +57,15 @@ let state = reactive({
 /**
  * on submit
  */
-function onSubmit(e)
+function onSubmit()
 {
   console.log('call onSubmit()')
 }
 
 // lifecycles
+onMounted(() => {
+  slideshow_id.value.focus();
+});
 onBeforeMount(() => {
   document.querySelector('html').classList.add('mode-modal');
 });
@@ -90,7 +97,7 @@ onUnmounted(() => {
     cursor: auto;
   }
   &__title {
-    font-size: 32px;
+    font-size: 36px;
     font-weight: 800;
     line-height: 1.15;
     text-align: center;
@@ -108,7 +115,7 @@ onUnmounted(() => {
     > label {
       font-size: 13px;
       letter-spacing: -.2px;
-      color: var(--color-fill);
+      color: var(--color-low-fill);
       line-height: 1.2;
       user-select: none;
     }
@@ -128,7 +135,7 @@ onUnmounted(() => {
       width: 100%;
     }
     &:before {
-      background: #bbb;
+      background: #888;
     }
     &:after {
       background: var(--color-key);
@@ -149,7 +156,7 @@ onUnmounted(() => {
       font-weight: 500;
       font-size: 20px;
       &::placeholder {
-        color: var(--color-shape);
+        color: #ccc;
       }
     }
   }
@@ -166,12 +173,17 @@ onUnmounted(() => {
       -webkit-tap-highlight-color: transparent;
       cursor: pointer;
       font-size: 16px;
+      font-weight: 600;
       letter-spacing: -.3px;
       text-align: center;
       user-select: none;
       @include mixins.focus(2px, 2px);
+      transition: opacity 200ms ease-out;
+      &:active {
+        opacity: .5;
+      }
       &:nth-child(n+2) {
-        margin-top: 8px;
+        margin-top: 10px;
       }
       &[type=button] {
         background: var(--color-shape-button);
@@ -193,7 +205,33 @@ onUnmounted(() => {
       max-width: 400px;
       padding: 70px 50px 60px;
       border-radius: 8px;
-      box-shadow: 0 2px 20px 0 rgba(0, 0, 0, 0.2);
+      box-shadow: 0 2px 20px 0 rgba(0,0,0,.25), inset 0 0 0 1px rgba(0,0,0,.1);
+    }
+  }
+  @include mixins.dark-mode() {
+    &__wrap {
+      background: var(--color-bg);
+    }
+    &__input {
+      &:before {
+        background: #888;
+      }
+      input {
+        &::placeholder {
+          color: #444;
+        }
+      }
+    }
+    &__nav {
+      button {
+        color: var(--color-fill);
+      }
+    }
+    @include mixins.responsive(tablet) {
+      background: rgba(0,0,0,.75);
+      &__wrap {
+        box-shadow: 0 2px 30px 0 rgba(0,0,0,.5), inset 0 0 0 1px rgba(255,255,255,.05);
+      }
     }
   }
 }

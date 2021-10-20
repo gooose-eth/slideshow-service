@@ -1,6 +1,7 @@
 <template>
 <Authorization
-  v-if="state.showAuthorization"
+  v-if="state.authorization.visible"
+  :title="state.authorization.title"
   @close="visibleAuthorization(false)"/>
 </template>
 
@@ -10,17 +11,22 @@ import Authorization from '../components/authorization/index.vue';
 
 // set values
 let state = reactive({
-  showAuthorization: true, // TODO: 작업을 위하여 true로 변경
+  authorization: reactive({
+    visible: false,
+    title: 'Authorization',
+  }),
 });
 
 /**
  * visible authorization
  *
  * @param {boolean} sw
+ * @param {string} title
  */
-function visibleAuthorization(sw)
+function visibleAuthorization(sw, title)
 {
-  state.showAuthorization = sw;
+  state.authorization.visible = sw;
+  if (title) state.authorization.title = title;
 }
 
 defineExpose({

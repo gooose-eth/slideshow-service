@@ -41,8 +41,7 @@ function route(key)
   switch(key)
   {
     case 'manage':
-      // TODO: `vm.visibleAuthorization(true);`를 실행하여 인증팝업이 열리게 한다.
-      vm.visibleAuthorization(true);
+      vm.visibleAuthorization(true, 'Edit slide');
       break;
   }
 }
