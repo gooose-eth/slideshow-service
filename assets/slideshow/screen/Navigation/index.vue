@@ -4,16 +4,6 @@
   @touchstart="onTouchStart"
   @click="onClickWrapper">
   <div
-    v-if="true"
-    class="slideshow-navigation__item">
-    <button
-      type="button"
-      title="Save"
-      @click="onClickSave">
-      <Icon icon-name="save"/>
-    </button>
-  </div>
-  <div
     v-if="computes.visibleAutoplay"
     class="slideshow-navigation__item">
     <button
@@ -72,9 +62,24 @@
             {{t('base.fullscreen')}}
           </button>
         </li>
+        <li v-if="store.state.serviceMode !== 'watch'">
+          <button
+            type="button"
+            class="active"
+            @click="onClickContextItem('save')">
+            {{t('base.save')}}
+          </button>
+        </li>
       </ul>
     </div>
   </div>
+
+  <teleport to="#service">
+    <Authorization
+      v-if="state.visibleAuthorization"
+      :mode="store.state.serviceMode"
+      @close="visibleAuthorization(false)"/>
+  </teleport>
 </nav>
 </template>
 
@@ -85,11 +90,13 @@ import i18n from '../../i18n';
 import * as local from '../../libs/local';
 import * as util from '../../libs/util';
 import Icon from '../../components/Icon/index.vue';
+import Authorization from '../../../components/authorization/index.vue';
 
 const { t } = i18n.global;
 let state = reactive({
   activeMenu: false,
   activeFullscreen: false,
+  visibleAuthorization: false,
 });
 let computes = reactive({
   visibleThumbnail: computed(() => {
@@ -144,6 +151,9 @@ function onClickContextItem(key)
       util.fullscreen(!state.activeFullscreen);
       state.activeFullscreen = !state.activeFullscreen;
       break;
+    case 'save':
+      visibleAuthorization(true);
+      break;
   }
 }
 function onTouchStart(e)
@@ -158,10 +168,10 @@ function onClickGroup()
 {
   store.dispatch('changeMode', 'group');
 }
-function onClickSave()
+function visibleAuthorization(sw)
 {
-  // TODO: 모달창 띄우기
-  console.log('click save');
+  state.visibleAuthorization = sw;
+  store.commit('updateUseKeyboardEvent', !sw);
 }
 
 // public methods
@@ -298,6 +308,9 @@ defineExpose({
     &:active {
       background-color: rgba(0,0,0,.2);
     }
+    &.active {
+      color: var(--color-key);
+    }
   }
   &--on {
     ul {
@@ -320,6 +333,9 @@ defineExpose({
       &.on,
       &:active {
         background-color: rgba(0,0,0,.2);
+      }
+      &.active {
+        color: var(--color-key);
       }
     }
   }

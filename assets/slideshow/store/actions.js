@@ -36,6 +36,16 @@ export function changePreference(context, value)
 }
 
 /**
+ * change usePreference
+ */
+export function changeUsePreference(context, value)
+{
+  const pref = object.convertPureObject(value);
+  context.commit('changeUsePreference', pref);
+  storage.set('usePreference', pref);
+}
+
+/**
  * change autoplay
  * @param {object} context
  * @param {boolean} sw

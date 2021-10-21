@@ -2,6 +2,7 @@
 <Slideshow
   :mode="props.mode"
   :preference="state.preference"
+  :usePreference="state.usePreference"
   :group="state.group"
   :tree="state.tree"
   @update-preference="onUpdatePreference"
@@ -24,7 +25,7 @@ const props = defineProps({
   mode: String, // watch,create,manage
 });
 let state = reactive({
-  ...getInitializeData(props.mode), // { preference,tree,group }
+  ...getInitializeData(props.mode), // { preference, usePreference, tree, group }
 });
 
 /**

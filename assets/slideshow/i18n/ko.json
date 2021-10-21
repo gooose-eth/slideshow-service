@@ -71,7 +71,8 @@
 		"system": "시스템",
 		"thumbnail": "썸네일",
 		"urlThumbnailUrl": "썸네일 이미지 URL",
-		"version": "버전"
+		"version": "버전",
+    "save": "저장하기"
 	},
 	"confirm": {
 		"applyRestart": "슬라이드쇼가 재시작됩니다.\n적용하시겠습니까?",

@@ -65,6 +65,7 @@ export function disabled(key)
   switch (key)
   {
     case 'preference':
+    case 'usePreference':
     case 'tree':
     case 'group':
       disableStorage[key] = true;

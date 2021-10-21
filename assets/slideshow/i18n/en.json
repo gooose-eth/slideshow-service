@@ -71,7 +71,8 @@
 		"system": "System",
 		"thumbnail": "Thumbnail",
 		"urlThumbnailUrl": "Thumbnail image URL",
-		"version": "Version"
+		"version": "Version",
+		"save": "Save"
 	},
 	"confirm": {
 		"applyRestart": "The slideshow restarts.\nWould you like to apply?",

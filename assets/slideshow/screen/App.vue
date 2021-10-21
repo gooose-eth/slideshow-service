@@ -13,6 +13,7 @@ import { getApiData, sleep, initCustomEvent } from '../libs/util';
 import { convertPureObject, checkPreference, checkSlideItems } from '../libs/object';
 import Container from './Container.vue';
 import LoadingIntro from '../components/Loading/Intro.vue';
+import { changeUsePreference } from "../store/actions";
 
 // set dev
 if (window) window.dev = process.env.NODE_ENV === 'development';
@@ -21,6 +22,7 @@ const name = 'Slideshow';
 const props = defineProps({
   mode: String,
   preference: Object,
+  usePreference: Object,
   group: String,
   tree: [ Object, Array ],
 });
@@ -88,6 +90,11 @@ function fetchPreference()
     {
       storage.set('preference', convertPureObject(store.state.preference));
     }
+  }
+  if (props.usePreference)
+  {
+    storage.disabled('usePreference');
+    store.dispatch('changeUsePreference', props.usePreference);
   }
 }
 function fetchGroup()

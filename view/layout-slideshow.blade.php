@@ -6,6 +6,7 @@
 </head>
 <body ontouchstart="">
 @yield('contents')
+<div id="service"></div>
 <noscript>
   <strong>We're sorry but {{$_ENV['TITLE']}} doesn't work properly without JavaScript enabled. Please enable it to continue.</strong>
 </noscript>

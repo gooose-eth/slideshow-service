@@ -31,6 +31,14 @@ export function updatePreference(state, value)
 }
 
 /**
+ * change usePreference
+ */
+export function changeUsePreference(state, value)
+{
+  state.usePreference = value;
+}
+
+/**
  * update value in preference
  */
 export function updateValueInPreference(state, src)

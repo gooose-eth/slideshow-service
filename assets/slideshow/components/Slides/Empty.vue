@@ -1,13 +1,11 @@
 <template>
-<article class="empty" @click="onClickWrapper">
-  <div class="empty__wrap">
-    <Icon
-      icon-name="frown"
-      class="empty__icon"/>
-    <h2 class="empty__title">
+<article class="slideshow-empty" @click="onClickWrapper">
+  <div class="slideshow-empty__wrap">
+    <Icon icon-name="frown" class="slideshow-empty__icon"/>
+    <h2 class="slideshow-empty__title">
       {{title || t('title.emptySlide')}}
     </h2>
-    <p class="empty__description">
+    <p class="slideshow-empty__description">
       {{description || t('description.addSlides')}}
     </p>
   </div>
@@ -18,6 +16,9 @@
 import store from '../../store';
 import i18n from '../../i18n';
 import Icon from '../Icon/index.vue';
+
+// TODO: `mode`에 따라 메시지가 좀 달라진다.
+// TODO: `create,manage`라면 이미지를 올리는 방법에 대한 메시지가 나와야 할것이다.
 
 const { t } = i18n.global;
 const props = defineProps({
@@ -35,10 +36,10 @@ function onClickWrapper()
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 @use '../../assets/scss/mixins';
 
-.empty {
+.slideshow-empty {
   position: absolute;
   left: 0;
   right: 0;

@@ -68,8 +68,6 @@ let state = reactive({
         return defineAsyncComponent(() => import('./src/icon-folder.vue'));
       case 'minus':
         return defineAsyncComponent(() => import('./src/icon-minus.vue'));
-      case 'save':
-        return defineAsyncComponent(() => import('./src/icon-save.vue'));
       default:
         return null;
     }
@@ -77,7 +75,7 @@ let state = reactive({
 });
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 .slideshow-icon {
   display: block;
   width: var(--icon-size, 24px);

@@ -1,7 +1,7 @@
 <template>
 <article class="authorization" @click="emits('close')">
   <div class="authorization__wrap" @click.stop="">
-    <h1 class="authorization__title">{{title}}</h1>
+    <h1 class="authorization__title">{{messages.title}}</h1>
     <form
       method="post"
       class="authorization__form"
@@ -32,7 +32,7 @@
         </label>
       </div>
       <nav class="authorization__nav">
-        <button type="submit">Submit</button>
+        <button type="submit">{{messages.submitButton}}</button>
         <button type="button" @click="emits('close')">Close</button>
       </nav>
     </form>
@@ -53,6 +53,10 @@ let state = reactive({
   slideshowId: '',
   slideshowPassword: '',
 });
+let messages = {
+  title: 'Authorization',
+  submitButton: 'Submit',
+};
 
 /**
  * on submit
@@ -83,7 +87,8 @@ onUnmounted(() => {
   right: 0;
   top: 0;
   bottom: 0;
-  cursor: not-allowed;
+  z-index: 5;
+  cursor: zoom-out;
   &__wrap {
     display: flex;
     align-items: center;
