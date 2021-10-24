@@ -1,5 +1,6 @@
 <template>
 <Slideshow
+  ref="slideshow"
   :mode="props.mode"
   :preference="state.preference"
   :usePreference="state.usePreference"
@@ -7,12 +8,23 @@
   :tree="state.tree"
   @update-preference="onUpdatePreference"
   @update-tree="onUpdateTree"
-  @update-group="onUpdateGroup"/>
+  @update-group="onUpdateGroup"
+  @save="onVisibleAuthorization(true)"/>
+<teleport to="#service">
+  <Authorization
+    v-if="state.visibleAuthorization"
+    :mode="props.mode"
+    @submit="onSubmitInSave"
+    @close="onVisibleAuthorization(false)"/>
+  <Loading v-if="state.visibleLoading"/>
+</teleport>
 </template>
 
 <script setup>
-import { reactive } from 'vue';
+import { reactive, ref } from 'vue';
 import Slideshow from '../slideshow/screen/App.vue';
+import Authorization from '../components/authorization/index.vue';
+import Loading from '../components/loading/index.vue';
 import * as storage from './libs/storage';
 import getInitializeData from './libs/getInitializeData';
 
@@ -20,12 +32,15 @@ import getInitializeData from './libs/getInitializeData';
 storage.changePrefix('slideshowService');
 
 // set values
+const slideshow = ref();
 const name = 'SlideshowContainer';
 const props = defineProps({
   mode: String, // watch,create,manage
 });
 let state = reactive({
   ...getInitializeData(props.mode), // { preference, usePreference, tree, group }
+  visibleAuthorization: false,
+  visibleLoading: false,
 });
 
 /**
@@ -60,4 +75,31 @@ function onUpdateGroup(res)
   state.group = res;
   console.log('call onUpdateGroup()', res);
 }
+
+/**
+ * on visible authorization
+ *
+ * @param {boolean} sw
+ */
+function onVisibleAuthorization(sw)
+{
+  state.visibleAuthorization = sw;
+  slideshow.value.useKeyboardEvent(!sw);
+}
+
+/**
+ * on submit in save component
+ *
+ * @param {object} res
+ */
+function onSubmitInSave(res)
+{
+  // TODO: 로딩 표시하기
+  // TODO: 모드에 따라 인증후의 일을 처리하기(create,manage)
+  console.log('call onSubmitInSave()', res);
+}
+
+defineExpose({
+  slideshow,
+})
 </script>

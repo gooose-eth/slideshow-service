@@ -26,7 +26,7 @@ const props = defineProps({
   group: String,
   tree: [ Object, Array ],
 });
-const emits = defineEmits([ 'update-preference', 'update-tree', 'update-group' ]);
+const emits = defineEmits([ 'update-preference', 'update-tree', 'update-group', 'save' ]);
 const { locale } = i18n.global;
 let state = reactive({
   dev: process.env.NODE_ENV === 'development',
@@ -207,6 +207,14 @@ function update(type)
       break;
   }
 }
+function useKeyboardEvent(sw)
+{
+  store.commit('updateUseKeyboardEvent', sw);
+}
+function save()
+{
+  emits('save');
+}
 
 // lifecycles
 onMounted(() => {
@@ -249,5 +257,7 @@ defineExpose({
   stop,
   restart,
   update,
+  useKeyboardEvent,
+  save,
 })
 </script>

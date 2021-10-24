@@ -73,13 +73,6 @@
       </ul>
     </div>
   </div>
-
-  <teleport to="#service">
-    <Authorization
-      v-if="state.visibleAuthorization"
-      :mode="store.state.serviceMode"
-      @close="visibleAuthorization(false)"/>
-  </teleport>
 </nav>
 </template>
 
@@ -90,13 +83,11 @@ import i18n from '../../i18n';
 import * as local from '../../libs/local';
 import * as util from '../../libs/util';
 import Icon from '../../components/Icon/index.vue';
-import Authorization from '../../../components/authorization/index.vue';
 
 const { t } = i18n.global;
 let state = reactive({
   activeMenu: false,
   activeFullscreen: false,
-  visibleAuthorization: false,
 });
 let computes = reactive({
   visibleThumbnail: computed(() => {
@@ -152,7 +143,7 @@ function onClickContextItem(key)
       state.activeFullscreen = !state.activeFullscreen;
       break;
     case 'save':
-      visibleAuthorization(true);
+      local.main.save();
       break;
   }
 }
@@ -167,11 +158,6 @@ function onClickWrapper(e)
 function onClickGroup()
 {
   store.dispatch('changeMode', 'group');
-}
-function visibleAuthorization(sw)
-{
-  state.visibleAuthorization = sw;
-  store.commit('updateUseKeyboardEvent', !sw);
 }
 
 // public methods

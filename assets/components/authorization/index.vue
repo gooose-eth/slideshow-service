@@ -48,7 +48,7 @@ const props = defineProps({
   show: Boolean,
   title: { type: String, default: 'Authorization' },
 });
-const emits = defineEmits([ 'close' ]);
+const emits = defineEmits([ 'submit', 'close' ]);
 let state = reactive({
   slideshowId: '',
   slideshowPassword: '',
@@ -61,9 +61,13 @@ let messages = {
 /**
  * on submit
  */
-function onSubmit()
+function onSubmit(e)
 {
-  console.log('call onSubmit()')
+  emits('submit', {
+    event: e,
+    id: state.slideshowId,
+    password: state.slideshowPassword,
+  });
 }
 
 // lifecycles
