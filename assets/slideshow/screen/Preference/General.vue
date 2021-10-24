@@ -130,44 +130,46 @@
         </ul>
       </div>
     </div>
-    <hr class="field-line">
-    <div v-if="showManageArea" class="field-basic">
-      <h3 class="field-title">
-        <label>
-          {{t('title.backupOrRestore')}}
-        </label>
-      </h3>
-      <p class="field-description">
-        {{t('description.backup')}}
-      </p>
-      <div class="field-basic__body">
-        <div class="grid import-data">
-          <div>
-            <ButtonBasic color="key" @click="onClickBackup">
-              {{t('base.backup')}}
-            </ButtonBasic>
-          </div>
-          <div>
-            <ButtonBasic color="key" @click="onClickRestore">
-              {{t('base.restore')}}
-            </ButtonBasic>
+    <template v-if="showManageArea">
+      <hr class="field-line">
+      <div class="field-basic">
+        <h3 class="field-title">
+          <label>
+            {{t('title.backupOrRestore')}}
+          </label>
+        </h3>
+        <p class="field-description">
+          {{t('description.backup')}}
+        </p>
+        <div class="field-basic__body">
+          <div class="grid import-data">
+            <div>
+              <ButtonBasic color="key" @click="onClickBackup">
+                {{t('base.backup')}}
+              </ButtonBasic>
+            </div>
+            <div>
+              <ButtonBasic color="key" @click="onClickRestore">
+                {{t('base.restore')}}
+              </ButtonBasic>
+            </div>
           </div>
         </div>
       </div>
-    </div>
-    <div v-if="showManageArea" class="field-basic">
-      <h3 class="field-title">
-        <label>{{t('base.reset')}}</label>
-      </h3>
-      <p class="field-description">
-        {{t('description.reset')}}
-      </p>
-      <div class="field-basic__body">
-        <ButtonBasic color="danger" @click="onClickReset">
-          {{t('base.resetSlideshow')}}
-        </ButtonBasic>
+      <div v-if="showManageArea" class="field-basic">
+        <h3 class="field-title">
+          <label>{{t('base.reset')}}</label>
+        </h3>
+        <p class="field-description">
+          {{t('description.reset')}}
+        </p>
+        <div class="field-basic__body">
+          <ButtonBasic color="danger" @click="onClickReset">
+            {{t('base.resetSlideshow')}}
+          </ButtonBasic>
+        </div>
       </div>
-    </div>
+    </template>
   </div>
 </fieldset>
 
