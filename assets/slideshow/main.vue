@@ -27,6 +27,7 @@ import Authorization from '../components/authorization/index.vue';
 import Loading from '../components/loading/index.vue';
 import * as storage from './libs/storage';
 import getInitializeData from './libs/getInitializeData';
+import { get, post } from '../libs/fetch';
 
 // setup
 storage.changePrefix('slideshowService');
@@ -90,13 +91,29 @@ function onVisibleAuthorization(sw)
 /**
  * on submit in save component
  *
- * @param {object} res
+ * @param {object} src
  */
-function onSubmitInSave(res)
+async function onSubmitInSave(src)
 {
-  // TODO: 로딩 표시하기
-  // TODO: 모드에 따라 인증후의 일을 처리하기(create,manage)
-  console.log('call onSubmitInSave()', res);
+  try
+  {
+    onVisibleAuthorization(false);
+    state.visibleLoading = true;
+    // TODO: 로딩 표시하기
+    // TODO: 모드에 따라 인증후의 일을 처리하기(create,manage)
+    const res = await post('/create/', {
+      id: src.id,
+      password: src.password,
+      slideshow: '',
+    });
+    state.visibleLoading = false;
+    console.log(res);
+  }
+  catch (e)
+  {
+    // TODO: 오류처리
+    console.log('ERROR: ', e);
+  }
 }
 
 defineExpose({

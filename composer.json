@@ -17,6 +17,8 @@
     "redgoose/console": "^1.0.1",
     "eftec/bladeone": "^4.1",
     "altorouter/altorouter": "^2.0.2",
-    "ext-pdo": "*"
+    "firebase/php-jwt": "^5.4",
+    "ext-pdo": "*",
+    "ext-json": "*"
   }
 }

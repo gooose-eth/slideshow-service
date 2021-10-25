@@ -14,9 +14,10 @@
             type="text"
             name="slideshow_id"
             id="slideshow_id"
+            v-model="state.slideshowId"
             maxlength="20"
             placeholder="Please input id."
-            v-model="state.slideshowId">
+            required>
         </label>
       </div>
       <div class="authorization__field">
@@ -26,9 +27,10 @@
             type="password"
             name="slideshow_password"
             id="slideshow_password"
+            v-model="state.slideshowPassword"
             maxlength="24"
             placeholder="Please input password."
-            v-model="state.slideshowPassword">
+            required>
         </label>
       </div>
       <nav class="authorization__nav">

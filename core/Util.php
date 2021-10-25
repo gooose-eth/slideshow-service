@@ -3,10 +3,30 @@ namespace Core;
 use Exception, redgoose\Paginate, redgoose\Console;
 
 /**
- * AppUtil
+ * Application Util
  */
-
 class Util {
+
+  /**
+   * set header
+   *
+   * @param string $mode
+   */
+  static public function setHeader($mode = ''): void
+  {
+    switch ($mode)
+    {
+      case 'text':
+        header('Content-Type: text/plain; charset=utf-8');
+        break;
+      case 'json':
+        header('Content-Type: json/application; charset=utf-8');
+        break;
+      default:
+        header('Content-Type: text/html; charset=utf-8');
+        break;
+    }
+  }
 
   /**
    * error
@@ -45,5 +65,28 @@ class Util {
     return $result;
   }
 
+  /**
+   * check exist value
+   * 배열속에 필수값이 들어있는지 확인
+   *
+   * @param array|object|null $target 확인할 배열
+   * @param array|null $required 키값이 들어있는 배열
+   * @throws Exception
+   */
+  public static function checkExistValue($target=null, $required=null)
+  {
+    if (!isset($target)) throw new Exception('No value `$target`');
+    if ($required)
+    {
+      $target = (array)$target;
+      foreach ($required as $k=>$v)
+      {
+        if (!array_key_exists($v, $target) || !$target[$v])
+        {
+          throw new Exception('Can not find `'.$v.'`.', 204);
+        }
+      }
+    }
+  }
 
 }

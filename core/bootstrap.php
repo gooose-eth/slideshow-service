@@ -64,7 +64,6 @@ try
         'paginate' => $res->paginate,
       ]);
       break;
-
     case 'watch':
     case 'create':
     case 'manage':
@@ -75,12 +74,19 @@ try
         'id' => $_params->id ?? '',
       ]);
       break;
-
     case 'about':
       $blade->render('about', (object)[
         'title' => $_ENV['TITLE'],
         'target' => $_target,
       ]);
+      break;
+    case 'post/create':
+      Util::setHeader('json');
+      $res = Submit::create();
+      echo $res;
+      break;
+    case 'post/manage':
+      echo 'post/manage';
       break;
   }
 }
@@ -90,5 +96,4 @@ catch(Exception $e)
     'title' => $_ENV['TITLE'],
     'target' => 'error',
   ]);
-  Console::log('ERROR: '.$e->getMessage());
 }
