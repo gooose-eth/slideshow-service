@@ -11,7 +11,7 @@ class Submit {
   /**
    * create
    */
-  static public function create()
+  static public function create(): string
   {
     $res = (object)[];
     try
@@ -28,6 +28,29 @@ class Submit {
       ];
     }
     catch (Exception $e)
+    {
+      $res = (object)[
+        'success' => false,
+        'message' => $e->getMessage(),
+      ];
+    }
+    finally
+    {
+      return json_encode($res, JSON_PRETTY_PRINT);
+    }
+  }
+
+  /**
+   * manage
+   */
+  static public function manage(): string
+  {
+    $res = (object)[];
+    try
+    {
+      Util::checkExistValue($_POST, [ 'id', 'password', 'slideshow' ]);
+    }
+    catch(Exception $e)
     {
       $res = (object)[
         'success' => false,

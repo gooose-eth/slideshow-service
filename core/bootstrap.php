@@ -53,6 +53,39 @@ try
   $_target = $router->match['target'];
   $_params = (object)$router->match['params'];
 
+  // post
+  try
+  {
+    $res = null;
+    switch ($_target)
+    {
+      case 'post/create':
+        $res = Submit::create();
+        break;
+      case 'post/manage':
+        $res = Submit::manage();
+        break;
+    }
+    if ($res)
+    {
+      Util::setHeader('json');
+      echo (object)[
+        'success' => true,
+        'data' => '',
+      ];
+      exit;
+    }
+  }
+  catch(Exception $e)
+  {
+    echo (object)[
+      'success' => false,
+      'message' => $e->getMessage(),
+    ];
+    exit;
+  }
+
+  // route
   switch($_target)
   {
     case 'index':
@@ -67,26 +100,32 @@ try
     case 'watch':
     case 'create':
     case 'manage':
-      $model = new Model();
-      $blade->render('slideshow', (object)[
+      $data = (object)[
         'title' => $_ENV['TITLE'],
         'mode' => $_target,
-        'id' => $_params->id ?? '',
-      ]);
+      ];
+      // get model data
+      if ($_target === 'watch' or $_target === 'manage')
+      {
+        if (!isset($_params->id))
+        {
+          throw new Exception('No slideshow id');
+        }
+        $data->id = $_params->id;
+        $model = new Model();
+        Console::log($_params->id);
+        // TODO: `target=(watch|manage)`라면 모델에 들어있는 데이터를 가져온다.
+      }
+      // create token
+      $data->token = Token::create()->jwt;
+      // render view
+      $blade->render('slideshow', $data);
       break;
     case 'about':
       $blade->render('about', (object)[
         'title' => $_ENV['TITLE'],
         'target' => $_target,
       ]);
-      break;
-    case 'post/create':
-      Util::setHeader('json');
-      $res = Submit::create();
-      echo $res;
-      break;
-    case 'post/manage':
-      echo 'post/manage';
       break;
   }
 }

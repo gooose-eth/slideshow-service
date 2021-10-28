@@ -6,6 +6,7 @@ if(!defined("__SLIDESHOW__")){exit();}
  *
  * @property string $mode watch,create,manage
  * @property string $id
+ * @property string $token
  */
 ?>
 
@@ -25,7 +26,8 @@ window.Custom = {
   path: '{{__ROOT__}}',
   url: '{{$_ENV['PATH_URL']}}',
   mode: '{{$mode}}',
-  id: '{{$id}}' || undefined,
+  token: '{{$token ?? ''}}' || undefined,
+  id: '{{$id ?? ''}}' || undefined,
 };
 </script>
 @endsection
