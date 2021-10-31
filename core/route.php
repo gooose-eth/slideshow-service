@@ -16,6 +16,8 @@ return [
   [ 'GET', '/manage/[char:id]/', 'manage' ],
 
   // request
+  [ 'POST', '/auth', 'post/auth' ],
+  [ 'POST', '/auth/', 'post/auth' ],
   [ 'POST', '/create', 'post/create' ],
   [ 'POST', '/create/', 'post/create' ],
   [ 'POST', '/manage/[char:id]', 'post/manage' ],

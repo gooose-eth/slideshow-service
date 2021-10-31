@@ -9,25 +9,23 @@
   @update-preference="onUpdatePreference"
   @update-tree="onUpdateTree"
   @update-group="onUpdateGroup"
-  @save="onVisibleAuthorization(true)"/>
+  @save="onVisiblePost(true)"/>
 <teleport to="#service">
-  <Authorization
-    v-if="state.visibleAuthorization"
+  <Post
+    v-if="state.visiblePost"
     :mode="props.mode"
-    @submit="onSubmitInSave"
-    @close="onVisibleAuthorization(false)"/>
-  <Loading v-if="state.visibleLoading"/>
+    :slideshow="state.slideshow"
+    @close="onVisiblePost(false)"/>
 </teleport>
 </template>
 
 <script setup>
 import { reactive, ref } from 'vue';
 import Slideshow from '../slideshow/screen/App.vue';
-import Authorization from '../components/authorization/index.vue';
-import Loading from '../components/loading/index.vue';
+import Post from '../components/post/index.vue';
 import * as storage from './libs/storage';
 import getInitializeData from './libs/getInitializeData';
-import { get, post } from '../libs/fetch';
+import { convertPureObject } from './libs/object';
 
 // setup
 storage.changePrefix('slideshowService');
@@ -40,7 +38,7 @@ const props = defineProps({
 });
 let state = reactive({
   ...getInitializeData(props.mode), // { preference, usePreference, tree, group }
-  visibleAuthorization: false,
+  visiblePost: false,
   visibleLoading: false,
 });
 
@@ -78,42 +76,19 @@ function onUpdateGroup(res)
 }
 
 /**
- * on visible authorization
+ * on visible post
  *
  * @param {boolean} sw
  */
-function onVisibleAuthorization(sw)
+function onVisiblePost(sw)
 {
-  state.visibleAuthorization = sw;
+  state.slideshow = sw ? convertPureObject({
+    group: state.group,
+    tree: state.tree,
+    preference: state.preference,
+  }) : null;
+  state.visiblePost = sw;
   slideshow.value.useKeyboardEvent(!sw);
-}
-
-/**
- * on submit in save component
- *
- * @param {object} src
- */
-async function onSubmitInSave(src)
-{
-  try
-  {
-    onVisibleAuthorization(false);
-    state.visibleLoading = true;
-    // TODO: 로딩 표시하기
-    // TODO: 모드에 따라 인증후의 일을 처리하기(create,manage)
-    const res = await post('/create/', {
-      id: src.id,
-      password: src.password,
-      slideshow: '',
-    });
-    state.visibleLoading = false;
-    console.log(res);
-  }
-  catch (e)
-  {
-    // TODO: 오류처리
-    console.log('ERROR: ', e);
-  }
 }
 
 defineExpose({

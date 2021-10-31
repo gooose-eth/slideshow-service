@@ -72,7 +72,7 @@
         </td>
       </tr>
       <tr>
-        <th><code>S</code></th>
+        <th><code>P</code></th>
         <td>
           {{t('description.openPreference')}}
         </td>
@@ -99,6 +99,12 @@
         <th><code>G</code></th>
         <td>
           {{t('description.group')}}
+        </td>
+      </tr>
+      <tr>
+        <th><code>S</code></th>
+        <td>
+          {{t('description.saveSlideshow')}}
         </td>
       </tr>
       </tbody>

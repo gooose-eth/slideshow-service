@@ -132,7 +132,8 @@
 		"transitionSpeed": "트랜지션 애니메이션 속도를 변경합니다.",
 		"transitionType": "슬라이드가 바뀔때의 트랜지션을 선택합니다.",
 		"usingKeyboard": "키보드 단축키를 사용합니다.",
-		"visibleContents": "각 조작과 상태요소들 표시를 설정합니다."
+		"visibleContents": "각 조작과 상태요소들 표시를 설정합니다.",
+    "saveSlideshow": "슬라이드쇼를 저장합니다."
 	},
 	"label": {
 		"addGroup": "그룹 추가",

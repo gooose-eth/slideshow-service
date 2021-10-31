@@ -16,6 +16,8 @@ function getInitializeData(mode)
   switch(mode)
   {
     case 'watch':
+      let data = loadData();
+      console.log(data)
       // TODO: 데이터베이스에서 가져온 값들을 사용한다.
       // window.Custom
       preference = defaults.preference;
@@ -44,6 +46,32 @@ function getInitializeData(mode)
     tree,
     group,
   };
+}
+
+function loadData()
+{
+  const { Custom } = window;
+  try
+  {
+    if (!Custom.slideshow) throw new Error('no data');
+    if (Custom.slideshow)
+    {
+      const data = JSON.parse(decodeURIComponent(Custom?.slideshow));
+      return {
+        group: data.group,
+        preference: data.preference,
+        tree: data.tree,
+      };
+    }
+  }
+  catch(e)
+  {
+    return {
+      group: undefined,
+      preference: undefined,
+      tree: undefined,
+    };
+  }
 }
 
 export default getInitializeData;

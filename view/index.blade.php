@@ -3,9 +3,10 @@ if(!defined("__SLIDESHOW__")){exit();}
 
 /**
  * index page
+ *
+ * @property array $index
+ * @property object $paginate
  */
-
-$arr = [1,2,3,4,5,6];
 ?>
 
 @extends('layout')
@@ -17,21 +18,25 @@ $arr = [1,2,3,4,5,6];
 <article class="index">
   <h1>Slide items</h1>
   <ul class="index__list">
-    @foreach($arr as $k=>$item)
+    @foreach($index as $k=>$item)
     <li class="index-item">
-      <a href="{{__ROOT__}}watch/123/" target="_blank" class="index-item__wrap">
+      <a href="{{__ROOT__}}watch/{{$item->address}}/" target="_blank" class="index-item__wrap">
         <figure class="index-item__image">
-          @if (true)
+          @if (isset($item->thumbnail) && $item->thumbnail)
           <img
-            src="https://goose.redgoose.me/data/upload/original/201904/scripter1937.jpg"
+            src="{{$item->thumbnail}}"
             width="280"
             height="180"
-            alt="title">
+            alt="{{$item->title}}"
+            onerror="this.src='{{__ROOT__}}assets/images/img-thumbnail-error.jpg'">
+          @else
+          <i>{!! Core\EmptyIcon::random() !!}</i>
           @endif
         </figure>
         <div class="index-item__body">
-          <h2>Pune</h2>
-          <p>ㄴ웋ㄴ ㄴㅇㅎ렌 ㅡㅇ헤ㅡㄴ에 ㄴ으헨으 헨으헨 흐 sdigmsdg skmpdg msdgpksd mkpsdg sdkgosd sgk[sdgsl[dg sd[g,sd[lg ,s[dg,s[dg,[sd,g[sd,g[d,s[g,</p>
+          <p class="index-item__date">{{explode(' ', $item->regdate)[0]}}</p>
+          <h2 class="index-item__title">{{$item->title}}</h2>
+          <p class="index-item__description">{{$item->description}}</p>
         </div>
       </a>
     </li>

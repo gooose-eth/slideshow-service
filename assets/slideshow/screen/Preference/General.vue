@@ -2,26 +2,6 @@
 <fieldset>
   <legend>General fields</legend>
   <div class="fields">
-    <div class="field-basic">
-      <h3 class="field-title">
-        <label for="pref_language">
-          {{t('base.language')}}
-        </label>
-      </h3>
-      <p class="field-description">
-        {{t('description.language')}}
-      </p>
-      <div class="field-basic__body">
-        <FormSelect
-          name="pref_language"
-          id="pref_language"
-          v-model="state.language"
-          @update:modelValue="onSave">
-          <option value="en">{{t('language.en')}}</option>
-          <option value="ko">{{t('language.ko')}}</option>
-        </FormSelect>
-      </div>
-    </div>
     <hr class="field-line">
     <div class="field-switch">
       <div class="field-switch__body">

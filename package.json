@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "scripts": {
     "setup": "./scripts.sh setup",
-    "start": "./scripts.sh start",
+    "start": "./scripts.sh start 5000",
     "dev": "vite build --watch --config assets/config/vite.dev.config.js",
     "build": "rm -rf assets/dist/ && vite build --config assets/config/vite.prod.config.js"
   },

@@ -57,8 +57,15 @@ try
   try
   {
     $res = null;
+    if (preg_match("/^post\//", $_target))
+    {
+      Token::get($_SERVER['HTTP_AUTHORIZATION'] ?? '');
+    }
     switch ($_target)
     {
+      case 'post/auth':
+        $res = Submit::auth();
+        break;
       case 'post/create':
         $res = Submit::create();
         break;
@@ -68,20 +75,19 @@ try
     }
     if ($res)
     {
-      Util::setHeader('json');
-      echo (object)[
+      Util::output((object)[
         'success' => true,
-        'data' => '',
-      ];
+        'data' => $res,
+      ]);
       exit;
     }
   }
   catch(Exception $e)
   {
-    echo (object)[
+    Util::output((object)[
       'success' => false,
       'message' => $e->getMessage(),
-    ];
+    ]);
     exit;
   }
 
@@ -90,32 +96,50 @@ try
   {
     case 'index':
       $model = new Model();
-      $res = $model->index();
+      $page = (isset($_GET['page']) && (int)$_GET['page'] > 0) ? (int)$_GET['page'] : 1;
+      $size = (int)$_ENV['INDEX_SIZE'];
+      $total = $model->count((object)[]);
+      $paginate = $model->createPaginate($total, $page, $size);
+      $index = $model->index((object)[
+        'field' => 'address,title,description,thumbnail,regdate',
+        'limit' => [ ($page - 1) * $size, $size ],
+        'order' => '`key`',
+        'sort' => 'desc',
+      ]);
       $blade->render('index', (object)[
         'title' => $_ENV['TITLE'],
         'target' => $_target,
-        'paginate' => $res->paginate,
+        'index' => $index,
+        'paginate' => $paginate,
       ]);
       break;
-    case 'watch':
     case 'create':
+      $data = (object)[
+        'title' => $_ENV['TITLE'],
+        'mode' => $_target,
+      ];
+      // create token
+      $data->token = Token::create()->jwt;
+      // render view
+      $blade->render('slideshow', $data);
+      break;
+    case 'watch':
     case 'manage':
       $data = (object)[
         'title' => $_ENV['TITLE'],
         'mode' => $_target,
       ];
       // get model data
-      if ($_target === 'watch' or $_target === 'manage')
+      if (!isset($_params->id))
       {
-        if (!isset($_params->id))
-        {
-          throw new Exception('No slideshow id');
-        }
-        $data->id = $_params->id;
-        $model = new Model();
-        Console::log($_params->id);
-        // TODO: `target=(watch|manage)`라면 모델에 들어있는 데이터를 가져온다.
+        throw new Exception('No slideshow id');
       }
+      $data->id = $_params->id;
+      $model = new Model();
+      $item = $model->item((object)[ 'where' => "`address`='{$_params->id}'" ]);
+      // set slideshow data
+      Submit::checkSlideshowData($item->slideshow);
+      $data->slideshow = urlencode(json_encode($item->slideshow));
       // create token
       $data->token = Token::create()->jwt;
       // render view
@@ -131,8 +155,10 @@ try
 }
 catch(Exception $e)
 {
-  $blade->render('error', (object)[
-    'title' => $_ENV['TITLE'],
-    'target' => 'error',
-  ]);
+  try {
+    $blade->render('error', (object)[
+      'title' => $_ENV['TITLE'],
+      'target' => 'error',
+    ]);
+  } catch (Exception $e) {}
 }

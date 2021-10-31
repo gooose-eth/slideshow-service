@@ -1,6 +1,5 @@
 const headers = {
   'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8',
-  'Authorization': '',
 };
 
 /**
@@ -55,7 +54,10 @@ export async function post(url, data, type = 'json')
   {
     let res = await fetch(url, {
       method: 'post',
-      headers,
+      headers: {
+        ...headers,
+        Authorization: window.Custom.token,
+      },
       body: makeData(data),
     });
     switch(type)

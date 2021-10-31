@@ -104,7 +104,7 @@ function onKeyup(e)
           local.slides.autoplay();
         }
         break;
-      case 83: // s
+      case 80: // p
         store.dispatch('changeMode', 'preference');
         break;
       case 84: // t
@@ -124,6 +124,9 @@ function onKeyup(e)
         break;
       case 72: // h
         store.dispatch('changeHud');
+        break;
+      case 83: // s
+        local.main.save();
         break;
     }
   }
@@ -162,4 +165,4 @@ onUnmounted(() => {
 });
 </script>
 
-<style src="./Container.scss" lang="scss" scoped></style>
+<style src="./Container.scss" lang="scss"></style>

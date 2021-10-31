@@ -4,6 +4,16 @@
   @touchstart="onTouchStart"
   @click="onClickWrapper">
   <div
+    v-if="store.state.serviceMode !== 'watch'"
+    class="slideshow-navigation__item">
+    <button
+      type="button"
+      title="슬라이드쇼 서비스"
+      @click="onClickHome">
+      <Icon icon-name="home"/>
+    </button>
+  </div>
+  <div
     v-if="computes.visibleAutoplay"
     class="slideshow-navigation__item">
     <button
@@ -62,16 +72,19 @@
             {{t('base.fullscreen')}}
           </button>
         </li>
-        <li v-if="store.state.serviceMode !== 'watch'">
-          <button
-            type="button"
-            class="active"
-            @click="onClickContextItem('save')">
-            {{t('base.save')}}
-          </button>
-        </li>
       </ul>
     </div>
+  </div>
+  <div
+    v-if="store.state.serviceMode !== 'watch'"
+    class="slideshow-navigation__item">
+    <button
+      type="button"
+      :title="computes.buttonTitleSave"
+      class="active"
+      @click="onClickSave">
+      <Icon icon-name="save"/>
+    </button>
   </div>
 </nav>
 </template>
@@ -101,6 +114,15 @@ let computes = reactive({
   visibleGroup: computed(() => {
     if (!store.state.preference.general.visibleHudContents.group) return false;
     return store.state.tree && Object.keys(store.state.tree).length > 1;
+  }),
+  buttonTitleSave: computed(() => {
+    switch (store.state.serviceMode)
+    {
+      case 'create':
+        return '슬라이드쇼 만들기';
+      case 'manage':
+        return '슬라이드쇼 관리하기';
+    }
   }),
 });
 
@@ -142,9 +164,6 @@ function onClickContextItem(key)
       util.fullscreen(!state.activeFullscreen);
       state.activeFullscreen = !state.activeFullscreen;
       break;
-    case 'save':
-      local.main.save();
-      break;
   }
 }
 function onTouchStart(e)
@@ -158,6 +177,14 @@ function onClickWrapper(e)
 function onClickGroup()
 {
   store.dispatch('changeMode', 'group');
+}
+function onClickHome()
+{
+  location.href = window.Custom.path;
+}
+function onClickSave()
+{
+  local.main.save();
 }
 
 // public methods

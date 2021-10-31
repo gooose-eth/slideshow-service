@@ -34,30 +34,26 @@ class Token {
   }
 
   /**
-   * get token
+   * check token
    *
    * @param string $token
-   * @param string $uniqueId
-   * @return object
    * @throws Exception
    */
-  public static function get($token, $uniqueId): object
+  public static function get($token)
   {
-    $output = (object)[];
-    $decoded = null;
-    $key = $_ENV['TOKEN_KEY'];
-
     try
     {
       if (!$token) throw new Exception('No token');
-      $decoded = JWT::decode($token, $key, ['HS256']);
+      $jwt = JWT::decode($token, $_ENV['TOKEN_KEY'], ['HS256']);
+      if ($_ENV['PATH_URL'] !== $jwt->iss)
+      {
+        throw new Exception('The domain does not match.');
+      }
     }
     catch (ExpiredException $e)
     {
-      // 오류로 보내주기
+      throw new Exception('Expired token');
     }
-
-    return (object)[];
   }
 
 }

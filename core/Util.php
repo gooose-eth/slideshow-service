@@ -89,4 +89,41 @@ class Util {
     }
   }
 
+  /**
+   * output
+   *
+   * @param {object} $src
+   */
+  public static function output($src): void
+  {
+    self::setHeader('json');
+    echo json_encode($src, JSON_PRETTY_PRINT);
+  }
+
+  /**
+   * create password
+   *
+   * @param string $str
+   * @return string
+   */
+  public static function createPassword(string $str=''): string
+  {
+    return password_hash($str, PASSWORD_DEFAULT);
+  }
+
+  /**
+   * verify password
+   *
+   * @param string $pw1
+   * @param string $pw2
+   * @throws Exception
+   */
+  public static function verifyPassword($pw1, $pw2)
+  {
+    if (!password_verify($pw1, $pw2))
+    {
+      throw new Exception('Error verify password');
+    }
+  }
+
 }

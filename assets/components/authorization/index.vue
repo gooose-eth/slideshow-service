@@ -1,13 +1,13 @@
 <template>
 <article class="authorization" @click="emits('close')">
   <div class="authorization__wrap" @click.stop="">
-    <h1 class="authorization__title">{{messages.title}}</h1>
+    <h1 class="authorization__title">슬라이드쇼 인증</h1>
     <form
       method="post"
       class="authorization__form"
       @submit.prevent="onSubmit">
       <div class="authorization__field">
-        <label for="slideshow_id">Slideshow ID</label>
+        <label for="slideshow_id">아이디</label>
         <label class="authorization__input">
           <input
             ref="slideshow_id"
@@ -15,27 +15,27 @@
             name="slideshow_id"
             id="slideshow_id"
             v-model="state.slideshowId"
-            maxlength="20"
-            placeholder="Please input id."
+            maxlength="24"
+            placeholder="아이디를 입력해주세요."
             required>
         </label>
       </div>
       <div class="authorization__field">
-        <label for="slideshow_password">Password</label>
+        <label for="slideshow_password">비밀번호</label>
         <label class="authorization__input">
           <input
             type="password"
             name="slideshow_password"
             id="slideshow_password"
             v-model="state.slideshowPassword"
-            maxlength="24"
-            placeholder="Please input password."
+            maxlength="30"
+            placeholder="비밀번호를 입력해주세요."
             required>
         </label>
       </div>
       <nav class="authorization__nav">
-        <button type="submit">{{messages.submitButton}}</button>
-        <button type="button" @click="emits('close')">Close</button>
+        <Button type="submit" color="key">인증하기</Button>
+        <Button @click="emits('close')">닫기</Button>
       </nav>
     </form>
   </div>
@@ -44,6 +44,7 @@
 
 <script setup>
 import { reactive, onBeforeMount, onMounted, onUnmounted, ref } from 'vue';
+import Button from '../button.vue';
 
 const slideshow_id = ref();
 const props = defineProps({
@@ -55,10 +56,6 @@ let state = reactive({
   slideshowId: '',
   slideshowPassword: '',
 });
-let messages = {
-  title: 'Authorization',
-  submitButton: 'Submit',
-};
 
 /**
  * on submit
@@ -123,12 +120,15 @@ onUnmounted(() => {
     &:nth-child(n+2) {
       margin-top: 30px;
     }
-    > label {
-      font-size: 13px;
-      letter-spacing: -.2px;
-      color: var(--color-low-fill);
-      line-height: 1.2;
-      user-select: none;
+    > p {
+      margin: 0;
+      > label {
+        font-size: 13px;
+        letter-spacing: -.2px;
+        color: var(--color-low-fill);
+        line-height: 1.2;
+        user-select: none;
+      }
     }
   }
   &__input {
@@ -165,42 +165,26 @@ onUnmounted(() => {
       width: 100%;
       height: 44px;
       font-weight: 500;
-      font-size: 20px;
+      font-size: 18px;
       &::placeholder {
         color: #ccc;
+      }
+      &:-webkit-autofill,
+      &:-webkit-autofill:hover,
+      &:-webkit-autofill:focus,
+      &:-webkit-autofill:active {
+        border: none;
+        -webkit-text-fill-color: var(--color-key);
+        -webkit-box-shadow: 0 0 0 1000px transparent inset;
+        transition: background-color 5000s ease-in-out 0s;
       }
     }
   }
   &__nav {
     margin: 30px 0 0;
     button {
-      display: block;
-      padding: 0 32px;
-      width: 100%;
-      height: 44px;
-      border-radius: 2px;
-      color: var(--color-invert);
-      border: none;
-      -webkit-tap-highlight-color: transparent;
-      cursor: pointer;
-      font-size: 16px;
-      font-weight: 600;
-      letter-spacing: -.3px;
-      text-align: center;
-      user-select: none;
-      @include mixins.focus(2px, 2px);
-      transition: opacity 200ms ease-out;
-      &:active {
-        opacity: .5;
-      }
       &:nth-child(n+2) {
         margin-top: 10px;
-      }
-      &[type=button] {
-        background: var(--color-shape-button);
-      }
-      &[type=submit] {
-        background: var(--color-key);
       }
     }
   }
@@ -231,11 +215,6 @@ onUnmounted(() => {
         &::placeholder {
           color: #444;
         }
-      }
-    }
-    &__nav {
-      button {
-        color: var(--color-fill);
       }
     }
     @include mixins.responsive(tablet) {

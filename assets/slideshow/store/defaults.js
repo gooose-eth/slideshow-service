@@ -1,7 +1,7 @@
 export default {
   preference: {
     general: {
-      language: 'en', // en,ko
+      language: 'ko', // en,ko
       hud: true,
       hoverVisibleHud: false,
       clickVisibleHud: false,

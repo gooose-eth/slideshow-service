@@ -9,66 +9,110 @@ use Exception;
 class Submit {
 
   /**
-   * create
+   * auth
+   *
+   * @return object
+   * @throws Exception
    */
-  static public function create(): string
+  static public function auth(): ?object
   {
-    $res = (object)[];
+    Util::checkExistValue($_POST, [ 'id', 'password' ]);
+
+    // set model
+    $model = new Model();
+
+    return (object)[
+      'success' => true,
+    ];
+  }
+
+  /**
+   * create
+   *
+   * @return object
+   * @throws Exception
+   */
+  static public function create(): ?object
+  {
+    Util::checkExistValue($_POST, [ 'title', 'description', 'slideshow', 'id', 'password' ]);
+
+    // set model
+    $model = new Model();
+
+    // set slideshow data
+    $slideshow = json_decode(urldecode($_POST['slideshow']), false);
+    self::checkSlideshowData($slideshow);
+
+    // create address
+    $address = uniqid();
+
+    // set thumbnail
+    $thumbnail = $_POST['thumbnail'] ?? '';
+    // TODO: 썸네일 이미지는 따로 이미지 파일로 올려야 하려나..
+    // TODO: var_dump(isset($slideshow->tree->{$slideshow->group}[0]));
+
+    // insert item from database
     try
     {
-      Util::checkExistValue($_POST, [ 'id', 'password', 'slideshow' ]);
-//      $res = (object)[
-//        'id' => $_POST['id'],
-//        'password' => $_POST['password'],
-//        'slideshow' => $_POST['slideshow'] ?? '',
-//      ];
-      $res = (object)[
-        'success' => true,
-        'data' => 'sample data',
-      ];
+      $model->insert((object)[
+        'key' => null,
+        'address' => $address,
+        'title' => $_POST['title'],
+        'description' => $_POST['description'],
+        'slideshow' => urlencode(json_encode($slideshow, false)),
+        'id' => $_POST['id'],
+        'password' => Util::createPassword($_POST['password']),
+        'regdate' => date('Y-m-d H:i:s'),
+        'update' => date('Y-m-d H:i:s'),
+        'thumbnail' => $thumbnail,
+      ]);
     }
     catch (Exception $e)
     {
-      $res = (object)[
-        'success' => false,
-        'message' => $e->getMessage(),
-      ];
+      throw new Exception((int)$_ENV['DEBUG'] === 1 ? $e->getMessage() : 'Failed to insert item from database.');
     }
-    finally
-    {
-      return json_encode($res, JSON_PRETTY_PRINT);
-    }
+
+    // get item
+    $key = $model->getLastKey();
+    $item = $model->item((object)[ 'where' => "`key`={$key}" ]);
+    unset($item->password);
+    return $item;
   }
 
   /**
    * manage
    */
-  static public function manage(): string
+  static public function manage(): ?object
   {
-    $res = (object)[];
     try
     {
       Util::checkExistValue($_POST, [ 'id', 'password', 'slideshow' ]);
+      return (object)[];
     }
     catch(Exception $e)
     {
-      $res = (object)[
-        'success' => false,
-        'message' => $e->getMessage(),
-      ];
-    }
-    finally
-    {
-      return json_encode($res, JSON_PRETTY_PRINT);
+      return null;
     }
   }
 
   /**
-   * edit
+   * check slideshow data
+   *
+   * @param object $src
+   * @throws Exception
    */
-  static public function edit()
+  static public function checkSlideshowData($src): void
   {
-    // edit
+    try
+    {
+      if (!isset($src->group)) throw new Exception();
+      if (!isset($src->tree)) throw new Exception();
+      if (!isset($src->preference)) throw new Exception();
+    }
+    catch(Exception $e)
+    {
+      throw new Exception('Invalid slideshow.');
+    }
   }
 
 }

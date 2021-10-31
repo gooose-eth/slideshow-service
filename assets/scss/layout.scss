@@ -41,7 +41,7 @@
     }
   }
   &__nav {
-    --size-middle-padding: 8px;
+    --size-middle-padding: 4px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -83,7 +83,11 @@
       @include mixins.focus(2px);
     }
   }
-
+  @include mixins.responsive(tablet) {
+    &__nav {
+      --size-middle-padding: 8px;
+    }
+  }
   @include mixins.dark-mode() {
 
   }
