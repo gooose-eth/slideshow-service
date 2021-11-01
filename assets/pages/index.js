@@ -41,7 +41,7 @@ function route(key)
   switch(key)
   {
     case 'manage':
-      vm.visibleAuthorization(true, 'Edit slide');
+      vm.visibleAuthorization(true);
       break;
   }
 }

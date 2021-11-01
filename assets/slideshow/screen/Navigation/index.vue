@@ -4,7 +4,7 @@
   @touchstart="onTouchStart"
   @click="onClickWrapper">
   <div
-    v-if="store.state.serviceMode !== 'watch'"
+    v-if="computes.visibleSave"
     class="slideshow-navigation__item">
     <button
       type="button"
@@ -72,11 +72,18 @@
             {{t('base.fullscreen')}}
           </button>
         </li>
+        <li>
+          <button
+            type="button"
+            @click="onClickContextItem('slideshowService')">
+            {{t('base.slideshowService')}}
+          </button>
+        </li>
       </ul>
     </div>
   </div>
   <div
-    v-if="store.state.serviceMode !== 'watch'"
+    v-if="computes.visibleSave"
     class="slideshow-navigation__item">
     <button
       type="button"
@@ -98,6 +105,7 @@ import * as util from '../../libs/util';
 import Icon from '../../components/Icon/index.vue';
 
 const { t } = i18n.global;
+const { Custom } = window;
 let state = reactive({
   activeMenu: false,
   activeFullscreen: false,
@@ -115,6 +123,7 @@ let computes = reactive({
     if (!store.state.preference.general.visibleHudContents.group) return false;
     return store.state.tree && Object.keys(store.state.tree).length > 1;
   }),
+  visibleSave: computed(() => (store.state.serviceMode !== 'watch')),
   buttonTitleSave: computed(() => {
     switch (store.state.serviceMode)
     {
@@ -164,6 +173,9 @@ function onClickContextItem(key)
       util.fullscreen(!state.activeFullscreen);
       state.activeFullscreen = !state.activeFullscreen;
       break;
+    case 'slideshowService':
+      window.open(Custom.path);
+      break;
   }
 }
 function onTouchStart(e)
@@ -180,7 +192,7 @@ function onClickGroup()
 }
 function onClickHome()
 {
-  location.href = window.Custom.path;
+  location.href = Custom.path;
 }
 function onClickSave()
 {

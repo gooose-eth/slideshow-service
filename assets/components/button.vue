@@ -42,6 +42,10 @@ const emits = defineEmits([ 'click' ]);
   &:active {
     opacity: .5;
   }
+  &:disabled {
+    opacity: .5;
+    cursor: not-allowed;
+  }
   &--color {
     &-key {
       background: var(--color-key);

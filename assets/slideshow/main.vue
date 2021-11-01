@@ -23,15 +23,15 @@
 import { reactive, ref } from 'vue';
 import Slideshow from '../slideshow/screen/App.vue';
 import Post from '../components/post/index.vue';
-import * as storage from './libs/storage';
+import * as storage from '../libs/storage';
 import getInitializeData from './libs/getInitializeData';
 import { convertPureObject } from './libs/object';
 
-// setup
-storage.changePrefix('slideshowService');
-
 // set values
 const slideshow = ref();
+const { Custom } = window;
+// set storage prefix
+storage.changePrefix(Custom.id)
 const name = 'SlideshowContainer';
 const props = defineProps({
   mode: String, // watch,create,manage
@@ -50,7 +50,7 @@ let state = reactive({
 function onUpdatePreference(res)
 {
   state.preference = res;
-  console.log('call onUpdatePreference()', res);
+  if (props.mode === 'watch') storage.set('preference', res);
 }
 
 /**
@@ -60,8 +60,8 @@ function onUpdatePreference(res)
  */
 function onUpdateTree(res)
 {
+  if (props.mode === 'watch') return;
   state.tree = res;
-  console.log('call onUpdateTree()', res);
 }
 
 /**
@@ -72,7 +72,7 @@ function onUpdateTree(res)
 function onUpdateGroup(res)
 {
   state.group = res;
-  console.log('call onUpdateGroup()', res);
+  if (props.mode === 'watch') storage.set('group', res);
 }
 
 /**

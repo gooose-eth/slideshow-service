@@ -1,4 +1,5 @@
 import defaults from '../store/defaults';
+import * as storage from '../../libs/storage';
 
 /**
  * get tree initialize
@@ -13,25 +14,36 @@ function getInitializeData(mode)
   let tree;
   let group;
 
+  // get service data
+  let serviceData = getServiceData();
+
   switch(mode)
   {
     case 'watch':
-      let data = loadData();
-      console.log(data)
-      // TODO: 데이터베이스에서 가져온 값들을 사용한다.
-      // window.Custom
-      preference = defaults.preference;
-      tree = defaults.tree;
-      group = defaults.group;
+      const storagePreference = storage.get('preference');
+      const storageGroup = storage.get('group');
+      preference = {
+        ...defaults.preference,
+        ...serviceData.preference,
+        ...storagePreference,
+      };
+      tree = {
+        ...defaults.tree,
+        ...serviceData.tree,
+      };
+      group = storageGroup || serviceData.group || defaults.group;
       usePreference.data = false;
-      // TODO: `preference,group` 부분은 스토리지와 연동이 되어야 한다.
       break;
     case 'manage':
-      // TODO: 데이터베이스에서 가져온 값들을 사용한다.
-      // window.Custom
-      preference = defaults.preference;
-      tree = defaults.tree;
-      group = defaults.group;
+      preference = {
+        ...defaults.preference,
+        ...serviceData.preference,
+      };
+      tree = {
+        ...defaults.tree,
+        ...serviceData.tree,
+      };
+      group = serviceData.group || defaults.group;
       break;
     case 'create':
       preference = defaults.preference;
@@ -48,7 +60,12 @@ function getInitializeData(mode)
   };
 }
 
-function loadData()
+/**
+ * get service data
+ *
+ * return {Object}
+ */
+function getServiceData()
 {
   const { Custom } = window;
   try

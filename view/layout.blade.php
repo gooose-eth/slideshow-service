@@ -51,6 +51,13 @@
   </footer>
 </main>
 <div id="service"></div>
+<script>
+window.Custom = {
+  path: '{{__ROOT__}}',
+  url: '{{$_ENV['PATH_URL']}}',
+  token: '{{$token ?? ''}}',
+};
+</script>
 @yield('script')
 <script type="module" crossorigin src="{{__ROOT__}}assets/dist/main.js"></script>
 </body>

@@ -34,7 +34,12 @@
         </label>
       </div>
       <nav class="authorization__nav">
-        <Button type="submit" color="key">인증하기</Button>
+        <Button
+          type="submit"
+          color="key"
+          :disabled="state.processing">
+          {{state.processing ? '처리중..' : '인증하기'}}
+        </Button>
         <Button @click="emits('close')">닫기</Button>
       </nav>
     </form>
@@ -43,30 +48,39 @@
 </template>
 
 <script setup>
-import { reactive, onBeforeMount, onMounted, onUnmounted, ref } from 'vue';
+import { reactive, computed, onBeforeMount, onMounted, onUnmounted, ref } from 'vue';
 import Button from '../button.vue';
 
 const slideshow_id = ref();
 const props = defineProps({
   show: Boolean,
-  title: { type: String, default: 'Authorization' },
 });
 const emits = defineEmits([ 'submit', 'close' ]);
 let state = reactive({
   slideshowId: '',
   slideshowPassword: '',
+  processing: false,
+});
+let computes = reactive({
+
 });
 
 /**
  * on submit
  */
-function onSubmit(e)
+async function onSubmit(e)
 {
-  emits('submit', {
-    event: e,
-    id: state.slideshowId,
-    password: state.slideshowPassword,
-  });
+  try {
+    // TODO: 인증 작업하기
+    state.processing = true;
+    console.log('on submit');
+    // emits('submit');
+  }
+  catch(e)
+  {
+    //
+    state.processing = false;
+  }
 }
 
 // lifecycles

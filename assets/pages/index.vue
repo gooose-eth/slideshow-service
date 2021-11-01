@@ -1,7 +1,7 @@
 <template>
 <Authorization
   v-if="state.authorization.visible"
-  :title="state.authorization.title"
+  @submit="onSubmitAuthorization"
   @close="visibleAuthorization(false)"/>
 </template>
 
@@ -13,7 +13,6 @@ import Authorization from '../components/authorization/index.vue';
 let state = reactive({
   authorization: reactive({
     visible: false,
-    title: 'Authorization',
   }),
 });
 
@@ -21,12 +20,18 @@ let state = reactive({
  * visible authorization
  *
  * @param {boolean} sw
- * @param {string} title
  */
-function visibleAuthorization(sw, title)
+function visibleAuthorization(sw)
 {
   state.authorization.visible = sw;
-  if (title) state.authorization.title = title;
+}
+
+/**
+ * on submit authorization
+ */
+function onSubmitAuthorization()
+{
+  console.log('onSubmitAuthorization');
 }
 
 defineExpose({

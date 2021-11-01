@@ -106,11 +106,14 @@ try
         'order' => '`key`',
         'sort' => 'desc',
       ]);
+      // create token
+      $token = Token::create()->jwt;
       $blade->render('index', (object)[
         'title' => $_ENV['TITLE'],
         'target' => $_target,
         'index' => $index,
         'paginate' => $paginate,
+        'token' => $token,
       ]);
       break;
     case 'create':
