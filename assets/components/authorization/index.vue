@@ -61,9 +61,7 @@ let state = reactive({
   slideshowPassword: '',
   processing: false,
 });
-let computes = reactive({
-
-});
+let computes = reactive({});
 
 /**
  * on submit
@@ -72,6 +70,9 @@ async function onSubmit(e)
 {
   try {
     // TODO: 인증 작업하기
+    // TODO: 주소를 돌리는 방법에서 고민이 필요해서 댓글로 좀 적어뒀다.
+    // TODO: https://github.com/redgoose-dev/slideshow-service/issues/1#issuecomment-958534481
+    // TODO: 이 컴포넌트를 다용도로 사용하기 위하여 라우팅으로 이동하는 주소를 부모 영역에서 조절할 수 있도록 props를 이용하자.
     state.processing = true;
     console.log('on submit');
     // emits('submit');
