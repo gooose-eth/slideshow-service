@@ -22,7 +22,7 @@ if(!defined("__SLIDESHOW__")){exit();}
 @endsection
 
 @section('script')
-<script>
+<script type="module">
 window.Custom = {
   path: '{{__ROOT__}}',
   url: '{{$_ENV['PATH_URL']}}',

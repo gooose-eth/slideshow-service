@@ -41,7 +41,7 @@ function route(key)
   switch(key)
   {
     case 'manage':
-      vm.visibleAuthorization(true);
+      vm.visibleAuthorization(true, 'manage');
       break;
   }
 }

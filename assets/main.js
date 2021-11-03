@@ -4,11 +4,6 @@ import { createApp } from 'vue';
 import './scss/main.scss';
 import './slideshow/assets/scss/app.scss';
 
-/**
- * @var {object} window.Main
- */
-const {} = window.Main;
-
 // route
 const routeMode = location.pathname.split('/')[1];
 switch(routeMode)

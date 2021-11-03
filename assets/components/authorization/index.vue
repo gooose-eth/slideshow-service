@@ -3,17 +3,17 @@
   <div class="authorization__wrap" @click.stop="">
     <h1 class="authorization__title">슬라이드쇼 인증</h1>
     <form
+      :action="computes.url"
       method="post"
-      class="authorization__form"
-      @submit.prevent="onSubmit">
+      class="authorization__form">
       <div class="authorization__field">
-        <label for="slideshow_id">아이디</label>
+        <label for="id">아이디</label>
         <label class="authorization__input">
           <input
             ref="slideshow_id"
             type="text"
-            name="slideshow_id"
-            id="slideshow_id"
+            name="id"
+            id="id"
             v-model="state.slideshowId"
             maxlength="24"
             placeholder="아이디를 입력해주세요."
@@ -21,12 +21,12 @@
         </label>
       </div>
       <div class="authorization__field">
-        <label for="slideshow_password">비밀번호</label>
+        <label for="password">비밀번호</label>
         <label class="authorization__input">
           <input
             type="password"
-            name="slideshow_password"
-            id="slideshow_password"
+            name="password"
+            id="password"
             v-model="state.slideshowPassword"
             maxlength="30"
             placeholder="비밀번호를 입력해주세요."
@@ -34,12 +34,7 @@
         </label>
       </div>
       <nav class="authorization__nav">
-        <Button
-          type="submit"
-          color="key"
-          :disabled="state.processing">
-          {{state.processing ? '처리중..' : '인증하기'}}
-        </Button>
+        <Button type="submit" color="key">인증하기</Button>
         <Button @click="emits('close')">닫기</Button>
       </nav>
     </form>
@@ -51,38 +46,25 @@
 import { reactive, computed, onBeforeMount, onMounted, onUnmounted, ref } from 'vue';
 import Button from '../button.vue';
 
+const { Custom } = window;
 const slideshow_id = ref();
 const props = defineProps({
-  show: Boolean,
+  visible: Boolean,
+  mode: String,
 });
 const emits = defineEmits([ 'submit', 'close' ]);
 let state = reactive({
   slideshowId: '',
   slideshowPassword: '',
-  processing: false,
 });
-let computes = reactive({});
+let computes = reactive({
+  url: computed(() => (`${Custom.path}${props.mode}/`)),
+});
 
-/**
- * on submit
- */
-async function onSubmit(e)
-{
-  try {
-    // TODO: 인증 작업하기
-    // TODO: 주소를 돌리는 방법에서 고민이 필요해서 댓글로 좀 적어뒀다.
-    // TODO: https://github.com/redgoose-dev/slideshow-service/issues/1#issuecomment-958534481
-    // TODO: 이 컴포넌트를 다용도로 사용하기 위하여 라우팅으로 이동하는 주소를 부모 영역에서 조절할 수 있도록 props를 이용하자.
-    state.processing = true;
-    console.log('on submit');
-    // emits('submit');
-  }
-  catch(e)
-  {
-    //
-    state.processing = false;
-  }
-}
+// TODO: 인증 작업하기
+// TODO: 주소를 돌리는 방법에서 고민이 필요해서 댓글로 좀 적어뒀다.
+// TODO: https://github.com/redgoose-dev/slideshow-service/issues/1#issuecomment-958534481
+// TODO: 이 컴포넌트를 다용도로 사용하기 위하여 라우팅으로 이동하는 주소를 부모 영역에서 조절할 수 있도록 props를 이용하자.
 
 // lifecycles
 onMounted(() => {

@@ -51,7 +51,7 @@
   </footer>
 </main>
 <div id="service"></div>
-<script>
+<script type="module">
 window.Custom = {
   path: '{{__ROOT__}}',
   url: '{{$_ENV['PATH_URL']}}',

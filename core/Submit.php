@@ -18,8 +18,15 @@ class Submit {
   {
     Util::checkExistValue($_POST, [ 'id', 'password' ]);
 
+    // TODO: 로그인이 안됐으면 throw 처리
+    // TODO: 성공하면 슬라이드 데이터 가져오기
+    var_dump($_POST);
+    exit;
+
     // set model
     $model = new Model();
+    // $item = $model->item((object)[ 'where' => "`address`='$_params->id'" ]);
+    // Submit::checkSlideshowData($item->slideshow);
 
     return (object)[
       'success' => true,

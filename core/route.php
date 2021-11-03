@@ -12,8 +12,8 @@ return [
   [ 'GET', '/watch/[char:id]/', 'watch' ],
   [ 'GET', '/create', 'create' ],
   [ 'GET', '/create/', 'create' ],
-  [ 'GET', '/manage/[char:id]', 'manage' ],
-  [ 'GET', '/manage/[char:id]/', 'manage' ],
+  [ 'POST', '/manage/', 'manage' ],
+  [ 'POST', '/manage/', 'manage' ],
 
   // request
   [ 'POST', '/auth', 'post/auth' ],

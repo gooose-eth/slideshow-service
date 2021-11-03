@@ -132,21 +132,16 @@ try
         'title' => $_ENV['TITLE'],
         'mode' => $_target,
       ];
-      // get model data
-      if (!isset($_params->id))
-      {
-        throw new Exception('No slideshow id');
-      }
-      $data->id = $_params->id;
-      $model = new Model();
-      $item = $model->item((object)[ 'where' => "`address`='{$_params->id}'" ]);
+      // check auth and get slideshow data
+      // TODO: 여기서 인증 검사하기.
+      $res = Submit::auth();
+      exit;
       // set slideshow data
-      Submit::checkSlideshowData($item->slideshow);
-      $data->slideshow = urlencode(json_encode($item->slideshow));
+      // $data->slideshow = urlencode(json_encode($item->slideshow));
       // create token
-      $data->token = Token::create()->jwt;
+      // $data->token = Token::create()->jwt;
       // render view
-      $blade->render('slideshow', $data);
+      // $blade->render('slideshow', $data);
       break;
     case 'about':
       $blade->render('about', (object)[
