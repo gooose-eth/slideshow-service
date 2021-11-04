@@ -52,9 +52,12 @@
             maxlength="255"
             placeholder="이미지 주소를 입력하세요.">
         </label>
+        <p class="slideshow-post__help">
+          서비스 목록에서 사용하는 이미지 URL 주소를 입력합니다.
+        </p>
       </div>
       <div class="slideshow-post__columns">
-        <div class="slideshow-post__field">
+        <div v-if="!computes.manageMode" class="slideshow-post__field">
           <header>
             <label for="id">아이디</label>
           </header>
@@ -81,8 +84,11 @@
               v-model="state.password"
               maxlength="30"
               placeholder="비밀번호를 입력하세요."
-              required>
+              :required="computes.createMode">
           </label>
+          <p v-if="computes.manageMode" class="slideshow-post__help">
+            새로운 비밀번호로 변경하려면 입력하세요.
+          </p>
         </div>
       </div>
       <nav class="slideshow-post__nav">
@@ -110,6 +116,7 @@ const props = defineProps({
   slideshow: Object,
 });
 const emits = defineEmits([ 'close' ]);
+// TODO: manage 모드일때 값들을 가져오기
 let state = reactive({
   processing: false,
   title: '',
@@ -125,7 +132,7 @@ let computes = reactive({
       case 'create':
         return '슬라이드쇼 만들기';
       case 'manage':
-        return '슬라이드쇼 관리';
+        return '슬라이드쇼 수정하기';
       default:
         return '슬라이드쇼 서비스';
     }
@@ -141,7 +148,11 @@ let computes = reactive({
         return '적용하기';
     }
   }),
+  manageMode: computed(() => (props.mode === 'manage')),
+  createMode: computed(() => (props.mode === 'create')),
 });
+
+// TODO: 이 창을 닫아도 적은 상태값이 그대로 유지될 수 있으면 좋을거 같다.
 
 /**
  * on submit
@@ -153,6 +164,7 @@ async function onSubmit()
   try
   {
     state.processing = true;
+    let url;
     let data = {
       title: state.title,
       description: state.description,
@@ -161,15 +173,28 @@ async function onSubmit()
       password: state.password,
       thumbnail: state.thumbnail,
     };
-    const res = await post(`/${props.mode}/`, data);
+    switch (props.mode)
+    {
+      case 'manage':
+        url = `manage/${state.id}`;
+        break;
+      case 'create':
+      default:
+        url = 'create/';
+        break;
+    }
+    // TODO: 넘어온 값들을 확인하고 저장하도록 처리하기
+    console.log(url, data);
+    return;
+    const res = await post(`/${url}`, data);
     if (!res.success) throw new Error(res.message);
     state.processing = false;
     location.href = `${window.Custom.path}manage/${res.data.address}/`;
   }
   catch (e)
   {
-    // TODO: 오류처리
-    console.log('ERROR: ', e);
+    // TODO: 오류처리 구현하기
+    console.error(e.message);
     state.processing = false;
   }
 }
@@ -231,7 +256,7 @@ onUnmounted(() => {
   }
   &__input {
     display: block;
-    margin: 6px 0 0;
+    margin: 8px 0 0;
     input {
       position: relative;
       display: block;
@@ -262,6 +287,11 @@ onUnmounted(() => {
         transition: background-color 5000s ease-in-out 0s;
       }
     }
+  }
+  &__help {
+    margin: 4px 0 0;
+    font-size: 12px;
+    color: var(--color-low-fill);
   }
   &__columns {
     display: flex;

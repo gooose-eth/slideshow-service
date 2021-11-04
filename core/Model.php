@@ -157,9 +157,10 @@ class Model {
    * get item
    *
    * @param object
+   * @param bool
    * @return object
    */
-  public function item($op): object
+  public function item($op, $usePassword = false): object
   {
     $op->act = 'select';
     $op->field = $op->field ?? '*';
@@ -170,7 +171,7 @@ class Model {
     {
       $item->slideshow = json_decode(urldecode($item->slideshow), false);
     }
-    unset($item->password);
+    if (!$usePassword) unset($item->password);
     return $item;
   }
 

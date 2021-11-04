@@ -29,8 +29,8 @@ const name = 'PreferenceInformation';
 const { t } = i18n.global;
 const version = pkg.version;
 const signatures = {
-  light: `${window.Custom.path}assets/images/signature-light.png`,
-  dark: `${window.Custom.path}assets/images/signature-dark.png`,
+  light: `${window.Custom.path}assets/images/signature-dark.png`,
+  dark: `${window.Custom.path}assets/images/signature-light.png`,
 };
 const url = window.Custom.url;
 </script>

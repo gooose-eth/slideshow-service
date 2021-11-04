@@ -27,10 +27,7 @@ function getInitializeData(mode)
         ...serviceData.preference,
         ...storagePreference,
       };
-      tree = {
-        ...defaults.tree,
-        ...serviceData.tree,
-      };
+      tree = serviceData.tree || defaults.tree;
       group = storageGroup || serviceData.group || defaults.group;
       usePreference.data = false;
       break;
@@ -39,10 +36,7 @@ function getInitializeData(mode)
         ...defaults.preference,
         ...serviceData.preference,
       };
-      tree = {
-        ...defaults.tree,
-        ...serviceData.tree,
-      };
+      tree = serviceData.tree || defaults.tree;
       group = serviceData.group || defaults.group;
       break;
     case 'create':

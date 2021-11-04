@@ -32,7 +32,6 @@ export function get(key)
   if (!(checkObject() && key)) return undefined;
   try
   {
-    console.log(prefix)
     return JSON.parse(window.localStorage.getItem(`${prefix}_${key}`));
   }
   catch(e)

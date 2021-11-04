@@ -1,6 +1,7 @@
 <?php
 namespace Core;
 use Exception;
+use redgoose\Console;
 
 /**
  * Submit
@@ -17,20 +18,12 @@ class Submit {
   static public function auth(): ?object
   {
     Util::checkExistValue($_POST, [ 'id', 'password' ]);
-
-    // TODO: 로그인이 안됐으면 throw 처리
-    // TODO: 성공하면 슬라이드 데이터 가져오기
-    var_dump($_POST);
-    exit;
-
     // set model
     $model = new Model();
-    // $item = $model->item((object)[ 'where' => "`address`='$_params->id'" ]);
-    // Submit::checkSlideshowData($item->slideshow);
-
-    return (object)[
-      'success' => true,
-    ];
+    $item = $model->item((object)[ 'where' => "`id`='{$_POST['id']}'" ], true);
+    Util::verifyPassword($_POST['password'], $item->password);
+    unset($item->password);
+    return $item;
   }
 
   /**
@@ -57,6 +50,13 @@ class Submit {
     $thumbnail = $_POST['thumbnail'] ?? '';
     // TODO: 썸네일 이미지는 따로 이미지 파일로 올려야 하려나..
     // TODO: var_dump(isset($slideshow->tree->{$slideshow->group}[0]));
+
+    // check exist item
+    $cnt = $model->count((object)[ 'where' => "`id`='{$_POST['id']}' or `address`='$address'" ]);
+    if ($cnt > 0)
+    {
+      throw new Exception('Exist slideshow item.');
+    }
 
     // insert item from database
     try
@@ -88,6 +88,9 @@ class Submit {
 
   /**
    * manage
+   *
+   * @return object
+   * @throws Exception
    */
   static public function manage(): ?object
   {

@@ -3,6 +3,9 @@ if(!defined("__SLIDESHOW__")){exit();}
 
 /**
  * error page
+ *
+ * @var int $code
+ * @var string $message
  */
 ?>
 
@@ -24,7 +27,7 @@ if(!defined("__SLIDESHOW__")){exit();}
     </figure>
     <header class="error__header">
       <h1>Error</h1>
-      <p>Something is wrong. please try again.</p>
+      <p>{{$message}}</p>
     </header>
   </div>
 </article>

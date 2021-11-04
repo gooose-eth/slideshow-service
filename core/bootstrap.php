@@ -127,21 +127,38 @@ try
       $blade->render('slideshow', $data);
       break;
     case 'watch':
+      $data = (object)[
+        'title' => $_ENV['TITLE'],
+        'mode' => $_target,
+      ];
+      // get model data
+      if (!isset($_params->id))
+      {
+        throw new Exception('No slideshow id');
+      }
+      $data->id = $_params->id;
+      $model = new Model();
+      $item = $model->item((object)[ 'where' => "`address`='{$_params->id}'" ]);
+      // set slideshow data
+      Submit::checkSlideshowData($item->slideshow);
+      $data->slideshow = urlencode(json_encode($item->slideshow));
+      // create token
+      $data->token = Token::create()->jwt;
+      // render view
+      $blade->render('slideshow', $data);
+      break;
     case 'manage':
       $data = (object)[
         'title' => $_ENV['TITLE'],
         'mode' => $_target,
       ];
       // check auth and get slideshow data
-      // TODO: 여기서 인증 검사하기.
-      $res = Submit::auth();
-      exit;
-      // set slideshow data
-      // $data->slideshow = urlencode(json_encode($item->slideshow));
+      $item = Submit::auth();
+      $data->slideshow = urlencode(json_encode($item->slideshow));
       // create token
-      // $data->token = Token::create()->jwt;
+      $data->token = Token::create()->jwt;
       // render view
-      // $blade->render('slideshow', $data);
+      $blade->render('slideshow', $data);
       break;
     case 'about':
       $blade->render('about', (object)[
@@ -157,6 +174,8 @@ catch(Exception $e)
     $blade->render('error', (object)[
       'title' => $_ENV['TITLE'],
       'target' => 'error',
+      'code' => (int)$_ENV['DEBUG'] === 1 ? (int)$e->getCode() : 500,
+      'message' => (int)$_ENV['DEBUG'] === 1 ? $e->getMessage() : 'Something is wrong. please try again.',
     ]);
   } catch (Exception $e) {}
 }
