@@ -5,6 +5,7 @@
     <form
       :action="computes.url"
       method="post"
+      @submit="onSubmit"
       class="authorization__form">
       <div class="authorization__field">
         <label for="id">아이디</label>
@@ -14,7 +15,8 @@
             type="text"
             name="id"
             id="id"
-            v-model="state.slideshowId"
+            v-model="state.id"
+            minlength="4"
             maxlength="24"
             placeholder="아이디를 입력해주세요."
             required>
@@ -27,7 +29,8 @@
             type="password"
             name="password"
             id="password"
-            v-model="state.slideshowPassword"
+            v-model="state.password"
+            minlength="4"
             maxlength="30"
             placeholder="비밀번호를 입력해주세요."
             required>
@@ -45,6 +48,7 @@
 <script setup>
 import { reactive, computed, onBeforeMount, onMounted, onUnmounted, ref } from 'vue';
 import Button from '../button.vue';
+import { post } from '../../libs/fetch';
 
 const { Custom } = window;
 const slideshow_id = ref();
@@ -54,17 +58,34 @@ const props = defineProps({
 });
 const emits = defineEmits([ 'submit', 'close' ]);
 let state = reactive({
-  slideshowId: '',
-  slideshowPassword: '',
+  id: '',
+  password: '',
 });
 let computes = reactive({
   url: computed(() => (`${Custom.path}${props.mode}/`)),
 });
 
-// TODO: 인증 작업하기
-// TODO: 주소를 돌리는 방법에서 고민이 필요해서 댓글로 좀 적어뒀다.
-// TODO: https://github.com/redgoose-dev/slideshow-service/issues/1#issuecomment-958534481
-// TODO: 이 컴포넌트를 다용도로 사용하기 위하여 라우팅으로 이동하는 주소를 부모 영역에서 조절할 수 있도록 props를 이용하자.
+/**
+ * on submit
+ */
+async function onSubmit(e)
+{
+  e.preventDefault();
+  try
+  {
+    const res = await post('/auth/', {
+      id: state.id,
+      password: state.password,
+    });
+    if (!res.success) throw new Error(res.message);
+    e.target.submit()
+  }
+  catch(e)
+  {
+    alert('인증에 실패했습니다.');
+    slideshow_id.value.focus();
+  }
+}
 
 // lifecycles
 onMounted(() => {

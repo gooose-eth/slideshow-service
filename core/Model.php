@@ -212,6 +212,69 @@ class Model {
   }
 
   /**
+   * edit item
+   *
+   * @param array $op
+   * @param string $where
+   * @throws Exception
+   */
+  public function edit($op, $where)
+  {
+    if (!(isset($op) && isset($where))) throw new Exception('No options');
+
+    // make query
+    $query_data = '';
+    foreach ($op as $k=>$v) $query_data .= ($v) ? ','.$v : '';
+    $query_data = preg_replace("/^,/", '', $query_data);
+    if (!$query_data) throw new Exception('No options');
+    $query = 'update `'.$this->table.'` set ';
+    $query .= $query_data;
+    $query .= ' where ' . $where;
+
+    // action
+    $this->action($query);
+  }
+
+  /**
+   * delete item
+   *
+   * @param string $where
+   * @throws Exception
+   */
+  public function delete($where)
+  {
+    if (!isset($where)) throw new Exception('No where');
+
+    // check exist item
+    $cnt = $this->count((object)[ 'where' => $where ]);
+    if ($cnt <= 0) throw new Exception('No item in table.');
+
+    // update database
+    $query = "delete from {$this->table} where $where";
+    $this->action($query);
+  }
+
+  /**
+   * delete all items
+   *
+   * @throws Exception
+   */
+  public function deleteAll(): void
+  {
+    $this->action("delete from $this->table");
+  }
+
+  /**
+   * clear data
+   *
+   * @throws Exception
+   */
+  public function clear(): void
+  {
+    $this->action("truncate $this->table");
+  }
+
+  /**
    * get last key
    *
    * @return int

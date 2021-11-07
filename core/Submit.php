@@ -48,8 +48,6 @@ class Submit {
 
     // set thumbnail
     $thumbnail = $_POST['thumbnail'] ?? '';
-    // TODO: 썸네일 이미지는 따로 이미지 파일로 올려야 하려나..
-    // TODO: var_dump(isset($slideshow->tree->{$slideshow->group}[0]));
 
     // check exist item
     $cnt = $model->count((object)[ 'where' => "`id`='{$_POST['id']}' or `address`='$address'" ]);
@@ -89,20 +87,45 @@ class Submit {
   /**
    * manage
    *
+   * @param int $key
    * @return object
    * @throws Exception
    */
-  static public function manage(): ?object
+  static public function manage($key): ?object
   {
-    try
+    if (count($_POST) <= 0) throw new Exception('no post data');
+
+    // set model
+    $model = new Model();
+
+    // set data
+    $data = [];
+    if (isset($_POST['title']) && $_POST['title'])
     {
-      Util::checkExistValue($_POST, [ 'id', 'password', 'slideshow' ]);
-      return (object)[];
+      $data[] = "title='{$_POST['title']}'";
     }
-    catch(Exception $e)
+    if (isset($_POST['description']) && $_POST['description'])
     {
-      return null;
+      $data[] = "description='{$_POST['description']}'";
     }
+    if (isset($_POST['slideshow']) && $_POST['slideshow'])
+    {
+      $data[] = "slideshow='{$_POST['slideshow']}'";
+    }
+    if (isset($_POST['thumbnail']) && $_POST['thumbnail'])
+    {
+      $data[] = "thumbnail='{$_POST['thumbnail']}'";
+    }
+    if (isset($_POST['password']) && $_POST['password'])
+    {
+      $data[] = "password='".Util::createPassword($_POST['password'])."'";
+    }
+
+    // edit item from database
+    $model->edit($data, "`key`=$key");
+
+    // return
+    return $model->item((object)[ 'where' => '`key`='.$key ]);
   }
 
   /**

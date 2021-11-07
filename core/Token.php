@@ -47,7 +47,7 @@ class Token {
    * @param string $token
    * @throws Exception
    */
-  public static function get($token)
+  public static function check($token)
   {
     try
     {

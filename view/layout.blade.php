@@ -21,22 +21,17 @@
     <nav class="header__nav">
       <ul>
         <li>
-          <a href="{{__ROOT__}}" title="Slideshow list">
-            목록
-          </a>
-        </li>
-        <li>
-          <a href="{{__ROOT__}}create/" title="Create slideshow">
+          <a href="{{__ROOT__}}create/" title="슬라이드쇼 만들기">
             만들기
           </a>
         </li>
         <li>
-          <a href="#" data-link="manage" title="Manage slideshow">
-            관리
+          <a href="#" data-link="manage" title="슬라이드쇼 관리하기">
+            관리하기
           </a>
         </li>
         <li>
-          <a href="{{__ROOT__}}about/"{!! $target === 'about' ? ' class="active"' : '' !!} title="About slideshow service">
+          <a href="{{__ROOT__}}about/"{!! $target === 'about' ? ' class="active"' : '' !!} title="슬라이드쇼 서비스에 대하여">
             정보
           </a>
         </li>

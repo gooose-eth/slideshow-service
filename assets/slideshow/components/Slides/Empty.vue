@@ -17,9 +17,6 @@ import store from '../../store';
 import i18n from '../../i18n';
 import Icon from '../Icon/index.vue';
 
-// TODO: `mode`에 따라 메시지가 좀 달라진다.
-// TODO: `create,manage`라면 이미지를 올리는 방법에 대한 메시지가 나와야 할것이다.
-
 const { t } = i18n.global;
 const props = defineProps({
   title: String,
@@ -38,7 +35,6 @@ function onClickWrapper()
 
 <style lang="scss">
 @use '../../assets/scss/mixins';
-
 .slideshow-empty {
   position: absolute;
   left: 0;

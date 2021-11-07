@@ -2,7 +2,28 @@
 <fieldset>
   <legend>General fields</legend>
   <div class="fields">
-    <hr class="field-line">
+    <template v-if="form.id">
+      <div class="field-basic">
+        <h3 class="field-title">
+          <label for="pref_slideshowId">
+            {{t('title.slideshowId')}}
+          </label>
+        </h3>
+        <p class="field-description">
+          {{t('description.slideshowId')}}
+        </p>
+        <div class="field-basic__body">
+          <FormText
+            type="text"
+            name="pref_slideshowId"
+            id="pref_slideshowId"
+            :value="form.id"
+            :read-only="true"
+            :size="16"/>
+        </div>
+      </div>
+      <hr class="field-line">
+    </template>
     <div class="field-switch">
       <div class="field-switch__body">
         <h3 class="field-title">
@@ -162,11 +183,12 @@ import i18n from '../../i18n';
 import * as object from '../../libs/object';
 import * as local from '../../libs/local';
 import * as string from '../../libs/string';
-import FormSelect from '../../components/Form/Select.vue';
+import FormText from '../../components/Form/Text.vue';
 import FormSwitch from '../../components/Form/Switch.vue';
 import FormCheckbox from '../../components/Form/Checkbox.vue';
 import ButtonBasic from '../../components/Button/Basic.vue';
 
+const { Custom } = window;
 const props = defineProps({
   structure: Object,
 });
@@ -182,6 +204,13 @@ let state = reactive({
   visibleHudContents: object.convertPureObject(props.structure.visibleHudContents),
 });
 const showManageArea = store.state.serviceMode !== 'watch';
+
+// set form data
+let form = {};
+if (Custom?.form)
+{
+  form = JSON.parse(decodeURIComponent(Custom.form));
+}
 
 // methods
 function onSave()

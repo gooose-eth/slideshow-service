@@ -72,6 +72,8 @@ let state = reactive({
         return defineAsyncComponent(() => import('./src/icon-home.vue'));
       case 'save':
         return defineAsyncComponent(() => import('./src/icon-save.vue'));
+      case 'settings':
+        return defineAsyncComponent(() => import('./src/icon-settings.vue'));
       default:
         return null;
     }

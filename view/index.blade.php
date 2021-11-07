@@ -17,6 +17,7 @@ if(!defined("__SLIDESHOW__")){exit();}
 @section('contents')
 <article class="index">
   <h1>Slide items</h1>
+  @if(count($index) > 0)
   <ul class="index__list">
     @foreach($index as $k=>$item)
     <li class="index-item">
@@ -42,6 +43,14 @@ if(!defined("__SLIDESHOW__")){exit();}
     </li>
     @endforeach
   </ul>
+  @else
+  <div class="index-empty">
+    <div class="index-empty__wrap">
+      <i>{!! Core\EmptyIcon::random() !!}</i>
+      <h2>없어욧!</h2>
+    </div>
+  </div>
+  @endif
   @if ($paginate->mobile && $paginate->desktop)
   <nav class="index__paginate">
     <div>

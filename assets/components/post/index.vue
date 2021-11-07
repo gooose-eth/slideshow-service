@@ -1,5 +1,5 @@
 <template>
-<article class="slideshow-post" @click="emits('close')">
+<article class="slideshow-post" @click="onClose">
   <div class="slideshow-post__wrap" @click.stop="">
     <header class="slideshow-post__header">
       <h1>{{computes.title}}</h1>
@@ -19,6 +19,7 @@
             name="title"
             id="title"
             v-model="state.title"
+            minlength="4"
             maxlength="50"
             placeholder="제목을 입력하세요."
             required>
@@ -45,6 +46,7 @@
         </header>
         <label class="slideshow-post__input">
           <input
+            ref="slideshow_thumbnail"
             type="text"
             name="thumbnail"
             id="thumbnail"
@@ -57,20 +59,25 @@
         </p>
       </div>
       <div class="slideshow-post__columns">
-        <div v-if="!computes.manageMode" class="slideshow-post__field">
+        <div class="slideshow-post__field">
           <header>
             <label for="id">아이디</label>
           </header>
           <label class="slideshow-post__input">
             <input
+              ref="slideshow_id"
               type="text"
               name="id"
               id="id"
               v-model="state.id"
+              minlength="4"
               maxlength="24"
               placeholder="슬라이드쇼 아이디를 입력하세요."
-              required>
+              :readonly="computes.manageMode">
           </label>
+          <p class="slideshow-post__help">
+            인증하는데 사용합니다.
+          </p>
         </div>
         <div class="slideshow-post__field">
           <header>
@@ -78,10 +85,12 @@
           </header>
           <label class="slideshow-post__input">
             <input
+              ref="slideshow_password"
               type="password"
               name="password"
               id="password"
               v-model="state.password"
+              minlength="4"
               maxlength="30"
               placeholder="비밀번호를 입력하세요."
               :required="computes.createMode">
@@ -91,6 +100,20 @@
           </p>
         </div>
       </div>
+      <div v-if="computes.manageMode" class="slideshow-post__field">
+        <header>
+          <label for="address">주소</label>
+        </header>
+        <label class="slideshow-post__input">
+          <input
+            type="text"
+            name="address"
+            id="address"
+            v-model="state.address"
+            maxlength="255"
+            :readonly="true">
+        </label>
+      </div>
       <nav class="slideshow-post__nav">
         <Button
           type="submit"
@@ -98,7 +121,7 @@
           color="key">
           {{state.processing ? '처리중..' : computes.buttonSubmit}}
         </Button>
-        <Button @click="emits('close')">닫기</Button>
+        <Button @click="onClose">닫기</Button>
       </nav>
     </form>
   </div>
@@ -109,21 +132,26 @@
 import { reactive, computed, onBeforeMount, onMounted, onUnmounted, ref } from 'vue';
 import Button from '../button.vue';
 import { post } from '../../libs/fetch';
+import { validateUrl } from '../../libs/string';
 
 const slideshow_title = ref();
+const slideshow_password = ref();
+const slideshow_thumbnail = ref();
 const props = defineProps({
   mode: String,
   slideshow: Object,
+  form: Object,
 });
 const emits = defineEmits([ 'close' ]);
-// TODO: manage 모드일때 값들을 가져오기
 let state = reactive({
   processing: false,
-  title: '',
-  description: '',
-  id: '',
-  password: '',
-  thumbnail: '',
+  key: props.form?.key,
+  title: props.form?.title,
+  description: props.form?.description,
+  id: props.form?.id,
+  password: props.form?.password,
+  thumbnail: props.form?.thumbnail,
+  address: props.form?.address,
 });
 let computes = reactive({
   title: computed(() => {
@@ -152,8 +180,6 @@ let computes = reactive({
   createMode: computed(() => (props.mode === 'create')),
 });
 
-// TODO: 이 창을 닫아도 적은 상태값이 그대로 유지될 수 있으면 좋을거 같다.
-
 /**
  * on submit
  *
@@ -173,30 +199,75 @@ async function onSubmit()
       password: state.password,
       thumbnail: state.thumbnail,
     };
+
+    // check thumbnail address
+    if (data.thumbnail && !validateUrl(data.thumbnail))
+    {
+      slideshow_thumbnail.value.focus();
+      throw new Error('URL 주소가 잘못되었습니다.');
+    }
+
+    // check password
+    if (data.password && data.password.length < 4)
+    {
+      slideshow_password.value.focus();
+      throw new Error('비밀번호를 4자이상 입력해주세요.');
+    }
+
+    // make url
     switch (props.mode)
     {
       case 'manage':
-        url = `manage/${state.id}`;
+        url = `/manage/${state.key}/`;
         break;
       case 'create':
       default:
-        url = 'create/';
+        url = '/create/';
         break;
     }
-    // TODO: 넘어온 값들을 확인하고 저장하도록 처리하기
-    console.log(url, data);
-    return;
-    const res = await post(`/${url}`, data);
-    if (!res.success) throw new Error(res.message);
-    state.processing = false;
-    location.href = `${window.Custom.path}manage/${res.data.address}/`;
+
+    // request service
+    let res;
+    try
+    {
+      res = await post(url, data);
+      if (!res.success) throw new Error(res.message);
+    }
+    catch(e)
+    {
+      throw new Error('처리하는데 오류가 발생했습니다.');
+    }
+
+    // after action
+    switch (props.mode)
+    {
+      case 'manage':
+        state.processing = false;
+        onClose();
+        alert('슬라이드쇼 업데이트를 완료했습니다.');
+        break;
+      case 'create':
+      default:
+        location.href = `${window.Custom.path}watch/${res.data.address}/`;
+        break;
+    }
   }
   catch (e)
   {
-    // TODO: 오류처리 구현하기
-    console.error(e.message);
+    alert(e.message);
     state.processing = false;
   }
+}
+
+function onClose()
+{
+  emits('close', {
+    title: state.title,
+    description: state.description,
+    thumbnail: state.thumbnail,
+    id: state.id,
+    password: state.password,
+  });
 }
 
 // lifecycles
@@ -214,18 +285,23 @@ onUnmounted(() => {
 <style lang="scss">
 @use '../../scss/mixins';
 .slideshow-post {
-  position: fixed;
-  left: 0;
-  right: 0;
-  top: 0;
-  bottom: 0;
-  z-index: 5;
-  background: var(--color-bg);
-  overflow: auto;
-  padding: 0;
+  & {
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    z-index: 5;
+    background: var(--color-bg);
+    overflow: auto;
+    padding: 0;
+  }
   &__wrap {
     min-height: 100%;
+    max-height: 80vh;
     padding: 40px 40px;
+    overflow: auto;
+    @include mixins.custom-scroll-style();
   }
   &__header {
     h1 {
@@ -272,6 +348,9 @@ onUnmounted(() => {
       transition: box-shadow 200ms ease-out;
       &::placeholder {
         color: #ccc;
+      }
+      &:read-only {
+        color: var(--color-shape-button);
       }
       &:focus {
         border-color: var(--color-key);
@@ -366,6 +445,9 @@ onUnmounted(() => {
         border-color: #383838;
         &::placeholder {
           color: #555;
+        }
+        &:read-only {
+          color: var(--color-low-fill);
         }
         &:focus {
           border-color: var(--color-key);

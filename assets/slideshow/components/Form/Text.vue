@@ -14,6 +14,8 @@
   :maxlength="props.maxlength"
   :rows="props.rows"
   :size="props.size"
+  :disabled="props.disabled"
+  :readOnly="props.readOnly"
   :class="[
     'form',
     'form-text',
@@ -36,6 +38,8 @@
   :step="props.step"
   :maxlength="props.maxlength"
   :size="props.size"
+  :disabled="props.disabled"
+  :readOnly="props.readOnly"
   :class="[
     'form',
     'form-text',
@@ -65,6 +69,8 @@ const props = defineProps({
   rows: { type: Number, default: 3 },
   size: { type: Number, default: 10 },
   color: String, // error,success
+  disabled: Boolean,
+  readOnly: Boolean,
   modelType: String,
   modelValue: [ String, Number, Boolean, Array ],
 });

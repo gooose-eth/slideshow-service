@@ -4,16 +4,6 @@
   @touchstart="onTouchStart"
   @click="onClickWrapper">
   <div
-    v-if="computes.visibleSave"
-    class="slideshow-navigation__item">
-    <button
-      type="button"
-      title="슬라이드쇼 서비스"
-      @click="onClickHome">
-      <Icon icon-name="home"/>
-    </button>
-  </div>
-  <div
     v-if="computes.visibleAutoplay"
     class="slideshow-navigation__item">
     <button
@@ -24,14 +14,22 @@
       <Icon icon-name="play-circle"/>
     </button>
   </div>
-  <div
-    v-if="computes.visibleGroup"
-    class="slideshow-navigation__item">
+  <div v-if="computes.visibleGroup" class="slideshow-navigation__item">
     <button
       type="button"
       :title="t('base.group')"
       @click="onClickGroup">
       <Icon icon-name="folder" class="folder"/>
+    </button>
+  </div>
+  <div
+    v-if="store.state.serviceMode !== 'watch'"
+    class="slideshow-navigation__item">
+    <button
+      type="button"
+      :title="t('base.preference')"
+      @click="route('preference')">
+      <Icon icon-name="settings" class="folder"/>
     </button>
   </div>
   <div
@@ -50,7 +48,7 @@
         state.activeMenu && 'slideshow-navigation-context--on',
       ]">
       <ul>
-        <li>
+        <li v-if="store.state.serviceMode === 'watch'">
           <button
             type="button"
             @click="onClickContextItem('preference')">
@@ -75,7 +73,8 @@
         <li>
           <button
             type="button"
-            @click="onClickContextItem('slideshowService')">
+            class="active"
+            @click="onClickContextItem(store.state.serviceMode === 'watch' ? 'slideshowServiceNewWindow' : 'slideshowService')">
             {{t('base.slideshowService')}}
           </button>
         </li>
@@ -83,7 +82,7 @@
     </div>
   </div>
   <div
-    v-if="computes.visibleSave"
+    v-if="store.state.serviceMode !== 'watch'"
     class="slideshow-navigation__item">
     <button
       type="button"
@@ -123,14 +122,13 @@ let computes = reactive({
     if (!store.state.preference.general.visibleHudContents.group) return false;
     return store.state.tree && Object.keys(store.state.tree).length > 1;
   }),
-  visibleSave: computed(() => (store.state.serviceMode !== 'watch')),
   buttonTitleSave: computed(() => {
     switch (store.state.serviceMode)
     {
       case 'create':
-        return '슬라이드쇼 만들기';
+        return t('base.createSlideshow');
       case 'manage':
-        return '슬라이드쇼 관리하기';
+        return t('base.editSlideshow');
     }
   }),
 });
@@ -164,7 +162,7 @@ function onClickContextItem(key)
   switch (key)
   {
     case 'preference':
-      store.dispatch('changeMode', 'preference');
+      route('preference');
       break;
     case 'thumbnail':
       store.dispatch('changeMode', 'thumbnail');
@@ -174,7 +172,8 @@ function onClickContextItem(key)
       state.activeFullscreen = !state.activeFullscreen;
       break;
     case 'slideshowService':
-      window.open(Custom.path);
+    case 'slideshowServiceNewWindow':
+      route(key);
       break;
   }
 }
@@ -190,13 +189,25 @@ function onClickGroup()
 {
   store.dispatch('changeMode', 'group');
 }
-function onClickHome()
-{
-  location.href = Custom.path;
-}
 function onClickSave()
 {
   local.main.save();
+}
+
+function route(address)
+{
+  switch(address)
+  {
+    case 'preference':
+      store.dispatch('changeMode', 'preference');
+      break;
+    case 'slideshowService':
+      location.href = Custom.path;
+      break;
+    case 'slideshowServiceNewWindow':
+      window.open(Custom.path);
+      break;
+  }
 }
 
 // public methods

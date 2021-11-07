@@ -12,12 +12,10 @@
       <li>URL: <a :href="url" target="_blank">{{url}}</a></li>
       <li>{{t('base.version')}}: <strong>{{version}}</strong></li>
       <li>{{t('base.author')}}: <a href="https://redgoose.me" target="_blank">https://redgoose.me</a></li>
-      <li>GitHub/service: <a href="https://github.com/redgoose-dev/slideshow-service" target="_blank">https://github.com/redgoose-dev/slideshow-service</a></li>
-      <li>GitHub/slideshow: <a href="https://github.com/redgoose-dev/slideshow" target="_blank">https://github.com/redgoose-dev/slideshow</a></li>
+      <li>Slideshow Service: <a href="https://github.com/redgoose-dev/slideshow-service" target="_blank">https://github.com/redgoose-dev/slideshow-service</a></li>
     </ul>
     <p v-html="t('description.information', { link: `<a href='https://github.com/redgoose-dev/slideshow-service/issues' target='_blank'>GitHub Issues</a>` })"/>
   </div>
-
 </fieldset>
 </template>
 
@@ -28,11 +26,12 @@ import pkg from '../../../../package.json';
 const name = 'PreferenceInformation';
 const { t } = i18n.global;
 const version = pkg.version;
+const { Custom } = window;
 const signatures = {
-  light: `${window.Custom.path}assets/images/signature-dark.png`,
-  dark: `${window.Custom.path}assets/images/signature-light.png`,
+  light: `${Custom.path}assets/images/signature-light.png`,
+  dark: `${Custom.path}assets/images/signature-dark.png`,
 };
-const url = window.Custom.url;
+const url = Custom.url;
 </script>
 
 <style lang="scss">

@@ -59,18 +59,23 @@ try
     $res = null;
     if (preg_match("/^post\//", $_target))
     {
-      Token::get($_SERVER['HTTP_AUTHORIZATION'] ?? '');
+      Token::check($_SERVER['HTTP_AUTHORIZATION'] ?? '');
     }
     switch ($_target)
     {
       case 'post/auth':
         $res = Submit::auth();
+        $res = (object)[
+          'key' => (int)$res->key,
+          'address' => $res->address,
+          'id' => $res->id,
+        ];
         break;
       case 'post/create':
         $res = Submit::create();
         break;
       case 'post/manage':
-        $res = Submit::manage();
+        $res = Submit::manage((int)$_params->key);
         break;
     }
     if ($res)
@@ -118,7 +123,7 @@ try
       break;
     case 'create':
       $data = (object)[
-        'title' => $_ENV['TITLE'],
+        'title' => '슬라이드쇼 만들기 / '.$_ENV['TITLE'],
         'mode' => $_target,
       ];
       // create token
@@ -127,38 +132,55 @@ try
       $blade->render('slideshow', $data);
       break;
     case 'watch':
-      $data = (object)[
-        'title' => $_ENV['TITLE'],
-        'mode' => $_target,
-      ];
+      $data = (object)[ 'mode' => $_target ];
       // get model data
-      if (!isset($_params->id))
+      if (!isset($_params->address))
       {
-        throw new Exception('No slideshow id');
+        throw new Exception('No slideshow address');
       }
-      $data->id = $_params->id;
+      $data->address = $_params->address;
       $model = new Model();
-      $item = $model->item((object)[ 'where' => "`address`='{$_params->id}'" ]);
+      $item = $model->item((object)[ 'where' => "`address`='$_params->address'" ]);
+      // set title
+      $data->title = $item->title.' / '.$_ENV['TITLE'];
       // set slideshow data
       Submit::checkSlideshowData($item->slideshow);
       $data->slideshow = urlencode(json_encode($item->slideshow));
+      $data->form = urlencode(json_encode((object)[
+        'id' => $item->id,
+        'address' => $item->address,
+      ]));
       // create token
       $data->token = Token::create()->jwt;
       // render view
       $blade->render('slideshow', $data);
       break;
     case 'manage':
-      $data = (object)[
-        'title' => $_ENV['TITLE'],
-        'mode' => $_target,
-      ];
-      // check auth and get slideshow data
-      $item = Submit::auth();
-      $data->slideshow = urlencode(json_encode($item->slideshow));
-      // create token
-      $data->token = Token::create()->jwt;
-      // render view
-      $blade->render('slideshow', $data);
+      try
+      {
+        $item = Submit::auth();
+        $data = (object)[
+          'title' => $_ENV['TITLE'],
+          'mode' => $_target,
+        ];
+        $data->slideshow = urlencode(json_encode($item->slideshow));
+        $data->form = urlencode(json_encode((object)[
+          'key' => (int)$item->key,
+          'id' => $item->id,
+          'title' => $item->title,
+          'description' => $item->description,
+          'thumbnail' => $item->thumbnail,
+          'address' => $item->address,
+        ]));
+        $data->token = Token::create()->jwt;
+        // render view
+        $blade->render('slideshow', $data);
+      }
+      catch(Exception $e)
+      {
+        header("Location: {$_ENV['PATH_URL']}");
+        exit;
+      }
       break;
     case 'about':
       $blade->render('about', (object)[

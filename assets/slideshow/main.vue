@@ -15,7 +15,8 @@
     v-if="state.visiblePost"
     :mode="props.mode"
     :slideshow="state.slideshow"
-    @close="onVisiblePost(false)"/>
+    :form="state.post"
+    @close="onClosePost"/>
 </teleport>
 </template>
 
@@ -31,7 +32,7 @@ import { convertPureObject } from './libs/object';
 const slideshow = ref();
 const { Custom } = window;
 // set storage prefix
-storage.changePrefix(Custom.id)
+storage.changePrefix(Custom.address);
 const name = 'SlideshowContainer';
 const props = defineProps({
   mode: String, // watch,create,manage
@@ -40,6 +41,16 @@ let state = reactive({
   ...getInitializeData(props.mode), // { preference, usePreference, tree, group }
   visiblePost: false,
   visibleLoading: false,
+  post: {
+    key: null,
+    title: '',
+    description: '',
+    id: '',
+    password: '',
+    thumbnail: '',
+    address: '',
+    ...getFormData(),
+  },
 });
 
 /**
@@ -89,6 +100,38 @@ function onVisiblePost(sw)
   }) : null;
   state.visiblePost = sw;
   slideshow.value.useKeyboardEvent(!sw);
+}
+
+/**
+ * get form data
+ *
+ * @return {object|null}
+ * */
+function getFormData()
+{
+  try
+  {
+    if (!Custom?.form) throw new Error('no data');
+    return JSON.parse(decodeURIComponent(Custom?.form));
+  }
+  catch(e)
+  {
+    return {};
+  }
+}
+
+/**
+ * on close post
+ *
+ * @param {object} src
+ */
+function onClosePost(src)
+{
+  state.post = {
+    ...state.post,
+    ...src,
+  };
+  onVisiblePost(false);
 }
 
 defineExpose({

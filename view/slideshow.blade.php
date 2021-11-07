@@ -5,9 +5,10 @@ if(!defined("__SLIDESHOW__")){exit();}
  * slideshow page
  *
  * @property string $mode watch,create,manage
- * @property string $id
+ * @property string $address
  * @property string $token
  * @property string $slideshow
+ * @property string $form
  */
 ?>
 
@@ -28,8 +29,9 @@ window.Custom = {
   url: '{{$_ENV['PATH_URL']}}',
   mode: '{{$mode}}',
   token: '{{$token ?? ''}}',
-  id: '{{$id ?? ''}}',
+  address: '{{$address ?? ''}}',
   slideshow: '{{$slideshow ?? ''}}',
+  form: '{{$form ?? ''}}',
 };
 </script>
 @endsection

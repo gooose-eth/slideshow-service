@@ -27,6 +27,22 @@ case "$1" in
     fi
     ;;
 
+  change-password)
+    php ./resource/tool.php change-password "$2" "$3"
+    ;;
+
+  delete-item)
+    php ./resource/tool.php delete-item "$2" "$3"
+    ;;
+
+  delete-all)
+    php ./resource/tool.php delete-all
+    ;;
+
+  clear)
+    php ./resource/tool.php clear
+    ;;
+
   *)
     echo "Usage: ./action.sh {setup|start}" >&2
     exit 3
