@@ -27,6 +27,7 @@ import Post from '../components/post/index.vue';
 import * as storage from '../libs/storage';
 import getInitializeData from './libs/getInitializeData';
 import { convertPureObject } from './libs/object';
+import { getFormData } from '../libs/object';
 
 // set values
 const slideshow = ref();
@@ -49,7 +50,7 @@ let state = reactive({
     password: '',
     thumbnail: '',
     address: '',
-    ...getFormData(),
+    ...getFormData(Custom?.form),
   },
 });
 
@@ -100,24 +101,6 @@ function onVisiblePost(sw)
   }) : null;
   state.visiblePost = sw;
   slideshow.value.useKeyboardEvent(!sw);
-}
-
-/**
- * get form data
- *
- * @return {object|null}
- * */
-function getFormData()
-{
-  try
-  {
-    if (!Custom?.form) throw new Error('no data');
-    return JSON.parse(decodeURIComponent(Custom?.form));
-  }
-  catch(e)
-  {
-    return {};
-  }
 }
 
 /**

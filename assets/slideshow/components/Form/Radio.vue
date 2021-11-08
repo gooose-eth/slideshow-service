@@ -81,6 +81,7 @@ function onClickItem(key)
     }
   }
   label {
+    position: relative;
     flex: 1;
     display: block;
     -webkit-tap-highlight-color: transparent;

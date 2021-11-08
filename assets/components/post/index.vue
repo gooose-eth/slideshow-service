@@ -10,7 +10,7 @@
       @submit.prevent="onSubmit">
       <div class="slideshow-post__field">
         <header>
-          <label for="title">제목</label>
+          <label for="title" class="required">제목</label>
         </header>
         <label class="slideshow-post__input">
           <input
@@ -22,12 +22,12 @@
             minlength="4"
             maxlength="50"
             placeholder="제목을 입력하세요."
-            required>
+            :required="true">
         </label>
       </div>
       <div class="slideshow-post__field">
         <header>
-          <label for="description">설명</label>
+          <label for="description" class="required">설명</label>
         </header>
         <label class="slideshow-post__input">
           <input
@@ -37,7 +37,7 @@
             v-model="state.description"
             maxlength="120"
             placeholder="설명을 입력하세요."
-            required>
+            :required="true">
         </label>
       </div>
       <div class="slideshow-post__field">
@@ -61,7 +61,9 @@
       <div class="slideshow-post__columns">
         <div class="slideshow-post__field">
           <header>
-            <label for="id">아이디</label>
+            <label for="id" :class="[ computes.createMode ? 'required' : '' ]">
+              아이디
+            </label>
           </header>
           <label class="slideshow-post__input">
             <input
@@ -73,7 +75,8 @@
               minlength="4"
               maxlength="24"
               placeholder="슬라이드쇼 아이디를 입력하세요."
-              :readonly="computes.manageMode">
+              :readonly="computes.manageMode"
+              :required="computes.createMode">
           </label>
           <p class="slideshow-post__help">
             인증하는데 사용합니다.
@@ -81,7 +84,9 @@
         </div>
         <div class="slideshow-post__field">
           <header>
-            <label for="password">비밀번호</label>
+            <label for="password" :class="[ computes.createMode ? 'required' : '' ]">
+              비밀번호
+            </label>
           </header>
           <label class="slideshow-post__input">
             <input

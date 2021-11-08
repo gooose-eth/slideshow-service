@@ -33,6 +33,16 @@
     </button>
   </div>
   <div
+    v-if="store.state.serviceMode === 'manage' && form?.address"
+    class="slideshow-navigation__item">
+    <button
+      type="button"
+      :title="t('base.preview')"
+      @click="route('preview')">
+      <Icon icon-name="cast" class="folder"/>
+    </button>
+  </div>
+  <div
     v-if="store.state.preference.general.visibleHudContents.menu"
     class="slideshow-navigation__item">
     <button
@@ -70,6 +80,13 @@
             {{t('base.fullscreen')}}
           </button>
         </li>
+        <li v-if="form?.address">
+          <button
+            type="button"
+            @click="onClickContextItem('share')">
+            공유하기
+          </button>
+        </li>
         <li>
           <button
             type="button"
@@ -102,6 +119,7 @@ import i18n from '../../i18n';
 import * as local from '../../libs/local';
 import * as util from '../../libs/util';
 import Icon from '../../components/Icon/index.vue';
+import { getFormData } from '../../../libs/object';
 
 const { t } = i18n.global;
 const { Custom } = window;
@@ -132,6 +150,7 @@ let computes = reactive({
     }
   }),
 });
+const form = getFormData(Custom.form);
 
 // private methods
 function onClickAutoplayButton()
@@ -173,7 +192,12 @@ function onClickContextItem(key)
       break;
     case 'slideshowService':
     case 'slideshowServiceNewWindow':
+    case 'preview':
       route(key);
+      break;
+    case 'share':
+      // TODO: 공유하기 기능 만들기
+      alert('주소가 복사되었습니다.');
       break;
   }
 }
@@ -206,6 +230,9 @@ function route(address)
       break;
     case 'slideshowServiceNewWindow':
       window.open(Custom.path);
+      break;
+    case 'preview':
+      window.open(`${Custom.path}watch/${form.address}/`);
       break;
   }
 }

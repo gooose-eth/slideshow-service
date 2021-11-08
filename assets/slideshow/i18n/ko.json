@@ -75,7 +75,8 @@
     "save": "저장하기",
     "slideshowService": "슬라이드쇼 서비스",
     "createSlideshow": "슬라이드쇼 만들기",
-    "editSlideshow": "슬라이드쇼 수정하기"
+    "editSlideshow": "슬라이드쇼 수정하기",
+    "preview": "미리보기"
 	},
 	"confirm": {
 		"applyRestart": "슬라이드쇼가 재시작됩니다.\n적용하시겠습니까?",

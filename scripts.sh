@@ -44,7 +44,7 @@ case "$1" in
     ;;
 
   *)
-    echo "Usage: ./action.sh {setup|start}" >&2
+    echo "Usage: ./action.sh {setup|start|change-password|delete-item|delete-all|clear}" >&2
     exit 3
     ;;
 
