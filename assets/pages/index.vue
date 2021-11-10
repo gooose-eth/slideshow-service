@@ -7,13 +7,13 @@
 
 <script setup>
 import { reactive } from 'vue';
-import Authorization from '../components/authorization/index.vue';
+import Authorization from '../components/authorization.vue';
 
 // set values
 let state = reactive({
   authorization: reactive({
     visible: false,
-    mode: '', // edit
+    mode: '',
   }),
 });
 

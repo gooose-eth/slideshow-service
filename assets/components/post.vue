@@ -135,9 +135,9 @@
 
 <script setup>
 import { reactive, computed, onBeforeMount, onMounted, onUnmounted, ref } from 'vue';
-import Button from '../button.vue';
-import { post } from '../../libs/fetch';
-import { validateUrl } from '../../libs/string';
+import Button from './button.vue';
+import { post } from '../libs/fetch';
+import { validateUrl } from '../libs/string';
 
 const slideshow_title = ref();
 const slideshow_password = ref();
@@ -287,7 +287,7 @@ onUnmounted(() => {
 </script>
 
 <style lang="scss">
-@use '../../scss/mixins';
+@use '../scss/mixins';
 .slideshow-post {
   & {
     position: fixed;

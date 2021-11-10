@@ -1,7 +1,7 @@
 <template>
 <article class="authorization" @click="emits('close')">
   <div class="authorization__wrap" @click.stop="">
-    <h1 class="authorization__title">슬라이드쇼 인증</h1>
+    <h1 class="authorization__title">{{computes.label.title}}</h1>
     <form
       :action="computes.url"
       method="post"
@@ -37,7 +37,11 @@
         </label>
       </div>
       <nav class="authorization__nav">
-        <Button type="submit" color="key">인증하기</Button>
+        <Button
+          type="submit"
+          :color="computes.submitClassName">
+          {{computes.label.submit}}
+        </Button>
         <Button @click="emits('close')">닫기</Button>
       </nav>
     </form>
@@ -47,14 +51,15 @@
 
 <script setup>
 import { reactive, computed, onBeforeMount, onMounted, onUnmounted, ref } from 'vue';
-import Button from '../button.vue';
-import { post } from '../../libs/fetch';
+import Button from './button.vue';
+import { post } from '../libs/fetch';
 
 const { Custom } = window;
 const slideshow_id = ref();
 const props = defineProps({
   visible: Boolean,
-  mode: String,
+  type: String, // login,delete
+  mode: String, // manage
 });
 const emits = defineEmits([ 'submit', 'close' ]);
 let state = reactive({
@@ -63,6 +68,32 @@ let state = reactive({
 });
 let computes = reactive({
   url: computed(() => (`${Custom.path}${props.mode}/`)),
+  label: computed(() => {
+    switch(props.type)
+    {
+      case 'login':
+      default:
+        return {
+          title: '슬라이드쇼 인증',
+          submit: '인증하기',
+        };
+      case 'delete':
+        return {
+          title: '슬라이드쇼 삭제',
+          submit: '삭제하기',
+        };
+    }
+  }),
+  submitClassName: computed(() => {
+    switch(props.type)
+    {
+      case 'login':
+      default:
+        return 'key';
+      case 'delete':
+        return 'danger';
+    }
+  }),
 });
 
 /**
@@ -71,6 +102,7 @@ let computes = reactive({
 async function onSubmit(e)
 {
   e.preventDefault();
+  // TODO: 로그인이랑 삭제하기 두개로 생겨서 구분을 둬서 처리하기
   try
   {
     const res = await post('/auth/', {
@@ -100,7 +132,7 @@ onUnmounted(() => {
 </script>
 
 <style lang="scss">
-@use '../../scss/mixins';
+@use '../scss/mixins';
 
 .authorization {
   position: fixed;

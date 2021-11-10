@@ -9,6 +9,7 @@
   @update-preference="onUpdatePreference"
   @update-tree="onUpdateTree"
   @update-group="onUpdateGroup"
+  @delete="visibleDelete(true)"
   @save="onVisiblePost(true)"/>
 <teleport to="#service">
   <Post
@@ -17,13 +18,19 @@
     :slideshow="state.slideshow"
     :form="state.post"
     @close="onClosePost"/>
+  <Authorization
+    v-if="state.visibleDelete"
+    type="delete"
+    mode="delete"
+    @close="visibleDelete(false)"/>
 </teleport>
 </template>
 
 <script setup>
 import { reactive, ref } from 'vue';
 import Slideshow from '../slideshow/screen/App.vue';
-import Post from '../components/post/index.vue';
+import Post from '../components/post.vue';
+import Authorization from '../components/authorization.vue';
 import * as storage from '../libs/storage';
 import getInitializeData from './libs/getInitializeData';
 import { convertPureObject } from './libs/object';
@@ -41,7 +48,7 @@ const props = defineProps({
 let state = reactive({
   ...getInitializeData(props.mode), // { preference, usePreference, tree, group }
   visiblePost: false,
-  visibleLoading: false,
+  visibleDelete: false,
   post: {
     key: null,
     title: '',
@@ -115,6 +122,16 @@ function onClosePost(src)
     ...src,
   };
   onVisiblePost(false);
+}
+
+/**
+ * visible delete
+ *
+ * @param {boolean} sw
+ */
+function visibleDelete(sw)
+{
+  state.visibleDelete = sw;
 }
 
 defineExpose({

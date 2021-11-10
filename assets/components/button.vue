@@ -50,6 +50,9 @@ const emits = defineEmits([ 'click' ]);
     &-key {
       background: var(--color-key);
     }
+    &-danger {
+      background: var(--color-danger);
+    }
   }
   @include mixins.dark-mode() {
     color: var(--color-fill);

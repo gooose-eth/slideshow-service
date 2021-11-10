@@ -26,7 +26,13 @@ const props = defineProps({
   group: String,
   tree: [ Object, Array ],
 });
-const emits = defineEmits([ 'update-preference', 'update-tree', 'update-group', 'save' ]);
+const emits = defineEmits([
+  'update-preference',
+  'update-tree',
+  'update-group',
+  'save',
+  'delete',
+]);
 const { locale } = i18n.global;
 let state = reactive({
   dev: process.env.NODE_ENV === 'development',
@@ -215,6 +221,10 @@ function save()
 {
   emits('save');
 }
+function deleteSlideshow()
+{
+  emits('delete');
+}
 
 // lifecycles
 onMounted(() => {
@@ -259,5 +269,6 @@ defineExpose({
   update,
   useKeyboardEvent,
   save,
+  deleteSlideshow,
 })
 </script>

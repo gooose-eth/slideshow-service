@@ -87,6 +87,14 @@
             {{t('base.share')}}
           </button>
         </li>
+        <li v-if="store.state.serviceMode === 'manage'">
+          <button
+            type="button"
+            class="danger"
+            @click="onClickContextItem('delete')">
+            {{t('base.delete')}}
+          </button>
+        </li>
         <li>
           <button
             type="button"
@@ -118,9 +126,9 @@ import store from '../../store';
 import i18n from '../../i18n';
 import * as local from '../../libs/local';
 import * as util from '../../libs/util';
-import Icon from '../../components/Icon/index.vue';
 import { getFormData } from '../../../libs/object';
 import { copyToClipboard } from '../../../libs/string';
+import Icon from '../../components/Icon/index.vue';
 
 const { t } = i18n.global;
 const { Custom } = window;
@@ -199,6 +207,9 @@ function onClickContextItem(key)
     case 'share':
       let url = `${Custom.url.replace(/\/$/, '')}/watch/${form.address}/`;
       copyToClipboard(url).then(() => alert('주소가 복사되었습니다.'));
+      break;
+    case 'delete':
+      local.main.deleteSlideshow();
       break;
   }
 }
@@ -375,6 +386,9 @@ defineExpose({
     &.active {
       color: var(--color-key);
     }
+    &.danger {
+      color: var(--color-danger);
+    }
   }
   &--on {
     ul {
@@ -400,6 +414,9 @@ defineExpose({
       }
       &.active {
         color: var(--color-key);
+      }
+      &.danger {
+        color: var(--color-danger);
       }
     }
   }
