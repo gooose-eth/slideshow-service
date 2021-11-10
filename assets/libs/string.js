@@ -16,3 +16,23 @@ export function validateUrl(url)
     return false;
   }
 }
+
+/**
+ * copy to clipboard
+ *
+ * @param {string} str
+ * @return {Promise}
+ */
+export function copyToClipboard(str)
+{
+  return new Promise((resolve, reject) => {
+    if (navigator.clipboard)
+    {
+      navigator.clipboard.writeText(str).then(resolve);
+    }
+    else
+    {
+      reject();
+    }
+  });
+}

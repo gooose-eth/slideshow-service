@@ -50,22 +50,6 @@ class Util {
   }
 
   /**
-   * convert date
-   *
-   * @param string $date
-   * @return string
-   */
-  static public function convertDate(string $date="00000000000000"): string
-  {
-    $result = '';
-    $o = substr($date, 0, 8);
-    $result .= substr($o, 0, 4)."-";
-    $result .= substr($o, 4, 2)."-";
-    $result .= substr($o, 6, 8);
-    return $result;
-  }
-
-  /**
    * check exist value
    * 배열속에 필수값이 들어있는지 확인
    *
@@ -108,7 +92,7 @@ class Util {
    */
   public static function createPassword(string $str=''): string
   {
-    return password_hash($str, PASSWORD_DEFAULT);
+    return password_hash($str, PASSWORD_BCRYPT);
   }
 
   /**

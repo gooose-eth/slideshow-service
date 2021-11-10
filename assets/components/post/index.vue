@@ -154,7 +154,7 @@ let state = reactive({
   title: props.form?.title,
   description: props.form?.description,
   id: props.form?.id,
-  password: props.form?.password,
+  password: '',
   thumbnail: props.form?.thumbnail,
   address: props.form?.address,
 });
@@ -271,7 +271,6 @@ function onClose()
     description: state.description,
     thumbnail: state.thumbnail,
     id: state.id,
-    password: state.password,
   });
 }
 

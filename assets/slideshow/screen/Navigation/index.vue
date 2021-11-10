@@ -84,7 +84,7 @@
           <button
             type="button"
             @click="onClickContextItem('share')">
-            공유하기
+            {{t('base.share')}}
           </button>
         </li>
         <li>
@@ -120,6 +120,7 @@ import * as local from '../../libs/local';
 import * as util from '../../libs/util';
 import Icon from '../../components/Icon/index.vue';
 import { getFormData } from '../../../libs/object';
+import { copyToClipboard } from '../../../libs/string';
 
 const { t } = i18n.global;
 const { Custom } = window;
@@ -196,8 +197,8 @@ function onClickContextItem(key)
       route(key);
       break;
     case 'share':
-      // TODO: 공유하기 기능 만들기
-      alert('주소가 복사되었습니다.');
+      let url = `${Custom.url.replace(/\/$/, '')}/watch/${form.address}/`;
+      copyToClipboard(url).then(() => alert('주소가 복사되었습니다.'));
       break;
   }
 }
