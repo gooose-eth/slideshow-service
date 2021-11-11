@@ -140,7 +140,7 @@
 		"usingKeyboard": "키보드 단축키를 사용합니다.",
 		"visibleContents": "각 조작과 상태요소들 표시를 설정합니다.",
     "saveSlideshow": "슬라이드쇼를 저장합니다.",
-    "slideshowId": "슬라이드쇼 서비스에서 만들어진 아이디입니다."
+    "slideshowAddress": "슬라이드쇼 서비스에서 사용하는 주소입니다."
 	},
 	"label": {
 		"addGroup": "그룹 추가",
@@ -200,6 +200,6 @@
 		"transitionType": "트랜지션 종류",
 		"usingKeyboard": "키보드 단축키 사용",
 		"visibleContents": "요소들 표시",
-    "slideshowId": "슬라이드쇼 아이디"
+    "slideshowAddress": "슬라이드쇼 주소"
 	}
 }

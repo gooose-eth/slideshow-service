@@ -68,14 +68,16 @@ try
         $res = (object)[
           'key' => (int)$res->key,
           'address' => $res->address,
-          'id' => $res->id,
         ];
         break;
       case 'post/create':
         $res = Submit::create();
         break;
       case 'post/manage':
-        $res = Submit::manage((int)$_params->key);
+        $res = Submit::manage($_params->address);
+        break;
+      case 'post/delete':
+        $res = Submit::delete($_params->address);
         break;
     }
     if ($res)
@@ -147,7 +149,6 @@ try
       Submit::checkSlideshowData($item->slideshow);
       $data->slideshow = urlencode(json_encode($item->slideshow));
       $data->form = urlencode(json_encode((object)[
-        'id' => $item->id,
         'address' => $item->address,
       ]));
       // create token
@@ -166,7 +167,6 @@ try
         $data->slideshow = urlencode(json_encode($item->slideshow));
         $data->form = urlencode(json_encode((object)[
           'key' => (int)$item->key,
-          'id' => $item->id,
           'title' => $item->title,
           'description' => $item->description,
           'thumbnail' => $item->thumbnail,

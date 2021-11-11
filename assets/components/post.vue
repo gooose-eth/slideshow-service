@@ -58,52 +58,27 @@
           서비스 목록에서 사용하는 이미지 URL 주소를 입력합니다.
         </p>
       </div>
-      <div class="slideshow-post__columns">
-        <div class="slideshow-post__field">
-          <header>
-            <label for="id" :class="[ computes.createMode ? 'required' : '' ]">
-              아이디
-            </label>
-          </header>
-          <label class="slideshow-post__input">
-            <input
-              ref="slideshow_id"
-              type="text"
-              name="id"
-              id="id"
-              v-model="state.id"
-              minlength="4"
-              maxlength="24"
-              placeholder="슬라이드쇼 아이디를 입력하세요."
-              :readonly="computes.manageMode"
-              :required="computes.createMode">
+      <div class="slideshow-post__field">
+        <header>
+          <label for="password" :class="[ computes.createMode ? 'required' : '' ]">
+            비밀번호
           </label>
-          <p class="slideshow-post__help">
-            인증하는데 사용합니다.
-          </p>
-        </div>
-        <div class="slideshow-post__field">
-          <header>
-            <label for="password" :class="[ computes.createMode ? 'required' : '' ]">
-              비밀번호
-            </label>
-          </header>
-          <label class="slideshow-post__input">
-            <input
-              ref="slideshow_password"
-              type="password"
-              name="password"
-              id="password"
-              v-model="state.password"
-              minlength="4"
-              maxlength="30"
-              placeholder="비밀번호를 입력하세요."
-              :required="computes.createMode">
-          </label>
-          <p v-if="computes.manageMode" class="slideshow-post__help">
-            새로운 비밀번호로 변경하려면 입력하세요.
-          </p>
-        </div>
+        </header>
+        <label class="slideshow-post__input">
+          <input
+            ref="slideshow_password"
+            type="password"
+            name="password"
+            id="password"
+            v-model="state.password"
+            minlength="4"
+            maxlength="30"
+            placeholder="비밀번호를 입력하세요."
+            :required="computes.createMode">
+        </label>
+        <p v-if="computes.manageMode" class="slideshow-post__help">
+          새로운 비밀번호로 변경하려면 입력하세요.
+        </p>
       </div>
       <div v-if="computes.manageMode" class="slideshow-post__field">
         <header>
@@ -153,7 +128,6 @@ let state = reactive({
   key: props.form?.key,
   title: props.form?.title,
   description: props.form?.description,
-  id: props.form?.id,
   password: '',
   thumbnail: props.form?.thumbnail,
   address: props.form?.address,
@@ -200,7 +174,6 @@ async function onSubmit()
       title: state.title,
       description: state.description,
       slideshow: encodeURIComponent(JSON.stringify(props.slideshow)),
-      id: state.id,
       password: state.password,
       thumbnail: state.thumbnail,
     };
@@ -223,7 +196,7 @@ async function onSubmit()
     switch (props.mode)
     {
       case 'manage':
-        url = `/manage/${state.key}/`;
+        url = `/manage/${state.address}/`;
         break;
       case 'create':
       default:
@@ -270,7 +243,7 @@ function onClose()
     title: state.title,
     description: state.description,
     thumbnail: state.thumbnail,
-    id: state.id,
+    address: state.address,
   });
 }
 

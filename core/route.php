@@ -20,7 +20,9 @@ return [
   [ 'POST', '/auth/', 'post/auth' ],
   [ 'POST', '/create', 'post/create' ],
   [ 'POST', '/create/', 'post/create' ],
-  [ 'POST', '/manage/[char:key]', 'post/manage' ],
-  [ 'POST', '/manage/[char:key]/', 'post/manage' ],
+  [ 'POST', '/manage/[char:address]', 'post/manage' ],
+  [ 'POST', '/manage/[char:address]/', 'post/manage' ],
+  [ 'POST', '/delete/[char:address]', 'post/delete' ],
+  [ 'POST', '/delete/[char:address]/', 'post/delete' ],
 
 ];

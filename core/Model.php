@@ -159,6 +159,7 @@ class Model {
    * @param object
    * @param bool
    * @return object
+   * @throws Exception
    */
   public function item($op, $usePassword = false): object
   {
@@ -167,6 +168,7 @@ class Model {
     $query = $this->query($op);
     $qry = $this->db->query($query);
     $item = $qry ? (object)$qry->fetch(PDO::FETCH_ASSOC) : (object)[];
+    if (!isset($item->key)) throw new Exception('No item');
     if (isset($item->slideshow))
     {
       $item->slideshow = json_decode(urldecode($item->slideshow), false);

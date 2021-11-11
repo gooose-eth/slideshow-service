@@ -8,17 +8,17 @@
       @submit="onSubmit"
       class="authorization__form">
       <div class="authorization__field">
-        <label for="id">아이디</label>
+        <label for="address">주소</label>
         <label class="authorization__input">
           <input
-            ref="slideshow_id"
+            ref="address"
             type="text"
-            name="id"
-            id="id"
-            v-model="state.id"
+            name="address"
+            id="address"
+            v-model="state.address"
             minlength="4"
             maxlength="24"
-            placeholder="아이디를 입력해주세요."
+            placeholder="주소를 입력해주세요."
             required>
         </label>
       </div>
@@ -39,8 +39,9 @@
       <nav class="authorization__nav">
         <Button
           type="submit"
-          :color="computes.submitClassName">
-          {{computes.label.submit}}
+          :color="computes.submitClassName"
+          :disabled="state.processing">
+          {{state.processing ? '처리중..' : computes.label.submit}}
         </Button>
         <Button @click="emits('close')">닫기</Button>
       </nav>
@@ -53,9 +54,11 @@
 import { reactive, computed, onBeforeMount, onMounted, onUnmounted, ref } from 'vue';
 import Button from './button.vue';
 import { post } from '../libs/fetch';
+import { getFormData } from '../libs/object';
 
 const { Custom } = window;
-const slideshow_id = ref();
+const form = getFormData(Custom.form);
+const address = ref();
 const props = defineProps({
   visible: Boolean,
   type: String, // login,delete
@@ -63,8 +66,9 @@ const props = defineProps({
 });
 const emits = defineEmits([ 'submit', 'close' ]);
 let state = reactive({
-  id: '',
+  address: '',
   password: '',
+  processing: false,
 });
 let computes = reactive({
   url: computed(() => (`${Custom.path}${props.mode}/`)),
@@ -102,26 +106,50 @@ let computes = reactive({
 async function onSubmit(e)
 {
   e.preventDefault();
-  // TODO: 로그인이랑 삭제하기 두개로 생겨서 구분을 둬서 처리하기
-  try
+  state.processing = true;
+  switch (props.mode)
   {
-    const res = await post('/auth/', {
-      id: state.id,
-      password: state.password,
-    });
-    if (!res.success) throw new Error(res.message);
-    e.target.submit()
-  }
-  catch(e)
-  {
-    alert('인증에 실패했습니다.');
-    slideshow_id.value.focus();
+    case 'delete':
+      try
+      {
+        const res = await post(`${Custom.path}delete/${form.key}/`, {
+          address: state.address,
+          password: state.password,
+        });
+        if (!res.success) throw new Error(res.message);
+        alert('슬라이스쇼를 삭제했습니다.');
+        location.href = Custom.url;
+      }
+      catch(e)
+      {
+        alert('슬라이드쇼 삭제하지 못했습니다.');
+        address.value.focus();
+        state.processing = false;
+      }
+      break;
+    default:
+      try
+      {
+        const res = await post(`${Custom.path}auth/`, {
+          address: state.address,
+          password: state.password,
+        });
+        if (!res.success) throw new Error(res.message);
+        e.target.submit();
+      }
+      catch(e)
+      {
+        alert('인증에 실패했습니다.');
+        address.value.focus();
+        state.processing = false;
+      }
+      break;
   }
 }
 
 // lifecycles
 onMounted(() => {
-  slideshow_id.value.focus();
+  address.value.focus();
 });
 onBeforeMount(() => {
   document.querySelector('html').classList.add('mode-modal');
@@ -133,7 +161,6 @@ onUnmounted(() => {
 
 <style lang="scss">
 @use '../scss/mixins';
-
 .authorization {
   position: fixed;
   left: 0;

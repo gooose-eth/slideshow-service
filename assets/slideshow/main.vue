@@ -53,7 +53,6 @@ let state = reactive({
     key: null,
     title: '',
     description: '',
-    id: '',
     password: '',
     thumbnail: '',
     address: '',
@@ -131,6 +130,7 @@ function onClosePost(src)
  */
 function visibleDelete(sw)
 {
+  slideshow.value.useKeyboardEvent(!sw);
   state.visibleDelete = sw;
 }
 

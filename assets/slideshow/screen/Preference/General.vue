@@ -2,22 +2,22 @@
 <fieldset>
   <legend>General fields</legend>
   <div class="fields">
-    <template v-if="form.id">
+    <template v-if="form.address">
       <div class="field-basic">
         <h3 class="field-title">
-          <label for="pref_slideshowId">
-            {{t('title.slideshowId')}}
+          <label for="pref_slideshowAddress">
+            {{t('title.slideshowAddress')}}
           </label>
         </h3>
         <p class="field-description">
-          {{t('description.slideshowId')}}
+          {{t('description.slideshowAddress')}}
         </p>
         <div class="field-basic__body">
           <FormText
             type="text"
-            name="pref_slideshowId"
-            id="pref_slideshowId"
-            :value="form.id"
+            name="pref_slideshowAddress"
+            id="pref_slideshowAddress"
+            :value="form.address"
             :read-only="true"
             :size="16"/>
         </div>

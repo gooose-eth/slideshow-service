@@ -17,10 +17,9 @@ class Submit {
    */
   static public function auth(): ?object
   {
-    Util::checkExistValue($_POST, [ 'id', 'password' ]);
-    // set model
+    Util::checkExistValue($_POST, [ 'address', 'password' ]);
     $model = new Model();
-    $item = $model->item((object)[ 'where' => "`id`='{$_POST['id']}'" ], true);
+    $item = $model->item((object)[ 'where' => "`address`='{$_POST['address']}'" ], true);
     Util::verifyPassword($_POST['password'], $item->password);
     unset($item->password);
     return $item;
@@ -34,7 +33,7 @@ class Submit {
    */
   static public function create(): ?object
   {
-    Util::checkExistValue($_POST, [ 'title', 'description', 'slideshow', 'id', 'password' ]);
+    Util::checkExistValue($_POST, [ 'title', 'description', 'slideshow', 'password' ]);
 
     // set model
     $model = new Model();
@@ -50,7 +49,7 @@ class Submit {
     $thumbnail = $_POST['thumbnail'] ?? '';
 
     // check exist item
-    $cnt = $model->count((object)[ 'where' => "`id`='{$_POST['id']}' or `address`='$address'" ]);
+    $cnt = $model->count((object)[ 'where' => "`address`='$address'" ]);
     if ($cnt > 0)
     {
       throw new Exception('Exist slideshow item.');
@@ -65,7 +64,6 @@ class Submit {
         'title' => $_POST['title'],
         'description' => $_POST['description'],
         'slideshow' => urlencode(json_encode($slideshow, false)),
-        'id' => $_POST['id'],
         'password' => Util::createPassword($_POST['password']),
         'regdate' => date('Y-m-d H:i:s'),
         'update' => date('Y-m-d H:i:s'),
@@ -87,11 +85,11 @@ class Submit {
   /**
    * manage
    *
-   * @param int $key
+   * @param string $address
    * @return object
    * @throws Exception
    */
-  static public function manage($key): ?object
+  static public function manage($address): ?object
   {
     if (count($_POST) <= 0) throw new Exception('no post data');
 
@@ -122,10 +120,10 @@ class Submit {
     }
 
     // edit item from database
-    $model->edit($data, "`key`=$key");
+    $model->edit($data, "`address`='$address'");
 
     // return
-    return $model->item((object)[ 'where' => '`key`='.$key ]);
+    return $model->item((object)[ 'where' => "`address`='$address'" ]);
   }
 
   /**
@@ -146,6 +144,36 @@ class Submit {
     {
       throw new Exception('Invalid slideshow.');
     }
+  }
+
+  /**
+   * delete
+   *
+   * @param string $address
+   * @return bool
+   * @throws Exception
+   */
+  static public function delete($address): ?bool
+  {
+    Util::checkExistValue($_POST, [ 'password' ]);
+
+    // set model
+    $model = new Model();
+
+    // get item
+    $item = $model->item((object)[
+      'field' => '`key`,password',
+      'where' => "`address`='$address'",
+    ], true);
+
+    // check password
+    Util::verifyPassword($_POST['password'], $item->password);
+
+    // delete item
+    $model->delete("`address`='$address'");
+
+    // output
+    return true;
   }
 
 }

@@ -76,6 +76,7 @@ function install()
 
 /**
  * change password
+ * TODO: 아이디를 주소로 변경
  *
  * @param string $id
  * @param string $inputPassword
@@ -137,7 +138,6 @@ function deleteItem($keyName, $key)
       case 'key':
         $where = "`key`=".(int)$key;
         break;
-      case 'id':
       case 'address':
         $where = "`$keyName`='$key'";
         break;
