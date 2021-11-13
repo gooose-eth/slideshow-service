@@ -3,10 +3,11 @@
   <legend>information fields</legend>
   <div class="information">
     <figure>
-      <picture>
+      <picture v-if="screenColor === 'system'">
         <source :srcset="signatures.dark" media="(prefers-color-scheme: dark)">
         <img :src="signatures.light" alt="slideshow">
       </picture>
+      <img v-else :src="signatures[screenColor]" alt="slideshow">
     </figure>
     <ul>
       <li>URL: <a :href="url" target="_blank">{{url}}</a></li>
@@ -22,6 +23,7 @@
 <script setup>
 import i18n from '../../i18n';
 import pkg from '../../../../package.json';
+import store from '../../store';
 
 const name = 'PreferenceInformation';
 const { t } = i18n.global;
@@ -32,6 +34,7 @@ const signatures = {
   dark: `${Custom.path}assets/images/signature-dark.png`,
 };
 const url = Custom.url;
+const { screenColor } = store.state.preference.style;
 </script>
 
 <style lang="scss">

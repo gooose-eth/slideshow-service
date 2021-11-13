@@ -2,6 +2,9 @@
 <article class="authorization" @click="emits('close')">
   <div class="authorization__wrap" @click.stop="">
     <h1 class="authorization__title">{{computes.label.title}}</h1>
+    <p class="authorization__description">
+      슬라이드쇼를 삭제하면 복구할 수 없습니다!
+    </p>
     <form
       :action="computes.url"
       method="post"
@@ -188,8 +191,15 @@ onUnmounted(() => {
     text-align: center;
     user-select: none;
   }
+  &__description {
+    margin: 12px 0 0;
+    font-size: 13px;
+    line-height: 1.25;
+    color: var(--color-low-fill);
+    user-select: none;
+  }
   &__form {
-    margin: 40px 0 0;
+    margin: 32px 0 0;
     width: 100%;
     max-width: 360px;
   }
@@ -197,15 +207,9 @@ onUnmounted(() => {
     &:nth-child(n+2) {
       margin-top: 30px;
     }
-    > p {
-      margin: 0;
-      > label {
-        font-size: 13px;
-        letter-spacing: -.2px;
-        color: var(--color-low-fill);
-        line-height: 1.2;
-        user-select: none;
-      }
+    label[for] {
+      user-select: none;
+      font-size: 15px;
     }
   }
   &__input {

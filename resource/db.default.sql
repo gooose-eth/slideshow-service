@@ -8,9 +8,9 @@ create table `slideshow` (
   `description` varchar(120) default null,
   `slideshow` text not null,
   `password` varchar(100) not null comment 'Slideshow password',
+  `thumbnail` varchar(100) default null comment 'Thumbnail image address',
   `regdate` datetime not null,
-  `update` datetime not null,
-  `thumbnail` varchar(100) default null comment 'Thumbnail image address'
+  `update` datetime not null
 ) engine=InnoDB default charset=utf8mb4;
 
 alter table `slideshow` add primary key (`key`), add unique key `address` (`address`);

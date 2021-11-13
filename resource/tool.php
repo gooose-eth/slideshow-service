@@ -76,18 +76,17 @@ function install()
 
 /**
  * change password
- * TODO: 아이디를 주소로 변경
  *
- * @param string $id
+ * @param string $address
  * @param string $inputPassword
  * @throws Exception
  */
-function changePassword($id, $inputPassword)
+function changePassword($address, $inputPassword)
 {
   try
   {
     // check id,password
-    if (!$id) throw new Exception('Please input id');
+    if (!$address) throw new Exception('Please input address');
     if (!$inputPassword) throw new Exception('Please input password');
 
     // setup
@@ -98,7 +97,7 @@ function changePassword($id, $inputPassword)
     $password = Util::createPassword($inputPassword);
 
     // update database
-    $model->edit([ "`password`='$password'" ], "`id`='$id'");
+    $model->edit([ "`password`='$password'" ], "`address`='$address'");
 
     // disconnect database
     $model->disconnect();

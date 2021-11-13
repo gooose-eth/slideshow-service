@@ -26,12 +26,6 @@ class Token {
       'exp' => $now + (int)$_ENV['TOKEN_EXPIRY_TIME'], // 만료시간
     ];
 
-    // set data
-    if (isset($_POST['id']))
-    {
-      $payload->id = $_POST['id'];
-    }
-
     // encode token
     $jwt = JWT::encode($payload, $_ENV['TOKEN_KEY']);
 

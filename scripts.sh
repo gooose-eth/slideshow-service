@@ -25,6 +25,7 @@ case "$1" in
     if [ ! -f .env ]; then
       cp resource/.env.example .env
     fi
+    php ./resource/tool.php install
     ;;
 
   change-password)
