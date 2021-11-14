@@ -25,6 +25,9 @@ case "$1" in
     if [ ! -f .env ]; then
       cp resource/.env.example .env
     fi
+    ;;
+
+  install)
     php ./resource/tool.php install
     ;;
 
@@ -45,7 +48,7 @@ case "$1" in
     ;;
 
   *)
-    echo "Usage: ./action.sh {setup|start|change-password|delete-item|delete-all|clear}" >&2
+    echo "Usage: ./action.sh {setup|install|start|change-password|delete-item|delete-all|clear}" >&2
     exit 3
     ;;
 
