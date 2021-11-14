@@ -3,9 +3,9 @@ set SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 -- table `slideshow`
 create table `slideshow` (
   `key` tinyint(11) not null,
-  `address` varchar(24) not null comment 'Watch ID',
-  `title` varchar(30) not null,
-  `description` varchar(120) default null,
+  `address` varchar(30) not null comment 'Watch ID',
+  `title` varchar(120) not null,
+  `description` varchar(255) default null,
   `slideshow` mediumtext not null,
   `password` varchar(100) not null comment 'Slideshow password',
   `thumbnail` varchar(100) default null comment 'Thumbnail image address',
