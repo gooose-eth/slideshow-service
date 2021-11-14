@@ -143,8 +143,10 @@ try
       $data->address = $_params->address;
       $model = new Model();
       $item = $model->item((object)[ 'where' => "`address`='$_params->address'" ]);
-      // set title
-      $data->title = $item->title.' / '.$_ENV['TITLE'];
+      // set meta data
+      $data->title = $item->title;
+      $data->description = $item->description;
+      if (isset($item->thumbnail)) $data->banner = $item->thumbnail;
       // set slideshow data
       Submit::checkSlideshowData($item->slideshow);
       $data->slideshow = rawurlencode(json_encode($item->slideshow));
@@ -178,7 +180,7 @@ try
       }
       catch(Exception $e)
       {
-        header("Location: {$_ENV['PATH_URL']}");
+        header("Location: {$_ENV['PATH_URL']}/");
         exit;
       }
       break;

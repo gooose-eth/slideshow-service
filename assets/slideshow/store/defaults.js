@@ -48,6 +48,8 @@ export default {
   },
   tree: {
     default: {
+      name: '기본 슬라이드쇼',
+      description: '시작의 슬라이드쇼',
       slides: [],
     },
   },

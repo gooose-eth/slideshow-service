@@ -138,7 +138,7 @@ let state = reactive({
 });
 let computes = reactive({
   visibleThumbnail: computed(() => {
-    return store.state.slides && store.state.slides.length > 1;
+    return store.state.slides?.length > 0;
   }),
   visibleAutoplay: computed(() => {
     const { slides, preference } = store.state;

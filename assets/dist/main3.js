@@ -1055,6 +1055,8 @@ var defaults = {
   },
   tree: {
     default: {
+      name: "\uAE30\uBCF8 \uC2AC\uB77C\uC774\uB4DC\uC1FC",
+      description: "\uC2DC\uC791\uC758 \uC2AC\uB77C\uC774\uB4DC\uC1FC",
       slides: []
     }
   },
@@ -12129,7 +12131,8 @@ const _sfc_main$c = {
     });
     let computes = reactive({
       visibleThumbnail: computed(() => {
-        return store.state.slides && store.state.slides.length > 1;
+        var _a;
+        return ((_a = store.state.slides) == null ? void 0 : _a.length) > 0;
       }),
       visibleAutoplay: computed(() => {
         const { slides: slides2, preference: preference2 } = store.state;
@@ -13217,6 +13220,10 @@ const _sfc_main$2 = {
       } else {
         let storageGroup = get$1("group");
         group = storageGroup || "default";
+      }
+      if (!store.state.tree[group]) {
+        if (Object.keys(store.state.tree)[0])
+          group = Object.keys(store.state.tree)[0];
       }
       store.dispatch("changeGroup", group);
     }

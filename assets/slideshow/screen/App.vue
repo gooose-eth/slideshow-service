@@ -11,9 +11,9 @@ import * as storage from '../libs/storage';
 import * as local from '../libs/local';
 import { getApiData, sleep, initCustomEvent } from '../libs/util';
 import { convertPureObject, checkPreference, checkSlideItems } from '../libs/object';
+import { changeUsePreference } from '../store/actions';
 import Container from './Container.vue';
 import LoadingIntro from '../components/Loading/Intro.vue';
-import { changeUsePreference } from "../store/actions";
 
 // set dev
 if (window) window.dev = process.env.NODE_ENV === 'development';
@@ -115,6 +115,10 @@ function fetchGroup()
   {
     let storageGroup = storage.get('group');
     group = storageGroup || 'default';
+  }
+  if (!store.state.tree[group])
+  {
+    if (Object.keys(store.state.tree)[0]) group = Object.keys(store.state.tree)[0];
   }
   store.dispatch('changeGroup', group);
 }

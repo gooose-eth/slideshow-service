@@ -1,0 +1,32 @@
+{
+  "short_name": "Slideshow",
+  "name": "Slideshow",
+  "version": "0.1",
+  "icons": [
+    {
+      "src": "/assets/images/slideshow-48x48.png",
+      "type": "image/png",
+      "sizes": "48x48"
+    },
+    {
+      "src": "/assets/images/slideshow-96x96.png",
+      "type": "image/png",
+      "sizes": "96x96"
+    },
+    {
+      "src": "/assets/images/slideshow-196x196.png",
+      "type": "image/png",
+      "sizes": "196x196"
+    },
+    {
+      "src": "/assets/images/slideshow-256x256.png",
+      "type": "image/png",
+      "sizes": "256x256"
+    }
+  ],
+  "start_url": "/",
+  "display": "standalone",
+  "theme_color": "currentColor",
+  "background_color": "currentColor",
+  "orientation": "portrait"
+}

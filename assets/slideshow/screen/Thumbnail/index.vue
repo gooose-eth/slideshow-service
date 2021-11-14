@@ -103,11 +103,11 @@ onUnmounted(() => {
       font-size: 30px;
       letter-spacing: -.5px;
       line-height: 1.15;
-      font-weight: 600;
+      font-weight: 800;
       @include mixins.text-single-line();
     }
     p {
-      margin: 4px auto 0;
+      margin: 6px auto 0;
       font-size: 11px;
       font-weight: 400;
       line-height: 1.15;
