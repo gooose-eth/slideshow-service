@@ -147,8 +147,8 @@ try
       $data->title = $item->title.' / '.$_ENV['TITLE'];
       // set slideshow data
       Submit::checkSlideshowData($item->slideshow);
-      $data->slideshow = urlencode(json_encode($item->slideshow));
-      $data->form = urlencode(json_encode((object)[
+      $data->slideshow = rawurlencode(json_encode($item->slideshow));
+      $data->form = rawurlencode(json_encode((object)[
         'address' => $item->address,
       ]));
       // create token
@@ -164,8 +164,8 @@ try
           'title' => $_ENV['TITLE'],
           'mode' => $_target,
         ];
-        $data->slideshow = urlencode(json_encode($item->slideshow));
-        $data->form = urlencode(json_encode((object)[
+        $data->slideshow = rawurlencode(json_encode($item->slideshow));
+        $data->form = rawurlencode(json_encode((object)[
           'key' => (int)$item->key,
           'title' => $item->title,
           'description' => $item->description,

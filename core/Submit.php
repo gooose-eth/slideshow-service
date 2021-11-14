@@ -63,7 +63,7 @@ class Submit {
         'address' => $address,
         'title' => $_POST['title'],
         'description' => $_POST['description'],
-        'slideshow' => urlencode(json_encode($slideshow, false)),
+        'slideshow' => rawurlencode(json_encode($slideshow, false)),
         'password' => Util::createPassword($_POST['password']),
         'regdate' => date('Y-m-d H:i:s'),
         'update' => date('Y-m-d H:i:s'),
