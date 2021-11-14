@@ -38,8 +38,7 @@
         filter: invert(1);
       }
     }
-    a:focus-visible {
-    }
+    a:focus-visible {}
   }
   &__nav {
     --size-middle-padding: 4px;
@@ -58,8 +57,9 @@
     li {
       display: flex;
       align-items: center;
-      font-size: 14px;
+      font-size: 13px;
       font-family: var(--font-eng);
+      font-weight: 600;
       &:nth-child(n+2) {
         margin-left: var(--size-middle-padding);
         &:before {
@@ -78,6 +78,7 @@
       transition: opacity 200ms ease-out;
       color: var(--color-fill);
       -webkit-tap-highlight-color: transparent;
+      text-decoration: none;
       &.active {
         color: var(--color-key);
         cursor: default;
