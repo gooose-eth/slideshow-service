@@ -118,7 +118,7 @@ class Model {
       {
         if (isset($v->slideshow))
         {
-           $result[$k]->slideshow = json_decode(urldecode($v->slideshow));
+           $result[$k]->slideshow = json_decode(rawurldecode($v->slideshow));
         }
         if (isset($v->password))
         {
@@ -171,7 +171,7 @@ class Model {
     if (!isset($item->key)) throw new Exception('No item');
     if (isset($item->slideshow))
     {
-      $item->slideshow = json_decode(urldecode($item->slideshow), false);
+      $item->slideshow = json_decode(rawurldecode($item->slideshow), false);
     }
     if (!$usePassword) unset($item->password);
     return $item;

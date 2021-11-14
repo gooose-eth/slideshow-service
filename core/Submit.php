@@ -39,7 +39,7 @@ class Submit {
     $model = new Model();
 
     // set slideshow data
-    $slideshow = json_decode(urldecode($_POST['slideshow']), false);
+    $slideshow = json_decode(rawurldecode($_POST['slideshow']), false);
     self::checkSlideshowData($slideshow);
 
     // create address
@@ -100,19 +100,21 @@ class Submit {
     $data = [];
     if (isset($_POST['title']) && $_POST['title'])
     {
-      $data[] = "title='{$_POST['title']}'";
+      $data[] = "title=\"{$_POST['title']}\"";
     }
     if (isset($_POST['description']) && $_POST['description'])
     {
-      $data[] = "description='{$_POST['description']}'";
+      $data[] = "description=\"{$_POST['description']}\"";
     }
     if (isset($_POST['slideshow']) && $_POST['slideshow'])
     {
-      $data[] = "slideshow='{$_POST['slideshow']}'";
+      $slideshow = json_decode(rawurldecode($_POST['slideshow']), false);
+      self::checkSlideshowData($slideshow);
+      $data[] = "slideshow=\"".rawurlencode(json_encode($slideshow, false))."\"";
     }
     if (isset($_POST['thumbnail']) && $_POST['thumbnail'])
     {
-      $data[] = "thumbnail='{$_POST['thumbnail']}'";
+      $data[] = "thumbnail=\"{$_POST['thumbnail']}\"";
     }
     if (isset($_POST['password']) && $_POST['password'])
     {
