@@ -8,7 +8,6 @@ export default defineConfig(({ mode }) => {
     root: paths.root,
     base: './',
     build: {
-      minify: true,
       outDir: paths.dist,
       lib: {
         ...base.build.lib,

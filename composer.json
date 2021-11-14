@@ -12,12 +12,12 @@
     }
   },
   "require": {
-    "vlucas/phpdotenv": "^5.3.1",
-    "redgoose/paginate": "^1.0.3",
+    "vlucas/phpdotenv": "^5.4.0",
+    "redgoose/paginate": "^1.0.4",
     "redgoose/console": "^1.0.1",
     "eftec/bladeone": "^4.1",
     "altorouter/altorouter": "^2.0.2",
-    "firebase/php-jwt": "^5.4",
+    "firebase/php-jwt": "^5.5.1",
     "ext-pdo": "*",
     "ext-json": "*"
   }

@@ -12,8 +12,6 @@ export default defineConfig(({ mode }) => {
         include: '../**',
         exclude: [ 'dist/**', 'node_modules/**' ],
       },
-      minify: false,
-      sourcemap: true,
       outDir: paths.dist,
       lib: {
         ...base.build.lib,
