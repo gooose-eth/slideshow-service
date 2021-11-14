@@ -6,7 +6,7 @@ create table `slideshow` (
   `address` varchar(24) not null comment 'Watch ID',
   `title` varchar(30) not null,
   `description` varchar(120) default null,
-  `slideshow` text not null,
+  `slideshow` mediumtext not null,
   `password` varchar(100) not null comment 'Slideshow password',
   `thumbnail` varchar(100) default null comment 'Thumbnail image address',
   `regdate` datetime not null,

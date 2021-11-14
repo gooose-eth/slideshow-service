@@ -117,7 +117,7 @@ function onDrop(e)
   let clone = convertPureObject(props.items);
   clone.splice(state.dragStartKey, 1);
   clone.splice(Number(target.dataset.key), 0, convertPureObject(props.items[state.dragStartKey]));
-  context.emit('change-order', clone);
+  emits('change-order', clone);
 }
 function onDragEnd()
 {
@@ -135,7 +135,7 @@ function onDragEnd()
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 @use '../../../../assets/scss/mixins';
 
 .data-slides {
@@ -219,6 +219,7 @@ function onDragEnd()
     display: none;
   }
   @include mixins.responsive(desktop) {
+    display: flex;
     margin: 8px;
     border-radius: var(--size-shape-radius);
     box-shadow: 0 0 8px 0 rgba(0,0,0,.15), inset 0 0 0 1px #ddd;

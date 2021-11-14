@@ -89,7 +89,7 @@ const _sfc_main$7 = {
   }
 };
 var ModalWrapper = /* @__PURE__ */ _export_sfc(_sfc_main$7, [["__scopeId", "data-v-d0af7818"]]);
-var Slides_vue_vue_type_style_index_0_scoped_true_lang = "";
+var Slides_vue_vue_type_style_index_0_lang = "";
 const _hoisted_1$6 = ["data-key"];
 const _hoisted_2$6 = ["data-key"];
 const _hoisted_3$5 = { class: "data-slide__handle" };
@@ -157,7 +157,7 @@ const _sfc_main$6 = {
       let clone = convertPureObject(props.items);
       clone.splice(state.dragStartKey, 1);
       clone.splice(Number(target.dataset.key), 0, convertPureObject(props.items[state.dragStartKey]));
-      context.emit("change-order", clone);
+      emits("change-order", clone);
     }
     function onDragEnd() {
       if (!(dragTarget && dragItems))
@@ -236,7 +236,6 @@ const _sfc_main$6 = {
     };
   }
 };
-var Slides = /* @__PURE__ */ _export_sfc(_sfc_main$6, [["__scopeId", "data-v-069fbffb"]]);
 var ManageGroup_vue_vue_type_style_index_0_scoped_true_lang = "";
 const _withScopeId$3 = (n) => (pushScopeId("data-v-693e6cdd"), n = n(), popScopeId(), n);
 const _hoisted_1$5 = /* @__PURE__ */ _withScopeId$3(() => /* @__PURE__ */ createBaseVNode("legend", null, "Manage slides group fields", -1));
@@ -856,7 +855,7 @@ const _sfc_main$3 = {
                 ], 8, _hoisted_9$2)
               ])
             ]),
-            unref(state).fold[item.key] && item.fold ? (openBlock(), createBlock(Slides, {
+            unref(state).fold[item.key] && item.fold ? (openBlock(), createBlock(_sfc_main$6, {
               key: 0,
               "item-key": item.key,
               items: item.slides,
