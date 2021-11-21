@@ -1,7 +1,6 @@
-import { _ as _export_sfc, a as _sfc_main$2, i as i18n, c as convertPureObject, s as store, m as main } from "./main3.js";
+import { _ as _export_sfc, a as _sfc_main$2, i as i18n, c as convertPureObject, s as store, F as FormSwitch, m as main } from "./main3.js";
 import { B as ButtonBasic, t as twoDigit } from "./Basic.js";
 import { F as FormText } from "./Text.js";
-import { F as FormSwitch } from "./Switch.js";
 import { y as openBlock, z as createElementBlock, F as createBaseVNode, K as createVNode, R as toDisplayString, G as createCommentVNode, r as reactive, C as unref, H as Fragment, Z as withCtx, _ as createTextVNode, M as pushScopeId, O as popScopeId } from "./main2.js";
 import "./authorization.js";
 var Checkbox_scss_vue_type_style_index_0_src_scoped_true_lang = "";

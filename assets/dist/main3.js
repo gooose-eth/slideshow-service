@@ -18,7 +18,7 @@ var __spreadValues = (a, b) => {
 };
 var __spreadProps = (a, b) => __defProps(a, __getOwnPropDescs(b));
 import { w as watch, r as reactive, i as isString$1, h as hyphenate, N as NOOP, e as extend, a as isObject$2, b as isArray$1, m as makeMap, E as EMPTY_OBJ, c as capitalize, d as camelize$1, P as PatchFlagNames, f as isSymbol$1, g as isOn, t as toHandlerKey, j as NO, k as isReservedProp, l as isVoidTag, n as isHTMLTag, o as isSVGTag, p as parseStringStyle, q as generateCodeFrame$1, s as runtimeDom_esmBundler, u as shared_esmBundler, v as computed, x as defineAsyncComponent, y as openBlock, z as createElementBlock, A as createBlock, B as resolveDynamicComponent, C as unref, D as ref, F as createBaseVNode, G as createCommentVNode, H as Fragment, I as renderList, J as normalizeClass, K as createVNode, L as normalizeStyle, M as pushScopeId, O as popScopeId, Q as onMounted, R as toDisplayString$1, S as onUnmounted, T as Teleport, U as getCurrentInstance, V as onBeforeMount, W as withModifiers, X as withDirectives, Y as vModelText, Z as withCtx, _ as createTextVNode } from "./main2.js";
-import { g as getFormData, _ as _sfc_main$k, p as post, a as _sfc_main$l } from "./authorization.js";
+import { g as getFormData, _ as _sfc_main$l, p as post, a as _sfc_main$m } from "./authorization.js";
 function getDevtoolsGlobalHook() {
   return getTarget().__VUE_DEVTOOLS_GLOBAL_HOOK__;
 }
@@ -11120,8 +11120,8 @@ function move(total = 0, value = 0, loop = true) {
   }
 }
 var index_vue_vue_type_style_index_0_lang$3 = "";
-const _hoisted_1$f = ["aria-labelledby"];
-const _sfc_main$j = {
+const _hoisted_1$g = ["aria-labelledby"];
+const _sfc_main$k = {
   props: {
     iconName: { type: String, required: true }
   },
@@ -11200,7 +11200,7 @@ const _sfc_main$j = {
         class: "slideshow-icon"
       }, [
         (openBlock(), createBlock(resolveDynamicComponent(unref(state2).computedIconComponent)))
-      ], 8, _hoisted_1$f);
+      ], 8, _hoisted_1$g);
     };
   }
 };
@@ -11211,25 +11211,25 @@ var _export_sfc = (sfc, props) => {
   }
   return sfc;
 };
-const _withScopeId$1 = (n) => (pushScopeId("data-v-153702b0"), n = n(), popScopeId(), n);
-const _hoisted_1$e = {
+const _withScopeId$2 = (n) => (pushScopeId("data-v-153702b0"), n = n(), popScopeId(), n);
+const _hoisted_1$f = {
   key: 0,
   class: "first"
 };
-const _hoisted_2$b = ["src", "alt"];
+const _hoisted_2$c = ["src", "alt"];
 const _hoisted_3$a = {
   key: 0,
   class: "empty-image"
 };
-const _hoisted_4$8 = /* @__PURE__ */ _withScopeId$1(() => /* @__PURE__ */ createBaseVNode("strong", null, "no image", -1));
+const _hoisted_4$8 = /* @__PURE__ */ _withScopeId$2(() => /* @__PURE__ */ createBaseVNode("strong", null, "no image", -1));
 const _hoisted_5$7 = ["src", "alt", "onError"];
 const _hoisted_6$5 = {
   key: 1,
   class: "last"
 };
 const _hoisted_7$4 = ["src", "alt"];
-const _hoisted_8$2 = /* @__PURE__ */ _withScopeId$1(() => /* @__PURE__ */ createBaseVNode("i", { class: "overlay" }, null, -1));
-const _sfc_main$i = {
+const _hoisted_8$2 = /* @__PURE__ */ _withScopeId$2(() => /* @__PURE__ */ createBaseVNode("i", { class: "overlay" }, null, -1));
+const _sfc_main$j = {
   props: {
     items: { type: Array, required: true },
     initialActive: { type: Number, default: 0 },
@@ -11410,12 +11410,12 @@ const _sfc_main$i = {
           },
           class: "wrap"
         }, [
-          unref(state2).computedShowFirstItem ? (openBlock(), createElementBlock("figure", _hoisted_1$e, [
+          unref(state2).computedShowFirstItem ? (openBlock(), createElementBlock("figure", _hoisted_1$f, [
             unref(state2).loaded[__props.items.length - 1] ? (openBlock(), createElementBlock("img", {
               key: 0,
               src: __props.items[__props.items.length - 1].src,
               alt: __props.items[__props.items.length - 1].title
-            }, null, 8, _hoisted_2$b)) : createCommentVNode("", true)
+            }, null, 8, _hoisted_2$c)) : createCommentVNode("", true)
           ])) : createCommentVNode("", true),
           (openBlock(true), createElementBlock(Fragment, null, renderList(__props.items, (item, key) => {
             return openBlock(), createElementBlock("figure", {
@@ -11428,7 +11428,7 @@ const _sfc_main$i = {
               ])
             }, [
               unref(state2).error[key] ? (openBlock(), createElementBlock("div", _hoisted_3$a, [
-                createVNode(_sfc_main$j, { "icon-name": "x" }),
+                createVNode(_sfc_main$k, { "icon-name": "x" }),
                 _hoisted_4$8
               ])) : unref(state2).loaded[key] ? (openBlock(), createElementBlock("img", {
                 key: 1,
@@ -11451,7 +11451,7 @@ const _sfc_main$i = {
     };
   }
 };
-var Images = /* @__PURE__ */ _export_sfc(_sfc_main$i, [["__scopeId", "data-v-153702b0"]]);
+var Images = /* @__PURE__ */ _export_sfc(_sfc_main$j, [["__scopeId", "data-v-153702b0"]]);
 function shuffle($el, options) {
   options = Object.assign({}, {
     text: "",
@@ -11544,9 +11544,9 @@ function shuffle($el, options) {
   }
 }
 var Caption_scss_vue_type_style_index_0_src_scoped_true_lang = "";
-const _hoisted_1$d = { key: 0 };
-const _hoisted_2$a = { key: 1 };
-const _sfc_main$h = {
+const _hoisted_1$e = { key: 0 };
+const _hoisted_2$b = { key: 1 };
+const _sfc_main$i = {
   props: {
     active: { type: Number, required: true },
     title: { type: String, default: "Untitled" },
@@ -11635,33 +11635,33 @@ const _sfc_main$h = {
             }
           }, null, 512)) : createCommentVNode("", true)
         ], 64)) : (openBlock(), createElementBlock(Fragment, { key: 1 }, [
-          __props.title ? (openBlock(), createElementBlock("h1", _hoisted_1$d, toDisplayString$1(__props.title), 1)) : createCommentVNode("", true),
-          __props.description ? (openBlock(), createElementBlock("pre", _hoisted_2$a, toDisplayString$1(__props.description), 1)) : createCommentVNode("", true)
+          __props.title ? (openBlock(), createElementBlock("h1", _hoisted_1$e, toDisplayString$1(__props.title), 1)) : createCommentVNode("", true),
+          __props.description ? (openBlock(), createElementBlock("pre", _hoisted_2$b, toDisplayString$1(__props.description), 1)) : createCommentVNode("", true)
         ], 64))
       ], 4);
     };
   }
 };
-var Caption = /* @__PURE__ */ _export_sfc(_sfc_main$h, [["__scopeId", "data-v-0d330e4b"]]);
+var Caption = /* @__PURE__ */ _export_sfc(_sfc_main$i, [["__scopeId", "data-v-0d330e4b"]]);
 var Paginate_vue_vue_type_style_index_0_scoped_true_lang = "";
-const _hoisted_1$c = { class: "slideshow-paginate" };
-const _sfc_main$g = {
+const _hoisted_1$d = { class: "slideshow-paginate" };
+const _sfc_main$h = {
   props: {
     total: { type: Number, default: 0 },
     current: { type: Number, default: 0 }
   },
   setup(__props) {
     return (_ctx, _cache) => {
-      return openBlock(), createElementBlock("em", _hoisted_1$c, toDisplayString$1(__props.current + 1) + " / " + toDisplayString$1(__props.total), 1);
+      return openBlock(), createElementBlock("em", _hoisted_1$d, toDisplayString$1(__props.current + 1) + " / " + toDisplayString$1(__props.total), 1);
     };
   }
 };
-var Paginate = /* @__PURE__ */ _export_sfc(_sfc_main$g, [["__scopeId", "data-v-6a79e958"]]);
+var Paginate = /* @__PURE__ */ _export_sfc(_sfc_main$h, [["__scopeId", "data-v-6a79e958"]]);
 var Controller_scss_vue_type_style_index_0_src_scoped_true_lang = "";
-const _hoisted_1$b = { class: "controller" };
-const _hoisted_2$9 = ["disabled", "title"];
+const _hoisted_1$c = { class: "controller" };
+const _hoisted_2$a = ["disabled", "title"];
 const _hoisted_3$9 = ["disabled", "title"];
-const _sfc_main$f = {
+const _sfc_main$g = {
   props: {
     showPrev: { type: Boolean, default: true },
     showNext: { type: Boolean, default: true },
@@ -11674,7 +11674,7 @@ const _sfc_main$f = {
   setup(__props, { emit: emits }) {
     const { t } = i18n.global;
     return (_ctx, _cache) => {
-      return openBlock(), createElementBlock("nav", _hoisted_1$b, [
+      return openBlock(), createElementBlock("nav", _hoisted_1$c, [
         __props.showPrev ? (openBlock(), createElementBlock("button", {
           key: 0,
           type: "button",
@@ -11683,8 +11683,8 @@ const _sfc_main$f = {
           class: "prev",
           onClick: _cache[0] || (_cache[0] = ($event) => _ctx.$emit("click-prev"))
         }, [
-          createVNode(_sfc_main$j, { "icon-name": "arrow-left" })
-        ], 8, _hoisted_2$9)) : createCommentVNode("", true),
+          createVNode(_sfc_main$k, { "icon-name": "arrow-left" })
+        ], 8, _hoisted_2$a)) : createCommentVNode("", true),
         __props.showNext ? (openBlock(), createElementBlock("button", {
           key: 1,
           type: "button",
@@ -11693,15 +11693,15 @@ const _sfc_main$f = {
           class: "next",
           onClick: _cache[1] || (_cache[1] = ($event) => _ctx.$emit("click-next"))
         }, [
-          createVNode(_sfc_main$j, { "icon-name": "arrow-right" })
+          createVNode(_sfc_main$k, { "icon-name": "arrow-right" })
         ], 8, _hoisted_3$9)) : createCommentVNode("", true)
       ]);
     };
   }
 };
-var Controller = /* @__PURE__ */ _export_sfc(_sfc_main$f, [["__scopeId", "data-v-4ab80943"]]);
+var Controller = /* @__PURE__ */ _export_sfc(_sfc_main$g, [["__scopeId", "data-v-4ab80943"]]);
 var index_scss_vue_type_style_index_0_src_lang = "";
-const _sfc_main$e = {
+const _sfc_main$f = {
   setup(__props, { expose }) {
     const images = ref(null);
     let state2 = reactive({
@@ -12037,10 +12037,10 @@ const _sfc_main$e = {
   }
 };
 var Empty_vue_vue_type_style_index_0_lang = "";
-const _hoisted_1$a = { class: "slideshow-empty__wrap" };
-const _hoisted_2$8 = { class: "slideshow-empty__title" };
+const _hoisted_1$b = { class: "slideshow-empty__wrap" };
+const _hoisted_2$9 = { class: "slideshow-empty__title" };
 const _hoisted_3$8 = { class: "slideshow-empty__description" };
-const _sfc_main$d = {
+const _sfc_main$e = {
   props: {
     title: String,
     description: String
@@ -12057,12 +12057,12 @@ const _sfc_main$d = {
         class: "slideshow-empty",
         onClick: onClickWrapper
       }, [
-        createBaseVNode("div", _hoisted_1$a, [
-          createVNode(_sfc_main$j, {
+        createBaseVNode("div", _hoisted_1$b, [
+          createVNode(_sfc_main$k, {
             "icon-name": "frown",
             class: "slideshow-empty__icon"
           }),
-          createBaseVNode("h2", _hoisted_2$8, toDisplayString$1(__props.title || unref(t)("title.emptySlide")), 1),
+          createBaseVNode("h2", _hoisted_2$9, toDisplayString$1(__props.title || unref(t)("title.emptySlide")), 1),
           createBaseVNode("p", _hoisted_3$8, toDisplayString$1(__props.description || unref(t)("description.addSlides")), 1)
         ])
       ]);
@@ -12087,11 +12087,11 @@ function copyToClipboard(str) {
   });
 }
 var index_vue_vue_type_style_index_0_lang$2 = "";
-const _hoisted_1$9 = {
+const _hoisted_1$a = {
   key: 0,
   class: "slideshow-navigation__item"
 };
-const _hoisted_2$7 = ["title"];
+const _hoisted_2$8 = ["title"];
 const _hoisted_3$7 = {
   key: 1,
   class: "slideshow-navigation__item"
@@ -12121,7 +12121,7 @@ const _hoisted_15$1 = {
   class: "slideshow-navigation__item"
 };
 const _hoisted_16$1 = ["title"];
-const _sfc_main$c = {
+const _sfc_main$d = {
   setup(__props, { expose }) {
     const { t } = i18n.global;
     const { Custom } = window;
@@ -12251,15 +12251,15 @@ const _sfc_main$c = {
         onTouchstart: onTouchStart,
         onClick: onClickWrapper
       }, [
-        unref(computes).visibleAutoplay ? (openBlock(), createElementBlock("div", _hoisted_1$9, [
+        unref(computes).visibleAutoplay ? (openBlock(), createElementBlock("div", _hoisted_1$a, [
           createBaseVNode("button", {
             type: "button",
             title: unref(t)("base.autoplay"),
             class: normalizeClass(unref(store).state.autoplay ? "active" : ""),
             onClick: onClickAutoplayButton
           }, [
-            createVNode(_sfc_main$j, { "icon-name": "play-circle" })
-          ], 10, _hoisted_2$7)
+            createVNode(_sfc_main$k, { "icon-name": "play-circle" })
+          ], 10, _hoisted_2$8)
         ])) : createCommentVNode("", true),
         unref(computes).visibleGroup ? (openBlock(), createElementBlock("div", _hoisted_3$7, [
           createBaseVNode("button", {
@@ -12267,7 +12267,7 @@ const _sfc_main$c = {
             title: unref(t)("base.group"),
             onClick: onClickGroup
           }, [
-            createVNode(_sfc_main$j, {
+            createVNode(_sfc_main$k, {
               "icon-name": "folder",
               class: "folder"
             })
@@ -12279,7 +12279,7 @@ const _sfc_main$c = {
             title: unref(t)("base.preference"),
             onClick: _cache[0] || (_cache[0] = ($event) => route("preference"))
           }, [
-            createVNode(_sfc_main$j, {
+            createVNode(_sfc_main$k, {
               "icon-name": "settings",
               class: "folder"
             })
@@ -12291,7 +12291,7 @@ const _sfc_main$c = {
             title: unref(t)("base.preview"),
             onClick: _cache[1] || (_cache[1] = ($event) => route("preview"))
           }, [
-            createVNode(_sfc_main$j, {
+            createVNode(_sfc_main$k, {
               "icon-name": "cast",
               class: "folder"
             })
@@ -12304,7 +12304,7 @@ const _sfc_main$c = {
             class: normalizeClass(unref(state2).activeMenu ? "on" : ""),
             onClick: onClickMenuButton
           }, [
-            createVNode(_sfc_main$j, { "icon-name": "menu" })
+            createVNode(_sfc_main$k, { "icon-name": "menu" })
           ], 10, _hoisted_10$1),
           createBaseVNode("div", {
             class: normalizeClass([
@@ -12362,7 +12362,7 @@ const _sfc_main$c = {
             class: "active",
             onClick: onClickSave
           }, [
-            createVNode(_sfc_main$j, { "icon-name": "save" })
+            createVNode(_sfc_main$k, { "icon-name": "save" })
           ], 8, _hoisted_16$1)
         ])) : createCommentVNode("", true)
       ], 32);
@@ -12370,14 +12370,14 @@ const _sfc_main$c = {
   }
 };
 var Side_scss_vue_type_style_index_0_src_scoped_true_lang = "";
-const _hoisted_1$8 = { class: "preference-side" };
-const _hoisted_2$6 = ["title", "disabled"];
+const _hoisted_1$9 = { class: "preference-side" };
+const _hoisted_2$7 = ["title", "disabled"];
 const _hoisted_3$6 = ["title", "disabled"];
 const _hoisted_4$6 = ["title", "disabled"];
 const _hoisted_5$5 = ["title", "disabled"];
 const _hoisted_6$3 = ["title", "disabled"];
 const _hoisted_7$2 = ["title", "disabled"];
-const _sfc_main$b = {
+const _sfc_main$c = {
   props: {
     mode: { type: String, required: true }
   },
@@ -12385,7 +12385,7 @@ const _sfc_main$b = {
     const props = __props;
     const { t } = i18n.global;
     return (_ctx, _cache) => {
-      return openBlock(), createElementBlock("aside", _hoisted_1$8, [
+      return openBlock(), createElementBlock("aside", _hoisted_1$9, [
         createBaseVNode("nav", null, [
           createBaseVNode("button", {
             type: "button",
@@ -12395,10 +12395,10 @@ const _sfc_main$b = {
             onClick: _cache[0] || (_cache[0] = ($event) => _ctx.$emit("click-menu", "general"))
           }, [
             createBaseVNode("span", null, [
-              createVNode(_sfc_main$j, { "icon-name": "tool" }),
+              createVNode(_sfc_main$k, { "icon-name": "tool" }),
               createBaseVNode("em", null, toDisplayString$1(unref(t)("base.general")), 1)
             ])
-          ], 8, _hoisted_2$6),
+          ], 8, _hoisted_2$7),
           unref(store).state.usePreference.slides ? (openBlock(), createElementBlock("button", {
             key: 0,
             type: "button",
@@ -12408,7 +12408,7 @@ const _sfc_main$b = {
             onClick: _cache[1] || (_cache[1] = ($event) => _ctx.$emit("click-menu", "slides"))
           }, [
             createBaseVNode("span", null, [
-              createVNode(_sfc_main$j, { "icon-name": "copy" }),
+              createVNode(_sfc_main$k, { "icon-name": "copy" }),
               createBaseVNode("em", null, toDisplayString$1(unref(t)("base.slides")), 1)
             ])
           ], 8, _hoisted_3$6)) : createCommentVNode("", true),
@@ -12421,7 +12421,7 @@ const _sfc_main$b = {
             onClick: _cache[2] || (_cache[2] = ($event) => _ctx.$emit("click-menu", "style"))
           }, [
             createBaseVNode("span", null, [
-              createVNode(_sfc_main$j, { "icon-name": "droplet" }),
+              createVNode(_sfc_main$k, { "icon-name": "droplet" }),
               createBaseVNode("em", null, toDisplayString$1(unref(t)("base.style")), 1)
             ])
           ], 8, _hoisted_4$6)) : createCommentVNode("", true),
@@ -12434,7 +12434,7 @@ const _sfc_main$b = {
             onClick: _cache[3] || (_cache[3] = ($event) => _ctx.$emit("click-menu", "data"))
           }, [
             createBaseVNode("span", null, [
-              createVNode(_sfc_main$j, { "icon-name": "database" }),
+              createVNode(_sfc_main$k, { "icon-name": "database" }),
               createBaseVNode("em", null, toDisplayString$1(unref(t)("base.data")), 1)
             ])
           ], 8, _hoisted_5$5)) : createCommentVNode("", true),
@@ -12447,7 +12447,7 @@ const _sfc_main$b = {
             onClick: _cache[4] || (_cache[4] = ($event) => _ctx.$emit("click-menu", "keyboard"))
           }, [
             createBaseVNode("span", null, [
-              createVNode(_sfc_main$j, { "icon-name": "command" }),
+              createVNode(_sfc_main$k, { "icon-name": "command" }),
               createBaseVNode("em", null, toDisplayString$1(unref(t)("base.keyboard")), 1)
             ])
           ], 8, _hoisted_6$3)) : createCommentVNode("", true),
@@ -12460,7 +12460,7 @@ const _sfc_main$b = {
             onClick: _cache[5] || (_cache[5] = ($event) => _ctx.$emit("click-menu", "information"))
           }, [
             createBaseVNode("span", null, [
-              createVNode(_sfc_main$j, { "icon-name": "info" }),
+              createVNode(_sfc_main$k, { "icon-name": "info" }),
               createBaseVNode("em", null, toDisplayString$1(unref(t)("base.information")), 1)
             ])
           ], 8, _hoisted_7$2)) : createCommentVNode("", true)
@@ -12469,14 +12469,14 @@ const _sfc_main$b = {
     };
   }
 };
-var Side = /* @__PURE__ */ _export_sfc(_sfc_main$b, [["__scopeId", "data-v-10bceea3"]]);
+var Side = /* @__PURE__ */ _export_sfc(_sfc_main$c, [["__scopeId", "data-v-10bceea3"]]);
 var index_scss_vue_type_style_index_0_src_scoped_true_lang = "";
-const _hoisted_1$7 = { class: "preference-header" };
-const _hoisted_2$5 = { class: "preference-header__body" };
+const _hoisted_1$8 = { class: "preference-header" };
+const _hoisted_2$6 = { class: "preference-header__body" };
 const _hoisted_3$5 = { class: "preference-header__nav" };
 const _hoisted_4$5 = ["title"];
 const _hoisted_5$4 = ["title"];
-const _sfc_main$a = {
+const _sfc_main$b = {
   setup(__props) {
     const { t } = i18n.global;
     const preference2 = convertPureObject$1(store.state.preference);
@@ -12632,8 +12632,8 @@ const _sfc_main$a = {
             class: "preference__body",
             onSubmit
           }, [
-            createBaseVNode("header", _hoisted_1$7, [
-              createBaseVNode("div", _hoisted_2$5, [
+            createBaseVNode("header", _hoisted_1$8, [
+              createBaseVNode("div", _hoisted_2$6, [
                 createBaseVNode("h2", null, toDisplayString$1(unref(state2).computedHeaderContent.title), 1),
                 createBaseVNode("p", null, toDisplayString$1(unref(state2).computedHeaderContent.description), 1)
               ]),
@@ -12643,14 +12643,14 @@ const _sfc_main$a = {
                   title: unref(t)("base.apply"),
                   onClick: onSubmit
                 }, [
-                  createVNode(_sfc_main$j, { "icon-name": "check" })
+                  createVNode(_sfc_main$k, { "icon-name": "check" })
                 ], 8, _hoisted_4$5),
                 createBaseVNode("button", {
                   type: "button",
                   title: unref(t)("base.close"),
                   onClick: onClose
                 }, [
-                  createVNode(_sfc_main$j, { "icon-name": "x" })
+                  createVNode(_sfc_main$k, { "icon-name": "x" })
                 ], 8, _hoisted_5$4)
               ])
             ]),
@@ -12672,17 +12672,17 @@ const _sfc_main$a = {
     };
   }
 };
-var Preference = /* @__PURE__ */ _export_sfc(_sfc_main$a, [["__scopeId", "data-v-38efed1e"]]);
+var Preference = /* @__PURE__ */ _export_sfc(_sfc_main$b, [["__scopeId", "data-v-38efed1e"]]);
 var Item_vue_vue_type_style_index_0_scoped_true_lang = "";
-const _hoisted_1$6 = { class: "group-item" };
-const _hoisted_2$4 = { class: "group-item__image" };
+const _hoisted_1$7 = { class: "group-item" };
+const _hoisted_2$5 = { class: "group-item__image" };
 const _hoisted_3$4 = ["src", "alt"];
 const _hoisted_4$4 = { class: "group-item__body" };
 const _hoisted_5$3 = {
   key: 0,
   class: "group-item__meta"
 };
-const _sfc_main$9 = {
+const _sfc_main$a = {
   props: {
     src: String,
     name: String,
@@ -12698,17 +12698,17 @@ const _sfc_main$9 = {
       emits("select");
     }
     return (_ctx, _cache) => {
-      return openBlock(), createElementBlock("div", _hoisted_1$6, [
+      return openBlock(), createElementBlock("div", _hoisted_1$7, [
         createBaseVNode("a", {
           class: normalizeClass(["group-item-wrap", props.selected && "group-item-wrap--selected"]),
           onClick: onSelectItem
         }, [
-          createBaseVNode("figure", _hoisted_2$4, [
+          createBaseVNode("figure", _hoisted_2$5, [
             props.src ? (openBlock(), createElementBlock("img", {
               key: 0,
               src: props.src,
               alt: props.name
-            }, null, 8, _hoisted_3$4)) : (openBlock(), createBlock(_sfc_main$j, {
+            }, null, 8, _hoisted_3$4)) : (openBlock(), createBlock(_sfc_main$k, {
               key: 1,
               "icon-name": "x"
             }))
@@ -12729,15 +12729,15 @@ const _sfc_main$9 = {
     };
   }
 };
-var Item = /* @__PURE__ */ _export_sfc(_sfc_main$9, [["__scopeId", "data-v-3c9f0abc"]]);
+var Item = /* @__PURE__ */ _export_sfc(_sfc_main$a, [["__scopeId", "data-v-3c9f0abc"]]);
 var index_vue_vue_type_style_index_0_lang$1 = "";
-const _hoisted_1$5 = { class: "groups-header" };
-const _hoisted_2$3 = { class: "groups-header__body" };
+const _hoisted_1$6 = { class: "groups-header" };
+const _hoisted_2$4 = { class: "groups-header__body" };
 const _hoisted_3$3 = { class: "groups-header__nav" };
 const _hoisted_4$3 = ["title"];
 const _hoisted_5$2 = { class: "groups__body" };
 const _hoisted_6$2 = { class: "groups-index" };
-const _sfc_main$8 = {
+const _sfc_main$9 = {
   setup(__props) {
     const { t } = i18n.global;
     let computes = reactive({
@@ -12800,8 +12800,8 @@ const _sfc_main$8 = {
             e.stopPropagation();
           })
         }, [
-          createBaseVNode("header", _hoisted_1$5, [
-            createBaseVNode("div", _hoisted_2$3, [
+          createBaseVNode("header", _hoisted_1$6, [
+            createBaseVNode("div", _hoisted_2$4, [
               createBaseVNode("h2", null, toDisplayString$1(unref(t)("title.selectGroup")), 1),
               createBaseVNode("p", null, toDisplayString$1(unref(t)("description.selectGroup")), 1)
             ]),
@@ -12811,7 +12811,7 @@ const _sfc_main$8 = {
                 title: unref(t)("base.close"),
                 onClick: onClose
               }, [
-                createVNode(_sfc_main$j, { "icon-name": "x" })
+                createVNode(_sfc_main$k, { "icon-name": "x" })
               ], 8, _hoisted_4$3)
             ])
           ]),
@@ -12838,8 +12838,8 @@ const _sfc_main$8 = {
   }
 };
 var Close_vue_vue_type_style_index_0_scoped_true_lang = "";
-const _hoisted_1$4 = ["title"];
-const _sfc_main$7 = {
+const _hoisted_1$5 = ["title"];
+const _sfc_main$8 = {
   props: { title: String },
   emits: { "close": null },
   setup(__props, { emit: emits }) {
@@ -12850,18 +12850,18 @@ const _sfc_main$7 = {
         class: "button-close",
         onClick: _cache[0] || (_cache[0] = ($event) => _ctx.$emit("close"))
       }, [
-        createVNode(_sfc_main$j, { "icon-name": "x" })
-      ], 8, _hoisted_1$4);
+        createVNode(_sfc_main$k, { "icon-name": "x" })
+      ], 8, _hoisted_1$5);
     };
   }
 };
-var ButtonClose = /* @__PURE__ */ _export_sfc(_sfc_main$7, [["__scopeId", "data-v-bb92cd88"]]);
+var ButtonClose = /* @__PURE__ */ _export_sfc(_sfc_main$8, [["__scopeId", "data-v-bb92cd88"]]);
 var index_vue_vue_type_style_index_0_lang = "";
-const _hoisted_1$3 = {
+const _hoisted_1$4 = {
   key: 0,
   class: "thumbnail__header"
 };
-const _hoisted_2$2 = { key: 0 };
+const _hoisted_2$3 = { key: 0 };
 const _hoisted_3$2 = { class: "thumbnail__body" };
 const _hoisted_4$2 = {
   key: 0,
@@ -12873,7 +12873,7 @@ const _hoisted_7$1 = {
   key: 1,
   class: "thumbnail__empty"
 };
-const _sfc_main$6 = {
+const _sfc_main$7 = {
   setup(__props) {
     const { t } = i18n.global;
     let computes = reactive({
@@ -12914,9 +12914,9 @@ const _sfc_main$6 = {
         class: "thumbnail",
         onTouchstart: onTouchStart
       }, [
-        unref(computes).title ? (openBlock(), createElementBlock("header", _hoisted_1$3, [
+        unref(computes).title ? (openBlock(), createElementBlock("header", _hoisted_1$4, [
           createBaseVNode("h2", null, toDisplayString$1(unref(computes).title), 1),
-          unref(computes).description ? (openBlock(), createElementBlock("p", _hoisted_2$2, toDisplayString$1(unref(computes).description), 1)) : createCommentVNode("", true)
+          unref(computes).description ? (openBlock(), createElementBlock("p", _hoisted_2$3, toDisplayString$1(unref(computes).description), 1)) : createCommentVNode("", true)
         ])) : createCommentVNode("", true),
         createBaseVNode("div", _hoisted_3$2, [
           unref(computes).index && unref(computes).index.length > 0 ? (openBlock(), createElementBlock("ul", _hoisted_4$2, [
@@ -12935,7 +12935,7 @@ const _sfc_main$6 = {
               ]);
             }), 256))
           ])) : (openBlock(), createElementBlock("div", _hoisted_7$1, [
-            createVNode(_sfc_main$j, { "icon-name": "frown" }),
+            createVNode(_sfc_main$k, { "icon-name": "frown" }),
             createBaseVNode("p", null, toDisplayString$1(unref(t)("thumbnail.empty")), 1)
           ]))
         ]),
@@ -12949,7 +12949,7 @@ const _sfc_main$6 = {
   }
 };
 var Container_scss_vue_type_style_index_0_src_lang = "";
-const _sfc_main$5 = {
+const _sfc_main$6 = {
   props: { error: Object },
   setup(__props) {
     const props = __props;
@@ -13069,19 +13069,19 @@ const _sfc_main$5 = {
           unref(store).state.preference.general.hoverVisibleHud && "slideshow--hover"
         ])
       }, [
-        unref(computes).existSlides ? (openBlock(), createBlock(_sfc_main$e, {
+        unref(computes).existSlides ? (openBlock(), createBlock(_sfc_main$f, {
           key: 0,
           ref: (_value, _refs) => {
             _refs["slides"] = _value;
             slides$1.value = _value;
           },
           class: "slideshow__slides"
-        }, null, 512)) : (openBlock(), createBlock(_sfc_main$d, {
+        }, null, 512)) : (openBlock(), createBlock(_sfc_main$e, {
           key: 1,
           title: unref(computes).emptyTitle,
           description: unref(computes).emptyDescription
         }, null, 8, ["title", "description"])),
-        unref(store).state.preference.general.hud ? (openBlock(), createBlock(_sfc_main$c, {
+        unref(store).state.preference.general.hud ? (openBlock(), createBlock(_sfc_main$d, {
           key: 2,
           ref: (_value, _refs) => {
             _refs["navigation"] = _value;
@@ -13090,8 +13090,8 @@ const _sfc_main$5 = {
           class: "slideshow__navigation"
         }, null, 512)) : createCommentVNode("", true),
         (openBlock(), createBlock(Teleport, { to: "#slideshowModal" }, [
-          unref(computes).showGroup ? (openBlock(), createBlock(_sfc_main$8, { key: 0 })) : createCommentVNode("", true),
-          unref(computes).showThumbnail ? (openBlock(), createBlock(_sfc_main$6, { key: 1 })) : createCommentVNode("", true),
+          unref(computes).showGroup ? (openBlock(), createBlock(_sfc_main$9, { key: 0 })) : createCommentVNode("", true),
+          unref(computes).showThumbnail ? (openBlock(), createBlock(_sfc_main$7, { key: 1 })) : createCommentVNode("", true),
           unref(computes).showPreference ? (openBlock(), createBlock(Preference, { key: 2 })) : createCommentVNode("", true)
         ]))
       ], 2);
@@ -13099,22 +13099,22 @@ const _sfc_main$5 = {
   }
 };
 var Unit_vue_vue_type_style_index_0_scoped_true_lang = "";
-const _sfc_main$4 = {};
-const _withScopeId = (n) => (pushScopeId("data-v-0ed25ebf"), n = n(), popScopeId(), n);
-const _hoisted_1$2 = { class: "loading-unit" };
-const _hoisted_2$1 = /* @__PURE__ */ _withScopeId(() => /* @__PURE__ */ createBaseVNode("span", null, null, -1));
-const _hoisted_3$1 = /* @__PURE__ */ _withScopeId(() => /* @__PURE__ */ createBaseVNode("em", null, null, -1));
+const _sfc_main$5 = {};
+const _withScopeId$1 = (n) => (pushScopeId("data-v-0ed25ebf"), n = n(), popScopeId(), n);
+const _hoisted_1$3 = { class: "loading-unit" };
+const _hoisted_2$2 = /* @__PURE__ */ _withScopeId$1(() => /* @__PURE__ */ createBaseVNode("span", null, null, -1));
+const _hoisted_3$1 = /* @__PURE__ */ _withScopeId$1(() => /* @__PURE__ */ createBaseVNode("em", null, null, -1));
 const _hoisted_4$1 = [
-  _hoisted_2$1,
+  _hoisted_2$2,
   _hoisted_3$1
 ];
 function _sfc_render(_ctx, _cache) {
-  return openBlock(), createElementBlock("p", _hoisted_1$2, _hoisted_4$1);
+  return openBlock(), createElementBlock("p", _hoisted_1$3, _hoisted_4$1);
 }
-var LoadingUnit = /* @__PURE__ */ _export_sfc(_sfc_main$4, [["render", _sfc_render], ["__scopeId", "data-v-0ed25ebf"]]);
+var LoadingUnit = /* @__PURE__ */ _export_sfc(_sfc_main$5, [["render", _sfc_render], ["__scopeId", "data-v-0ed25ebf"]]);
 var Intro_vue_vue_type_style_index_0_scoped_true_lang = "";
-const _hoisted_1$1 = { class: "loading-intro loading-intro--move" };
-const _sfc_main$3 = {
+const _hoisted_1$2 = { class: "loading-intro loading-intro--move" };
+const _sfc_main$4 = {
   setup(__props) {
     const { t } = i18n.global;
     let state2 = reactive({ show: false });
@@ -13130,7 +13130,7 @@ const _sfc_main$3 = {
       mounted = false;
     });
     return (_ctx, _cache) => {
-      return openBlock(), createElementBlock("div", _hoisted_1$1, [
+      return openBlock(), createElementBlock("div", _hoisted_1$2, [
         unref(state2).show ? (openBlock(), createElementBlock(Fragment, { key: 0 }, [
           createVNode(LoadingUnit, { class: "unit" }),
           createBaseVNode("strong", null, toDisplayString$1(unref(t)("title.loading")), 1)
@@ -13139,8 +13139,8 @@ const _sfc_main$3 = {
     };
   }
 };
-var LoadingIntro = /* @__PURE__ */ _export_sfc(_sfc_main$3, [["__scopeId", "data-v-45331494"]]);
-const _sfc_main$2 = {
+var LoadingIntro = /* @__PURE__ */ _export_sfc(_sfc_main$4, [["__scopeId", "data-v-45331494"]]);
+const _sfc_main$3 = {
   props: {
     mode: String,
     preference: Object,
@@ -13350,13 +13350,52 @@ const _sfc_main$2 = {
       deleteSlideshow
     });
     return (_ctx, _cache) => {
-      return unref(state2).loading ? (openBlock(), createBlock(LoadingIntro, { key: 0 })) : (openBlock(), createBlock(_sfc_main$5, {
+      return unref(state2).loading ? (openBlock(), createBlock(LoadingIntro, { key: 0 })) : (openBlock(), createBlock(_sfc_main$6, {
         key: 1,
         error: unref(state2).error
       }, null, 8, ["error"]));
     };
   }
 };
+var Switch_scss_vue_type_style_index_0_src_scoped_true_lang = "";
+const _withScopeId = (n) => (pushScopeId("data-v-4bda4914"), n = n(), popScopeId(), n);
+const _hoisted_1$1 = ["name", "id", "required", "disabled", "checked"];
+const _hoisted_2$1 = /* @__PURE__ */ _withScopeId(() => /* @__PURE__ */ createBaseVNode("i", { class: "form-switch__icon" }, null, -1));
+const _sfc_main$2 = {
+  props: {
+    name: { type: String, required: true },
+    id: String,
+    disabled: Boolean,
+    required: Boolean,
+    modelValue: Boolean
+  },
+  emits: ["update:modelValue", "blur:modelValue"],
+  setup(__props, { emit: emits }) {
+    const props = __props;
+    return (_ctx, _cache) => {
+      return openBlock(), createElementBlock("label", {
+        class: normalizeClass([
+          "form",
+          "form-switch",
+          props.disabled && "form-switch--disabled"
+        ])
+      }, [
+        createBaseVNode("input", {
+          type: "checkbox",
+          name: props.name,
+          id: props.id,
+          required: props.required,
+          disabled: props.disabled,
+          checked: props.modelValue,
+          onChange: _cache[0] || (_cache[0] = ($event) => _ctx.$emit("update:modelValue", Boolean($event.target.checked))),
+          class: "form-switch__body"
+        }, null, 40, _hoisted_1$1),
+        _hoisted_2$1
+      ], 2);
+    };
+  }
+};
+var FormSwitch = /* @__PURE__ */ _export_sfc(_sfc_main$2, [["__scopeId", "data-v-4bda4914"]]);
 var post_vue_vue_type_style_index_0_lang = "";
 const _hoisted_1 = { class: "slideshow-post__header" };
 const _hoisted_2 = ["onSubmit"];
@@ -13397,8 +13436,13 @@ const _hoisted_18 = /* @__PURE__ */ createBaseVNode("header", null, [
   /* @__PURE__ */ createBaseVNode("label", { for: "address" }, "\uC8FC\uC18C")
 ], -1);
 const _hoisted_19 = { class: "slideshow-post__input" };
-const _hoisted_20 = { class: "slideshow-post__nav" };
-const _hoisted_21 = /* @__PURE__ */ createTextVNode("\uB2EB\uAE30");
+const _hoisted_20 = { class: "slideshow-post__switch" };
+const _hoisted_21 = /* @__PURE__ */ createBaseVNode("header", null, [
+  /* @__PURE__ */ createBaseVNode("label", { for: "visible" }, "\uC2AC\uB77C\uC774\uB4DC\uC1FC \uACF5\uAC1C\uD558\uAE30"),
+  /* @__PURE__ */ createBaseVNode("p", { class: "slideshow-post__help" }, " \uC774 \uC2AC\uB77C\uC774\uB4DC\uB97C \uC678\uBD80\uC5D0 \uACF5\uC720\uD569\uB2C8\uB2E4. ")
+], -1);
+const _hoisted_22 = { class: "slideshow-post__nav" };
+const _hoisted_23 = /* @__PURE__ */ createTextVNode("\uB2EB\uAE30");
 const _sfc_main$1 = {
   props: {
     mode: String,
@@ -13419,7 +13463,8 @@ const _sfc_main$1 = {
       description: (_c = props.form) == null ? void 0 : _c.description,
       password: "",
       thumbnail: (_d = props.form) == null ? void 0 : _d.thumbnail,
-      address: (_e = props.form) == null ? void 0 : _e.address
+      address: (_e = props.form) == null ? void 0 : _e.address,
+      visible: !!props.form ? props.form.visible : true
     });
     let computes = reactive({
       title: computed(() => {
@@ -13454,7 +13499,8 @@ const _sfc_main$1 = {
           description: state2.description,
           slideshow: encodeURIComponent(JSON.stringify(props.slideshow)),
           password: state2.password,
-          thumbnail: state2.thumbnail
+          thumbnail: state2.thumbnail,
+          visible: state2.visible ? 1 : 0
         };
         if (data.thumbnail && !validateUrl(data.thumbnail)) {
           slideshow_thumbnail.value.focus();
@@ -13521,7 +13567,7 @@ const _sfc_main$1 = {
       }, [
         createBaseVNode("div", {
           class: "slideshow-post__wrap",
-          onClick: _cache[5] || (_cache[5] = withModifiers(() => {
+          onClick: _cache[6] || (_cache[6] = withModifiers(() => {
           }, ["stop"]))
         }, [
           createBaseVNode("header", _hoisted_1, [
@@ -13631,8 +13677,19 @@ const _sfc_main$1 = {
                 ])
               ])
             ])) : createCommentVNode("", true),
-            createBaseVNode("nav", _hoisted_20, [
-              createVNode(_sfc_main$k, {
+            createBaseVNode("div", _hoisted_20, [
+              _hoisted_21,
+              createBaseVNode("div", null, [
+                createVNode(FormSwitch, {
+                  name: "visible",
+                  id: "visible",
+                  modelValue: unref(state2).visible,
+                  "onUpdate:modelValue": _cache[5] || (_cache[5] = ($event) => unref(state2).visible = $event)
+                }, null, 8, ["modelValue"])
+              ])
+            ]),
+            createBaseVNode("nav", _hoisted_22, [
+              createVNode(_sfc_main$l, {
                 type: "submit",
                 disabled: unref(state2).processing,
                 color: "key"
@@ -13642,9 +13699,9 @@ const _sfc_main$1 = {
                 ]),
                 _: 1
               }, 8, ["disabled"]),
-              createVNode(_sfc_main$k, { onClick: onClose }, {
+              createVNode(_sfc_main$l, { onClick: onClose }, {
                 default: withCtx(() => [
-                  _hoisted_21
+                  _hoisted_23
                 ]),
                 _: 1
               })
@@ -13749,7 +13806,8 @@ const _sfc_main = {
         description: "",
         password: "",
         thumbnail: "",
-        address: ""
+        address: "",
+        visible: true
       }, getFormData(Custom == null ? void 0 : Custom.form))
     }));
     function onUpdatePreference(res) {
@@ -13789,7 +13847,7 @@ const _sfc_main = {
     });
     return (_ctx, _cache) => {
       return openBlock(), createElementBlock(Fragment, null, [
-        createVNode(_sfc_main$2, {
+        createVNode(_sfc_main$3, {
           ref: (_value, _refs) => {
             _refs["slideshow"] = _value;
             slideshow.value = _value;
@@ -13813,7 +13871,7 @@ const _sfc_main = {
             form: unref(state2).post,
             onClose: onClosePost
           }, null, 8, ["mode", "slideshow", "form"])) : createCommentVNode("", true),
-          unref(state2).visibleDelete ? (openBlock(), createBlock(_sfc_main$l, {
+          unref(state2).visibleDelete ? (openBlock(), createBlock(_sfc_main$m, {
             key: 1,
             type: "delete",
             mode: "delete",
@@ -13829,4 +13887,4 @@ var main = /* @__PURE__ */ Object.freeze({
   [Symbol.toStringTag]: "Module",
   "default": _sfc_main
 });
-export { _export_sfc as _, _sfc_main$j as a, getFileData as b, convertPureObject$1 as c, getApiData as d, checkTree as e, main as f, getValueFromType as g, i18n as i, main$1 as m, store as s };
+export { FormSwitch as F, _export_sfc as _, _sfc_main$k as a, getFileData as b, convertPureObject$1 as c, getApiData as d, checkTree as e, main as f, getValueFromType as g, i18n as i, main$1 as m, store as s };

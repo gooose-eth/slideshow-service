@@ -56,6 +56,7 @@ let state = reactive({
     password: '',
     thumbnail: '',
     address: '',
+    visible: true,
     ...getFormData(Custom?.form),
   },
 });

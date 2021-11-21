@@ -1,3 +1,4 @@
+var _a;
 function makeMap(str, expectsLowerCase) {
   const map = Object.create(null);
   const list = str.split(",");
@@ -6059,7 +6060,7 @@ function patchDOMProp(el, key, value, prevChildren, parentComponent, parentSuspe
     } else if (type === "number") {
       try {
         el[key] = 0;
-      } catch (_a) {
+      } catch (_a2) {
       }
       el.removeAttribute(key);
       return;
@@ -7304,6 +7305,18 @@ var app = "";
 const routeMode = location.pathname.split("/")[1];
 switch (routeMode) {
   case "watch":
+    if (!!((_a = window.Custom) == null ? void 0 : _a.slideshow)) {
+      import("./main3.js").then(function(n) {
+        return n.f;
+      }).then(({ default: Main }) => {
+        createApp(Main, { mode: routeMode }).mount("#slideshow");
+      });
+    } else {
+      import("./auth.js").then(({ default: Auth }) => {
+        createApp(Auth, { mode: routeMode }).mount("#service");
+      });
+    }
+    break;
   case "create":
   case "manage":
     import("./main3.js").then(function(n) {

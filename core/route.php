@@ -8,6 +8,8 @@ return [
   [ 'GET', '/', 'index' ],
   [ 'GET', '/about', 'about' ],
   [ 'GET', '/about/', 'about' ],
+  [ 'GET', '/watch/[char:address]/[:key]', 'watch' ],
+  [ 'GET', '/watch/[char:address]/[:key]/', 'watch' ],
   [ 'GET', '/watch/[char:address]', 'watch' ],
   [ 'GET', '/watch/[char:address]/', 'watch' ],
   [ 'GET', '/create', 'create' ],

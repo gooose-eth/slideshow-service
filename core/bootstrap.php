@@ -108,7 +108,7 @@ try
       $total = $model->count((object)[]);
       $paginate = $model->createPaginate($total, $page, $size);
       $index = $model->index((object)[
-        'field' => 'address,title,description,thumbnail,regdate',
+        'field' => 'address,title,description,thumbnail,visible,regdate',
         'limit' => [ ($page - 1) * $size, $size ],
         'order' => '`key`',
         'sort' => 'desc',
@@ -143,16 +143,27 @@ try
       $data->address = $_params->address;
       $model = new Model();
       $item = $model->item((object)[ 'where' => "`address`='$_params->address'" ]);
-      // set meta data
-      $data->title = $item->title;
-      $data->description = $item->description;
-      if (isset($item->thumbnail)) $data->banner = $item->thumbnail;
-      // set slideshow data
-      Submit::checkSlideshowData($item->slideshow);
-      $data->slideshow = rawurlencode(json_encode($item->slideshow));
-      $data->form = rawurlencode(json_encode((object)[
-        'address' => $item->address,
-      ]));
+      if ((int)$item->visible === 1)
+      {
+        // set meta data
+        $data->title = $item->title;
+        $data->description = $item->description;
+        if (isset($item->thumbnail)) $data->banner = $item->thumbnail;
+        // set slideshow data
+        Submit::checkSlideshowData($item->slideshow);
+        $data->slideshow = rawurlencode(json_encode($item->slideshow));
+        $data->form = rawurlencode(json_encode((object)[
+          'address' => $item->address,
+        ]));
+      }
+      else
+      {
+        // set meta data
+        $data->title = '슬라이드쇼 인증하기';
+        $data->description = '이 슬라이드쇼를 보려면 인증해야 합니다.';
+        $data->slideshow = null;
+        $data->form = null;
+      }
       // create token
       $data->token = Token::create()->jwt;
       // render view
@@ -173,6 +184,7 @@ try
           'description' => $item->description,
           'thumbnail' => $item->thumbnail,
           'address' => $item->address,
+          'visible' => (int)$item->visible === 1,
         ]));
         $data->token = Token::create()->jwt;
         // render view

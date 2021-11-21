@@ -1,7 +1,6 @@
-import { _ as _export_sfc, i as i18n, c as convertPureObject } from "./main3.js";
+import { _ as _export_sfc, i as i18n, F as FormSwitch, c as convertPureObject } from "./main3.js";
 import { F as FormText } from "./Text.js";
 import { _ as _sfc_main$1 } from "./Select.js";
-import { F as FormSwitch } from "./Switch.js";
 import { F as FormRadio } from "./Radio.js";
 import { r as reactive, y as openBlock, z as createElementBlock, F as createBaseVNode, R as toDisplayString, C as unref, K as createVNode, Z as withCtx, M as pushScopeId, O as popScopeId } from "./main2.js";
 import "./authorization.js";

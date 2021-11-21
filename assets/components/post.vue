@@ -94,6 +94,20 @@
             :readonly="true">
         </label>
       </div>
+      <div class="slideshow-post__switch">
+        <header>
+          <label for="visible">슬라이드쇼 공개하기</label>
+          <p class="slideshow-post__help">
+            이 슬라이드를 외부에 공유합니다.
+          </p>
+        </header>
+        <div>
+          <Switch
+            name="visible"
+            id="visible"
+            v-model="state.visible"/>
+        </div>
+      </div>
       <nav class="slideshow-post__nav">
         <Button
           type="submit"
@@ -111,6 +125,7 @@
 <script setup>
 import { reactive, computed, onBeforeMount, onMounted, onUnmounted, ref } from 'vue';
 import Button from './button.vue';
+import Switch from '../slideshow/components/Form/Switch.vue';
 import { post } from '../libs/fetch';
 import { validateUrl } from '../libs/string';
 
@@ -131,6 +146,7 @@ let state = reactive({
   password: '',
   thumbnail: props.form?.thumbnail,
   address: props.form?.address,
+  visible: !!props.form ? props.form.visible : true,
 });
 let computes = reactive({
   title: computed(() => {
@@ -176,6 +192,7 @@ async function onSubmit()
       slideshow: encodeURIComponent(JSON.stringify(props.slideshow)),
       password: state.password,
       thumbnail: state.thumbnail,
+      visible: state.visible ? 1 : 0,
     };
 
     // check thumbnail address
@@ -299,6 +316,22 @@ onUnmounted(() => {
       margin-top: 24px;
     }
     header {
+      > label {
+        font-size: 14px;
+        letter-spacing: -.2px;
+        line-height: 1.2;
+        font-weight: 600;
+      }
+    }
+  }
+  &__switch {
+    display: flex;
+    align-items: center;
+    &:nth-child(n+2) {
+      margin-top: 24px;
+    }
+    header {
+      flex: 1;
       > label {
         font-size: 14px;
         letter-spacing: -.2px;

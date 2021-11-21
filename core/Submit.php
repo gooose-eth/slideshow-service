@@ -65,6 +65,7 @@ class Submit {
         'description' => $_POST['description'],
         'slideshow' => rawurlencode(json_encode($slideshow, false)),
         'password' => Util::createPassword($_POST['password']),
+        'visible' => 1,
         'regdate' => date('Y-m-d H:i:s'),
         'update' => date('Y-m-d H:i:s'),
         'thumbnail' => $thumbnail,
@@ -115,6 +116,10 @@ class Submit {
     if (isset($_POST['thumbnail']) && $_POST['thumbnail'])
     {
       $data[] = "thumbnail=\"{$_POST['thumbnail']}\"";
+    }
+    if (isset($_POST['visible']))
+    {
+      $data[] = "visible='{$_POST['visible']}'";
     }
     if (isset($_POST['password']) && $_POST['password'])
     {

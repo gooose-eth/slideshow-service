@@ -86,21 +86,23 @@ async function post(url, data, type = "json") {
 }
 var authorization_vue_vue_type_style_index_0_lang = "";
 const _hoisted_1 = { class: "authorization__title" };
-const _hoisted_2 = /* @__PURE__ */ createBaseVNode("p", { class: "authorization__description" }, " \uC2AC\uB77C\uC774\uB4DC\uC1FC\uB97C \uC0AD\uC81C\uD558\uBA74 \uBCF5\uAD6C\uD560 \uC218 \uC5C6\uC2B5\uB2C8\uB2E4! ", -1);
+const _hoisted_2 = { class: "authorization__description" };
 const _hoisted_3 = ["action"];
 const _hoisted_4 = { class: "authorization__field" };
 const _hoisted_5 = /* @__PURE__ */ createBaseVNode("label", { for: "address" }, "\uC8FC\uC18C", -1);
 const _hoisted_6 = { class: "authorization__input" };
-const _hoisted_7 = { class: "authorization__field" };
-const _hoisted_8 = /* @__PURE__ */ createBaseVNode("label", { for: "password" }, "\uBE44\uBC00\uBC88\uD638", -1);
-const _hoisted_9 = { class: "authorization__input" };
-const _hoisted_10 = { class: "authorization__nav" };
-const _hoisted_11 = /* @__PURE__ */ createTextVNode("\uB2EB\uAE30");
+const _hoisted_7 = ["disabled"];
+const _hoisted_8 = { class: "authorization__field" };
+const _hoisted_9 = /* @__PURE__ */ createBaseVNode("label", { for: "password" }, "\uBE44\uBC00\uBC88\uD638", -1);
+const _hoisted_10 = { class: "authorization__input" };
+const _hoisted_11 = { class: "authorization__nav" };
+const _hoisted_12 = /* @__PURE__ */ createTextVNode("\uB2EB\uAE30");
 const _sfc_main = {
   props: {
     visible: Boolean,
+    address: String,
     type: String,
-    mode: String
+    mode: { type: String, required: true }
   },
   emits: ["submit", "close"],
   setup(__props, { emit: emits }) {
@@ -109,7 +111,7 @@ const _sfc_main = {
     const form = getFormData(Custom.form);
     const address = ref();
     let state = reactive({
-      address: "",
+      address: props.address,
       password: "",
       processing: false
     });
@@ -121,11 +123,13 @@ const _sfc_main = {
           default:
             return {
               title: "\uC2AC\uB77C\uC774\uB4DC\uC1FC \uC778\uC99D",
+              description: "\uC2AC\uB77C\uC774\uB4DC\uC1FC\uC5D0 \uC811\uADFC\uD558\uB824\uBA74 \uC778\uC99D\uD558\uC138\uC694.",
               submit: "\uC778\uC99D\uD558\uAE30"
             };
           case "delete":
             return {
               title: "\uC2AC\uB77C\uC774\uB4DC\uC1FC \uC0AD\uC81C",
+              description: "\uC2AC\uB77C\uC774\uB4DC\uC1FC\uB97C \uC0AD\uC81C\uD558\uBA74 \uBCF5\uAD6C\uD560 \uC218 \uC5C6\uC2B5\uB2C8\uB2E4!",
               submit: "\uC0AD\uC81C\uD558\uAE30"
             };
         }
@@ -160,7 +164,7 @@ const _sfc_main = {
             state.processing = false;
           }
           break;
-        default:
+        case "manage":
           try {
             const res = await post(`${Custom.path}auth/`, {
               address: state.address,
@@ -174,6 +178,14 @@ const _sfc_main = {
             address.value.focus();
             state.processing = false;
           }
+          break;
+        case "watch":
+        default:
+          console.log("submit");
+          emits("submit", {
+            address: state.address,
+            password: state.password
+          });
           break;
       }
     }
@@ -197,7 +209,7 @@ const _sfc_main = {
           }, ["stop"]))
         }, [
           createBaseVNode("h1", _hoisted_1, toDisplayString(unref(computes).label.title), 1),
-          _hoisted_2,
+          createBaseVNode("p", _hoisted_2, toDisplayString(unref(computes).label.description), 1),
           createBaseVNode("form", {
             action: unref(computes).url,
             method: "post",
@@ -219,15 +231,16 @@ const _sfc_main = {
                   minlength: "4",
                   maxlength: "24",
                   placeholder: "\uC8FC\uC18C\uB97C \uC785\uB825\uD574\uC8FC\uC138\uC694.",
-                  required: ""
-                }, null, 512), [
+                  required: "",
+                  disabled: props.mode === "watch"
+                }, null, 8, _hoisted_7), [
                   [vModelText, unref(state).address]
                 ])
               ])
             ]),
-            createBaseVNode("div", _hoisted_7, [
-              _hoisted_8,
-              createBaseVNode("label", _hoisted_9, [
+            createBaseVNode("div", _hoisted_8, [
+              _hoisted_9,
+              createBaseVNode("label", _hoisted_10, [
                 withDirectives(createBaseVNode("input", {
                   type: "password",
                   name: "password",
@@ -242,7 +255,7 @@ const _sfc_main = {
                 ])
               ])
             ]),
-            createBaseVNode("nav", _hoisted_10, [
+            createBaseVNode("nav", _hoisted_11, [
               createVNode(_sfc_main$1, {
                 type: "submit",
                 color: unref(computes).submitClassName,
@@ -257,7 +270,7 @@ const _sfc_main = {
                 onClick: _cache[2] || (_cache[2] = ($event) => emits("close"))
               }, {
                 default: withCtx(() => [
-                  _hoisted_11
+                  _hoisted_12
                 ]),
                 _: 1
               })

@@ -3,7 +3,7 @@
   <div class="authorization__wrap" @click.stop="">
     <h1 class="authorization__title">{{computes.label.title}}</h1>
     <p class="authorization__description">
-      슬라이드쇼를 삭제하면 복구할 수 없습니다!
+      {{computes.label.description}}
     </p>
     <form
       :action="computes.url"
@@ -22,7 +22,8 @@
             minlength="4"
             maxlength="24"
             placeholder="주소를 입력해주세요."
-            required>
+            required
+            :disabled="props.mode === 'watch'">
         </label>
       </div>
       <div class="authorization__field">
@@ -64,12 +65,13 @@ const form = getFormData(Custom.form);
 const address = ref();
 const props = defineProps({
   visible: Boolean,
-  type: String, // login,delete
-  mode: String, // manage
+  address: String,
+  type: String, // login,delete,watch
+  mode: { type: String, required: true }, // manage,delete
 });
 const emits = defineEmits([ 'submit', 'close' ]);
 let state = reactive({
-  address: '',
+  address: props.address,
   password: '',
   processing: false,
 });
@@ -82,11 +84,13 @@ let computes = reactive({
       default:
         return {
           title: '슬라이드쇼 인증',
+          description: '슬라이드쇼에 접근하려면 인증하세요.',
           submit: '인증하기',
         };
       case 'delete':
         return {
           title: '슬라이드쇼 삭제',
+          description: '슬라이드쇼를 삭제하면 복구할 수 없습니다!',
           submit: '삭제하기',
         };
     }
@@ -130,7 +134,7 @@ async function onSubmit(e)
         state.processing = false;
       }
       break;
-    default:
+    case 'manage':
       try
       {
         const res = await post(`${Custom.path}auth/`, {
@@ -146,6 +150,15 @@ async function onSubmit(e)
         address.value.focus();
         state.processing = false;
       }
+      break;
+    case 'watch':
+    default:
+      // TODO: 그냥 여기서 인증을 하고 데이터를 받아오는것까지 하기
+      console.log('submit')
+      emits('submit', {
+        address: state.address,
+        password: state.password,
+      });
       break;
   }
 }
@@ -249,6 +262,10 @@ onUnmounted(() => {
       font-size: 18px;
       &::placeholder {
         color: #ccc;
+      }
+      &:disabled {
+        color: var(--color-low-fill);
+        cursor: not-allowed;
       }
       &:-webkit-autofill,
       &:-webkit-autofill:hover,
