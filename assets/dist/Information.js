@@ -2,7 +2,7 @@ import { i as i18n, s as store } from "./main3.js";
 import { y as openBlock, z as createElementBlock, F as createBaseVNode, C as unref, R as toDisplayString, _ as createTextVNode } from "./main2.js";
 import "./authorization.js";
 const name = "slideshow-service";
-const version = "1.0.2";
+const version = "1.0.3";
 const scripts = {
   setup: "./scripts.sh setup",
   start: "./scripts.sh start 5000",

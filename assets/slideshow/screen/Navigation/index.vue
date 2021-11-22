@@ -95,14 +95,22 @@
             {{t('base.delete')}}
           </button>
         </li>
-        <li>
+        <li v-if="store.state.serviceMode === 'watch' && !form.visible">
           <button
             type="button"
-            class="active"
-            @click="onClickContextItem(store.state.serviceMode === 'watch' ? 'slideshowServiceNewWindow' : 'slideshowService')">
-            {{t('base.slideshowService')}}
+            class="danger"
+            @click="onClickContextItem('logout')">
+            {{t('base.logout')}}
           </button>
         </li>
+<!--        <li>-->
+<!--          <button-->
+<!--            type="button"-->
+<!--            class="active"-->
+<!--            @click="onClickContextItem(store.state.serviceMode === 'watch' ? 'slideshowServiceNewWindow' : 'slideshowService')">-->
+<!--            {{t('base.slideshowService')}}-->
+<!--          </button>-->
+<!--        </li>-->
       </ul>
     </div>
   </div>
@@ -210,6 +218,9 @@ function onClickContextItem(key)
       break;
     case 'delete':
       local.main.deleteSlideshow();
+      break;
+    case 'logout':
+      local.main.logout();
       break;
   }
 }

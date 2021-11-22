@@ -64,11 +64,13 @@ try
     switch ($_target)
     {
       case 'post/auth':
+        session_start();
         $res = Submit::auth();
         $res = (object)[
           'key' => (int)$res->key,
           'address' => $res->address,
         ];
+        $_SESSION[$res->address] = (int)$res->key;
         break;
       case 'post/create':
         $res = Submit::create();
@@ -78,6 +80,11 @@ try
         break;
       case 'post/delete':
         $res = Submit::delete($_params->address);
+        break;
+      case 'post/logout':
+        // TODO: 여기서부터 작업시작..
+        session_start();
+        unset($_SESSION[$_POST['address']]);
         break;
     }
     if ($res)
@@ -134,6 +141,7 @@ try
       $blade->render('slideshow', $data);
       break;
     case 'watch':
+      session_start();
       $data = (object)[ 'mode' => $_target ];
       // get model data
       if (!isset($_params->address))
@@ -143,7 +151,7 @@ try
       $data->address = $_params->address;
       $model = new Model();
       $item = $model->item((object)[ 'where' => "`address`='$_params->address'" ]);
-      if ((int)$item->visible === 1)
+      if ((int)$item->visible === 1 || isset($_SESSION[$data->address]))
       {
         // set meta data
         $data->title = $item->title;
@@ -154,6 +162,7 @@ try
         $data->slideshow = rawurlencode(json_encode($item->slideshow));
         $data->form = rawurlencode(json_encode((object)[
           'address' => $item->address,
+          'visible' => (int)$item->visible === 1,
         ]));
       }
       else

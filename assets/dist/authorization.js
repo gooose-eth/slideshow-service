@@ -110,6 +110,7 @@ const _sfc_main = {
     const { Custom } = window;
     const form = getFormData(Custom.form);
     const address = ref();
+    ref();
     let state = reactive({
       address: props.address,
       password: "",
@@ -165,6 +166,7 @@ const _sfc_main = {
           }
           break;
         case "manage":
+        default:
           try {
             const res = await post(`${Custom.path}auth/`, {
               address: state.address,
@@ -179,14 +181,6 @@ const _sfc_main = {
             state.processing = false;
           }
           break;
-        case "watch":
-        default:
-          console.log("submit");
-          emits("submit", {
-            address: state.address,
-            password: state.password
-          });
-          break;
       }
     }
     onMounted(() => {
@@ -200,7 +194,10 @@ const _sfc_main = {
     });
     return (_ctx, _cache) => {
       return openBlock(), createElementBlock("article", {
-        class: "authorization",
+        class: normalizeClass([
+          "authorization",
+          `authorization--${props.mode}`
+        ]),
         onClick: _cache[4] || (_cache[4] = ($event) => emits("close"))
       }, [
         createBaseVNode("div", {
@@ -232,7 +229,7 @@ const _sfc_main = {
                   maxlength: "24",
                   placeholder: "\uC8FC\uC18C\uB97C \uC785\uB825\uD574\uC8FC\uC138\uC694.",
                   required: "",
-                  disabled: props.mode === "watch"
+                  disabled: props.address
                 }, null, 8, _hoisted_7), [
                   [vModelText, unref(state).address]
                 ])
@@ -277,7 +274,7 @@ const _sfc_main = {
             ])
           ], 40, _hoisted_3)
         ])
-      ]);
+      ], 2);
     };
   }
 };

@@ -78,7 +78,8 @@
     "editSlideshow": "슬라이드쇼 수정하기",
     "preview": "미리보기",
     "share": "공유하기",
-    "delete": "삭제하기"
+    "delete": "삭제하기",
+    "logout": "로그아웃"
 	},
 	"confirm": {
 		"applyRestart": "슬라이드쇼가 재시작됩니다.\n적용하시겠습니까?",

@@ -1,5 +1,10 @@
 <template>
-<article class="authorization" @click="emits('close')">
+<article
+  :class="[
+    'authorization',
+    `authorization--${props.mode}`
+  ]"
+  @click="emits('close')">
   <div class="authorization__wrap" @click.stop="">
     <h1 class="authorization__title">{{computes.label.title}}</h1>
     <p class="authorization__description">
@@ -23,7 +28,7 @@
             maxlength="24"
             placeholder="주소를 입력해주세요."
             required
-            :disabled="props.mode === 'watch'">
+            :disabled="props.address">
         </label>
       </div>
       <div class="authorization__field">
@@ -63,10 +68,11 @@ import { getFormData } from '../libs/object';
 const { Custom } = window;
 const form = getFormData(Custom.form);
 const address = ref();
+const password = ref();
 const props = defineProps({
   visible: Boolean,
   address: String,
-  type: String, // login,delete,watch
+  type: String, // login,delete
   mode: { type: String, required: true }, // manage,delete
 });
 const emits = defineEmits([ 'submit', 'close' ]);
@@ -135,6 +141,7 @@ async function onSubmit(e)
       }
       break;
     case 'manage':
+    default:
       try
       {
         const res = await post(`${Custom.path}auth/`, {
@@ -150,15 +157,6 @@ async function onSubmit(e)
         address.value.focus();
         state.processing = false;
       }
-      break;
-    case 'watch':
-    default:
-      // TODO: 그냥 여기서 인증을 하고 데이터를 받아오는것까지 하기
-      console.log('submit')
-      emits('submit', {
-        address: state.address,
-        password: state.password,
-      });
       break;
   }
 }
@@ -285,6 +283,9 @@ onUnmounted(() => {
         margin-top: 10px;
       }
     }
+  }
+  &--watch {
+    cursor: default;
   }
   @include mixins.responsive(tablet) {
     background: rgba(255,255,255,.75);

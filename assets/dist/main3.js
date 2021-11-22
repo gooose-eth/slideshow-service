@@ -10827,7 +10827,8 @@ const base = {
   editSlideshow: "\uC2AC\uB77C\uC774\uB4DC\uC1FC \uC218\uC815\uD558\uAE30",
   preview: "\uBBF8\uB9AC\uBCF4\uAE30",
   share: "\uACF5\uC720\uD558\uAE30",
-  "delete": "\uC0AD\uC81C\uD558\uAE30"
+  "delete": "\uC0AD\uC81C\uD558\uAE30",
+  logout: "\uB85C\uADF8\uC544\uC6C3"
 };
 const confirm$1 = {
   applyRestart: "\uC2AC\uB77C\uC774\uB4DC\uC1FC\uAC00 \uC7AC\uC2DC\uC791\uB429\uB2C8\uB2E4.\n\uC801\uC6A9\uD558\uC2DC\uACA0\uC2B5\uB2C8\uAE4C?",
@@ -12116,11 +12117,12 @@ const _hoisted_11$1 = { key: 0 };
 const _hoisted_12$1 = { key: 1 };
 const _hoisted_13$1 = { key: 2 };
 const _hoisted_14$1 = { key: 3 };
-const _hoisted_15$1 = {
+const _hoisted_15$1 = { key: 4 };
+const _hoisted_16$1 = {
   key: 5,
   class: "slideshow-navigation__item"
 };
-const _hoisted_16$1 = ["title"];
+const _hoisted_17$1 = ["title"];
 const _sfc_main$d = {
   setup(__props, { expose }) {
     const { t } = i18n.global;
@@ -12198,6 +12200,9 @@ const _sfc_main$d = {
           break;
         case "delete":
           main$1.deleteSlideshow();
+          break;
+        case "logout":
+          main$1.logout();
           break;
       }
     }
@@ -12345,17 +12350,17 @@ const _sfc_main$d = {
                   onClick: _cache[6] || (_cache[6] = ($event) => onClickContextItem("delete"))
                 }, toDisplayString$1(unref(t)("base.delete")), 1)
               ])) : createCommentVNode("", true),
-              createBaseVNode("li", null, [
+              unref(store).state.serviceMode === "watch" && !unref(form).visible ? (openBlock(), createElementBlock("li", _hoisted_15$1, [
                 createBaseVNode("button", {
                   type: "button",
-                  class: "active",
-                  onClick: _cache[7] || (_cache[7] = ($event) => onClickContextItem(unref(store).state.serviceMode === "watch" ? "slideshowServiceNewWindow" : "slideshowService"))
-                }, toDisplayString$1(unref(t)("base.slideshowService")), 1)
-              ])
+                  class: "danger",
+                  onClick: _cache[7] || (_cache[7] = ($event) => onClickContextItem("logout"))
+                }, toDisplayString$1(unref(t)("base.logout")), 1)
+              ])) : createCommentVNode("", true)
             ])
           ], 2)
         ])) : createCommentVNode("", true),
-        unref(store).state.serviceMode !== "watch" ? (openBlock(), createElementBlock("div", _hoisted_15$1, [
+        unref(store).state.serviceMode !== "watch" ? (openBlock(), createElementBlock("div", _hoisted_16$1, [
           createBaseVNode("button", {
             type: "button",
             title: unref(computes).buttonTitleSave,
@@ -12363,7 +12368,7 @@ const _sfc_main$d = {
             onClick: onClickSave
           }, [
             createVNode(_sfc_main$k, { "icon-name": "save" })
-          ], 8, _hoisted_16$1)
+          ], 8, _hoisted_17$1)
         ])) : createCommentVNode("", true)
       ], 32);
     };
@@ -13153,7 +13158,8 @@ const _sfc_main$3 = {
     "update-tree",
     "update-group",
     "save",
-    "delete"
+    "delete",
+    "logout"
   ],
   setup(__props, { expose, emit: emits }) {
     const props = __props;
@@ -13312,6 +13318,9 @@ const _sfc_main$3 = {
     function deleteSlideshow() {
       emits("delete");
     }
+    function logout() {
+      emits("logout");
+    }
     onMounted(() => {
       const app = getCurrentInstance();
       setup(app.exposed, {
@@ -13347,7 +13356,8 @@ const _sfc_main$3 = {
       update: update3,
       useKeyboardEvent,
       save,
-      deleteSlideshow
+      deleteSlideshow,
+      logout
     });
     return (_ctx, _cache) => {
       return unref(state2).loading ? (openBlock(), createBlock(LoadingIntro, { key: 0 })) : (openBlock(), createBlock(_sfc_main$6, {
@@ -13842,6 +13852,9 @@ const _sfc_main = {
       slideshow.value.useKeyboardEvent(!sw);
       state2.visibleDelete = sw;
     }
+    async function onLogout() {
+      console.log("call logout");
+    }
     expose({
       slideshow
     });
@@ -13861,7 +13874,8 @@ const _sfc_main = {
           onUpdateTree,
           onUpdateGroup,
           onDelete: _cache[0] || (_cache[0] = ($event) => visibleDelete(true)),
-          onSave: _cache[1] || (_cache[1] = ($event) => onVisiblePost(true))
+          onSave: _cache[1] || (_cache[1] = ($event) => onVisiblePost(true)),
+          onLogout: _cache[2] || (_cache[2] = ($event) => onLogout())
         }, null, 8, ["mode", "preference", "usePreference", "group", "tree"]),
         (openBlock(), createBlock(Teleport, { to: "#service" }, [
           unref(state2).visiblePost ? (openBlock(), createBlock(_sfc_main$1, {
@@ -13875,7 +13889,7 @@ const _sfc_main = {
             key: 1,
             type: "delete",
             mode: "delete",
-            onClose: _cache[2] || (_cache[2] = ($event) => visibleDelete(false))
+            onClose: _cache[3] || (_cache[3] = ($event) => visibleDelete(false))
           })) : createCommentVNode("", true)
         ]))
       ], 64);
