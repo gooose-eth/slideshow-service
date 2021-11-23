@@ -137,6 +137,7 @@ import * as util from '../../libs/util';
 import { getFormData } from '../../../libs/object';
 import { copyToClipboard } from '../../../libs/string';
 import Icon from '../../components/Icon/index.vue';
+import { post } from '../../../libs/fetch';
 
 const { t } = i18n.global;
 const { Custom } = window;
@@ -220,7 +221,7 @@ function onClickContextItem(key)
       local.main.deleteSlideshow();
       break;
     case 'logout':
-      local.main.logout();
+      logout().then();
       break;
   }
 }
@@ -264,6 +265,12 @@ function route(address)
 function blur()
 {
   switchActiveMenu(false);
+}
+
+async function logout()
+{
+  await post(`${Custom.path}logout/${form.address}/`, {});
+  location.reload();
 }
 
 // lifecycles

@@ -36,6 +36,9 @@ if ($_ENV['TIMEZONE'])
   date_default_timezone_set($_ENV['TIMEZONE']);
 }
 
+// ready session
+Util::readySession();
+
 // set blade
 $blade = new Blade(__PATH__.'/view', __PATH__.'/cache/view');
 
@@ -64,13 +67,12 @@ try
     switch ($_target)
     {
       case 'post/auth':
-        session_start();
         $res = Submit::auth();
         $res = (object)[
           'key' => (int)$res->key,
           'address' => $res->address,
         ];
-        $_SESSION[$res->address] = (int)$res->key;
+        Util::saveSession($res->address, $res->key);
         break;
       case 'post/create':
         $res = Submit::create();
@@ -82,9 +84,8 @@ try
         $res = Submit::delete($_params->address);
         break;
       case 'post/logout':
-        // TODO: 여기서부터 작업시작..
-        session_start();
-        unset($_SESSION[$_POST['address']]);
+        Util::removeSession($_params->address);
+        $res = (object)[];
         break;
     }
     if ($res)
@@ -141,7 +142,6 @@ try
       $blade->render('slideshow', $data);
       break;
     case 'watch':
-      session_start();
       $data = (object)[ 'mode' => $_target ];
       // get model data
       if (!isset($_params->address))
@@ -151,7 +151,7 @@ try
       $data->address = $_params->address;
       $model = new Model();
       $item = $model->item((object)[ 'where' => "`address`='$_params->address'" ]);
-      if ((int)$item->visible === 1 || isset($_SESSION[$data->address]))
+      if ((int)$item->visible === 1 || Util::checkSession($data->address))
       {
         // set meta data
         $data->title = $item->title;

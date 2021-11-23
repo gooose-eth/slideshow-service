@@ -34,4 +34,5 @@ window.Custom = {
   form: '{{$form ?? ''}}',
 };
 </script>
+<script type="module" crossorigin src="{{__ROOT__}}assets/dist/main.js"></script>
 @endsection

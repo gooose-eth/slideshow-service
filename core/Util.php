@@ -57,7 +57,7 @@ class Util {
    * @param array|null $required 키값이 들어있는 배열
    * @throws Exception
    */
-  public static function checkExistValue($target=null, $required=null)
+  public static function checkExistValue($target = null, $required = null)
   {
     if (!isset($target)) throw new Exception('No value `$target`');
     if ($required)
@@ -90,7 +90,7 @@ class Util {
    * @param string $str
    * @return string
    */
-  public static function createPassword(string $str=''): string
+  public static function createPassword(string $str = ''): string
   {
     return password_hash($str, PASSWORD_BCRYPT);
   }
@@ -108,6 +108,51 @@ class Util {
     {
       throw new Exception('Error verify password');
     }
+  }
+
+  /**
+   * ready session
+   */
+  public static function readySession(): void
+  {
+    session_start();
+  }
+
+  /**
+   * save session
+   *
+   * @param string $address
+   * @param int $key
+   * @throws Exception
+   */
+  public static function saveSession(string $address, int $key): void
+  {
+    if (!isset($address) || !isset($key)) throw new Exception('no address or key');
+    $_SESSION[$address] = $key;
+  }
+
+  /**
+   * remove session
+   *
+   * @param string $address
+   * @throws Exception
+   */
+  public static function removeSession(string $address): void
+  {
+    if (!isset($address)) throw new Exception('no address');
+    unset($_SESSION[$address]);
+  }
+
+  /**
+   * check session
+   *
+   * @param string $address
+   * @return bool
+   */
+  public static function checkSession(string $address): bool
+  {
+    if (!isset($address)) return false;
+    return (bool)($_SESSION[$address] ?? false);
   }
 
 }

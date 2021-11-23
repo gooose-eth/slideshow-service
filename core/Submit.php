@@ -65,7 +65,8 @@ class Submit {
         'description' => $_POST['description'],
         'slideshow' => rawurlencode(json_encode($slideshow, false)),
         'password' => Util::createPassword($_POST['password']),
-        'visible' => 1,
+        'visible' => (int)$_POST['visible'],
+        'hit' => 0,
         'regdate' => date('Y-m-d H:i:s'),
         'update' => date('Y-m-d H:i:s'),
         'thumbnail' => $thumbnail,
@@ -80,6 +81,7 @@ class Submit {
     $key = $model->getLastKey();
     $item = $model->item((object)[ 'where' => "`key`={$key}" ]);
     unset($item->password);
+    // TODO: 주소를 세션에 저장하기
     return $item;
   }
 
@@ -119,7 +121,7 @@ class Submit {
     }
     if (isset($_POST['visible']))
     {
-      $data[] = "visible='{$_POST['visible']}'";
+      $data[] = "visible='".(int)$_POST['visible']."'";
     }
     if (isset($_POST['password']) && $_POST['password'])
     {

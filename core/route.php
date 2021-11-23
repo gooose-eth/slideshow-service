@@ -26,7 +26,7 @@ return [
   [ 'POST', '/manage/[char:address]/', 'post/manage' ],
   [ 'POST', '/delete/[char:address]', 'post/delete' ],
   [ 'POST', '/delete/[char:address]/', 'post/delete' ],
-  [ 'POST', '/logout', 'post/logout' ],
-  [ 'POST', '/logout/', 'post/logout' ],
+  [ 'POST', '/logout/[char:address]', 'post/logout' ],
+  [ 'POST', '/logout/[char:address]/', 'post/logout' ],
 
 ];

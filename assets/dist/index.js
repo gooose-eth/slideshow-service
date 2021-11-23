@@ -1,13 +1,20 @@
-import { r as reactive, C as unref, y as openBlock, A as createBlock, G as createCommentVNode, a0 as createApp } from "./main2.js";
+import { r as reactive, v as computed, C as unref, y as openBlock, A as createBlock, G as createCommentVNode, a0 as createApp } from "./main2.js";
 import { a as _sfc_main$1 } from "./authorization.js";
 const _sfc_main = {
   setup(__props, { expose }) {
+    const { Custom } = window;
     let state = reactive({
       authorization: reactive({
         visible: false,
-        mode: ""
+        mode: null
       })
     });
+    let action = computed(() => {
+      return `${Custom.path}${state.authorization.mode}/`;
+    });
+    function submitAuthorization(e) {
+      e.target.submit();
+    }
     function visibleAuthorization(sw, mode) {
       state.authorization.mode = mode;
       state.authorization.visible = sw;
@@ -18,9 +25,11 @@ const _sfc_main = {
     return (_ctx, _cache) => {
       return unref(state).authorization.visible ? (openBlock(), createBlock(_sfc_main$1, {
         key: 0,
+        action: unref(action),
         mode: unref(state).authorization.mode,
+        onSubmit: submitAuthorization,
         onClose: _cache[0] || (_cache[0] = ($event) => visibleAuthorization(false))
-      }, null, 8, ["mode"])) : createCommentVNode("", true);
+      }, null, 8, ["action", "mode"])) : createCommentVNode("", true);
     };
   }
 };

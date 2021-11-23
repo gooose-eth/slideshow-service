@@ -1,9 +1,6 @@
 <template>
 <article
-  :class="[
-    'authorization',
-    `authorization--${props.mode}`
-  ]"
+  :class="[ 'authorization', `authorization--${props.mode}` ]"
   @click="emits('close')">
   <div class="authorization__wrap" @click.stop="">
     <h1 class="authorization__title">{{computes.label.title}}</h1>
@@ -11,7 +8,7 @@
       {{computes.label.description}}
     </p>
     <form
-      :action="computes.url"
+      :action="props.action"
       method="post"
       @submit="onSubmit"
       class="authorization__form">
@@ -52,7 +49,7 @@
           :disabled="state.processing">
           {{state.processing ? '처리중..' : computes.label.submit}}
         </Button>
-        <Button @click="emits('close')">닫기</Button>
+        <Button v-if="computes.showCloseButton" @click="emits('close')">닫기</Button>
       </nav>
     </form>
   </div>
@@ -71,6 +68,7 @@ const address = ref();
 const password = ref();
 const props = defineProps({
   visible: Boolean,
+  action: String,
   address: String,
   type: String, // login,delete
   mode: { type: String, required: true }, // manage,delete
@@ -82,7 +80,6 @@ let state = reactive({
   processing: false,
 });
 let computes = reactive({
-  url: computed(() => (`${Custom.path}${props.mode}/`)),
   label: computed(() => {
     switch(props.type)
     {
@@ -99,6 +96,12 @@ let computes = reactive({
           description: '슬라이드쇼를 삭제하면 복구할 수 없습니다!',
           submit: '삭제하기',
         };
+      case 'watch':
+        return {
+          title: '비공개 슬라이드쇼',
+          description: '슬라이드쇼를 보려면 인증하세요.',
+          submit: '인증하기',
+        };
     }
   }),
   submitClassName: computed(() => {
@@ -110,6 +113,9 @@ let computes = reactive({
       case 'delete':
         return 'danger';
     }
+  }),
+  showCloseButton: computed(() => {
+    return (props.mode !== 'watch')
   }),
 });
 
@@ -140,7 +146,6 @@ async function onSubmit(e)
         state.processing = false;
       }
       break;
-    case 'manage':
     default:
       try
       {
@@ -149,7 +154,7 @@ async function onSubmit(e)
           password: state.password,
         });
         if (!res.success) throw new Error(res.message);
-        e.target.submit();
+        emits('submit', e);
       }
       catch(e)
       {

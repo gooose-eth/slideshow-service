@@ -7,9 +7,11 @@ const _sfc_main = {
       address
     });
     function onSubmit(e) {
+      location.reload();
     }
     return (_ctx, _cache) => {
       return openBlock(), createBlock(_sfc_main$1, {
+        type: "watch",
         mode: "watch",
         address: unref(state).address,
         onSubmit

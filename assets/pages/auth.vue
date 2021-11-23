@@ -1,5 +1,6 @@
 <template>
 <Authorization
+  type="watch"
   mode="watch"
   :address="state.address"
   @submit="onSubmit"/>
@@ -23,7 +24,7 @@ let state = reactive({
  */
 function onSubmit(e)
 {
-  //
+  location.reload();
 }
 </script>
 

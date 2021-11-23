@@ -17,7 +17,7 @@ var __spreadValues = (a, b) => {
   return a;
 };
 var __spreadProps = (a, b) => __defProps(a, __getOwnPropDescs(b));
-import { y as openBlock, z as createElementBlock, $ as renderSlot, J as normalizeClass, D as ref, r as reactive, v as computed, Q as onMounted, V as onBeforeMount, S as onUnmounted, F as createBaseVNode, R as toDisplayString, C as unref, X as withDirectives, Y as vModelText, K as createVNode, Z as withCtx, W as withModifiers, _ as createTextVNode } from "./main2.js";
+import { y as openBlock, z as createElementBlock, $ as renderSlot, J as normalizeClass, D as ref, r as reactive, v as computed, Q as onMounted, V as onBeforeMount, S as onUnmounted, F as createBaseVNode, R as toDisplayString, C as unref, X as withDirectives, Y as vModelText, K as createVNode, Z as withCtx, A as createBlock, G as createCommentVNode, W as withModifiers, _ as createTextVNode } from "./main2.js";
 function getFormData(form) {
   try {
     if (!form)
@@ -27,30 +27,6 @@ function getFormData(form) {
     return {};
   }
 }
-var button_vue_vue_type_style_index_0_lang = "";
-const _hoisted_1$1 = ["type"];
-const _sfc_main$1 = {
-  props: {
-    type: { type: String, default: "button" },
-    color: String
-  },
-  emits: ["click"],
-  setup(__props, { emit: emits }) {
-    const props = __props;
-    return (_ctx, _cache) => {
-      return openBlock(), createElementBlock("button", {
-        type: props.type,
-        class: normalizeClass([
-          "app-button",
-          props.color && `app-button--color-${props.color}`
-        ]),
-        onClick: _cache[0] || (_cache[0] = ($event) => emits("click"))
-      }, [
-        renderSlot(_ctx.$slots, "default")
-      ], 10, _hoisted_1$1);
-    };
-  }
-};
 const headers = {
   "Content-Type": "application/x-www-form-urlencoded;charset=utf-8"
 };
@@ -84,6 +60,30 @@ async function post(url, data, type = "json") {
     throw new Error(e.message);
   }
 }
+var button_vue_vue_type_style_index_0_lang = "";
+const _hoisted_1$1 = ["type"];
+const _sfc_main$1 = {
+  props: {
+    type: { type: String, default: "button" },
+    color: String
+  },
+  emits: ["click"],
+  setup(__props, { emit: emits }) {
+    const props = __props;
+    return (_ctx, _cache) => {
+      return openBlock(), createElementBlock("button", {
+        type: props.type,
+        class: normalizeClass([
+          "app-button",
+          props.color && `app-button--color-${props.color}`
+        ]),
+        onClick: _cache[0] || (_cache[0] = ($event) => emits("click"))
+      }, [
+        renderSlot(_ctx.$slots, "default")
+      ], 10, _hoisted_1$1);
+    };
+  }
+};
 var authorization_vue_vue_type_style_index_0_lang = "";
 const _hoisted_1 = { class: "authorization__title" };
 const _hoisted_2 = { class: "authorization__description" };
@@ -100,6 +100,7 @@ const _hoisted_12 = /* @__PURE__ */ createTextVNode("\uB2EB\uAE30");
 const _sfc_main = {
   props: {
     visible: Boolean,
+    action: String,
     address: String,
     type: String,
     mode: { type: String, required: true }
@@ -117,7 +118,6 @@ const _sfc_main = {
       processing: false
     });
     let computes = reactive({
-      url: computed(() => `${Custom.path}${props.mode}/`),
       label: computed(() => {
         switch (props.type) {
           case "login":
@@ -133,6 +133,12 @@ const _sfc_main = {
               description: "\uC2AC\uB77C\uC774\uB4DC\uC1FC\uB97C \uC0AD\uC81C\uD558\uBA74 \uBCF5\uAD6C\uD560 \uC218 \uC5C6\uC2B5\uB2C8\uB2E4!",
               submit: "\uC0AD\uC81C\uD558\uAE30"
             };
+          case "watch":
+            return {
+              title: "\uBE44\uACF5\uAC1C \uC2AC\uB77C\uC774\uB4DC\uC1FC",
+              description: "\uC2AC\uB77C\uC774\uB4DC\uC1FC\uB97C \uBCF4\uB824\uBA74 \uC778\uC99D\uD558\uC138\uC694.",
+              submit: "\uC778\uC99D\uD558\uAE30"
+            };
         }
       }),
       submitClassName: computed(() => {
@@ -143,6 +149,9 @@ const _sfc_main = {
           case "delete":
             return "danger";
         }
+      }),
+      showCloseButton: computed(() => {
+        return props.mode !== "watch";
       })
     });
     async function onSubmit(e) {
@@ -165,7 +174,6 @@ const _sfc_main = {
             state.processing = false;
           }
           break;
-        case "manage":
         default:
           try {
             const res = await post(`${Custom.path}auth/`, {
@@ -174,7 +182,7 @@ const _sfc_main = {
             });
             if (!res.success)
               throw new Error(res.message);
-            e.target.submit();
+            emits("submit", e);
           } catch (e2) {
             alert("\uC778\uC99D\uC5D0 \uC2E4\uD328\uD588\uC2B5\uB2C8\uB2E4.");
             address.value.focus();
@@ -194,10 +202,7 @@ const _sfc_main = {
     });
     return (_ctx, _cache) => {
       return openBlock(), createElementBlock("article", {
-        class: normalizeClass([
-          "authorization",
-          `authorization--${props.mode}`
-        ]),
+        class: normalizeClass(["authorization", `authorization--${props.mode}`]),
         onClick: _cache[4] || (_cache[4] = ($event) => emits("close"))
       }, [
         createBaseVNode("div", {
@@ -208,7 +213,7 @@ const _sfc_main = {
           createBaseVNode("h1", _hoisted_1, toDisplayString(unref(computes).label.title), 1),
           createBaseVNode("p", _hoisted_2, toDisplayString(unref(computes).label.description), 1),
           createBaseVNode("form", {
-            action: unref(computes).url,
+            action: props.action,
             method: "post",
             onSubmit,
             class: "authorization__form"
@@ -263,14 +268,15 @@ const _sfc_main = {
                 ]),
                 _: 1
               }, 8, ["color", "disabled"]),
-              createVNode(_sfc_main$1, {
+              unref(computes).showCloseButton ? (openBlock(), createBlock(_sfc_main$1, {
+                key: 0,
                 onClick: _cache[2] || (_cache[2] = ($event) => emits("close"))
               }, {
                 default: withCtx(() => [
                   _hoisted_12
                 ]),
                 _: 1
-              })
+              })) : createCommentVNode("", true)
             ])
           ], 40, _hoisted_3)
         ])

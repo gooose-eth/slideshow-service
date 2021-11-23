@@ -1326,19 +1326,25 @@ Promise.resolve();
 let devtools;
 let buffer = [];
 function setDevtoolsHook(hook, target) {
+  var _a2, _b;
   devtools = hook;
   if (devtools) {
     devtools.enabled = true;
     buffer.forEach(({ event, args }) => devtools.emit(event, ...args));
     buffer = [];
-  } else {
+  } else if (typeof window !== "undefined" && window.HTMLElement && !((_b = (_a2 = window.navigator) === null || _a2 === void 0 ? void 0 : _a2.userAgent) === null || _b === void 0 ? void 0 : _b.includes("jsdom"))) {
     const replay = target.__VUE_DEVTOOLS_HOOK_REPLAY__ = target.__VUE_DEVTOOLS_HOOK_REPLAY__ || [];
     replay.push((newHook) => {
       setDevtoolsHook(newHook, target);
     });
     setTimeout(() => {
-      buffer = [];
+      if (!devtools) {
+        target.__VUE_DEVTOOLS_HOOK_REPLAY__ = null;
+        buffer = [];
+      }
     }, 3e3);
+  } else {
+    buffer = [];
   }
 }
 function emit$1(instance, event, ...rawArgs) {
@@ -4842,7 +4848,7 @@ function mergeProps(...args) {
       } else if (isOn(key)) {
         const existing = ret[key];
         const incoming = toMerge[key];
-        if (existing !== incoming) {
+        if (existing !== incoming && !(isArray(existing) && existing.includes(incoming))) {
           ret[key] = existing ? [].concat(existing, incoming) : incoming;
         }
       } else if (key !== "") {
@@ -5861,7 +5867,7 @@ function isMemoSame(cached, memo) {
   }
   return true;
 }
-const version = "3.2.20";
+const version = "3.2.22";
 const _ssrUtils = {
   createComponentInstance,
   setupComponent,
@@ -5952,14 +5958,8 @@ function patchClass(el, value, isSVG) {
 }
 function patchStyle(el, prev, next) {
   const style = el.style;
-  const currentDisplay = style.display;
-  if (!next) {
-    el.removeAttribute("style");
-  } else if (isString(next)) {
-    if (prev !== next) {
-      style.cssText = next;
-    }
-  } else {
+  const isCssString = isString(next);
+  if (next && !isCssString) {
     for (const key in next) {
       setStyle(style, key, next[key]);
     }
@@ -5970,9 +5970,18 @@ function patchStyle(el, prev, next) {
         }
       }
     }
-  }
-  if ("_vod" in el) {
-    style.display = currentDisplay;
+  } else {
+    const currentDisplay = style.display;
+    if (isCssString) {
+      if (prev !== next) {
+        style.cssText = next;
+      }
+    } else if (prev) {
+      el.removeAttribute("style");
+    }
+    if ("_vod" in el) {
+      style.display = currentDisplay;
+    }
   }
 }
 const importantRE = /\s*!important$/;
@@ -6221,20 +6230,11 @@ class VueElement extends BaseClass {
     } else {
       this.attachShadow({ mode: "open" });
     }
-    for (let i = 0; i < this.attributes.length; i++) {
-      this._setAttr(this.attributes[i].name);
-    }
-    new MutationObserver((mutations) => {
-      for (const m of mutations) {
-        this._setAttr(m.attributeName);
-      }
-    }).observe(this, { attributes: true });
   }
   connectedCallback() {
     this._connected = true;
     if (!this._instance) {
       this._resolveDef();
-      this._update();
     }
   }
   disconnectedCallback() {
@@ -6250,8 +6250,16 @@ class VueElement extends BaseClass {
     if (this._resolved) {
       return;
     }
+    this._resolved = true;
+    for (let i = 0; i < this.attributes.length; i++) {
+      this._setAttr(this.attributes[i].name);
+    }
+    new MutationObserver((mutations) => {
+      for (const m of mutations) {
+        this._setAttr(m.attributeName);
+      }
+    }).observe(this, { attributes: true });
     const resolve2 = (def2) => {
-      this._resolved = true;
       const { props, styles } = def2;
       const hasOptions = !isArray(props);
       const rawKeys = props ? hasOptions ? Object.keys(props) : props : [];
@@ -6265,13 +6273,10 @@ class VueElement extends BaseClass {
           }
         }
       }
-      if (numberProps) {
-        this._numberProps = numberProps;
-        this._update();
-      }
+      this._numberProps = numberProps;
       for (const key of Object.keys(this)) {
         if (key[0] !== "_") {
-          this._setProp(key, this[key]);
+          this._setProp(key, this[key], true, false);
         }
       }
       for (const key of rawKeys.map(camelize)) {
@@ -6285,6 +6290,7 @@ class VueElement extends BaseClass {
         });
       }
       this._applyStyles(styles);
+      this._update();
     };
     const asyncDef = this._def.__asyncLoader;
     if (asyncDef) {
@@ -6303,10 +6309,10 @@ class VueElement extends BaseClass {
   _getProp(key) {
     return this._props[key];
   }
-  _setProp(key, val, shouldReflect = true) {
+  _setProp(key, val, shouldReflect = true, shouldUpdate = true) {
     if (val !== this._props[key]) {
       this._props[key] = val;
-      if (this._instance) {
+      if (shouldUpdate && this._instance) {
         this._update();
       }
       if (shouldReflect) {

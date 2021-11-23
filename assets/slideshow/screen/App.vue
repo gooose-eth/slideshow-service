@@ -32,7 +32,6 @@ const emits = defineEmits([
   'update-group',
   'save',
   'delete',
-  'logout',
 ]);
 const { locale } = i18n.global;
 let state = reactive({
@@ -230,10 +229,6 @@ function deleteSlideshow()
 {
   emits('delete');
 }
-function logout()
-{
-  emits('logout');
-}
 
 // lifecycles
 onMounted(() => {
@@ -279,6 +274,5 @@ defineExpose({
   useKeyboardEvent,
   save,
   deleteSlideshow,
-  logout,
 })
 </script>

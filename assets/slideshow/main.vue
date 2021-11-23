@@ -9,9 +9,9 @@
   @update-preference="onUpdatePreference"
   @update-tree="onUpdateTree"
   @update-group="onUpdateGroup"
-  @delete="visibleDelete(true)"
+  @delete="onVisibleDelete(true)"
   @save="onVisiblePost(true)"
-  @logout="onLogout()"/>
+  @logout="onLogout"/>
 <teleport to="#service">
   <Post
     v-if="state.visiblePost"
@@ -23,7 +23,7 @@
     v-if="state.visibleDelete"
     type="delete"
     mode="delete"
-    @close="visibleDelete(false)"/>
+    @close="onVisibleDelete(false)"/>
 </teleport>
 </template>
 
@@ -130,15 +130,10 @@ function onClosePost(src)
  *
  * @param {boolean} sw
  */
-function visibleDelete(sw)
+function onVisibleDelete(sw)
 {
   slideshow.value.useKeyboardEvent(!sw);
   state.visibleDelete = sw;
-}
-
-async function onLogout()
-{
-  console.log('call logout');
 }
 
 defineExpose({

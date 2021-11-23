@@ -18,7 +18,7 @@ var __spreadValues = (a, b) => {
 };
 var __spreadProps = (a, b) => __defProps(a, __getOwnPropDescs(b));
 import { w as watch, r as reactive, i as isString$1, h as hyphenate, N as NOOP, e as extend, a as isObject$2, b as isArray$1, m as makeMap, E as EMPTY_OBJ, c as capitalize, d as camelize$1, P as PatchFlagNames, f as isSymbol$1, g as isOn, t as toHandlerKey, j as NO, k as isReservedProp, l as isVoidTag, n as isHTMLTag, o as isSVGTag, p as parseStringStyle, q as generateCodeFrame$1, s as runtimeDom_esmBundler, u as shared_esmBundler, v as computed, x as defineAsyncComponent, y as openBlock, z as createElementBlock, A as createBlock, B as resolveDynamicComponent, C as unref, D as ref, F as createBaseVNode, G as createCommentVNode, H as Fragment, I as renderList, J as normalizeClass, K as createVNode, L as normalizeStyle, M as pushScopeId, O as popScopeId, Q as onMounted, R as toDisplayString$1, S as onUnmounted, T as Teleport, U as getCurrentInstance, V as onBeforeMount, W as withModifiers, X as withDirectives, Y as vModelText, Z as withCtx, _ as createTextVNode } from "./main2.js";
-import { g as getFormData, _ as _sfc_main$l, p as post, a as _sfc_main$m } from "./authorization.js";
+import { g as getFormData, p as post, _ as _sfc_main$l, a as _sfc_main$m } from "./authorization.js";
 function getDevtoolsGlobalHook() {
   return getTarget().__VUE_DEVTOOLS_GLOBAL_HOOK__;
 }
@@ -1293,7 +1293,7 @@ var messageCompiler_cjs_prod = {};
 var shared$3 = { exports: {} };
 var shared_cjs_prod = {};
 /*!
-  * shared v9.2.0-beta.12
+  * shared v9.2.0-beta.20
   * (c) 2021 kazuya kawaguchi
   * Released under the MIT License.
   */
@@ -3090,7 +3090,7 @@ sourceMap$1.SourceMapGenerator = sourceMapGenerator.SourceMapGenerator;
 sourceMap$1.SourceMapConsumer = sourceMapConsumer.SourceMapConsumer;
 sourceMap$1.SourceNode = sourceNode.SourceNode;
 /*!
-  * message-compiler v9.2.0-beta.12
+  * message-compiler v9.2.0-beta.20
   * (c) 2021 kazuya kawaguchi
   * Released under the MIT License.
   */
@@ -4372,7 +4372,7 @@ messageCompiler_cjs_prod.errorMessages = errorMessages;
 var devtoolsIf$1 = { exports: {} };
 var devtoolsIf_cjs_prod = {};
 /*!
-  * devtools-if v9.2.0-beta.12
+  * devtools-if v9.2.0-beta.20
   * (c) 2021 kazuya kawaguchi
   * Released under the MIT License.
   */
@@ -4386,7 +4386,7 @@ devtoolsIf_cjs_prod.IntlifyDevToolsHooks = IntlifyDevToolsHooks;
   devtoolsIf$1.exports = devtoolsIf_cjs_prod;
 }
 /*!
-  * core-base v9.2.0-beta.12
+  * core-base v9.2.0-beta.20
   * (c) 2021 kazuya kawaguchi
   * Released under the MIT License.
   */
@@ -4759,7 +4759,7 @@ function appendItemToChain(chain, target, blocks) {
   }
   return follow;
 }
-const VERSION$1 = "9.2.0-beta.12";
+const VERSION$1 = "9.2.0-beta.20";
 const NOT_REOSLVED = -1;
 const DEFAULT_LOCALE = "en-US";
 const MISSING_RESOLVE_VALUE = "";
@@ -4909,21 +4909,22 @@ function createCoreError(code2) {
 const NOOP_MESSAGE_FUNCTION = () => "";
 const isMessageFunction = (val) => shared$1.isFunction(val);
 function translate(context, ...args) {
-  const { fallbackFormat, postTranslation, unresolving, fallbackLocale, messages } = context;
+  const { fallbackFormat, postTranslation, unresolving, messageCompiler: messageCompiler2, fallbackLocale, messages } = context;
   const [key, options] = parseTranslateArgs(...args);
   const missingWarn = shared$1.isBoolean(options.missingWarn) ? options.missingWarn : context.missingWarn;
   const fallbackWarn = shared$1.isBoolean(options.fallbackWarn) ? options.fallbackWarn : context.fallbackWarn;
   const escapeParameter = shared$1.isBoolean(options.escapeParameter) ? options.escapeParameter : context.escapeParameter;
   const resolvedMessage = !!options.resolvedMessage;
-  const defaultMsgOrKey = shared$1.isString(options.default) || shared$1.isBoolean(options.default) ? !shared$1.isBoolean(options.default) ? options.default : key : fallbackFormat ? key : "";
+  const defaultMsgOrKey = shared$1.isString(options.default) || shared$1.isBoolean(options.default) ? !shared$1.isBoolean(options.default) ? options.default : key : fallbackFormat ? !messageCompiler2 ? () => key : key : "";
   const enableDefaultMsg = fallbackFormat || defaultMsgOrKey !== "";
   const locale = shared$1.isString(options.locale) ? options.locale : context.locale;
   escapeParameter && escapeParams(options);
-  let [format2, targetLocale, message] = !resolvedMessage ? resolveMessageFormat(context, key, locale, fallbackLocale, fallbackWarn, missingWarn) : [
+  let [formatScope, targetLocale, message] = !resolvedMessage ? resolveMessageFormat(context, key, locale, fallbackLocale, fallbackWarn, missingWarn) : [
     key,
     locale,
     messages[locale] || {}
   ];
+  let format2 = formatScope;
   let cacheBaseKey = key;
   if (!resolvedMessage && !(shared$1.isString(format2) || isMessageFunction(format2))) {
     if (enableDefaultMsg) {
@@ -8448,7 +8449,7 @@ function stringifyDynamicPropNames(props) {
   return propsNamesString + `]`;
 }
 function isComponentTag(tag) {
-  return tag[0].toLowerCase() + tag.slice(1) === "component";
+  return tag === "component" || tag === "Component";
 }
 const cacheStringFunction = (fn) => {
   const cache2 = Object.create(null);
@@ -9480,7 +9481,7 @@ var require$$2 = /* @__PURE__ */ getAugmentedNamespace(shared_esmBundler);
   vue$1.exports = vue_cjs_prod;
 }
 /*!
-  * vue-i18n v9.2.0-beta.12
+  * vue-i18n v9.2.0-beta.20
   * (c) 2021 kazuya kawaguchi
   * Released under the MIT License.
   */
@@ -9488,7 +9489,7 @@ Object.defineProperty(vueI18n_cjs_prod, "__esModule", { value: true });
 var coreBase = coreBase$1.exports;
 var vue = vue$1.exports;
 var shared = shared$3.exports;
-const VERSION = "9.2.0-beta.12";
+const VERSION = "9.2.0-beta.20";
 let code = coreBase.CompileErrorCodes.__EXTEND_POINT__;
 const inc = () => code++;
 const I18nErrorCodes = {
@@ -11207,10 +11208,11 @@ const _sfc_main$k = {
 };
 var Images_scss_vue_type_style_index_0_src_scoped_true_lang = "";
 var _export_sfc = (sfc, props) => {
+  const target = sfc.__vccOpts || sfc;
   for (const [key, val] of props) {
-    sfc[key] = val;
+    target[key] = val;
   }
-  return sfc;
+  return target;
 };
 const _withScopeId$2 = (n) => (pushScopeId("data-v-153702b0"), n = n(), popScopeId(), n);
 const _hoisted_1$f = {
@@ -12202,7 +12204,7 @@ const _sfc_main$d = {
           main$1.deleteSlideshow();
           break;
         case "logout":
-          main$1.logout();
+          logout().then();
           break;
       }
     }
@@ -12237,6 +12239,10 @@ const _sfc_main$d = {
     }
     function blur() {
       switchActiveMenu(false);
+    }
+    async function logout() {
+      await post(`${Custom.path}logout/${form.address}/`, {});
+      location.reload();
     }
     onMounted(() => {
       document.on("fullscreenchange.slideshow", () => {
@@ -13158,8 +13164,7 @@ const _sfc_main$3 = {
     "update-tree",
     "update-group",
     "save",
-    "delete",
-    "logout"
+    "delete"
   ],
   setup(__props, { expose, emit: emits }) {
     const props = __props;
@@ -13318,9 +13323,6 @@ const _sfc_main$3 = {
     function deleteSlideshow() {
       emits("delete");
     }
-    function logout() {
-      emits("logout");
-    }
     onMounted(() => {
       const app = getCurrentInstance();
       setup(app.exposed, {
@@ -13356,8 +13358,7 @@ const _sfc_main$3 = {
       update: update3,
       useKeyboardEvent,
       save,
-      deleteSlideshow,
-      logout
+      deleteSlideshow
     });
     return (_ctx, _cache) => {
       return unref(state2).loading ? (openBlock(), createBlock(LoadingIntro, { key: 0 })) : (openBlock(), createBlock(_sfc_main$6, {
@@ -13848,12 +13849,9 @@ const _sfc_main = {
       state2.post = __spreadValues(__spreadValues({}, state2.post), src);
       onVisiblePost(false);
     }
-    function visibleDelete(sw) {
+    function onVisibleDelete(sw) {
       slideshow.value.useKeyboardEvent(!sw);
       state2.visibleDelete = sw;
-    }
-    async function onLogout() {
-      console.log("call logout");
     }
     expose({
       slideshow
@@ -13873,10 +13871,10 @@ const _sfc_main = {
           onUpdatePreference,
           onUpdateTree,
           onUpdateGroup,
-          onDelete: _cache[0] || (_cache[0] = ($event) => visibleDelete(true)),
+          onDelete: _cache[0] || (_cache[0] = ($event) => onVisibleDelete(true)),
           onSave: _cache[1] || (_cache[1] = ($event) => onVisiblePost(true)),
-          onLogout: _cache[2] || (_cache[2] = ($event) => onLogout())
-        }, null, 8, ["mode", "preference", "usePreference", "group", "tree"]),
+          onLogout: _ctx.onLogout
+        }, null, 8, ["mode", "preference", "usePreference", "group", "tree", "onLogout"]),
         (openBlock(), createBlock(Teleport, { to: "#service" }, [
           unref(state2).visiblePost ? (openBlock(), createBlock(_sfc_main$1, {
             key: 0,
@@ -13889,7 +13887,7 @@ const _sfc_main = {
             key: 1,
             type: "delete",
             mode: "delete",
-            onClose: _cache[3] || (_cache[3] = ($event) => visibleDelete(false))
+            onClose: _cache[2] || (_cache[2] = ($event) => onVisibleDelete(false))
           })) : createCommentVNode("", true)
         ]))
       ], 64);
