@@ -141,7 +141,7 @@ class Model {
     {
       $op->act = 'select';
       $op->field = 'count(*)';
-      if (isset($options->where)) $op->where = $options->where;
+      if (isset($op->where)) $op->where = $op->where;
       $query = self::query($op);
       $result = $this->db->prepare($query);
       $result->execute();
@@ -223,7 +223,6 @@ class Model {
   public function edit($op, $where)
   {
     if (!(isset($op) && isset($where))) throw new Exception('No options');
-
     // make query
     $query_data = '';
     foreach ($op as $k=>$v) $query_data .= ($v) ? ','.$v : '';
@@ -232,7 +231,6 @@ class Model {
     $query = 'update `'.$this->table.'` set ';
     $query .= $query_data;
     $query .= ' where ' . $where;
-
     // action
     $this->action($query);
   }

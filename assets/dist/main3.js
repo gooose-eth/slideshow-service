@@ -1293,7 +1293,7 @@ var messageCompiler_cjs_prod = {};
 var shared$3 = { exports: {} };
 var shared_cjs_prod = {};
 /*!
-  * shared v9.2.0-beta.20
+  * shared v9.2.0-beta.12
   * (c) 2021 kazuya kawaguchi
   * Released under the MIT License.
   */
@@ -3090,7 +3090,7 @@ sourceMap$1.SourceMapGenerator = sourceMapGenerator.SourceMapGenerator;
 sourceMap$1.SourceMapConsumer = sourceMapConsumer.SourceMapConsumer;
 sourceMap$1.SourceNode = sourceNode.SourceNode;
 /*!
-  * message-compiler v9.2.0-beta.20
+  * message-compiler v9.2.0-beta.12
   * (c) 2021 kazuya kawaguchi
   * Released under the MIT License.
   */
@@ -4372,7 +4372,7 @@ messageCompiler_cjs_prod.errorMessages = errorMessages;
 var devtoolsIf$1 = { exports: {} };
 var devtoolsIf_cjs_prod = {};
 /*!
-  * devtools-if v9.2.0-beta.20
+  * devtools-if v9.2.0-beta.12
   * (c) 2021 kazuya kawaguchi
   * Released under the MIT License.
   */
@@ -4386,7 +4386,7 @@ devtoolsIf_cjs_prod.IntlifyDevToolsHooks = IntlifyDevToolsHooks;
   devtoolsIf$1.exports = devtoolsIf_cjs_prod;
 }
 /*!
-  * core-base v9.2.0-beta.20
+  * core-base v9.2.0-beta.12
   * (c) 2021 kazuya kawaguchi
   * Released under the MIT License.
   */
@@ -4759,7 +4759,7 @@ function appendItemToChain(chain, target, blocks) {
   }
   return follow;
 }
-const VERSION$1 = "9.2.0-beta.20";
+const VERSION$1 = "9.2.0-beta.12";
 const NOT_REOSLVED = -1;
 const DEFAULT_LOCALE = "en-US";
 const MISSING_RESOLVE_VALUE = "";
@@ -4909,22 +4909,21 @@ function createCoreError(code2) {
 const NOOP_MESSAGE_FUNCTION = () => "";
 const isMessageFunction = (val) => shared$1.isFunction(val);
 function translate(context, ...args) {
-  const { fallbackFormat, postTranslation, unresolving, messageCompiler: messageCompiler2, fallbackLocale, messages } = context;
+  const { fallbackFormat, postTranslation, unresolving, fallbackLocale, messages } = context;
   const [key, options] = parseTranslateArgs(...args);
   const missingWarn = shared$1.isBoolean(options.missingWarn) ? options.missingWarn : context.missingWarn;
   const fallbackWarn = shared$1.isBoolean(options.fallbackWarn) ? options.fallbackWarn : context.fallbackWarn;
   const escapeParameter = shared$1.isBoolean(options.escapeParameter) ? options.escapeParameter : context.escapeParameter;
   const resolvedMessage = !!options.resolvedMessage;
-  const defaultMsgOrKey = shared$1.isString(options.default) || shared$1.isBoolean(options.default) ? !shared$1.isBoolean(options.default) ? options.default : key : fallbackFormat ? !messageCompiler2 ? () => key : key : "";
+  const defaultMsgOrKey = shared$1.isString(options.default) || shared$1.isBoolean(options.default) ? !shared$1.isBoolean(options.default) ? options.default : key : fallbackFormat ? key : "";
   const enableDefaultMsg = fallbackFormat || defaultMsgOrKey !== "";
   const locale = shared$1.isString(options.locale) ? options.locale : context.locale;
   escapeParameter && escapeParams(options);
-  let [formatScope, targetLocale, message] = !resolvedMessage ? resolveMessageFormat(context, key, locale, fallbackLocale, fallbackWarn, missingWarn) : [
+  let [format2, targetLocale, message] = !resolvedMessage ? resolveMessageFormat(context, key, locale, fallbackLocale, fallbackWarn, missingWarn) : [
     key,
     locale,
     messages[locale] || {}
   ];
-  let format2 = formatScope;
   let cacheBaseKey = key;
   if (!resolvedMessage && !(shared$1.isString(format2) || isMessageFunction(format2))) {
     if (enableDefaultMsg) {
@@ -8449,7 +8448,7 @@ function stringifyDynamicPropNames(props) {
   return propsNamesString + `]`;
 }
 function isComponentTag(tag) {
-  return tag === "component" || tag === "Component";
+  return tag[0].toLowerCase() + tag.slice(1) === "component";
 }
 const cacheStringFunction = (fn) => {
   const cache2 = Object.create(null);
@@ -9481,7 +9480,7 @@ var require$$2 = /* @__PURE__ */ getAugmentedNamespace(shared_esmBundler);
   vue$1.exports = vue_cjs_prod;
 }
 /*!
-  * vue-i18n v9.2.0-beta.20
+  * vue-i18n v9.2.0-beta.12
   * (c) 2021 kazuya kawaguchi
   * Released under the MIT License.
   */
@@ -9489,7 +9488,7 @@ Object.defineProperty(vueI18n_cjs_prod, "__esModule", { value: true });
 var coreBase = coreBase$1.exports;
 var vue = vue$1.exports;
 var shared = shared$3.exports;
-const VERSION = "9.2.0-beta.20";
+const VERSION = "9.2.0-beta.12";
 let code = coreBase.CompileErrorCodes.__EXTEND_POINT__;
 const inc = () => code++;
 const I18nErrorCodes = {
@@ -11208,11 +11207,10 @@ const _sfc_main$k = {
 };
 var Images_scss_vue_type_style_index_0_src_scoped_true_lang = "";
 var _export_sfc = (sfc, props) => {
-  const target = sfc.__vccOpts || sfc;
   for (const [key, val] of props) {
-    target[key] = val;
+    sfc[key] = val;
   }
-  return target;
+  return sfc;
 };
 const _withScopeId$2 = (n) => (pushScopeId("data-v-153702b0"), n = n(), popScopeId(), n);
 const _hoisted_1$f = {

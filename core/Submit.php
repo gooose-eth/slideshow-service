@@ -127,6 +127,7 @@ class Submit {
     {
       $data[] = "password='".Util::createPassword($_POST['password'])."'";
     }
+    $data[] = "`update`='".date('Y-m-d H:i:s')."'";
 
     // edit item from database
     $model->edit($data, "`address`='$address'");

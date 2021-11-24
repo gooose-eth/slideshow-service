@@ -155,4 +155,32 @@ class Util {
     return (bool)($_SESSION[$address] ?? false);
   }
 
+  /**
+   * check cookie key
+   *
+   * @param string $key
+   * @return bool
+   */
+  static public function checkCookie($key = ''): bool
+  {
+    return isset($_COOKIE[$key]);
+  }
+
+  /**
+   * set cookie
+   *
+   * @param string $key
+   * @param string $value
+   * @param int $day
+   */
+  static public function setCookie($key = '', $value = '1', $day = 1): void
+  {
+    setcookie(
+      $key,
+      $value,
+      time() + 3600 * 24 * $day,
+      $_ENV['PATH_COOKIE']
+    );
+  }
+
 }

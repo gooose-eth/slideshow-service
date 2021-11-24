@@ -113,10 +113,12 @@ try
       $model = new Model();
       $page = (isset($_GET['page']) && (int)$_GET['page'] > 0) ? (int)$_GET['page'] : 1;
       $size = (int)$_ENV['INDEX_SIZE'];
-      $total = $model->count((object)[]);
+      $where = 'visible=1';
+      $total = $model->count((object)[ 'where' => $where ]);
       $paginate = $model->createPaginate($total, $page, $size);
       $index = $model->index((object)[
         'field' => 'address,title,description,thumbnail,visible,regdate',
+        'where' => $where,
         'limit' => [ ($page - 1) * $size, $size ],
         'order' => '`key`',
         'sort' => 'desc',
@@ -164,6 +166,12 @@ try
           'address' => $item->address,
           'visible' => (int)$item->visible === 1,
         ]));
+        // update hit
+        if (!Util::checkCookie('slideshow-hit-'.$data->address))
+        {
+          $model->edit([ 'hit=' . ((int)$item->hit + 1) ], '`key`='.$item->key);
+          Util::setCookie('slideshow-hit-'.$data->address, '1', 7);
+        }
       }
       else
       {
