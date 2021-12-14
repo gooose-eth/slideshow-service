@@ -7,90 +7,13 @@ function makeMap(str, expectsLowerCase) {
   }
   return expectsLowerCase ? (val) => !!map[val.toLowerCase()] : (val) => !!map[val];
 }
-const PatchFlagNames = {
-  [1]: `TEXT`,
-  [2]: `CLASS`,
-  [4]: `STYLE`,
-  [8]: `PROPS`,
-  [16]: `FULL_PROPS`,
-  [32]: `HYDRATE_EVENTS`,
-  [64]: `STABLE_FRAGMENT`,
-  [128]: `KEYED_FRAGMENT`,
-  [256]: `UNKEYED_FRAGMENT`,
-  [512]: `NEED_PATCH`,
-  [1024]: `DYNAMIC_SLOTS`,
-  [2048]: `DEV_ROOT_FRAGMENT`,
-  [-1]: `HOISTED`,
-  [-2]: `BAIL`
-};
-const slotFlagsText = {
-  [1]: "STABLE",
-  [2]: "DYNAMIC",
-  [3]: "FORWARDED"
-};
 const GLOBALS_WHITE_LISTED = "Infinity,undefined,NaN,isFinite,isNaN,parseFloat,parseInt,decodeURI,decodeURIComponent,encodeURI,encodeURIComponent,Math,Number,Date,Array,Object,Boolean,String,RegExp,Map,Set,JSON,Intl,BigInt";
 const isGloballyWhitelisted = /* @__PURE__ */ makeMap(GLOBALS_WHITE_LISTED);
-const range = 2;
-function generateCodeFrame(source, start = 0, end = source.length) {
-  let lines = source.split(/(\r?\n)/);
-  const newlineSequences = lines.filter((_, idx) => idx % 2 === 1);
-  lines = lines.filter((_, idx) => idx % 2 === 0);
-  let count = 0;
-  const res = [];
-  for (let i = 0; i < lines.length; i++) {
-    count += lines[i].length + (newlineSequences[i] && newlineSequences[i].length || 0);
-    if (count >= start) {
-      for (let j = i - range; j <= i + range || end > count; j++) {
-        if (j < 0 || j >= lines.length)
-          continue;
-        const line = j + 1;
-        res.push(`${line}${" ".repeat(Math.max(3 - String(line).length, 0))}|  ${lines[j]}`);
-        const lineLength = lines[j].length;
-        const newLineSeqLength = newlineSequences[j] && newlineSequences[j].length || 0;
-        if (j === i) {
-          const pad = start - (count - (lineLength + newLineSeqLength));
-          const length = Math.max(1, end > count ? lineLength - pad : end - start);
-          res.push(`   |  ` + " ".repeat(pad) + "^".repeat(length));
-        } else if (j > i) {
-          if (end > count) {
-            const length = Math.max(Math.min(end - count, lineLength), 1);
-            res.push(`   |  ` + "^".repeat(length));
-          }
-          count += lineLength + newLineSeqLength;
-        }
-      }
-      break;
-    }
-  }
-  return res.join("\n");
-}
 const specialBooleanAttrs = `itemscope,allowfullscreen,formnovalidate,ismap,nomodule,novalidate,readonly`;
 const isSpecialBooleanAttr = /* @__PURE__ */ makeMap(specialBooleanAttrs);
-const isBooleanAttr = /* @__PURE__ */ makeMap(specialBooleanAttrs + `,async,autofocus,autoplay,controls,default,defer,disabled,hidden,loop,open,required,reversed,scoped,seamless,checked,muted,multiple,selected`);
 function includeBooleanAttr(value) {
   return !!value || value === "";
 }
-const unsafeAttrCharRE = /[>/="'\u0009\u000a\u000c\u0020]/;
-const attrValidationCache = {};
-function isSSRSafeAttrName(name) {
-  if (attrValidationCache.hasOwnProperty(name)) {
-    return attrValidationCache[name];
-  }
-  const isUnsafe = unsafeAttrCharRE.test(name);
-  if (isUnsafe) {
-    console.error(`unsafe attribute name: ${name}`);
-  }
-  return attrValidationCache[name] = !isUnsafe;
-}
-const propsToAttrMap = {
-  acceptCharset: "accept-charset",
-  className: "class",
-  htmlFor: "for",
-  httpEquiv: "http-equiv"
-};
-const isNoUnitNumericStyleProp = /* @__PURE__ */ makeMap(`animation-iteration-count,border-image-outset,border-image-slice,border-image-width,box-flex,box-flex-group,box-ordinal-group,column-count,columns,flex,flex-grow,flex-positive,flex-shrink,flex-negative,flex-order,grid-row,grid-row-end,grid-row-span,grid-row-start,grid-column,grid-column-end,grid-column-span,grid-column-start,font-weight,line-clamp,line-height,opacity,order,orphans,tab-size,widows,z-index,zoom,fill-opacity,flood-opacity,stop-opacity,stroke-dasharray,stroke-dashoffset,stroke-miterlimit,stroke-opacity,stroke-width`);
-const isKnownHtmlAttr = /* @__PURE__ */ makeMap(`accept,accept-charset,accesskey,action,align,allow,alt,async,autocapitalize,autocomplete,autofocus,autoplay,background,bgcolor,border,buffered,capture,challenge,charset,checked,cite,class,code,codebase,color,cols,colspan,content,contenteditable,contextmenu,controls,coords,crossorigin,csp,data,datetime,decoding,default,defer,dir,dirname,disabled,download,draggable,dropzone,enctype,enterkeyhint,for,form,formaction,formenctype,formmethod,formnovalidate,formtarget,headers,height,hidden,high,href,hreflang,http-equiv,icon,id,importance,integrity,ismap,itemprop,keytype,kind,label,lang,language,loading,list,loop,low,manifest,max,maxlength,minlength,media,min,multiple,muted,name,novalidate,open,optimum,pattern,ping,placeholder,poster,preload,radiogroup,readonly,referrerpolicy,rel,required,reversed,rows,rowspan,sandbox,scope,scoped,selected,shape,size,sizes,slot,span,spellcheck,src,srcdoc,srclang,srcset,start,step,style,summary,tabindex,target,title,translate,type,usemap,value,width,wrap`);
-const isKnownSvgAttr = /* @__PURE__ */ makeMap(`xmlns,accent-height,accumulate,additive,alignment-baseline,alphabetic,amplitude,arabic-form,ascent,attributeName,attributeType,azimuth,baseFrequency,baseline-shift,baseProfile,bbox,begin,bias,by,calcMode,cap-height,class,clip,clipPathUnits,clip-path,clip-rule,color,color-interpolation,color-interpolation-filters,color-profile,color-rendering,contentScriptType,contentStyleType,crossorigin,cursor,cx,cy,d,decelerate,descent,diffuseConstant,direction,display,divisor,dominant-baseline,dur,dx,dy,edgeMode,elevation,enable-background,end,exponent,fill,fill-opacity,fill-rule,filter,filterRes,filterUnits,flood-color,flood-opacity,font-family,font-size,font-size-adjust,font-stretch,font-style,font-variant,font-weight,format,from,fr,fx,fy,g1,g2,glyph-name,glyph-orientation-horizontal,glyph-orientation-vertical,glyphRef,gradientTransform,gradientUnits,hanging,height,href,hreflang,horiz-adv-x,horiz-origin-x,id,ideographic,image-rendering,in,in2,intercept,k,k1,k2,k3,k4,kernelMatrix,kernelUnitLength,kerning,keyPoints,keySplines,keyTimes,lang,lengthAdjust,letter-spacing,lighting-color,limitingConeAngle,local,marker-end,marker-mid,marker-start,markerHeight,markerUnits,markerWidth,mask,maskContentUnits,maskUnits,mathematical,max,media,method,min,mode,name,numOctaves,offset,opacity,operator,order,orient,orientation,origin,overflow,overline-position,overline-thickness,panose-1,paint-order,path,pathLength,patternContentUnits,patternTransform,patternUnits,ping,pointer-events,points,pointsAtX,pointsAtY,pointsAtZ,preserveAlpha,preserveAspectRatio,primitiveUnits,r,radius,referrerPolicy,refX,refY,rel,rendering-intent,repeatCount,repeatDur,requiredExtensions,requiredFeatures,restart,result,rotate,rx,ry,scale,seed,shape-rendering,slope,spacing,specularConstant,specularExponent,speed,spreadMethod,startOffset,stdDeviation,stemh,stemv,stitchTiles,stop-color,stop-opacity,strikethrough-position,strikethrough-thickness,string,stroke,stroke-dasharray,stroke-dashoffset,stroke-linecap,stroke-linejoin,stroke-miterlimit,stroke-opacity,stroke-width,style,surfaceScale,systemLanguage,tabindex,tableValues,target,targetX,targetY,text-anchor,text-decoration,text-rendering,textLength,to,transform,transform-origin,type,u1,u2,underline-position,underline-thickness,unicode,unicode-bidi,unicode-range,units-per-em,v-alphabetic,v-hanging,v-ideographic,v-mathematical,values,vector-effect,version,vert-adv-y,vert-origin-x,vert-origin-y,viewBox,viewTarget,visibility,width,widths,word-spacing,writing-mode,x,x-height,x1,x2,xChannelSelector,xlink:actuate,xlink:arcrole,xlink:href,xlink:role,xlink:show,xlink:title,xlink:type,xml:base,xml:lang,xml:space,y,y1,y2,yChannelSelector,z,zoomAndPan`);
 function normalizeStyle(value) {
   if (isArray(value)) {
     const res = {};
@@ -120,20 +43,6 @@ function parseStringStyle(cssText) {
       tmp.length > 1 && (ret[tmp[0].trim()] = tmp[1].trim());
     }
   });
-  return ret;
-}
-function stringifyStyle(styles) {
-  let ret = "";
-  if (!styles || isString(styles)) {
-    return ret;
-  }
-  for (const key in styles) {
-    const value = styles[key];
-    const normalizedKey = key.startsWith(`--`) ? key : hyphenate(key);
-    if (isString(value) || typeof value === "number" && isNoUnitNumericStyleProp(normalizedKey)) {
-      ret += `${normalizedKey}:${value};`;
-    }
-  }
   return ret;
 }
 function normalizeClass(value) {
@@ -167,55 +76,6 @@ function normalizeProps(props) {
     props.style = normalizeStyle(style);
   }
   return props;
-}
-const HTML_TAGS = "html,body,base,head,link,meta,style,title,address,article,aside,footer,header,h1,h2,h3,h4,h5,h6,nav,section,div,dd,dl,dt,figcaption,figure,picture,hr,img,li,main,ol,p,pre,ul,a,b,abbr,bdi,bdo,br,cite,code,data,dfn,em,i,kbd,mark,q,rp,rt,ruby,s,samp,small,span,strong,sub,sup,time,u,var,wbr,area,audio,map,track,video,embed,object,param,source,canvas,script,noscript,del,ins,caption,col,colgroup,table,thead,tbody,td,th,tr,button,datalist,fieldset,form,input,label,legend,meter,optgroup,option,output,progress,select,textarea,details,dialog,menu,summary,template,blockquote,iframe,tfoot";
-const SVG_TAGS = "svg,animate,animateMotion,animateTransform,circle,clipPath,color-profile,defs,desc,discard,ellipse,feBlend,feColorMatrix,feComponentTransfer,feComposite,feConvolveMatrix,feDiffuseLighting,feDisplacementMap,feDistanceLight,feDropShadow,feFlood,feFuncA,feFuncB,feFuncG,feFuncR,feGaussianBlur,feImage,feMerge,feMergeNode,feMorphology,feOffset,fePointLight,feSpecularLighting,feSpotLight,feTile,feTurbulence,filter,foreignObject,g,hatch,hatchpath,image,line,linearGradient,marker,mask,mesh,meshgradient,meshpatch,meshrow,metadata,mpath,path,pattern,polygon,polyline,radialGradient,rect,set,solidcolor,stop,switch,symbol,text,textPath,title,tspan,unknown,use,view";
-const VOID_TAGS = "area,base,br,col,embed,hr,img,input,link,meta,param,source,track,wbr";
-const isHTMLTag = /* @__PURE__ */ makeMap(HTML_TAGS);
-const isSVGTag = /* @__PURE__ */ makeMap(SVG_TAGS);
-const isVoidTag = /* @__PURE__ */ makeMap(VOID_TAGS);
-const escapeRE = /["'&<>]/;
-function escapeHtml(string) {
-  const str = "" + string;
-  const match = escapeRE.exec(str);
-  if (!match) {
-    return str;
-  }
-  let html = "";
-  let escaped;
-  let index;
-  let lastIndex = 0;
-  for (index = match.index; index < str.length; index++) {
-    switch (str.charCodeAt(index)) {
-      case 34:
-        escaped = "&quot;";
-        break;
-      case 38:
-        escaped = "&amp;";
-        break;
-      case 39:
-        escaped = "&#39;";
-        break;
-      case 60:
-        escaped = "&lt;";
-        break;
-      case 62:
-        escaped = "&gt;";
-        break;
-      default:
-        continue;
-    }
-    if (lastIndex !== index) {
-      html += str.slice(lastIndex, index);
-    }
-    lastIndex = index + 1;
-    html += escaped;
-  }
-  return lastIndex !== index ? html + str.slice(lastIndex, index) : html;
-}
-const commentStripRE = /^-?>|<!--|-->|--!>|<!-$/g;
-function escapeHtmlComment(src) {
-  return src.replace(commentStripRE, "");
 }
 function looseCompareArrays(a, b) {
   if (a.length !== b.length)
@@ -320,7 +180,7 @@ const toRawType = (value) => {
 };
 const isPlainObject = (val) => toTypeString(val) === "[object Object]";
 const isIntegerKey = (key) => isString(key) && key !== "NaN" && key[0] !== "-" && "" + parseInt(key, 10) === key;
-const isReservedProp = /* @__PURE__ */ makeMap(",key,ref,onVnodeBeforeMount,onVnodeMounted,onVnodeBeforeUpdate,onVnodeUpdated,onVnodeBeforeUnmount,onVnodeUnmounted");
+const isReservedProp = /* @__PURE__ */ makeMap(",key,ref,ref_for,ref_key,onVnodeBeforeMount,onVnodeMounted,onVnodeBeforeUpdate,onVnodeUpdated,onVnodeBeforeUnmount,onVnodeUnmounted");
 const cacheStringFunction = (fn) => {
   const cache = Object.create(null);
   return (str) => {
@@ -357,69 +217,6 @@ let _globalThis;
 const getGlobalThis = () => {
   return _globalThis || (_globalThis = typeof globalThis !== "undefined" ? globalThis : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : typeof global !== "undefined" ? global : {});
 };
-var shared_esmBundler = /* @__PURE__ */ Object.freeze({
-  __proto__: null,
-  [Symbol.toStringTag]: "Module",
-  EMPTY_ARR,
-  EMPTY_OBJ,
-  NO,
-  NOOP,
-  PatchFlagNames,
-  camelize,
-  capitalize,
-  def,
-  escapeHtml,
-  escapeHtmlComment,
-  extend,
-  generateCodeFrame,
-  getGlobalThis,
-  hasChanged,
-  hasOwn,
-  hyphenate,
-  includeBooleanAttr,
-  invokeArrayFns,
-  isArray,
-  isBooleanAttr,
-  isDate,
-  isFunction,
-  isGloballyWhitelisted,
-  isHTMLTag,
-  isIntegerKey,
-  isKnownHtmlAttr,
-  isKnownSvgAttr,
-  isMap,
-  isModelListener,
-  isNoUnitNumericStyleProp,
-  isObject,
-  isOn,
-  isPlainObject,
-  isPromise,
-  isReservedProp,
-  isSSRSafeAttrName,
-  isSVGTag,
-  isSet,
-  isSpecialBooleanAttr,
-  isString,
-  isSymbol,
-  isVoidTag,
-  looseEqual,
-  looseIndexOf,
-  makeMap,
-  normalizeClass,
-  normalizeProps,
-  normalizeStyle,
-  objectToString,
-  parseStringStyle,
-  propsToAttrMap,
-  remove,
-  slotFlagsText,
-  stringifyStyle,
-  toDisplayString,
-  toHandlerKey,
-  toNumber,
-  toRawType,
-  toTypeString
-});
 let activeEffectScope;
 const effectScopeStack = [];
 class EffectScope {
@@ -793,7 +590,7 @@ const shallowSet = /* @__PURE__ */ createSetter(true);
 function createSetter(shallow = false) {
   return function set2(target, key, value, receiver) {
     let oldValue = target[key];
-    if (!shallow) {
+    if (!shallow && !isReadonly(value)) {
       value = toRaw(value);
       oldValue = toRaw(oldValue);
       if (!isArray(target) && isRef(oldValue) && !isRef(value)) {
@@ -1265,21 +1062,23 @@ function toRefs(object) {
   return ret;
 }
 class ObjectRefImpl {
-  constructor(_object, _key) {
+  constructor(_object, _key, _defaultValue) {
     this._object = _object;
     this._key = _key;
+    this._defaultValue = _defaultValue;
     this.__v_isRef = true;
   }
   get value() {
-    return this._object[this._key];
+    const val = this._object[this._key];
+    return val === void 0 ? this._defaultValue : val;
   }
   set value(newVal) {
     this._object[this._key] = newVal;
   }
 }
-function toRef(object, key) {
+function toRef(object, key, defaultValue) {
   const val = object[key];
-  return isRef(val) ? val : new ObjectRefImpl(object, key);
+  return isRef(val) ? val : new ObjectRefImpl(object, key, defaultValue);
 }
 class ComputedRefImpl {
   constructor(getter, _setter, isReadonly2) {
@@ -1326,19 +1125,25 @@ Promise.resolve();
 let devtools;
 let buffer = [];
 function setDevtoolsHook(hook, target) {
+  var _a2, _b;
   devtools = hook;
   if (devtools) {
     devtools.enabled = true;
     buffer.forEach(({ event, args }) => devtools.emit(event, ...args));
     buffer = [];
-  } else {
+  } else if (typeof window !== "undefined" && window.HTMLElement && !((_b = (_a2 = window.navigator) === null || _a2 === void 0 ? void 0 : _a2.userAgent) === null || _b === void 0 ? void 0 : _b.includes("jsdom"))) {
     const replay = target.__VUE_DEVTOOLS_HOOK_REPLAY__ = target.__VUE_DEVTOOLS_HOOK_REPLAY__ || [];
     replay.push((newHook) => {
       setDevtoolsHook(newHook, target);
     });
     setTimeout(() => {
-      buffer = [];
+      if (!devtools) {
+        target.__VUE_DEVTOOLS_HOOK_REPLAY__ = null;
+        buffer = [];
+      }
     }, 3e3);
+  } else {
+    buffer = [];
   }
 }
 function emit$1(instance, event, ...rawArgs) {
@@ -2483,7 +2288,7 @@ function registerKeepAliveHook(hook, type, target = currentInstance) {
       }
       current = current.parent;
     }
-    hook();
+    return hook();
   });
   injectHook(type, wrappedHook, target);
   if (target) {
@@ -2946,7 +2751,7 @@ function setFullProps(instance, rawProps, props, attrs) {
           (rawCastValues || (rawCastValues = {}))[camelKey] = value;
         }
       } else if (!isEmitListener(instance.emitsOptions, key)) {
-        if (value !== attrs[key]) {
+        if (!(key in attrs) || value !== attrs[key]) {
           attrs[key] = value;
           hasAttrsChanged = true;
         }
@@ -3306,6 +3111,75 @@ function createAppAPI(render2, hydrate2) {
     };
     return app2;
   };
+}
+function setRef(rawRef, oldRawRef, parentSuspense, vnode, isUnmount = false) {
+  if (isArray(rawRef)) {
+    rawRef.forEach((r, i) => setRef(r, oldRawRef && (isArray(oldRawRef) ? oldRawRef[i] : oldRawRef), parentSuspense, vnode, isUnmount));
+    return;
+  }
+  if (isAsyncWrapper(vnode) && !isUnmount) {
+    return;
+  }
+  const refValue = vnode.shapeFlag & 4 ? getExposeProxy(vnode.component) || vnode.component.proxy : vnode.el;
+  const value = isUnmount ? null : refValue;
+  const { i: owner, r: ref2 } = rawRef;
+  const oldRef = oldRawRef && oldRawRef.r;
+  const refs = owner.refs === EMPTY_OBJ ? owner.refs = {} : owner.refs;
+  const setupState = owner.setupState;
+  if (oldRef != null && oldRef !== ref2) {
+    if (isString(oldRef)) {
+      refs[oldRef] = null;
+      if (hasOwn(setupState, oldRef)) {
+        setupState[oldRef] = null;
+      }
+    } else if (isRef(oldRef)) {
+      oldRef.value = null;
+    }
+  }
+  if (isFunction(ref2)) {
+    callWithErrorHandling(ref2, owner, 12, [value, refs]);
+  } else {
+    const _isString = isString(ref2);
+    const _isRef = isRef(ref2);
+    if (_isString || _isRef) {
+      const doSet = () => {
+        if (rawRef.f) {
+          const existing = _isString ? refs[ref2] : ref2.value;
+          if (isUnmount) {
+            isArray(existing) && remove(existing, refValue);
+          } else {
+            if (!isArray(existing)) {
+              if (_isString) {
+                refs[ref2] = [refValue];
+              } else {
+                ref2.value = [refValue];
+                if (rawRef.k)
+                  refs[rawRef.k] = ref2.value;
+              }
+            } else if (!existing.includes(refValue)) {
+              existing.push(refValue);
+            }
+          }
+        } else if (_isString) {
+          refs[ref2] = value;
+          if (hasOwn(setupState, ref2)) {
+            setupState[ref2] = value;
+          }
+        } else if (isRef(ref2)) {
+          ref2.value = value;
+          if (rawRef.k)
+            refs[rawRef.k] = value;
+        } else
+          ;
+      };
+      if (value) {
+        doSet.id = -1;
+        queuePostRenderEffect(doSet, parentSuspense);
+      } else {
+        doSet();
+      }
+    }
+  }
 }
 let hasMismatch = false;
 const isSVGContainer = (container) => /svg/.test(container.namespaceURI) && container.tagName !== "foreignObject";
@@ -3714,12 +3588,14 @@ function baseCreateRenderer(options, createHydrationFns) {
     const oldProps = n1.props || EMPTY_OBJ;
     const newProps = n2.props || EMPTY_OBJ;
     let vnodeHook;
+    parentComponent && toggleRecurse(parentComponent, false);
     if (vnodeHook = newProps.onVnodeBeforeUpdate) {
       invokeVNodeHook(vnodeHook, parentComponent, n2, n1);
     }
     if (dirs) {
       invokeDirectiveHook(n2, n1, parentComponent, "beforeUpdate");
     }
+    parentComponent && toggleRecurse(parentComponent, true);
     const areChildrenSVG = isSVG && n2.type !== "foreignObject";
     if (dynamicChildren) {
       patchBlockChildren(n1.dynamicChildren, dynamicChildren, el, parentComponent, parentSuspense, areChildrenSVG, slotScopeIds);
@@ -3872,14 +3748,14 @@ function baseCreateRenderer(options, createHydrationFns) {
         const { el, props } = initialVNode;
         const { bm, m, parent } = instance;
         const isAsyncWrapperVNode = isAsyncWrapper(initialVNode);
-        effect2.allowRecurse = false;
+        toggleRecurse(instance, false);
         if (bm) {
           invokeArrayFns(bm);
         }
         if (!isAsyncWrapperVNode && (vnodeHook = props && props.onVnodeBeforeMount)) {
           invokeVNodeHook(vnodeHook, parent, initialVNode);
         }
-        effect2.allowRecurse = true;
+        toggleRecurse(instance, true);
         if (el && hydrateNode) {
           const hydrateSubTree = () => {
             instance.subTree = renderComponentRoot(instance);
@@ -3911,7 +3787,7 @@ function baseCreateRenderer(options, createHydrationFns) {
         let { next, bu, u, parent, vnode } = instance;
         let originNext = next;
         let vnodeHook;
-        effect2.allowRecurse = false;
+        toggleRecurse(instance, false);
         if (next) {
           next.el = vnode.el;
           updateComponentPreRender(instance, next, optimized);
@@ -3924,7 +3800,7 @@ function baseCreateRenderer(options, createHydrationFns) {
         if (vnodeHook = next.props && next.props.onVnodeBeforeUpdate) {
           invokeVNodeHook(vnodeHook, parent, next, vnode);
         }
-        effect2.allowRecurse = true;
+        toggleRecurse(instance, true);
         const nextTree = renderComponentRoot(instance);
         const prevTree = instance.subTree;
         instance.subTree = nextTree;
@@ -3941,10 +3817,10 @@ function baseCreateRenderer(options, createHydrationFns) {
         }
       }
     };
-    const effect2 = new ReactiveEffect(componentUpdateFn, () => queueJob(instance.update), instance.scope);
+    const effect2 = instance.effect = new ReactiveEffect(componentUpdateFn, () => queueJob(instance.update), instance.scope);
     const update = instance.update = effect2.run.bind(effect2);
     update.id = instance.uid;
-    effect2.allowRecurse = update.allowRecurse = true;
+    toggleRecurse(instance, true);
     update();
   };
   const updateComponentPreRender = (instance, nextVNode, optimized) => {
@@ -4321,65 +4197,8 @@ function baseCreateRenderer(options, createHydrationFns) {
     createApp: createAppAPI(render2, hydrate2)
   };
 }
-function setRef(rawRef, oldRawRef, parentSuspense, vnode, isUnmount = false) {
-  if (isArray(rawRef)) {
-    rawRef.forEach((r, i) => setRef(r, oldRawRef && (isArray(oldRawRef) ? oldRawRef[i] : oldRawRef), parentSuspense, vnode, isUnmount));
-    return;
-  }
-  if (isAsyncWrapper(vnode) && !isUnmount) {
-    return;
-  }
-  const refValue = vnode.shapeFlag & 4 ? getExposeProxy(vnode.component) || vnode.component.proxy : vnode.el;
-  const value = isUnmount ? null : refValue;
-  const { i: owner, r: ref2 } = rawRef;
-  const oldRef = oldRawRef && oldRawRef.r;
-  const refs = owner.refs === EMPTY_OBJ ? owner.refs = {} : owner.refs;
-  const setupState = owner.setupState;
-  if (oldRef != null && oldRef !== ref2) {
-    if (isString(oldRef)) {
-      refs[oldRef] = null;
-      if (hasOwn(setupState, oldRef)) {
-        setupState[oldRef] = null;
-      }
-    } else if (isRef(oldRef)) {
-      oldRef.value = null;
-    }
-  }
-  if (isString(ref2)) {
-    const doSet = () => {
-      {
-        refs[ref2] = value;
-      }
-      if (hasOwn(setupState, ref2)) {
-        setupState[ref2] = value;
-      }
-    };
-    if (value) {
-      doSet.id = -1;
-      queuePostRenderEffect(doSet, parentSuspense);
-    } else {
-      doSet();
-    }
-  } else if (isRef(ref2)) {
-    const doSet = () => {
-      ref2.value = value;
-    };
-    if (value) {
-      doSet.id = -1;
-      queuePostRenderEffect(doSet, parentSuspense);
-    } else {
-      doSet();
-    }
-  } else if (isFunction(ref2)) {
-    callWithErrorHandling(ref2, owner, 12, [value, refs]);
-  } else
-    ;
-}
-function invokeVNodeHook(hook, instance, vnode, prevVNode = null) {
-  callWithAsyncErrorHandling(hook, instance, 7, [
-    vnode,
-    prevVNode
-  ]);
+function toggleRecurse({ effect: effect2, update }, allowed) {
+  effect2.allowRecurse = update.allowRecurse = allowed;
 }
 function traverseStaticChildren(n1, n2, shallow = false) {
   const ch1 = n1.children;
@@ -4646,8 +4465,8 @@ function transformVNodeArgs(transformer) {
 }
 const InternalObjectKey = `__vInternal`;
 const normalizeKey = ({ key }) => key != null ? key : null;
-const normalizeRef = ({ ref: ref2 }) => {
-  return ref2 != null ? isString(ref2) || isRef(ref2) || isFunction(ref2) ? { i: currentRenderingInstance, r: ref2 } : ref2 : null;
+const normalizeRef = ({ ref: ref2, ref_key, ref_for }) => {
+  return ref2 != null ? isString(ref2) || isRef(ref2) || isFunction(ref2) ? { i: currentRenderingInstance, r: ref2, k: ref_key, f: !!ref_for } : ref2 : null;
 };
 function createBaseVNode(type, props = null, children = null, patchFlag = 0, dynamicProps = null, shapeFlag = type === Fragment ? 0 : 1, isBlockNode = false, needFullChildrenNormalization = false) {
   const vnode = {
@@ -4842,7 +4661,7 @@ function mergeProps(...args) {
       } else if (isOn(key)) {
         const existing = ret[key];
         const incoming = toMerge[key];
-        if (existing !== incoming) {
+        if (existing !== incoming && !(isArray(existing) && existing.includes(incoming))) {
           ret[key] = existing ? [].concat(existing, incoming) : incoming;
         }
       } else if (key !== "") {
@@ -4851,6 +4670,12 @@ function mergeProps(...args) {
     }
   }
   return ret;
+}
+function invokeVNodeHook(hook, instance, vnode, prevVNode = null) {
+  callWithAsyncErrorHandling(hook, instance, 7, [
+    vnode,
+    prevVNode
+  ]);
 }
 function renderList(source, renderItem, cache, index) {
   let ret;
@@ -4965,29 +4790,29 @@ const PublicInstanceProxyHandlers = {
       const n = accessCache[key];
       if (n !== void 0) {
         switch (n) {
-          case 0:
-            return setupState[key];
           case 1:
-            return data[key];
-          case 3:
-            return ctx[key];
+            return setupState[key];
           case 2:
+            return data[key];
+          case 4:
+            return ctx[key];
+          case 3:
             return props[key];
         }
       } else if (setupState !== EMPTY_OBJ && hasOwn(setupState, key)) {
-        accessCache[key] = 0;
+        accessCache[key] = 1;
         return setupState[key];
       } else if (data !== EMPTY_OBJ && hasOwn(data, key)) {
-        accessCache[key] = 1;
+        accessCache[key] = 2;
         return data[key];
       } else if ((normalizedProps = instance.propsOptions[0]) && hasOwn(normalizedProps, key)) {
-        accessCache[key] = 2;
+        accessCache[key] = 3;
         return props[key];
       } else if (ctx !== EMPTY_OBJ && hasOwn(ctx, key)) {
-        accessCache[key] = 3;
+        accessCache[key] = 4;
         return ctx[key];
       } else if (shouldCacheAccess) {
-        accessCache[key] = 4;
+        accessCache[key] = 0;
       }
     }
     const publicGetter = publicPropertiesMap[key];
@@ -5000,7 +4825,7 @@ const PublicInstanceProxyHandlers = {
     } else if ((cssModule = type.__cssModules) && (cssModule = cssModule[key])) {
       return cssModule;
     } else if (ctx !== EMPTY_OBJ && hasOwn(ctx, key)) {
-      accessCache[key] = 3;
+      accessCache[key] = 4;
       return ctx[key];
     } else if (globalProperties = appContext.config.globalProperties, hasOwn(globalProperties, key)) {
       {
@@ -5029,7 +4854,7 @@ const PublicInstanceProxyHandlers = {
   },
   has({ _: { data, setupState, accessCache, ctx, appContext, propsOptions } }, key) {
     let normalizedProps;
-    return accessCache[key] !== void 0 || data !== EMPTY_OBJ && hasOwn(data, key) || setupState !== EMPTY_OBJ && hasOwn(setupState, key) || (normalizedProps = propsOptions[0]) && hasOwn(normalizedProps, key) || hasOwn(ctx, key) || hasOwn(publicPropertiesMap, key) || hasOwn(appContext.config.globalProperties, key);
+    return !!accessCache[key] || data !== EMPTY_OBJ && hasOwn(data, key) || setupState !== EMPTY_OBJ && hasOwn(setupState, key) || (normalizedProps = propsOptions[0]) && hasOwn(normalizedProps, key) || hasOwn(ctx, key) || hasOwn(publicPropertiesMap, key) || hasOwn(appContext.config.globalProperties, key);
   }
 };
 const RuntimeCompiledPublicInstanceProxyHandlers = /* @__PURE__ */ extend({}, PublicInstanceProxyHandlers, {
@@ -5058,6 +4883,7 @@ function createComponentInstance(vnode, parent, suspense) {
     root: null,
     next: null,
     subTree: null,
+    effect: null,
     update: null,
     scope: new EffectScope(true),
     render: null,
@@ -5861,7 +5687,7 @@ function isMemoSame(cached, memo) {
   }
   return true;
 }
-const version = "3.2.20";
+const version = "3.2.26";
 const _ssrUtils = {
   createComponentInstance,
   setupComponent,
@@ -5952,14 +5778,8 @@ function patchClass(el, value, isSVG) {
 }
 function patchStyle(el, prev, next) {
   const style = el.style;
-  const currentDisplay = style.display;
-  if (!next) {
-    el.removeAttribute("style");
-  } else if (isString(next)) {
-    if (prev !== next) {
-      style.cssText = next;
-    }
-  } else {
+  const isCssString = isString(next);
+  if (next && !isCssString) {
     for (const key in next) {
       setStyle(style, key, next[key]);
     }
@@ -5970,9 +5790,18 @@ function patchStyle(el, prev, next) {
         }
       }
     }
-  }
-  if ("_vod" in el) {
-    style.display = currentDisplay;
+  } else {
+    const currentDisplay = style.display;
+    if (isCssString) {
+      if (prev !== next) {
+        style.cssText = next;
+      }
+    } else if (prev) {
+      el.removeAttribute("style");
+    }
+    if ("_vod" in el) {
+      style.display = currentDisplay;
+    }
   }
 }
 const importantRE = /\s*!important$/;
@@ -6037,10 +5866,10 @@ function patchDOMProp(el, key, value, prevChildren, parentComponent, parentSuspe
     el[key] = value == null ? "" : value;
     return;
   }
-  if (key === "value" && el.tagName !== "PROGRESS") {
+  if (key === "value" && el.tagName !== "PROGRESS" && !el.tagName.includes("-")) {
     el._value = value;
     const newValue = value == null ? "" : value;
-    if (el.value !== newValue) {
+    if (el.value !== newValue || el.tagName === "OPTION") {
       el.value = newValue;
     }
     if (value == null) {
@@ -6221,20 +6050,11 @@ class VueElement extends BaseClass {
     } else {
       this.attachShadow({ mode: "open" });
     }
-    for (let i = 0; i < this.attributes.length; i++) {
-      this._setAttr(this.attributes[i].name);
-    }
-    new MutationObserver((mutations) => {
-      for (const m of mutations) {
-        this._setAttr(m.attributeName);
-      }
-    }).observe(this, { attributes: true });
   }
   connectedCallback() {
     this._connected = true;
     if (!this._instance) {
       this._resolveDef();
-      this._update();
     }
   }
   disconnectedCallback() {
@@ -6250,8 +6070,16 @@ class VueElement extends BaseClass {
     if (this._resolved) {
       return;
     }
+    this._resolved = true;
+    for (let i = 0; i < this.attributes.length; i++) {
+      this._setAttr(this.attributes[i].name);
+    }
+    new MutationObserver((mutations) => {
+      for (const m of mutations) {
+        this._setAttr(m.attributeName);
+      }
+    }).observe(this, { attributes: true });
     const resolve2 = (def2) => {
-      this._resolved = true;
       const { props, styles } = def2;
       const hasOptions = !isArray(props);
       const rawKeys = props ? hasOptions ? Object.keys(props) : props : [];
@@ -6265,13 +6093,10 @@ class VueElement extends BaseClass {
           }
         }
       }
-      if (numberProps) {
-        this._numberProps = numberProps;
-        this._update();
-      }
+      this._numberProps = numberProps;
       for (const key of Object.keys(this)) {
         if (key[0] !== "_") {
-          this._setProp(key, this[key]);
+          this._setProp(key, this[key], true, false);
         }
       }
       for (const key of rawKeys.map(camelize)) {
@@ -6285,6 +6110,7 @@ class VueElement extends BaseClass {
         });
       }
       this._applyStyles(styles);
+      this._update();
     };
     const asyncDef = this._def.__asyncLoader;
     if (asyncDef) {
@@ -6303,10 +6129,10 @@ class VueElement extends BaseClass {
   _getProp(key) {
     return this._props[key];
   }
-  _setProp(key, val, shouldReflect = true) {
+  _setProp(key, val, shouldReflect = true, shouldUpdate = true) {
     if (val !== this._props[key]) {
       this._props[key] = val;
-      if (this._instance) {
+      if (shouldUpdate && this._instance) {
         this._update();
       }
       if (shouldReflect) {
@@ -7151,155 +6977,6 @@ const initDirectivesForSSR = () => {
     initVShowForSSR();
   }
 };
-var runtimeDom_esmBundler = /* @__PURE__ */ Object.freeze({
-  __proto__: null,
-  [Symbol.toStringTag]: "Module",
-  Transition,
-  TransitionGroup,
-  VueElement,
-  createApp,
-  createSSRApp,
-  defineCustomElement,
-  defineSSRCustomElement,
-  hydrate,
-  initDirectivesForSSR,
-  render,
-  useCssModule,
-  useCssVars,
-  vModelCheckbox,
-  vModelDynamic,
-  vModelRadio,
-  vModelSelect,
-  vModelText,
-  vShow,
-  withKeys,
-  withModifiers,
-  EffectScope,
-  ReactiveEffect,
-  computed,
-  customRef,
-  effect,
-  effectScope,
-  getCurrentScope,
-  isProxy,
-  isReactive,
-  isReadonly,
-  isRef,
-  markRaw,
-  onScopeDispose,
-  proxyRefs,
-  reactive,
-  readonly,
-  ref,
-  shallowReactive,
-  shallowReadonly,
-  shallowRef,
-  stop,
-  toRaw,
-  toRef,
-  toRefs,
-  triggerRef,
-  unref,
-  camelize,
-  capitalize,
-  normalizeClass,
-  normalizeProps,
-  normalizeStyle,
-  toDisplayString,
-  toHandlerKey,
-  BaseTransition,
-  Comment,
-  Fragment,
-  KeepAlive,
-  Static,
-  Suspense,
-  Teleport,
-  Text,
-  callWithAsyncErrorHandling,
-  callWithErrorHandling,
-  cloneVNode,
-  compatUtils,
-  createBlock,
-  createCommentVNode,
-  createElementBlock,
-  createElementVNode: createBaseVNode,
-  createHydrationRenderer,
-  createPropsRestProxy,
-  createRenderer,
-  createSlots,
-  createStaticVNode,
-  createTextVNode,
-  createVNode,
-  defineAsyncComponent,
-  defineComponent,
-  defineEmits,
-  defineExpose,
-  defineProps,
-  get devtools() {
-    return devtools;
-  },
-  getCurrentInstance,
-  getTransitionRawChildren,
-  guardReactiveProps,
-  h,
-  handleError,
-  initCustomFormatter,
-  inject,
-  isMemoSame,
-  isRuntimeOnly,
-  isVNode,
-  mergeDefaults,
-  mergeProps,
-  nextTick,
-  onActivated,
-  onBeforeMount,
-  onBeforeUnmount,
-  onBeforeUpdate,
-  onDeactivated,
-  onErrorCaptured,
-  onMounted,
-  onRenderTracked,
-  onRenderTriggered,
-  onServerPrefetch,
-  onUnmounted,
-  onUpdated,
-  openBlock,
-  popScopeId,
-  provide,
-  pushScopeId,
-  queuePostFlushCb,
-  registerRuntimeCompiler,
-  renderList,
-  renderSlot,
-  resolveComponent,
-  resolveDirective,
-  resolveDynamicComponent,
-  resolveFilter,
-  resolveTransitionHooks,
-  setBlockTracking,
-  setDevtoolsHook,
-  setTransitionHooks,
-  ssrContextKey,
-  ssrUtils,
-  toHandlers,
-  transformVNodeArgs,
-  useAttrs,
-  useSSRContext,
-  useSlots,
-  useTransitionState,
-  version,
-  warn,
-  watch,
-  watchEffect,
-  watchPostEffect,
-  watchSyncEffect,
-  withAsyncContext,
-  withCtx,
-  withDefaults,
-  withDirectives,
-  withMemo,
-  withScopeId
-});
 var main = "";
 var app = "";
 const routeMode = location.pathname.split("/")[1];
@@ -7329,4 +7006,4 @@ switch (routeMode) {
     import("./index.js").then(({ default: index }) => index());
     break;
 }
-export { renderSlot as $, createBlock as A, resolveDynamicComponent as B, unref as C, ref as D, EMPTY_OBJ as E, createBaseVNode as F, createCommentVNode as G, Fragment as H, renderList as I, normalizeClass as J, createVNode as K, normalizeStyle as L, pushScopeId as M, NOOP as N, popScopeId as O, PatchFlagNames as P, onMounted as Q, toDisplayString as R, onUnmounted as S, Teleport as T, getCurrentInstance as U, onBeforeMount as V, withModifiers as W, withDirectives as X, vModelText as Y, withCtx as Z, createTextVNode as _, isObject as a, createApp as a0, defineComponent as a1, resolveComponent as a2, isArray as b, capitalize as c, camelize as d, extend as e, isSymbol as f, isOn as g, hyphenate as h, isString as i, NO as j, isReservedProp as k, isVoidTag as l, makeMap as m, isHTMLTag as n, isSVGTag as o, parseStringStyle as p, generateCodeFrame as q, reactive as r, runtimeDom_esmBundler as s, toHandlerKey as t, shared_esmBundler as u, computed as v, watch as w, defineAsyncComponent as x, openBlock as y, createElementBlock as z };
+export { createStaticVNode as $, normalizeClass as A, normalizeProps as B, normalizeStyle as C, toDisplayString as D, EffectScope as E, toHandlerKey as F, BaseTransition as G, Comment as H, Fragment as I, Suspense as J, KeepAlive as K, Text as L, callWithAsyncErrorHandling as M, callWithErrorHandling as N, cloneVNode as O, compatUtils as P, createBlock as Q, ReactiveEffect as R, Static as S, Teleport as T, createCommentVNode as U, createElementBlock as V, createBaseVNode as W, createHydrationRenderer as X, createPropsRestProxy as Y, createRenderer as Z, createSlots as _, customRef as a, withAsyncContext as a$, createTextVNode as a0, createVNode as a1, defineAsyncComponent as a2, defineComponent as a3, defineEmits as a4, defineExpose as a5, defineProps as a6, devtools as a7, getCurrentInstance as a8, getTransitionRawChildren as a9, pushScopeId as aA, queuePostFlushCb as aB, registerRuntimeCompiler as aC, renderList as aD, renderSlot as aE, resolveComponent as aF, resolveDirective as aG, resolveDynamicComponent as aH, resolveFilter as aI, resolveTransitionHooks as aJ, setBlockTracking as aK, setDevtoolsHook as aL, setTransitionHooks as aM, ssrContextKey as aN, ssrUtils as aO, toHandlers as aP, transformVNodeArgs as aQ, useAttrs as aR, useSSRContext as aS, useSlots as aT, useTransitionState as aU, version as aV, warn as aW, watch as aX, watchEffect as aY, watchPostEffect as aZ, watchSyncEffect as a_, guardReactiveProps as aa, h as ab, handleError as ac, initCustomFormatter as ad, inject as ae, isMemoSame as af, isRuntimeOnly as ag, isVNode as ah, mergeDefaults as ai, mergeProps as aj, nextTick as ak, onActivated as al, onBeforeMount as am, onBeforeUnmount as an, onBeforeUpdate as ao, onDeactivated as ap, onErrorCaptured as aq, onMounted as ar, onRenderTracked as as, onRenderTriggered as at, onServerPrefetch as au, onUnmounted as av, onUpdated as aw, openBlock as ax, popScopeId as ay, provide as az, effectScope as b, withCtx as b0, withDefaults as b1, withDirectives as b2, withMemo as b3, withScopeId as b4, Transition as b5, TransitionGroup as b6, VueElement as b7, createApp as b8, createSSRApp as b9, defineCustomElement as ba, defineSSRCustomElement as bb, hydrate as bc, initDirectivesForSSR as bd, render as be, useCssModule as bf, useCssVars as bg, vModelCheckbox as bh, vModelDynamic as bi, vModelRadio as bj, vModelSelect as bk, vModelText as bl, vShow as bm, withKeys as bn, withModifiers as bo, computed as c, isReactive as d, effect as e, isReadonly as f, getCurrentScope as g, isRef as h, isProxy as i, readonly as j, ref as k, shallowReadonly as l, markRaw as m, shallowRef as n, onScopeDispose as o, proxyRefs as p, stop as q, reactive as r, shallowReactive as s, toRaw as t, toRef as u, toRefs as v, triggerRef as w, unref as x, camelize as y, capitalize as z };

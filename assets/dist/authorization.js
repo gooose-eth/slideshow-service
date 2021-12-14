@@ -17,7 +17,7 @@ var __spreadValues = (a, b) => {
   return a;
 };
 var __spreadProps = (a, b) => __defProps(a, __getOwnPropDescs(b));
-import { y as openBlock, z as createElementBlock, $ as renderSlot, J as normalizeClass, D as ref, r as reactive, v as computed, Q as onMounted, V as onBeforeMount, S as onUnmounted, F as createBaseVNode, R as toDisplayString, C as unref, X as withDirectives, Y as vModelText, K as createVNode, Z as withCtx, A as createBlock, G as createCommentVNode, W as withModifiers, _ as createTextVNode } from "./main2.js";
+import { ax as openBlock, V as createElementBlock, aE as renderSlot, A as normalizeClass, k as ref, r as reactive, c as computed, ar as onMounted, am as onBeforeMount, av as onUnmounted, W as createBaseVNode, D as toDisplayString, x as unref, b2 as withDirectives, bl as vModelText, a1 as createVNode, b0 as withCtx, Q as createBlock, U as createCommentVNode, bo as withModifiers, a0 as createTextVNode } from "./main2.js";
 function getFormData(form) {
   try {
     if (!form)
@@ -222,10 +222,8 @@ const _sfc_main = {
               _hoisted_5,
               createBaseVNode("label", _hoisted_6, [
                 withDirectives(createBaseVNode("input", {
-                  ref: (_value, _refs) => {
-                    _refs["address"] = _value;
-                    address.value = _value;
-                  },
+                  ref_key: "address",
+                  ref: address,
                   type: "text",
                   name: "address",
                   id: "address",

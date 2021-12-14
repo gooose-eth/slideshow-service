@@ -1,6 +1,6 @@
 import { _ as _export_sfc, g as getValueFromType } from "./main3.js";
-import { D as ref, y as openBlock, z as createElementBlock, J as normalizeClass } from "./main2.js";
-var Text_scss_vue_type_style_index_0_src_scoped_true_lang = "";
+import { k as ref, ax as openBlock, V as createElementBlock, A as normalizeClass } from "./main2.js";
+var Text_scss_vue_type_style_index_0_src_eecb24c0_scoped_true_lang = "";
 const _hoisted_1 = ["type", "name", "id", "value", "placeholder", "required", "min", "max", "step", "maxlength", "rows", "size", "disabled", "readOnly"];
 const _hoisted_2 = ["type", "name", "id", "value", "placeholder", "required", "min", "max", "step", "maxlength", "size", "disabled", "readOnly"];
 const _sfc_main = {
@@ -40,10 +40,8 @@ const _sfc_main = {
     return (_ctx, _cache) => {
       return props.type === "textarea" ? (openBlock(), createElementBlock("textarea", {
         key: 0,
-        ref: (_value, _refs) => {
-          _refs["root"] = _value;
-          root.value = _value;
-        },
+        ref_key: "root",
+        ref: root,
         type: props.type,
         name: props.name,
         id: props.id,
@@ -68,10 +66,8 @@ const _sfc_main = {
         onBlur: _cache[0] || (_cache[0] = ($event) => _ctx.$emit("blur:modelValue", $event.target.value))
       }, null, 42, _hoisted_1)) : (openBlock(), createElementBlock("input", {
         key: 1,
-        ref: (_value, _refs) => {
-          _refs["root"] = _value;
-          root.value = _value;
-        },
+        ref_key: "root",
+        ref: root,
         type: props.type,
         name: props.name,
         id: props.id,

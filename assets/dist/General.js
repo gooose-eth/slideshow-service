@@ -1,9 +1,9 @@
 import { _ as _export_sfc, a as _sfc_main$2, i as i18n, c as convertPureObject, s as store, F as FormSwitch, m as main } from "./main3.js";
 import { B as ButtonBasic, t as twoDigit } from "./Basic.js";
 import { F as FormText } from "./Text.js";
-import { y as openBlock, z as createElementBlock, F as createBaseVNode, K as createVNode, R as toDisplayString, G as createCommentVNode, r as reactive, C as unref, H as Fragment, Z as withCtx, _ as createTextVNode, M as pushScopeId, O as popScopeId } from "./main2.js";
+import { ax as openBlock, V as createElementBlock, W as createBaseVNode, a1 as createVNode, D as toDisplayString, U as createCommentVNode, r as reactive, x as unref, I as Fragment, b0 as withCtx, a0 as createTextVNode, aA as pushScopeId, ay as popScopeId } from "./main2.js";
 import "./authorization.js";
-var Checkbox_scss_vue_type_style_index_0_src_scoped_true_lang = "";
+var Checkbox_scss_vue_type_style_index_0_src_176ad31a_scoped_true_lang = "";
 const _hoisted_1$1 = { class: "form-checkbox" };
 const _hoisted_2$1 = { class: "form-checkbox__body" };
 const _hoisted_3$1 = ["name", "id", "required", "disabled", "checked"];

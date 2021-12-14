@@ -1,7 +1,7 @@
 import { _ as _export_sfc, i as i18n, F as FormSwitch, c as convertPureObject } from "./main3.js";
-import { r as reactive, y as openBlock, z as createElementBlock, F as createBaseVNode, R as toDisplayString, C as unref, K as createVNode, M as pushScopeId, O as popScopeId } from "./main2.js";
+import { r as reactive, ax as openBlock, V as createElementBlock, W as createBaseVNode, D as toDisplayString, x as unref, a1 as createVNode, aA as pushScopeId, ay as popScopeId } from "./main2.js";
 import "./authorization.js";
-var Keyboard_scss_vue_type_style_index_0_src_scoped_true_lang = "";
+var Keyboard_scss_vue_type_style_index_0_src_c4fd40c6_scoped_true_lang = "";
 const _withScopeId = (n) => (pushScopeId("data-v-c4fd40c6"), n = n(), popScopeId(), n);
 const _hoisted_1 = /* @__PURE__ */ _withScopeId(() => /* @__PURE__ */ createBaseVNode("legend", null, "Keyboard fields", -1));
 const _hoisted_2 = { class: "fields" };

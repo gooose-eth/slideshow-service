@@ -1,8 +1,8 @@
 import { i as i18n, s as store } from "./main3.js";
-import { y as openBlock, z as createElementBlock, F as createBaseVNode, C as unref, R as toDisplayString, _ as createTextVNode } from "./main2.js";
+import { ax as openBlock, V as createElementBlock, W as createBaseVNode, x as unref, D as toDisplayString, a0 as createTextVNode } from "./main2.js";
 import "./authorization.js";
 const name = "slideshow-service";
-const version = "1.0.3";
+const version = "1.0.4";
 const scripts = {
   setup: "./scripts.sh setup",
   start: "./scripts.sh start 5000",
@@ -13,13 +13,14 @@ const repository = "https://github.com/redgoose-dev/slideshow-service.git";
 const author = "redgoose <scripter@me.com>";
 const license = "MIT";
 const devDependencies = {
-  "@vitejs/plugin-vue": "^1.9.3",
-  sass: "^1.43.2",
-  vite: "^2.6.7"
+  "@vitejs/plugin-vue": "^2.0.0",
+  autoprefixer: "^10.4.0",
+  sass: "^1.45.0",
+  vite: "^2.7.2"
 };
 const dependencies = {
-  vue: "^3.2.20",
-  "vue-i18n": "^9.2.0-beta.12",
+  vue: "^3.2.26",
+  "vue-i18n": "^9.2.0-beta.23",
   vuex: "^4.0.2"
 };
 var pkg = {

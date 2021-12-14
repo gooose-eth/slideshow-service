@@ -21,7 +21,7 @@ import { a as _sfc_main$9, _ as _export_sfc, i as i18n, c as convertPureObject, 
 import { B as ButtonBasic, v as validUrl, o as objectToString } from "./Basic.js";
 import { F as FormText } from "./Text.js";
 import { F as FormRadio } from "./Radio.js";
-import { a1 as defineComponent, a2 as resolveComponent, y as openBlock, z as createElementBlock, K as createVNode, F as createBaseVNode, R as toDisplayString, C as unref, $ as renderSlot, r as reactive, H as Fragment, I as renderList, J as normalizeClass, G as createCommentVNode, Z as withCtx, _ as createTextVNode, M as pushScopeId, O as popScopeId, D as ref, v as computed, A as createBlock, T as Teleport } from "./main2.js";
+import { a3 as defineComponent, aF as resolveComponent, ax as openBlock, V as createElementBlock, a1 as createVNode, W as createBaseVNode, D as toDisplayString, x as unref, aE as renderSlot, r as reactive, I as Fragment, aD as renderList, A as normalizeClass, U as createCommentVNode, b0 as withCtx, a0 as createTextVNode, aA as pushScopeId, ay as popScopeId, k as ref, c as computed, Q as createBlock, T as Teleport } from "./main2.js";
 import "./authorization.js";
 var ButtonIcon_vue_vue_type_style_index_0_scoped_true_lang = "";
 const _sfc_main$8 = defineComponent({
@@ -46,7 +46,7 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
   ], 8, _hoisted_1$8);
 }
 var ButtonIcon = /* @__PURE__ */ _export_sfc(_sfc_main$8, [["render", _sfc_render], ["__scopeId", "data-v-4eb7754a"]]);
-var ModalWrapper_scss_vue_type_style_index_0_src_scoped_true_lang = "";
+var ModalWrapper_scss_vue_type_style_index_0_src_d0af7818_scoped_true_lang = "";
 const _hoisted_1$7 = { class: "modal-wrapper__header" };
 const _hoisted_2$7 = ["title"];
 const _hoisted_3$6 = { class: "modal-wrapper__body" };
@@ -505,10 +505,8 @@ const _sfc_main$4 = {
               createBaseVNode("div", _hoisted_7$3, [
                 createBaseVNode("div", _hoisted_8$3, [
                   createVNode(FormText, {
-                    ref: (_value, _refs) => {
-                      _refs["src"] = _value;
-                      src.value = _value;
-                    },
+                    ref_key: "src",
+                    ref: src,
                     name: "pref_src",
                     id: "pref_src",
                     placeholder: unref(t)("base.inputUrl"),
@@ -538,10 +536,8 @@ const _sfc_main$4 = {
               createBaseVNode("div", _hoisted_13$1, [
                 createBaseVNode("div", _hoisted_14$1, [
                   createVNode(FormText, {
-                    ref: (_value, _refs) => {
-                      _refs["thumbnail"] = _value;
-                      thumbnail.value = _value;
-                    },
+                    ref_key: "thumbnail",
+                    ref: thumbnail,
                     name: "pref_thumbnail",
                     id: "pref_thumbnail",
                     placeholder: unref(t)("base.inputUrl"),
@@ -912,7 +908,7 @@ const _sfc_main$3 = {
   }
 };
 var Manage = /* @__PURE__ */ _export_sfc(_sfc_main$3, [["__scopeId", "data-v-7d7caffb"]]);
-var Upload_scss_vue_type_style_index_0_src_scoped_true_lang = "";
+var Upload_scss_vue_type_style_index_0_src_53d70741_scoped_true_lang = "";
 const _hoisted_1$2 = ["accept", "disabled"];
 const _hoisted_2$2 = { class: "form-upload__body" };
 const _sfc_main$2 = {
@@ -949,10 +945,8 @@ const _sfc_main$2 = {
         ])
       }, [
         createBaseVNode("input", {
-          ref: (_value, _refs) => {
-            _refs["input"] = _value;
-            input.value = _value;
-          },
+          ref_key: "input",
+          ref: input,
           type: "file",
           class: "form-upload__input",
           accept: __props.accept,
@@ -1080,10 +1074,8 @@ const _sfc_main$1 = {
               createBaseVNode("p", _hoisted_8$1, toDisplayString(unref(t)("description.getDataByRestAPI")), 1),
               createBaseVNode("div", _hoisted_9$1, [
                 createVNode(FormText, {
-                  ref: (_value, _refs) => {
-                    _refs["address"] = _value;
-                    address.value = _value;
-                  },
+                  ref_key: "address",
+                  ref: address,
                   name: "pref_address",
                   id: "pref_address",
                   placeholder: unref(t)("base.inputAddress"),
@@ -1099,10 +1091,8 @@ const _sfc_main$1 = {
               createBaseVNode("p", _hoisted_13, toDisplayString(unref(t)("description.getJsonFile")), 1),
               createBaseVNode("div", _hoisted_14, [
                 createVNode(FormUpload, {
-                  ref: (_value, _refs) => {
-                    _refs["file"] = _value;
-                    file.value = _value;
-                  },
+                  ref_key: "file",
+                  ref: file,
                   accept: "application/json",
                   label: unref(t)("description.selectJsonFile"),
                   onChange: onSelectFile
@@ -1131,7 +1121,7 @@ const _sfc_main$1 = {
   }
 };
 var ImportData = /* @__PURE__ */ _export_sfc(_sfc_main$1, [["__scopeId", "data-v-d9041778"]]);
-var index_scss_vue_type_style_index_0_src_scoped_true_lang = "";
+var index_scss_vue_type_style_index_0_src_29151e26_scoped_true_lang = "";
 const _withScopeId = (n) => (pushScopeId("data-v-29151e26"), n = n(), popScopeId(), n);
 const _hoisted_1 = { class: "pref-data" };
 const _hoisted_2 = /* @__PURE__ */ _withScopeId(() => /* @__PURE__ */ createBaseVNode("legend", null, "Data fields", -1));
@@ -1247,9 +1237,7 @@ const _sfc_main = {
                     onUpdate: onUpdateTreeUI
                   }, null, 8, ["tree"])) : unref(localState).mode === "advanced" ? (openBlock(), createBlock(FormText, {
                     key: 1,
-                    ref: (_value, _refs) => {
-                      _refs["tree"] = _value;
-                    },
+                    ref: "tree",
                     type: "textarea",
                     name: "pref_tree",
                     id: "pref_tree",
