@@ -163,6 +163,4 @@ function onUpdateCaptionPosition(s)
 }
 </script>
 
-<style lang="scss" scoped>
-@use './fieldset.scss';
-</style>
+<style src="./fieldset.scss" lang="scss" scoped></style>

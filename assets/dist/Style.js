@@ -1,10 +1,10 @@
 import { _ as _export_sfc, i as i18n, c as convertPureObject } from "./main3.js";
 import { F as FormText } from "./Text.js";
-import { _ as _sfc_main$1 } from "./Select.js";
-import { r as reactive, ax as openBlock, V as createElementBlock, W as createBaseVNode, D as toDisplayString, x as unref, a1 as createVNode, b0 as withCtx, aA as pushScopeId, ay as popScopeId } from "./main2.js";
+import { F as FormSelect } from "./Select.js";
+import { r as reactive, ay as openBlock, W as createElementBlock, X as createBaseVNode, D as toDisplayString, x as unref, a2 as createVNode, b1 as withCtx, aB as pushScopeId, az as popScopeId } from "./main2.js";
 import "./authorization.js";
-var Style_vue_vue_type_style_index_0_scoped_true_lang = "";
-const _withScopeId = (n) => (pushScopeId("data-v-50de6e9e"), n = n(), popScopeId(), n);
+var fieldset_scss_vue_type_style_index_0_src_54f17b58_scoped_true_lang = "";
+const _withScopeId = (n) => (pushScopeId("data-v-54f17b58"), n = n(), popScopeId(), n);
 const _hoisted_1 = /* @__PURE__ */ _withScopeId(() => /* @__PURE__ */ createBaseVNode("legend", null, "Style fields", -1));
 const _hoisted_2 = { class: "fields" };
 const _hoisted_3 = { class: "field-basic" };
@@ -77,7 +77,7 @@ const _sfc_main = {
             ]),
             createBaseVNode("p", _hoisted_6, toDisplayString(unref(t)("description.screenMode")), 1),
             createBaseVNode("div", _hoisted_7, [
-              createVNode(_sfc_main$1, {
+              createVNode(FormSelect, {
                 name: "pref_screenColor",
                 id: "pref_screenColor",
                 modelValue: unref(state).screenColor,
@@ -102,7 +102,7 @@ const _sfc_main = {
             ]),
             createBaseVNode("p", _hoisted_15, toDisplayString(unref(t)("description.imageType")), 1),
             createBaseVNode("div", _hoisted_16, [
-              createVNode(_sfc_main$1, {
+              createVNode(FormSelect, {
                 name: "pref_imageType",
                 id: "pref_imageType",
                 modelValue: unref(state).imageType,
@@ -196,5 +196,5 @@ const _sfc_main = {
     };
   }
 };
-var Style = /* @__PURE__ */ _export_sfc(_sfc_main, [["__scopeId", "data-v-50de6e9e"]]);
+var Style = /* @__PURE__ */ _export_sfc(_sfc_main, [["__scopeId", "data-v-54f17b58"]]);
 export { Style as default };

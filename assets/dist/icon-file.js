@@ -1,5 +1,5 @@
 import { _ as _export_sfc } from "./main3.js";
-import { ax as openBlock, V as createElementBlock, I as Fragment, W as createBaseVNode } from "./main2.js";
+import { ay as openBlock, W as createElementBlock, I as Fragment, X as createBaseVNode } from "./main2.js";
 import "./authorization.js";
 const _sfc_main = {};
 const _hoisted_1 = /* @__PURE__ */ createBaseVNode("path", { d: "M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z" }, null, -1);

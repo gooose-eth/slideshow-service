@@ -37,8 +37,8 @@ const url = Custom.url;
 const { screenColor } = store.state.preference.style;
 </script>
 
+<style src="./fieldset.scss" lang="scss" scoped></style>
 <style lang="scss">
-@use './fieldset';
 @use '../../assets/scss/mixins';
 .information {
   > figure {

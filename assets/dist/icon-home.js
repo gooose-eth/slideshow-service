@@ -1,5 +1,5 @@
 import { _ as _export_sfc } from "./main3.js";
-import { ax as openBlock, V as createElementBlock, W as createBaseVNode } from "./main2.js";
+import { ay as openBlock, W as createElementBlock, X as createBaseVNode } from "./main2.js";
 import "./authorization.js";
 const _sfc_main = {};
 const _hoisted_1 = {

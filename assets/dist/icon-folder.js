@@ -1,5 +1,5 @@
 import { _ as _export_sfc } from "./main3.js";
-import { ax as openBlock, V as createElementBlock } from "./main2.js";
+import { ay as openBlock, W as createElementBlock } from "./main2.js";
 import "./authorization.js";
 const _sfc_main = {};
 const _hoisted_1 = { d: "M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z" };

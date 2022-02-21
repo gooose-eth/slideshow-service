@@ -45,9 +45,9 @@ function onChange(e)
 }
 </script>
 
+<style src="./form.scss" lang="scss" scoped></style>
 <style lang="scss">
 @use '../../assets/scss/mixins';
-@use './form';
 .form-select {
   display: block;
   position: relative;

@@ -92,4 +92,5 @@ defineExpose({
 });
 </script>
 
+<style src="./form.scss" lang="scss" scoped></style>
 <style src="./Text.scss" lang="scss" scoped></style>

@@ -10,8 +10,7 @@
   @update-tree="onUpdateTree"
   @update-group="onUpdateGroup"
   @delete="onVisibleDelete(true)"
-  @save="onVisiblePost(true)"
-  @logout="onLogout"/>
+  @save="onVisiblePost(true)"/>
 <teleport to="#service">
   <Post
     v-if="state.visiblePost"

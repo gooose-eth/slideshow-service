@@ -17,7 +17,7 @@ var __spreadValues = (a, b) => {
   return a;
 };
 var __spreadProps = (a, b) => __defProps(a, __getOwnPropDescs(b));
-import { E as EffectScope, R as ReactiveEffect, c as computed, a as customRef, e as effect, b as effectScope, g as getCurrentScope, i as isProxy, d as isReactive, f as isReadonly, h as isRef, m as markRaw, o as onScopeDispose, p as proxyRefs, r as reactive, j as readonly, k as ref, s as shallowReactive, l as shallowReadonly, n as shallowRef, q as stop, t as toRaw, u as toRef, v as toRefs, w as triggerRef, x as unref, y as camelize, z as capitalize, A as normalizeClass, B as normalizeProps, C as normalizeStyle, D as toDisplayString$1, F as toHandlerKey, G as BaseTransition, H as Comment, I as Fragment, K as KeepAlive, S as Static, J as Suspense, T as Teleport, L as Text, M as callWithAsyncErrorHandling, N as callWithErrorHandling, O as cloneVNode, P as compatUtils, Q as createBlock, U as createCommentVNode, V as createElementBlock, W as createBaseVNode, X as createHydrationRenderer, Y as createPropsRestProxy, Z as createRenderer, _ as createSlots, $ as createStaticVNode, a0 as createTextVNode, a1 as createVNode, a2 as defineAsyncComponent, a3 as defineComponent, a4 as defineEmits, a5 as defineExpose, a6 as defineProps, a7 as devtools$1, a8 as getCurrentInstance, a9 as getTransitionRawChildren, aa as guardReactiveProps, ab as h, ac as handleError, ad as initCustomFormatter, ae as inject, af as isMemoSame, ag as isRuntimeOnly, ah as isVNode, ai as mergeDefaults, aj as mergeProps, ak as nextTick, al as onActivated, am as onBeforeMount, an as onBeforeUnmount, ao as onBeforeUpdate, ap as onDeactivated, aq as onErrorCaptured, ar as onMounted, as as onRenderTracked, at as onRenderTriggered, au as onServerPrefetch, av as onUnmounted, aw as onUpdated, ax as openBlock, ay as popScopeId, az as provide, aA as pushScopeId, aB as queuePostFlushCb, aC as registerRuntimeCompiler, aD as renderList, aE as renderSlot, aF as resolveComponent, aG as resolveDirective, aH as resolveDynamicComponent, aI as resolveFilter, aJ as resolveTransitionHooks, aK as setBlockTracking, aL as setDevtoolsHook, aM as setTransitionHooks, aN as ssrContextKey, aO as ssrUtils, aP as toHandlers, aQ as transformVNodeArgs, aR as useAttrs, aS as useSSRContext, aT as useSlots, aU as useTransitionState, aV as version, aW as warn$1, aX as watch, aY as watchEffect, aZ as watchPostEffect, a_ as watchSyncEffect, a$ as withAsyncContext, b0 as withCtx, b1 as withDefaults, b2 as withDirectives, b3 as withMemo, b4 as withScopeId, b5 as Transition, b6 as TransitionGroup, b7 as VueElement, b8 as createApp, b9 as createSSRApp, ba as defineCustomElement, bb as defineSSRCustomElement, bc as hydrate, bd as initDirectivesForSSR, be as render, bf as useCssModule, bg as useCssVars, bh as vModelCheckbox, bi as vModelDynamic, bj as vModelRadio, bk as vModelSelect, bl as vModelText, bm as vShow, bn as withKeys, bo as withModifiers } from "./main2.js";
+import { E as EffectScope, R as ReactiveEffect, c as customRef, e as effect, a as effectScope, g as getCurrentScope, i as isProxy, b as isReactive, d as isReadonly, f as isRef, h as isShallow, m as markRaw, o as onScopeDispose, p as proxyRefs, r as reactive, j as readonly, k as ref, s as shallowReactive, l as shallowReadonly, n as shallowRef, q as stop, t as toRaw, u as toRef, v as toRefs, w as triggerRef, x as unref, y as camelize, z as capitalize, A as normalizeClass, B as normalizeProps, C as normalizeStyle, D as toDisplayString$1, F as toHandlerKey, G as BaseTransition, H as Comment, I as Fragment, K as KeepAlive, S as Static, J as Suspense, T as Teleport, L as Text, M as callWithAsyncErrorHandling, N as callWithErrorHandling, O as cloneVNode, P as compatUtils, Q as computed, U as createBlock, V as createCommentVNode, W as createElementBlock, X as createBaseVNode, Y as createHydrationRenderer, Z as createPropsRestProxy, _ as createRenderer, $ as createSlots, a0 as createStaticVNode, a1 as createTextVNode, a2 as createVNode, a3 as defineAsyncComponent, a4 as defineComponent, a5 as defineEmits, a6 as defineExpose, a7 as defineProps, a8 as devtools$1, a9 as getCurrentInstance, aa as getTransitionRawChildren, ab as guardReactiveProps, ac as h, ad as handleError, ae as initCustomFormatter, af as inject, ag as isMemoSame, ah as isRuntimeOnly, ai as isVNode, aj as mergeDefaults, ak as mergeProps, al as nextTick, am as onActivated, an as onBeforeMount, ao as onBeforeUnmount, ap as onBeforeUpdate, aq as onDeactivated, ar as onErrorCaptured, as as onMounted, at as onRenderTracked, au as onRenderTriggered, av as onServerPrefetch, aw as onUnmounted, ax as onUpdated, ay as openBlock, az as popScopeId, aA as provide, aB as pushScopeId, aC as queuePostFlushCb, aD as registerRuntimeCompiler, aE as renderList, aF as renderSlot, aG as resolveComponent, aH as resolveDirective, aI as resolveDynamicComponent, aJ as resolveFilter, aK as resolveTransitionHooks, aL as setBlockTracking, aM as setDevtoolsHook, aN as setTransitionHooks, aO as ssrContextKey, aP as ssrUtils, aQ as toHandlers, aR as transformVNodeArgs, aS as useAttrs, aT as useSSRContext, aU as useSlots, aV as useTransitionState, aW as version, aX as warn$1, aY as watch, aZ as watchEffect, a_ as watchPostEffect, a$ as watchSyncEffect, b0 as withAsyncContext, b1 as withCtx, b2 as withDefaults, b3 as withDirectives, b4 as withMemo, b5 as withScopeId, b6 as Transition, b7 as TransitionGroup, b8 as VueElement, b9 as createApp, ba as createSSRApp, bb as defineCustomElement, bc as defineSSRCustomElement, bd as hydrate, be as initDirectivesForSSR, bf as render, bg as useCssModule, bh as useCssVars, bi as vModelCheckbox, bj as vModelDynamic, bk as vModelRadio, bl as vModelSelect, bm as vModelText, bn as vShow, bo as withKeys, bp as withModifiers } from "./main2.js";
 import { g as getFormData, p as post, _ as _sfc_main$l, a as _sfc_main$m } from "./authorization.js";
 const compile = () => {
 };
@@ -27,7 +27,6 @@ var vue_runtime_esmBundler = /* @__PURE__ */ Object.freeze({
   compile,
   EffectScope,
   ReactiveEffect,
-  computed,
   customRef,
   effect,
   effectScope,
@@ -36,6 +35,7 @@ var vue_runtime_esmBundler = /* @__PURE__ */ Object.freeze({
   isReactive,
   isReadonly,
   isRef,
+  isShallow,
   markRaw,
   onScopeDispose,
   proxyRefs,
@@ -70,6 +70,7 @@ var vue_runtime_esmBundler = /* @__PURE__ */ Object.freeze({
   callWithErrorHandling,
   cloneVNode,
   compatUtils,
+  computed,
   createBlock,
   createCommentVNode,
   createElementBlock,
@@ -195,7 +196,7 @@ class ApiProxy {
       }
     }
     const localSettingsSaveId = `__vue-devtools-plugin-settings__${plugin.id}`;
-    let currentSettings = __spreadValues({}, defaultSettings);
+    let currentSettings = Object.assign({}, defaultSettings);
     try {
       const raw = localStorage.getItem(localSettingsSaveId);
       const data = JSON.parse(raw);
@@ -214,11 +215,13 @@ class ApiProxy {
         currentSettings = value;
       }
     };
-    hook.on(HOOK_PLUGIN_SETTINGS_SET, (pluginId, value) => {
-      if (pluginId === this.plugin.id) {
-        this.fallbacks.setSettings(value);
-      }
-    });
+    if (hook) {
+      hook.on(HOOK_PLUGIN_SETTINGS_SET, (pluginId, value) => {
+        if (pluginId === this.plugin.id) {
+          this.fallbacks.setSettings(value);
+        }
+      });
+    }
     this.proxiedOn = new Proxy({}, {
       get: (_target, prop) => {
         if (this.target) {
@@ -274,16 +277,17 @@ class ApiProxy {
   }
 }
 function setupDevtoolsPlugin(pluginDescriptor, setupFn) {
+  const descriptor = pluginDescriptor;
   const target = getTarget();
   const hook = getDevtoolsGlobalHook();
-  const enableProxy = isProxyAvailable && pluginDescriptor.enableEarlyProxy;
+  const enableProxy = isProxyAvailable && descriptor.enableEarlyProxy;
   if (hook && (target.__VUE_DEVTOOLS_PLUGIN_API_AVAILABLE__ || !enableProxy)) {
     hook.emit(HOOK_SETUP, pluginDescriptor, setupFn);
   } else {
-    const proxy = enableProxy ? new ApiProxy(pluginDescriptor, hook) : null;
+    const proxy = enableProxy ? new ApiProxy(descriptor, hook) : null;
     const list = target.__VUE_DEVTOOLS_PLUGINS__ = target.__VUE_DEVTOOLS_PLUGINS__ || [];
     list.push({
-      pluginDescriptor,
+      pluginDescriptor: descriptor,
       setupFn,
       proxy
     });
@@ -325,10 +329,10 @@ function genericSubscribe(fn, subs, options) {
   };
 }
 function resetStore(store2, hot) {
-  store2._actions = Object.create(null);
-  store2._mutations = Object.create(null);
-  store2._wrappedGetters = Object.create(null);
-  store2._modulesNamespaceMap = Object.create(null);
+  store2._actions = /* @__PURE__ */ Object.create(null);
+  store2._mutations = /* @__PURE__ */ Object.create(null);
+  store2._wrappedGetters = /* @__PURE__ */ Object.create(null);
+  store2._modulesNamespaceMap = /* @__PURE__ */ Object.create(null);
   var state2 = store2.state;
   installModule(store2, state2, [], store2._modules.root, true);
   resetStoreState(store2, state2, hot);
@@ -336,7 +340,7 @@ function resetStore(store2, hot) {
 function resetStoreState(store2, state2, hot) {
   var oldState = store2._state;
   store2.getters = {};
-  store2._makeLocalGettersCache = Object.create(null);
+  store2._makeLocalGettersCache = /* @__PURE__ */ Object.create(null);
   var wrappedGetters = store2._wrappedGetters;
   var computedObj = {};
   forEachValue(wrappedGetters, function(fn, key) {
@@ -754,7 +758,7 @@ function canThrow(cb) {
 }
 var Module = function Module2(rawModule, runtime) {
   this.runtime = runtime;
-  this._children = Object.create(null);
+  this._children = /* @__PURE__ */ Object.create(null);
   this._rawModule = rawModule;
   var rawState = rawModule.state;
   this.state = (typeof rawState === "function" ? rawState() : rawState) || {};
@@ -887,14 +891,14 @@ var Store = function Store2(options) {
     strict = false;
   var devtools2 = options.devtools;
   this._committing = false;
-  this._actions = Object.create(null);
+  this._actions = /* @__PURE__ */ Object.create(null);
   this._actionSubscribers = [];
-  this._mutations = Object.create(null);
-  this._wrappedGetters = Object.create(null);
+  this._mutations = /* @__PURE__ */ Object.create(null);
+  this._wrappedGetters = /* @__PURE__ */ Object.create(null);
   this._modules = new ModuleCollection(options);
-  this._modulesNamespaceMap = Object.create(null);
+  this._modulesNamespaceMap = /* @__PURE__ */ Object.create(null);
   this._subscribers = [];
-  this._makeLocalGettersCache = Object.create(null);
+  this._makeLocalGettersCache = /* @__PURE__ */ Object.create(null);
   this._devtools = devtools2;
   var store2 = this;
   var ref2 = this;
@@ -1445,8 +1449,8 @@ var messageCompiler_cjs_prod = {};
 var shared$3 = { exports: {} };
 var shared_cjs_prod = {};
 /*!
-  * shared v9.2.0-beta.23
-  * (c) 2021 kazuya kawaguchi
+  * shared v9.2.0-beta.30
+  * (c) 2022 kazuya kawaguchi
   * Released under the MIT License.
   */
 Object.defineProperty(shared_cjs_prod, "__esModule", { value: true });
@@ -1540,7 +1544,7 @@ function generateCodeFrame(source, start = 0, end = source.length) {
   return res.join("\n");
 }
 function createEmitter() {
-  const events = new Map();
+  const events = /* @__PURE__ */ new Map();
   const emitter = {
     events,
     on(event, handler) {
@@ -1826,7 +1830,7 @@ var util$5 = {};
   }
   exports.relative = relative;
   var supportsNullProto = function() {
-    var obj = Object.create(null);
+    var obj = /* @__PURE__ */ Object.create(null);
     return !("__proto__" in obj);
   }();
   function identity(s) {
@@ -1986,7 +1990,7 @@ var has = Object.prototype.hasOwnProperty;
 var hasNativeMap = typeof Map !== "undefined";
 function ArraySet$2() {
   this._array = [];
-  this._set = hasNativeMap ? new Map() : Object.create(null);
+  this._set = hasNativeMap ? /* @__PURE__ */ new Map() : /* @__PURE__ */ Object.create(null);
 }
 ArraySet$2.fromArray = function ArraySet_fromArray(aArray, aAllowDuplicates) {
   var set2 = new ArraySet$2();
@@ -2175,7 +2179,7 @@ SourceMapGenerator$1.prototype.setSourceContent = function SourceMapGenerator_se
   }
   if (aSourceContent != null) {
     if (!this._sourcesContents) {
-      this._sourcesContents = Object.create(null);
+      this._sourcesContents = /* @__PURE__ */ Object.create(null);
     }
     this._sourcesContents[util$2.toSetString(source)] = aSourceContent;
   } else if (this._sourcesContents) {
@@ -3242,8 +3246,8 @@ sourceMap$1.SourceMapGenerator = sourceMapGenerator.SourceMapGenerator;
 sourceMap$1.SourceMapConsumer = sourceMapConsumer.SourceMapConsumer;
 sourceMap$1.SourceNode = sourceNode.SourceNode;
 /*!
-  * message-compiler v9.2.0-beta.23
-  * (c) 2021 kazuya kawaguchi
+  * message-compiler v9.2.0-beta.30
+  * (c) 2022 kazuya kawaguchi
   * Released under the MIT License.
   */
 Object.defineProperty(messageCompiler_cjs_prod, "__esModule", { value: true });
@@ -4240,7 +4244,7 @@ function getTokenCaption(token) {
 function createTransformer(ast, options = {}) {
   const _context = {
     ast,
-    helpers: new Set()
+    helpers: /* @__PURE__ */ new Set()
   };
   const context = () => _context;
   const helper = (name) => {
@@ -4524,8 +4528,8 @@ messageCompiler_cjs_prod.errorMessages = errorMessages;
 var devtoolsIf$1 = { exports: {} };
 var devtoolsIf_cjs_prod = {};
 /*!
-  * devtools-if v9.2.0-beta.23
-  * (c) 2021 kazuya kawaguchi
+  * devtools-if v9.2.0-beta.30
+  * (c) 2022 kazuya kawaguchi
   * Released under the MIT License.
   */
 Object.defineProperty(devtoolsIf_cjs_prod, "__esModule", { value: true });
@@ -4538,8 +4542,8 @@ devtoolsIf_cjs_prod.IntlifyDevToolsHooks = IntlifyDevToolsHooks;
   devtoolsIf$1.exports = devtoolsIf_cjs_prod;
 }
 /*!
-  * core-base v9.2.0-beta.23
-  * (c) 2021 kazuya kawaguchi
+  * core-base v9.2.0-beta.30
+  * (c) 2022 kazuya kawaguchi
   * Released under the MIT License.
   */
 Object.defineProperty(coreBase_cjs_prod, "__esModule", { value: true });
@@ -4720,7 +4724,7 @@ function parse(path) {
     }
   }
 }
-const cache = new Map();
+const cache = /* @__PURE__ */ new Map();
 function resolveWithKeyValue(obj, path) {
   return shared$1.isObject(obj) ? obj[path] : null;
 }
@@ -4849,7 +4853,7 @@ function getWarnMessage(code2, ...args) {
   return shared$1.format(warnMessages[code2], ...args);
 }
 function fallbackWithSimple(ctx, fallback, start) {
-  return [...new Set([
+  return [.../* @__PURE__ */ new Set([
     start,
     ...shared$1.isArray(fallback) ? fallback : shared$1.isObject(fallback) ? Object.keys(fallback) : shared$1.isString(fallback) ? [fallback] : [start]
   ])];
@@ -4858,7 +4862,7 @@ function fallbackWithLocaleChain(ctx, fallback, start) {
   const startLocale = shared$1.isString(start) ? start : DEFAULT_LOCALE;
   const context = ctx;
   if (!context.__localeChainCache) {
-    context.__localeChainCache = new Map();
+    context.__localeChainCache = /* @__PURE__ */ new Map();
   }
   let chain = context.__localeChainCache.get(startLocale);
   if (!chain) {
@@ -4911,7 +4915,7 @@ function appendItemToChain(chain, target, blocks) {
   }
   return follow;
 }
-const VERSION$1 = "9.2.0-beta.23";
+const VERSION$1 = "9.2.0-beta.30";
 const NOT_REOSLVED = -1;
 const DEFAULT_LOCALE = "en-US";
 const MISSING_RESOLVE_VALUE = "";
@@ -4963,8 +4967,8 @@ function createCoreContext(options = {}) {
   const localeFallbacker = shared$1.isFunction(options.localeFallbacker) ? options.localeFallbacker : _fallbacker || fallbackWithSimple;
   const onWarn = shared$1.isFunction(options.onWarn) ? options.onWarn : shared$1.warn;
   const internalOptions = options;
-  const __datetimeFormatters = shared$1.isObject(internalOptions.__datetimeFormatters) ? internalOptions.__datetimeFormatters : new Map();
-  const __numberFormatters = shared$1.isObject(internalOptions.__numberFormatters) ? internalOptions.__numberFormatters : new Map();
+  const __datetimeFormatters = shared$1.isObject(internalOptions.__datetimeFormatters) ? internalOptions.__datetimeFormatters : /* @__PURE__ */ new Map();
+  const __numberFormatters = shared$1.isObject(internalOptions.__numberFormatters) ? internalOptions.__numberFormatters : /* @__PURE__ */ new Map();
   const __meta = shared$1.isObject(internalOptions.__meta) ? internalOptions.__meta : {};
   _cid++;
   const context = {
@@ -5015,13 +5019,13 @@ function handleMissing(context, key, locale, missingWarn, type) {
 }
 function updateFallbackLocale(ctx, locale, fallback) {
   const context = ctx;
-  context.__localeChainCache = new Map();
+  context.__localeChainCache = /* @__PURE__ */ new Map();
   ctx.localeFallbacker(ctx, fallback, locale);
 }
 const defaultOnCacheKey = (source) => source;
-let compileCache = Object.create(null);
+let compileCache = /* @__PURE__ */ Object.create(null);
 function clearCompileCache() {
-  compileCache = Object.create(null);
+  compileCache = /* @__PURE__ */ Object.create(null);
 }
 function compileToFunction(source, options = {}) {
   {
@@ -5043,7 +5047,7 @@ function compileToFunction(source, options = {}) {
   }
 }
 let code$1 = messageCompiler.CompileErrorCodes.__EXTEND_POINT__;
-const inc$1 = () => code$1++;
+const inc$1 = () => ++code$1;
 const CoreErrorCodes = {
   INVALID_ARGUMENT: code$1,
   INVALID_DATE_ARGUMENT: inc$1(),
@@ -5434,17 +5438,17 @@ coreBase_cjs_prod.updateFallbackLocale = updateFallbackLocale;
 }
 var require$$1 = /* @__PURE__ */ getAugmentedNamespace(vue_runtime_esmBundler);
 /*!
-  * vue-i18n v9.2.0-beta.23
-  * (c) 2021 kazuya kawaguchi
+  * vue-i18n v9.2.0-beta.30
+  * (c) 2022 kazuya kawaguchi
   * Released under the MIT License.
   */
 Object.defineProperty(vueI18n_cjs_prod, "__esModule", { value: true });
 var coreBase = coreBase$1.exports;
 var vue = require$$1;
 var shared = shared$3.exports;
-const VERSION = "9.2.0-beta.23";
+const VERSION = "9.2.0-beta.30";
 let code = coreBase.CompileErrorCodes.__EXTEND_POINT__;
-const inc = () => code++;
+const inc = () => ++code;
 const I18nErrorCodes = {
   UNEXPECTED_RETURN_TYPE: code,
   INVALID_ARGUMENT: inc(),
@@ -5469,6 +5473,7 @@ const NumberPartsSymbol = /* @__PURE__ */ shared.makeSymbol("__numberParts");
 const SetPluralRulesSymbol = shared.makeSymbol("__setPluralRules");
 shared.makeSymbol("__intlifyMeta");
 const InejctWithOption = /* @__PURE__ */ shared.makeSymbol("__injectWithOption");
+const __VUE_I18N_BRIDGE__ = "__VUE_I18N_BRIDGE__";
 function handleFlatJson(obj) {
   if (!shared.isObject(obj)) {
     return obj;
@@ -5603,7 +5608,7 @@ function createComposer(options = {}, VueI18nLegacy) {
   let _missing = shared.isFunction(options.missing) ? options.missing : null;
   let _runtimeMissing = shared.isFunction(options.missing) ? defineCoreMissingHandler(options.missing) : null;
   let _postTranslation = shared.isFunction(options.postTranslation) ? options.postTranslation : null;
-  let _warnHtmlMessage = shared.isBoolean(options.warnHtmlMessage) ? options.warnHtmlMessage : true;
+  let _warnHtmlMessage = __root ? __root.warnHtmlMessage : shared.isBoolean(options.warnHtmlMessage) ? options.warnHtmlMessage : true;
   let _escapeParameter = !!options.escapeParameter;
   const _modifiers = __root ? __root.modifiers : shared.isPlainObject(options.modifiers) ? options.modifiers : {};
   let _pluralRules = options.pluralRules || __root && __root.pluralRules;
@@ -6479,17 +6484,15 @@ function defineMixin(vuei18n, composer, i18n2) {
       if (!instance) {
         throw createI18nError(I18nErrorCodes.UNEXPECTED_ERROR);
       }
-      vue.nextTick(() => {
-        delete this.$t;
-        delete this.$rt;
-        delete this.$tc;
-        delete this.$te;
-        delete this.$d;
-        delete this.$n;
-        delete this.$tm;
-        i18n2.__deleteInstance(instance);
-        delete this.$i18n;
-      });
+      delete this.$t;
+      delete this.$rt;
+      delete this.$tc;
+      delete this.$te;
+      delete this.$d;
+      delete this.$n;
+      delete this.$tm;
+      i18n2.__deleteInstance(instance);
+      delete this.$i18n;
     }
   };
 }
@@ -6522,7 +6525,7 @@ const I18nInjectionKey = /* @__PURE__ */ shared.makeSymbol("global-vue-i18n");
 function createI18n(options = {}, VueI18nLegacy) {
   const __legacyMode = shared.isBoolean(options.legacy) ? options.legacy : true;
   const __globalInjection = !!options.globalInjection;
-  const __instances = new Map();
+  const __instances = /* @__PURE__ */ new Map();
   const __global = createGlobal(options, __legacyMode);
   const symbol = shared.makeSymbol("");
   function __getInstance(component) {
@@ -6605,6 +6608,12 @@ function useI18n(options = {}) {
   }
   return composer;
 }
+const castToVueI18n = (i18n2) => {
+  if (!(__VUE_I18N_BRIDGE__ in i18n2)) {
+    throw createI18nError(I18nErrorCodes.NOT_COMPATIBLE_LEGACY_VUE_I18N);
+  }
+  return i18n2;
+};
 function createGlobal(options, legacyMode, VueI18nLegacy) {
   {
     return legacyMode ? createVueI18n(options) : createComposer(options);
@@ -6670,7 +6679,7 @@ const globalExportProps = [
 ];
 const globalExportMethods = ["t", "rt", "d", "n", "tm"];
 function injectGlobalFields(app, composer) {
-  const i18n2 = Object.create(null);
+  const i18n2 = /* @__PURE__ */ Object.create(null);
   globalExportProps.forEach((prop) => {
     const desc = Object.getOwnPropertyDescriptor(composer, prop);
     if (!desc) {
@@ -6707,6 +6716,7 @@ vueI18n_cjs_prod.I18nInjectionKey = I18nInjectionKey;
 vueI18n_cjs_prod.NumberFormat = NumberFormat;
 vueI18n_cjs_prod.Translation = Translation;
 vueI18n_cjs_prod.VERSION = VERSION;
+vueI18n_cjs_prod.castToVueI18n = castToVueI18n;
 vueI18n_cjs_prod.createI18n = createI18n;
 vueI18n_cjs_prod.useI18n = useI18n;
 vueI18n_cjs_prod.vTDirective = vTDirective;
@@ -8914,7 +8924,7 @@ const _sfc_main$7 = {
     };
   }
 };
-var Container_scss_vue_type_style_index_0_src_a5ef1a52_lang = "";
+var Container_scss_vue_type_style_index_0_src_7c979666_lang = "";
 const _sfc_main$6 = {
   props: { error: Object },
   setup(__props) {
@@ -8999,7 +9009,12 @@ const _sfc_main$6 = {
             store.dispatch("changeHud");
             break;
           case 83:
-            main$1.save();
+            switch (store.state.serviceMode) {
+              case "create":
+              case "manage":
+                main$1.save();
+                break;
+            }
             break;
         }
       }
@@ -9815,9 +9830,8 @@ const _sfc_main = {
           onUpdateTree,
           onUpdateGroup,
           onDelete: _cache[0] || (_cache[0] = ($event) => onVisibleDelete(true)),
-          onSave: _cache[1] || (_cache[1] = ($event) => onVisiblePost(true)),
-          onLogout: _ctx.onLogout
-        }, null, 8, ["mode", "preference", "usePreference", "group", "tree", "onLogout"]),
+          onSave: _cache[1] || (_cache[1] = ($event) => onVisiblePost(true))
+        }, null, 8, ["mode", "preference", "usePreference", "group", "tree"]),
         (openBlock(), createBlock(Teleport, { to: "#service" }, [
           unref(state2).visiblePost ? (openBlock(), createBlock(_sfc_main$1, {
             key: 0,

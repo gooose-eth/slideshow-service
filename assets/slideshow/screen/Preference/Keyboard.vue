@@ -133,4 +133,5 @@ function onSave()
 }
 </script>
 
+<style src="./fieldset.scss" lang="scss" scoped></style>
 <style src="./Keyboard.scss" lang="scss" scoped></style>

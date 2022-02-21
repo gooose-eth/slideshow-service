@@ -21,7 +21,7 @@ import { a as _sfc_main$9, _ as _export_sfc, i as i18n, c as convertPureObject, 
 import { B as ButtonBasic, v as validUrl, o as objectToString } from "./Basic.js";
 import { F as FormText } from "./Text.js";
 import { F as FormRadio } from "./Radio.js";
-import { a3 as defineComponent, aF as resolveComponent, ax as openBlock, V as createElementBlock, a1 as createVNode, W as createBaseVNode, D as toDisplayString, x as unref, aE as renderSlot, r as reactive, I as Fragment, aD as renderList, A as normalizeClass, U as createCommentVNode, b0 as withCtx, a0 as createTextVNode, aA as pushScopeId, ay as popScopeId, k as ref, c as computed, Q as createBlock, T as Teleport } from "./main2.js";
+import { a4 as defineComponent, aG as resolveComponent, ay as openBlock, W as createElementBlock, a2 as createVNode, X as createBaseVNode, D as toDisplayString, x as unref, aF as renderSlot, r as reactive, I as Fragment, aE as renderList, A as normalizeClass, V as createCommentVNode, b1 as withCtx, a1 as createTextVNode, aB as pushScopeId, az as popScopeId, k as ref, Q as computed, U as createBlock, T as Teleport } from "./main2.js";
 import "./authorization.js";
 var ButtonIcon_vue_vue_type_style_index_0_scoped_true_lang = "";
 const _sfc_main$8 = defineComponent({
@@ -45,7 +45,7 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
     createVNode(_component_Icon, { "icon-name": _ctx.iconName }, null, 8, ["icon-name"])
   ], 8, _hoisted_1$8);
 }
-var ButtonIcon = /* @__PURE__ */ _export_sfc(_sfc_main$8, [["render", _sfc_render], ["__scopeId", "data-v-4eb7754a"]]);
+var ButtonIcon = /* @__PURE__ */ _export_sfc(_sfc_main$8, [["render", _sfc_render], ["__scopeId", "data-v-b249f880"]]);
 var ModalWrapper_scss_vue_type_style_index_0_src_d0af7818_scoped_true_lang = "";
 const _hoisted_1$7 = { class: "modal-wrapper__header" };
 const _hoisted_2$7 = ["title"];
@@ -236,8 +236,8 @@ const _sfc_main$6 = {
     };
   }
 };
-var ManageGroup_vue_vue_type_style_index_0_scoped_true_lang = "";
-const _withScopeId$3 = (n) => (pushScopeId("data-v-693e6cdd"), n = n(), popScopeId(), n);
+var fieldset_scss_vue_type_style_index_0_src_3d07f86c_scoped_true_lang = "";
+const _withScopeId$3 = (n) => (pushScopeId("data-v-3d07f86c"), n = n(), popScopeId(), n);
 const _hoisted_1$5 = /* @__PURE__ */ _withScopeId$3(() => /* @__PURE__ */ createBaseVNode("legend", null, "Manage slides group fields", -1));
 const _hoisted_2$5 = { class: "fields" };
 const _hoisted_3$4 = { class: "field-basic" };
@@ -422,9 +422,9 @@ const _sfc_main$5 = {
     };
   }
 };
-var ManageGroup = /* @__PURE__ */ _export_sfc(_sfc_main$5, [["__scopeId", "data-v-693e6cdd"]]);
-var ManageSlide_vue_vue_type_style_index_0_scoped_true_lang = "";
-const _withScopeId$2 = (n) => (pushScopeId("data-v-5a808285"), n = n(), popScopeId(), n);
+var ManageGroup = /* @__PURE__ */ _export_sfc(_sfc_main$5, [["__scopeId", "data-v-3d07f86c"]]);
+var fieldset_scss_vue_type_style_index_0_src_08bbe1bc_scoped_true_lang = "";
+const _withScopeId$2 = (n) => (pushScopeId("data-v-08bbe1bc"), n = n(), popScopeId(), n);
 const _hoisted_1$4 = /* @__PURE__ */ _withScopeId$2(() => /* @__PURE__ */ createBaseVNode("legend", null, "Manage slide fields", -1));
 const _hoisted_2$4 = { class: "fields" };
 const _hoisted_3$3 = { class: "field-basic" };
@@ -608,8 +608,9 @@ const _sfc_main$4 = {
     };
   }
 };
-var ManageSlide = /* @__PURE__ */ _export_sfc(_sfc_main$4, [["__scopeId", "data-v-5a808285"]]);
-var index_vue_vue_type_style_index_0_scoped_true_lang = "";
+var ManageSlide = /* @__PURE__ */ _export_sfc(_sfc_main$4, [["__scopeId", "data-v-08bbe1bc"]]);
+var index_scss_vue_type_style_index_0_src_004fcc94_scoped_true_lang = "";
+var index_vue_vue_type_style_index_1_scoped_true_lang = "";
 const _hoisted_1$3 = { class: "manage-tree" };
 const _hoisted_2$3 = { class: "tree-item" };
 const _hoisted_3$2 = { class: "tree-item__header" };
@@ -907,8 +908,9 @@ const _sfc_main$3 = {
     };
   }
 };
-var Manage = /* @__PURE__ */ _export_sfc(_sfc_main$3, [["__scopeId", "data-v-7d7caffb"]]);
-var Upload_scss_vue_type_style_index_0_src_53d70741_scoped_true_lang = "";
+var Manage = /* @__PURE__ */ _export_sfc(_sfc_main$3, [["__scopeId", "data-v-004fcc94"]]);
+var form_scss_vue_type_style_index_0_src_44dced1b_scoped_true_lang = "";
+var Upload_scss_vue_type_style_index_1_src_44dced1b_scoped_true_lang = "";
 const _hoisted_1$2 = ["accept", "disabled"];
 const _hoisted_2$2 = { class: "form-upload__body" };
 const _sfc_main$2 = {
@@ -964,9 +966,9 @@ const _sfc_main$2 = {
     };
   }
 };
-var FormUpload = /* @__PURE__ */ _export_sfc(_sfc_main$2, [["__scopeId", "data-v-53d70741"]]);
-var ImportData_vue_vue_type_style_index_0_scoped_true_lang = "";
-const _withScopeId$1 = (n) => (pushScopeId("data-v-d9041778"), n = n(), popScopeId(), n);
+var FormUpload = /* @__PURE__ */ _export_sfc(_sfc_main$2, [["__scopeId", "data-v-44dced1b"]]);
+var fieldset_scss_vue_type_style_index_0_src_6ba12e2d_scoped_true_lang = "";
+const _withScopeId$1 = (n) => (pushScopeId("data-v-6ba12e2d"), n = n(), popScopeId(), n);
 const _hoisted_1$1 = /* @__PURE__ */ _withScopeId$1(() => /* @__PURE__ */ createBaseVNode("legend", null, "Import data fields", -1));
 const _hoisted_2$1 = { class: "fields" };
 const _hoisted_3$1 = { class: "field-basic" };
@@ -1120,9 +1122,10 @@ const _sfc_main$1 = {
     };
   }
 };
-var ImportData = /* @__PURE__ */ _export_sfc(_sfc_main$1, [["__scopeId", "data-v-d9041778"]]);
-var index_scss_vue_type_style_index_0_src_29151e26_scoped_true_lang = "";
-const _withScopeId = (n) => (pushScopeId("data-v-29151e26"), n = n(), popScopeId(), n);
+var ImportData = /* @__PURE__ */ _export_sfc(_sfc_main$1, [["__scopeId", "data-v-6ba12e2d"]]);
+var fieldset_scss_vue_type_style_index_0_src_532b56a6_scoped_true_lang = "";
+var index_scss_vue_type_style_index_1_src_532b56a6_scoped_true_lang = "";
+const _withScopeId = (n) => (pushScopeId("data-v-532b56a6"), n = n(), popScopeId(), n);
 const _hoisted_1 = { class: "pref-data" };
 const _hoisted_2 = /* @__PURE__ */ _withScopeId(() => /* @__PURE__ */ createBaseVNode("legend", null, "Data fields", -1));
 const _hoisted_3 = { class: "fields" };
@@ -1272,5 +1275,5 @@ const _sfc_main = {
     };
   }
 };
-var index = /* @__PURE__ */ _export_sfc(_sfc_main, [["__scopeId", "data-v-29151e26"]]);
+var index = /* @__PURE__ */ _export_sfc(_sfc_main, [["__scopeId", "data-v-532b56a6"]]);
 export { index as default };

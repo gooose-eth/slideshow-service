@@ -25,7 +25,6 @@ export default defineComponent({
 
 <style lang="scss" scoped>
 @use '../../../assets/scss/mixins';
-
 .button-icon {
   display: block;
   width: var(--button-size, 36px);

@@ -1,6 +1,7 @@
 import { _ as _export_sfc, g as getValueFromType } from "./main3.js";
-import { k as ref, ax as openBlock, V as createElementBlock, A as normalizeClass } from "./main2.js";
-var Text_scss_vue_type_style_index_0_src_eecb24c0_scoped_true_lang = "";
+import { k as ref, ay as openBlock, W as createElementBlock, A as normalizeClass } from "./main2.js";
+var form_scss_vue_type_style_index_0_src_6365c578_scoped_true_lang = "";
+var Text_scss_vue_type_style_index_1_src_6365c578_scoped_true_lang = "";
 const _hoisted_1 = ["type", "name", "id", "value", "placeholder", "required", "min", "max", "step", "maxlength", "rows", "size", "disabled", "readOnly"];
 const _hoisted_2 = ["type", "name", "id", "value", "placeholder", "required", "min", "max", "step", "maxlength", "size", "disabled", "readOnly"];
 const _sfc_main = {
@@ -93,5 +94,5 @@ const _sfc_main = {
     };
   }
 };
-var FormText = /* @__PURE__ */ _export_sfc(_sfc_main, [["__scopeId", "data-v-eecb24c0"]]);
+var FormText = /* @__PURE__ */ _export_sfc(_sfc_main, [["__scopeId", "data-v-6365c578"]]);
 export { FormText as F };

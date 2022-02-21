@@ -1,11 +1,11 @@
 import { _ as _export_sfc, i as i18n, F as FormSwitch, c as convertPureObject } from "./main3.js";
 import { F as FormText } from "./Text.js";
-import { _ as _sfc_main$1 } from "./Select.js";
+import { F as FormSelect } from "./Select.js";
 import { F as FormRadio } from "./Radio.js";
-import { r as reactive, ax as openBlock, V as createElementBlock, W as createBaseVNode, D as toDisplayString, x as unref, a1 as createVNode, b0 as withCtx, aA as pushScopeId, ay as popScopeId } from "./main2.js";
+import { r as reactive, ay as openBlock, W as createElementBlock, X as createBaseVNode, D as toDisplayString, x as unref, a2 as createVNode, b1 as withCtx, aB as pushScopeId, az as popScopeId } from "./main2.js";
 import "./authorization.js";
-var Slides_vue_vue_type_style_index_0_scoped_true_lang = "";
-const _withScopeId = (n) => (pushScopeId("data-v-17d9456a"), n = n(), popScopeId(), n);
+var fieldset_scss_vue_type_style_index_0_src_adb942ac_scoped_true_lang = "";
+const _withScopeId = (n) => (pushScopeId("data-v-adb942ac"), n = n(), popScopeId(), n);
 const _hoisted_1 = /* @__PURE__ */ _withScopeId(() => /* @__PURE__ */ createBaseVNode("legend", null, "Slides fields", -1));
 const _hoisted_2 = { class: "fields" };
 const _hoisted_3 = { class: "field-basic" };
@@ -137,7 +137,7 @@ const _sfc_main = {
             ]),
             createBaseVNode("p", _hoisted_12, toDisplayString(unref(t)("description.transitionType")), 1),
             createBaseVNode("div", _hoisted_13, [
-              createVNode(_sfc_main$1, {
+              createVNode(FormSelect, {
                 name: "pref_animationType",
                 id: "pref_animationType",
                 modelValue: unref(state).animationType,
@@ -188,7 +188,7 @@ const _sfc_main = {
             ]),
             createBaseVNode("p", _hoisted_28, toDisplayString(unref(t)("description.captionAnimationType")), 1),
             createBaseVNode("div", _hoisted_29, [
-              createVNode(_sfc_main$1, {
+              createVNode(FormSelect, {
                 name: "pref_captionAnimationType",
                 id: "pref_captionAnimationType",
                 modelValue: unref(state).captionAnimationType,
@@ -360,5 +360,5 @@ const _sfc_main = {
     };
   }
 };
-var Slides = /* @__PURE__ */ _export_sfc(_sfc_main, [["__scopeId", "data-v-17d9456a"]]);
+var Slides = /* @__PURE__ */ _export_sfc(_sfc_main, [["__scopeId", "data-v-adb942ac"]]);
 export { Slides as default };

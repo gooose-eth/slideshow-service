@@ -152,4 +152,5 @@ function onImportData(res)
 }
 </script>
 
+<style src="../fieldset.scss" lang="scss" scoped></style>
 <style src="./index.scss" lang="scss" scoped></style>

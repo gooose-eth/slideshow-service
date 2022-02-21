@@ -126,7 +126,13 @@ function onKeyup(e)
         store.dispatch('changeHud');
         break;
       case 83: // s
-        local.main.save();
+        switch (store.state.serviceMode)
+        {
+          case 'create':
+          case 'manage':
+            local.main.save();
+            break;
+        }
         break;
     }
   }

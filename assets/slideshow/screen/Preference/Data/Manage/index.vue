@@ -292,8 +292,8 @@ function onSubmitSlide(res)
 }
 </script>
 
+<style src="./index.scss" lang="scss" scoped></style>
 <style lang="scss" scoped>
-@use './index';
 .modal-edit-group {
   --modal-size-height: 560px;
 }

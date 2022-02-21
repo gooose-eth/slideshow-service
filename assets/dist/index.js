@@ -1,4 +1,4 @@
-import { r as reactive, c as computed, x as unref, ax as openBlock, Q as createBlock, U as createCommentVNode, b8 as createApp } from "./main2.js";
+import { r as reactive, Q as computed, x as unref, ay as openBlock, U as createBlock, V as createCommentVNode, b9 as createApp } from "./main2.js";
 import { a as _sfc_main$1 } from "./authorization.js";
 const _sfc_main = {
   setup(__props, { expose }) {

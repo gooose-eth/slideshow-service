@@ -284,9 +284,9 @@ function onClickReset()
 }
 </script>
 
+<style src="./fieldset.scss" lang="scss" scoped></style>
 <style lang="scss" scoped>
 @use '../../assets/scss/mixins';
-@use './fieldset';
 .import-data {
   --column: 1;
   --gap: 10px;

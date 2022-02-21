@@ -56,10 +56,9 @@ function onClickItem(key)
 }
 </script>
 
+<style src="./form.scss" lang="scss" scoped></style>
 <style lang="scss" scoped>
 @use '../../assets/scss/mixins';
-@use './form';
-
 .form-radio {
   user-select: none;
   &__wrap {
