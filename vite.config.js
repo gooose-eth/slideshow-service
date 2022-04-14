@@ -1,8 +1,8 @@
 import { defineConfig, loadEnv } from 'vite';
+import vue from '@vitejs/plugin-vue';
 
 // docs: https://vitejs.dev/config
-
-const config = defineConfig(async ({ mode }) => {
+export default defineConfig(async ({ mode }) => {
   const env = loadEnv(mode, process.cwd());
   return {
     server: {
@@ -14,14 +14,24 @@ const config = defineConfig(async ({ mode }) => {
     build: {
       // https://vitejs.dev/config/#build-options
       outDir: env.VITE_OUT_DIR,
+      rollupOptions: {},
     },
     define: {
-      'TITLE': JSON.stringify(env.VITE_TITLE),
+      TITLE: JSON.stringify(env.VITE_TITLE),
+      BASE_URL: JSON.stringify(env.VITE_BASE_URL),
+      DEBUG: JSON.stringify(env.VITE_DEBUG === 'true'),
+      __VUE_I18N_FULL_INSTALL__: true,
+      __VUE_I18N_LEGACY_API__: true
     },
     plugins: [
       // https://vitejs.dev/guide/api-plugin.html
+      vue({
+        template: {
+          compilerOptions: {
+            // isCustomElement: tag => tag.startsWith('ext-'),
+          },
+        },
+      }),
     ],
   };
 });
-
-export default config;
