@@ -2,32 +2,31 @@
 
 Using slideshow service
 
-
 ## Install
 
-make `.env` file
+다음 명령어들을 실행하여 `.env`파일을 복제해 줍니다.
 
 ```shell
-yarn run ready
+cp .env .env.local
+yarn install
 ```
-
-make database table
-
-```shell
-yarn run setup
-```
-
 
 ## Development
 
-Run php server
+```shell
+yarn run dev
+```
+
+## Production
 
 ```shell
+yarn run build
 yarn run start
 ```
 
-Watch mode css & javascript
+### With [PM2](http://pm2.keymetrics.io)
 
-```shell
-yarn run watch
+```bash
+$ cd /goose-manager
+$ /usr/bin/pm2 start -l 0 npm --name "slideshow-service" -- start
 ```
