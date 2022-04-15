@@ -8,7 +8,7 @@ import App from './app.vue';
 import './assets/scss/main.scss';
 
 // set global values
-window.DEBUG = !!DEBUG;
+window.DEV = !!DEV;
 
 // set custom events
 initCustomEvent();

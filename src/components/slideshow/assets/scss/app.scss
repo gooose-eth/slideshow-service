@@ -1,0 +1,32 @@
+@use 'mixins';
+
+.slideshow-wrap {
+  // size
+  --size-shape-radius: 2px;
+  // speed
+  --speed-button-active: 200ms;
+  --speed-slide-animation: 1000ms;
+  --speed-content-toggle: 300ms;
+
+  font-size: 16px;
+  line-height: 1.6;
+  color: var(--color-fill);
+  background-color: var(--color-bg);
+  font-family: var(--font-base);
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: none;
+
+  ::selection {
+    background: var(--color-key);
+    color: var(--color-invert);
+  }
+  a {
+    color: var(--color-key);
+  }
+
+  @include mixins.dark-mode() {
+    ::selection {
+      color: var(--color-fill);
+    }
+  }
+}

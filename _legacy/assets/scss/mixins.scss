@@ -28,18 +28,28 @@
 // dark mode
 @mixin dark-mode($root: false)
 {
-  @if $root
+  @if ($root)
   {
-    &[data-color=dark] { @content; }
-    &[data-color=system], &:not([data-color]) {
-      @media (prefers-color-scheme: dark) { @content; }
+    &[data-theme=dark] {
+      @content;
+    }
+    &[data-theme=system],
+    &:not([data-theme]),
+    &[data-theme=""] {
+      @media (prefers-color-scheme: dark) {
+        @content;
+      }
     }
   }
   @else
   {
-    html[data-color=dark] & { @content; }
+    html[data-theme=dark] & {
+      @content;
+    }
     @media (prefers-color-scheme: dark) {
-      html[data-color=system] &, html:not([data-color]) & {
+      html[data-theme=system] &,
+      html:not([data-theme]) &,
+      html[data-theme=""] & {
         @content;
       }
     }

@@ -1,0 +1,93 @@
+<template>
+<article class="slideshow-empty" @click="onClickWrapper">
+  <div class="slideshow-empty__wrap">
+    <Icon icon-name="frown" class="slideshow-empty__icon"/>
+    <h2 class="slideshow-empty__title">
+      {{title || t('title.emptySlide')}}
+    </h2>
+    <p class="slideshow-empty__description">
+      {{description || t('description.addSlides')}}
+    </p>
+  </div>
+</article>
+</template>
+
+<script setup>
+import store from '../../store';
+import i18n from '../../i18n';
+import Icon from '../Icon/index.vue';
+
+const { t } = i18n.global;
+const props = defineProps({
+  title: String,
+  description: String,
+});
+
+// methods
+function onClickWrapper()
+{
+  if (store.state.preference.general.clickVisibleHud)
+  {
+    store.dispatch('changeHud');
+  }
+}
+</script>
+
+<style lang="scss">
+@use '../../assets/scss/mixins';
+.slideshow-empty {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  &__wrap {
+    text-align: center;
+    padding: 0 0 30px;
+  }
+  &__icon {
+    display: block;
+    margin: 0 auto;
+    --icon-color: var(--color-fill);
+    --icon-size: 80px;
+    --icon-stroke: .75px;
+  }
+  &__title {
+    margin: 4px 0 0;
+    font-size: 32px;
+    font-weight: 800;
+    line-height: 1.15;
+    letter-spacing: -.5px;
+  }
+  &__description {
+    margin: 2px 0 0;
+    letter-spacing: -.25px;
+    font-size: 13px;
+    color: var(--color-low-fill);
+  }
+
+  @include mixins.responsive(desktop) {
+    &__icon {
+      --icon-size: 120px;
+      --icon-stroke: .5px;
+    }
+    &__title {
+      margin-top: 8px;
+      font-size: 42px;
+      letter-spacing: -1px;
+    }
+    &__description {
+      margin-top: 6px;
+      font-size: 13px;
+    }
+  }
+  @include mixins.dark-mode() {
+    &__icon {
+      --icon-color: var(--color-fill);
+    }
+  }
+}
+</style>
