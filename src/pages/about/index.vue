@@ -1,8 +1,6 @@
 <template>
 <article class="about">
-  <h1>
-    Slideshow service
-  </h1>
+  <h1>{{service.title}}</h1>
   <p>
     slideshow 프로젝트를 이용하여 슬라이드를 만들고 공유할 수 있는 서비스입니다.<br/>
     자신의 슬라이드쇼를 다른 사람들에게 공유하여 볼수있게 도와주는것이 이 서비스의 컨셉이며 자신의 슬라이드 이미지를 등록하고 입맛에 맞게 설정을 편집하고 URL 주소를 만들어 공유할 수 있습니다.
@@ -99,7 +97,9 @@
 </template>
 
 <script setup>
-//
+import { serviceStore } from '../../store/env';
+
+const service = serviceStore();
 </script>
 
 <style src="./index.scss" lang="scss" scoped></style>

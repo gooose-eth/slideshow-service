@@ -17,8 +17,6 @@ export default defineConfig(async ({ mode }) => {
       rollupOptions: {},
     },
     define: {
-      TITLE: JSON.stringify(env.VITE_TITLE),
-      BASE_URL: JSON.stringify(env.VITE_BASE_URL),
       DEV: JSON.stringify(mode === 'development'),
       __VUE_I18N_FULL_INSTALL__: true,
       __VUE_I18N_LEGACY_API__: true

@@ -1,5 +1,10 @@
 <template>
-<article>
-  <h1>index page</h1>
+<article class="index">
+  <p>index-page</p>
 </article>
 </template>
+
+<script setup>
+</script>
+
+<style src="./index.scss" lang="scss" scoped></style>

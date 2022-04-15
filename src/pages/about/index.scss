@@ -9,32 +9,32 @@
     font-weight: 900;
     letter-spacing: -1px;
     line-height: 1.15;
-    font-family: var(--font-eng);
   }
   h2 {
     margin: 36px 0 16px;
     font-size: 24px;
     font-weight: 800;
     line-height: 1.15;
-    font-family: var(--font-eng);
   }
   h3 {
     margin: 24px 0 16px;
     font-size: 18px;
     font-weight: 800;
     line-height: 1.15;
+    letter-spacing: -.5px;
   }
   p {
     margin: 16px 0;
     word-break: keep-all;
-    line-height: 1.42;
+    line-height: 1.62;
+    letter-spacing: -.5px;
     code {
       color: var(--color-key);
-      font-weight: 500;
+      font-weight: 600;
     }
   }
   figure {
-    margin: 40px 0 30px;
+    margin: 40px -24px 30px;
     img {
       display: block;
       margin: 0 auto;
@@ -59,6 +59,8 @@
       font-size: 32px;
     }
     figure {
+      margin-left: 0;
+      margin-right: 0;
       img {
         max-width: 75%;
       }

@@ -112,7 +112,6 @@ function onSelectItem(e)
     list-style: none;
     user-select: none;
     color: var(--color-low-fill);
-    font-family: var(--font-eng);
     li {
       font-size: 11px;
       letter-spacing: -.5px;

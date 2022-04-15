@@ -1,0 +1,37 @@
+// circular-std
+$dir: '../fonts/circular/';
+@mixin font-loader($weight-name, $weight)
+{
+  @font-face {
+    font-family: 'circular';
+    font-style: normal;
+    font-weight: $weight;
+    src: local('Circular'),
+      local('Circular Std #{$weight-name}'),
+      url('#{$dir}/CircularStd-#{$weight-name}.woff2') format('woff2');
+  }
+}
+@include font-loader('Book', 400);
+@include font-loader('Medium', 500);
+@include font-loader('Bold', 600);
+@include font-loader('Black', 700);
+
+// Pretendard
+$dir: '../fonts/pretendard/';
+@mixin font-loader($weight-name, $weight)
+{
+  @font-face {
+    font-family: 'Pretendard';
+    font-style: normal;
+    font-weight: $weight;
+    src: local('Pretendard'),
+      local('Pretendard #{$weight-name}'),
+      url('#{$dir}/Pretendard-#{$weight-name}.subset.woff2') format('woff2');
+  }
+}
+@include font-loader('Black', 900);
+@include font-loader('Bold', 700);
+@include font-loader('SemiBold', 600);
+@include font-loader('Medium', 500);
+@include font-loader('Regular', 400);
+@include font-loader('ExtraLight', 200);

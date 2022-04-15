@@ -1,7 +1,7 @@
 @use '../assets/scss/mixins';
 
 .viewport {
-  padding: 0 30px;
+  padding: 0 24px;
   ::selection {
     background: var(--color-key);
     color: #fff;
@@ -41,7 +41,7 @@
     }
   }
   &__nav {
-    --size-middle-padding: 4px;
+    --size-middle-padding: 2px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -60,8 +60,7 @@
     li {
       display: flex;
       align-items: center;
-      font-size: 13px;
-      font-family: var(--font-eng);
+      font-size: 14px;
       font-weight: 600;
       &:nth-child(n+2) {
         margin-left: var(--size-middle-padding);
@@ -96,7 +95,7 @@
       }
     }
     &__nav {
-      --size-middle-padding: 8px;
+      --size-middle-padding: 4px;
       margin-top: 16px;
     }
   }
@@ -108,7 +107,6 @@
   text-align: center;
   &__copyright {
     user-select: none;
-    font-family: var(--font-eng);
     font-size: 11px;
     letter-spacing: -.25px;
     color: var(--color-weak);

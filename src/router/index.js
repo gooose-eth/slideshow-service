@@ -1,11 +1,9 @@
 import { createRouter, createWebHistory } from 'vue-router';
 import map from './map';
 
-/** @var {string} BASE_URL */
-
 /** @var {Router} router */
 const router = createRouter({
-  history: createWebHistory(BASE_URL || '/'),
+  history: createWebHistory('/'),
   routes: map,
 });
 

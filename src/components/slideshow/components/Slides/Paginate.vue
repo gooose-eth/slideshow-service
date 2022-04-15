@@ -12,7 +12,6 @@ const props = defineProps({
 
 <style lang="scss" scoped>
 .slideshow-paginate {
-  font-family: var(--font-eng);
   font-style: normal;
   font-size: 13px;
   line-height: 1.15;
