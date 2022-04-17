@@ -2,6 +2,7 @@
 namespace Core;
 use Exception;
 use Firebase\JWT\JWT;
+use Firebase\JWT\Key;
 use Firebase\JWT\ExpiredException;
 
 /**
@@ -9,6 +10,8 @@ use Firebase\JWT\ExpiredException;
  */
 
 class Token {
+
+  const algo = 'HS256';
 
   /**
    * create token
@@ -27,7 +30,7 @@ class Token {
     ];
 
     // encode token
-    $jwt = JWT::encode($payload, $_ENV['TOKEN_KEY']);
+    $jwt = JWT::encode((array)$payload, $_ENV['TOKEN_KEY'], self::algo);
 
     return (object)[
       'jwt' => $jwt,
@@ -46,7 +49,7 @@ class Token {
     try
     {
       if (!$token) throw new Exception('No token');
-      $jwt = JWT::decode($token, $_ENV['TOKEN_KEY'], ['HS256']);
+      $jwt = JWT::decode($token, new Key($_ENV['TOKEN_KEY'], self::algo));
       if ($_ENV['PATH_URL'] !== $jwt->iss)
       {
         throw new Exception('The domain does not match.');

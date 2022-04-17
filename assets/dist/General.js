@@ -1,9 +1,9 @@
-import { _ as _export_sfc, a as _sfc_main$2, i as i18n, c as convertPureObject, s as store, F as FormSwitch, m as main } from "./main3.js";
+import { _ as _export_sfc, a as _sfc_main$2, c as convertPureObject, s as store, F as FormSwitch, m as main } from "./main2.js";
+import { o as openBlock, a as createElementBlock, g as createBaseVNode, j as createVNode, t as toDisplayString, h as createCommentVNode, q as i18n, r as reactive, u as unref, F as Fragment, B as withCtx, C as createTextVNode, p as pushScopeId, l as popScopeId } from "./main.js";
 import { B as ButtonBasic, t as twoDigit } from "./Basic.js";
 import { F as FormText } from "./Text.js";
-import { ay as openBlock, W as createElementBlock, X as createBaseVNode, a2 as createVNode, D as toDisplayString, V as createCommentVNode, r as reactive, x as unref, I as Fragment, b1 as withCtx, a1 as createTextVNode, aB as pushScopeId, az as popScopeId } from "./main2.js";
 import "./authorization.js";
-var Checkbox_scss_vue_type_style_index_0_src_176ad31a_scoped_true_lang = "";
+var Checkbox_scss_vue_type_style_index_0_src_88ef33da_scoped_true_lang = "";
 const _hoisted_1$1 = { class: "form-checkbox" };
 const _hoisted_2$1 = { class: "form-checkbox__body" };
 const _hoisted_3$1 = ["name", "id", "required", "disabled", "checked"];
@@ -44,10 +44,10 @@ const _sfc_main$1 = {
     };
   }
 };
-var FormCheckbox = /* @__PURE__ */ _export_sfc(_sfc_main$1, [["__scopeId", "data-v-176ad31a"]]);
-var fieldset_scss_vue_type_style_index_0_src_549c285c_scoped_true_lang = "";
+var FormCheckbox = /* @__PURE__ */ _export_sfc(_sfc_main$1, [["__scopeId", "data-v-88ef33da"]]);
+var fieldset_scss_vue_type_style_index_0_src_31ba04bc_scoped_true_lang = "";
 var General_vue_vue_type_style_index_1_scoped_true_lang = "";
-const _withScopeId = (n) => (pushScopeId("data-v-549c285c"), n = n(), popScopeId(), n);
+const _withScopeId = (n) => (pushScopeId("data-v-31ba04bc"), n = n(), popScopeId(), n);
 const _hoisted_1 = /* @__PURE__ */ _withScopeId(() => /* @__PURE__ */ createBaseVNode("legend", null, "General fields", -1));
 const _hoisted_2 = { class: "fields" };
 const _hoisted_3 = { class: "field-basic" };
@@ -371,5 +371,5 @@ const _sfc_main = {
     };
   }
 };
-var General = /* @__PURE__ */ _export_sfc(_sfc_main, [["__scopeId", "data-v-549c285c"]]);
+var General = /* @__PURE__ */ _export_sfc(_sfc_main, [["__scopeId", "data-v-31ba04bc"]]);
 export { General as default };

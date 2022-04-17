@@ -1,5 +1,5 @@
 import { a as _sfc_main$1 } from "./authorization.js";
-import { r as reactive, ay as openBlock, U as createBlock, x as unref } from "./main2.js";
+import { r as reactive, o as openBlock, b as createBlock, u as unref } from "./main.js";
 const _sfc_main = {
   setup(__props) {
     const { address } = window.Custom;

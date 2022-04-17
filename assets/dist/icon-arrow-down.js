@@ -1,5 +1,5 @@
-import { _ as _export_sfc } from "./main3.js";
-import { ay as openBlock, W as createElementBlock } from "./main2.js";
+import { _ as _export_sfc } from "./main2.js";
+import { o as openBlock, a as createElementBlock } from "./main.js";
 import "./authorization.js";
 const _sfc_main = {};
 const _hoisted_1 = { points: "6 9 12 15 18 9" };

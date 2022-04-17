@@ -2,7 +2,7 @@
 <html lang="ko" class="slideshow-page">
 <head>
 @include('head')
-<link rel="stylesheet" href="{{__ROOT__}}assets/dist/main.css">
+<link rel="stylesheet" href="{{__ROOT__}}assets/dist/style.css">
 </head>
 <body ontouchstart="">
 @yield('contents')

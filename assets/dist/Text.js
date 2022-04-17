@@ -1,7 +1,7 @@
-import { _ as _export_sfc, g as getValueFromType } from "./main3.js";
-import { k as ref, ay as openBlock, W as createElementBlock, A as normalizeClass } from "./main2.js";
-var form_scss_vue_type_style_index_0_src_6365c578_scoped_true_lang = "";
-var Text_scss_vue_type_style_index_1_src_6365c578_scoped_true_lang = "";
+import { _ as _export_sfc, g as getValueFromType } from "./main2.js";
+import { f as ref, o as openBlock, a as createElementBlock, n as normalizeClass } from "./main.js";
+var form_scss_vue_type_style_index_0_src_3d326638_scoped_true_lang = "";
+var Text_scss_vue_type_style_index_1_src_3d326638_scoped_true_lang = "";
 const _hoisted_1 = ["type", "name", "id", "value", "placeholder", "required", "min", "max", "step", "maxlength", "rows", "size", "disabled", "readOnly"];
 const _hoisted_2 = ["type", "name", "id", "value", "placeholder", "required", "min", "max", "step", "maxlength", "size", "disabled", "readOnly"];
 const _sfc_main = {
@@ -94,5 +94,5 @@ const _sfc_main = {
     };
   }
 };
-var FormText = /* @__PURE__ */ _export_sfc(_sfc_main, [["__scopeId", "data-v-6365c578"]]);
+var FormText = /* @__PURE__ */ _export_sfc(_sfc_main, [["__scopeId", "data-v-3d326638"]]);
 export { FormText as F };

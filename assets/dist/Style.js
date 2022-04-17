@@ -1,10 +1,10 @@
-import { _ as _export_sfc, i as i18n, c as convertPureObject } from "./main3.js";
+import { q as i18n, r as reactive, o as openBlock, a as createElementBlock, g as createBaseVNode, t as toDisplayString, u as unref, j as createVNode, B as withCtx, p as pushScopeId, l as popScopeId } from "./main.js";
+import { _ as _export_sfc, c as convertPureObject } from "./main2.js";
 import { F as FormText } from "./Text.js";
 import { F as FormSelect } from "./Select.js";
-import { r as reactive, ay as openBlock, W as createElementBlock, X as createBaseVNode, D as toDisplayString, x as unref, a2 as createVNode, b1 as withCtx, aB as pushScopeId, az as popScopeId } from "./main2.js";
 import "./authorization.js";
-var fieldset_scss_vue_type_style_index_0_src_54f17b58_scoped_true_lang = "";
-const _withScopeId = (n) => (pushScopeId("data-v-54f17b58"), n = n(), popScopeId(), n);
+var fieldset_scss_vue_type_style_index_0_src_075311f4_scoped_true_lang = "";
+const _withScopeId = (n) => (pushScopeId("data-v-075311f4"), n = n(), popScopeId(), n);
 const _hoisted_1 = /* @__PURE__ */ _withScopeId(() => /* @__PURE__ */ createBaseVNode("legend", null, "Style fields", -1));
 const _hoisted_2 = { class: "fields" };
 const _hoisted_3 = { class: "field-basic" };
@@ -196,5 +196,5 @@ const _sfc_main = {
     };
   }
 };
-var Style = /* @__PURE__ */ _export_sfc(_sfc_main, [["__scopeId", "data-v-54f17b58"]]);
+var Style = /* @__PURE__ */ _export_sfc(_sfc_main, [["__scopeId", "data-v-075311f4"]]);
 export { Style as default };

@@ -1,9 +1,9 @@
-import { _ as _export_sfc, i as i18n, F as FormSwitch, c as convertPureObject } from "./main3.js";
-import { r as reactive, ay as openBlock, W as createElementBlock, X as createBaseVNode, D as toDisplayString, x as unref, a2 as createVNode, aB as pushScopeId, az as popScopeId } from "./main2.js";
+import { q as i18n, r as reactive, o as openBlock, a as createElementBlock, g as createBaseVNode, t as toDisplayString, u as unref, j as createVNode, p as pushScopeId, l as popScopeId } from "./main.js";
+import { _ as _export_sfc, F as FormSwitch, c as convertPureObject } from "./main2.js";
 import "./authorization.js";
-var fieldset_scss_vue_type_style_index_0_src_7ed3e397_scoped_true_lang = "";
-var Keyboard_scss_vue_type_style_index_1_src_7ed3e397_scoped_true_lang = "";
-const _withScopeId = (n) => (pushScopeId("data-v-7ed3e397"), n = n(), popScopeId(), n);
+var fieldset_scss_vue_type_style_index_0_src_88e43012_scoped_true_lang = "";
+var Keyboard_scss_vue_type_style_index_1_src_88e43012_scoped_true_lang = "";
+const _withScopeId = (n) => (pushScopeId("data-v-88e43012"), n = n(), popScopeId(), n);
 const _hoisted_1 = /* @__PURE__ */ _withScopeId(() => /* @__PURE__ */ createBaseVNode("legend", null, "Keyboard fields", -1));
 const _hoisted_2 = { class: "fields" };
 const _hoisted_3 = { class: "field-switch" };
@@ -133,5 +133,5 @@ const _sfc_main = {
     };
   }
 };
-var Keyboard = /* @__PURE__ */ _export_sfc(_sfc_main, [["__scopeId", "data-v-7ed3e397"]]);
+var Keyboard = /* @__PURE__ */ _export_sfc(_sfc_main, [["__scopeId", "data-v-88e43012"]]);
 export { Keyboard as default };

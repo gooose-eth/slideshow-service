@@ -1,4 +1,5 @@
 import { createApp } from 'vue';
+import i18n from './slideshow/i18n';
 
 // stylesheet
 import './scss/main.scss';
@@ -12,20 +13,24 @@ switch(routeMode)
     if (!!window.Custom?.slideshow)
     {
       import('./slideshow/main.vue').then(({ default: Main }) => {
-        createApp(Main, { mode: routeMode }).mount('#slideshow');
+        createApp(Main, { mode: routeMode })
+          .use(i18n)
+          .mount('#slideshow');
       });
     }
     else
     {
       import('./pages/auth.vue').then(({ default: Auth }) => {
-        createApp(Auth, { mode: routeMode }).mount('#service');
+        createApp(Auth, { mode: routeMode })
+          .mount('#service');
       });
     }
     break;
   case 'create':
   case 'manage':
     import('./slideshow/main.vue').then(({ default: Main }) => {
-      createApp(Main, { mode: routeMode }).mount('#slideshow');
+      createApp(Main, { mode: routeMode })
+        .mount('#slideshow');
     });
     break;
   default:

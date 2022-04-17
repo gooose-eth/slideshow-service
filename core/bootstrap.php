@@ -40,7 +40,7 @@ if ($_ENV['TIMEZONE'])
 Util::readySession();
 
 // set blade
-$blade = new Blade(__PATH__.'/view', __PATH__.'/cache/view');
+$blade = new Blade(__PATH__.'/view', __PATH__.'/cache');
 
 try
 {
