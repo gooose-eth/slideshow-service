@@ -13,7 +13,7 @@ const author = "redgoose <scripter@me.com>";
 const license = "MIT";
 const devDependencies = {
   "@vitejs/plugin-vue": "^2.3.1",
-  sass: "^1.50.0",
+  sass: "^1.50.1",
   vite: "^2.9.5"
 };
 const dependencies = {

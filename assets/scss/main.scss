@@ -19,6 +19,7 @@
     color: var(--color-invert);
   }
   @include mixins.dark-mode(true) {
+    color-scheme: dark;
     --color-bg: #222;
     --color-fill: #f0f0f0;
     --color-low-fill: #999;
