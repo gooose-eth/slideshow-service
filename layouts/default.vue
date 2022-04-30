@@ -18,11 +18,6 @@
     <nav class="header__nav">
       <ul>
         <li>
-          <nuxt-link to="/" title="목록으로">
-            목록
-          </nuxt-link>
-        </li>
-        <li>
           <nuxt-link to="/create" title="만들기">
             만들기
           </nuxt-link>
@@ -56,7 +51,7 @@ const year = ref((new Date()).getFullYear());
 
 function onClickManage(): void
 {
-  //
+  console.log('call onClickManage()');
 }
 </script>
 

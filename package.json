@@ -6,7 +6,7 @@
   "type": "module",
   "license": "MIT",
   "scripts": {
-    "tool": "node ./tool.js",
+    "tool": "node ./resource/tool.js",
     "setup": "node ./resource/tool.js setup",
     "dev": "nuxi dev",
     "build": "rm -rf .nuxt && rm -rf .output && nuxi build",
@@ -24,13 +24,15 @@
   ],
   "dependencies": {
     "@pinia/nuxt": "^0.1.8",
-    "bcrypt": "^5.0.1",
+    "dotenv": "^16.0.0",
     "express": "^4.18.1",
+    "mariadb": "^3.0.0",
+    "ohmyfetch": "^0.4.16",
     "pinia": "^2.0.13"
   },
   "devDependencies": {
     "nuxt": "npm:nuxt3@latest",
-    "sass": "^1.51.0",
-    "pinia": "^2.0.13"
+    "pinia": "^2.0.13",
+    "sass": "^1.51.0"
   }
 }

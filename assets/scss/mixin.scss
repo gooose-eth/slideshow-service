@@ -89,3 +89,9 @@
     @content;
   }
 }
+
+@mixin disable-drag()
+{
+  -webkit-user-drag: none;
+  user-drag: none;
+}
