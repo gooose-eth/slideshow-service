@@ -6,32 +6,31 @@
   "type": "module",
   "license": "MIT",
   "scripts": {
-    "dev": "node server/entry.js --development",
-    "dev:live": "nodemon server/entry.js --development",
-    "prebuild": "rm -rf ./dist",
-    "build": "vite build",
-    "start": "node server/entry.js --production"
+    "tool": "node ./tool.js",
+    "setup": "node ./resource/tool.js setup",
+    "dev": "nuxi dev",
+    "build": "rm -rf .nuxt && rm -rf .output && nuxi build",
+    "start": "node .output/server/index.mjs"
   },
   "nodemonConfig": {
     "delay": 500
+  },
+  "engines": {
+    "node": ">=17"
   },
   "browserslist": [
     "> 1%",
     "last 2 versions"
   ],
   "dependencies": {
-    "express": "^4.18.0",
-    "ohmyfetch": "^0.4.15"
+    "@pinia/nuxt": "^0.1.8",
+    "bcrypt": "^5.0.1",
+    "express": "^4.18.1",
+    "pinia": "^2.0.13"
   },
   "devDependencies": {
-    "@vitejs/plugin-vue": "^2.3.1",
-    "nodemon": "^2.0.16",
-    "pinia": "^2.0.13",
+    "nuxt": "npm:nuxt3@latest",
     "sass": "^1.51.0",
-    "vite": "^2.9.6",
-    "vue": "^3.2.33",
-    "vue-i18n": "^9.2.0-beta.35",
-    "vue-router": "^4.0.14",
-    "vuex": "^4.0.2"
+    "pinia": "^2.0.13"
   }
 }

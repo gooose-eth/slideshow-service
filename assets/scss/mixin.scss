@@ -1,0 +1,91 @@
+// === Screen
+
+// responsive
+@mixin responsive($range)
+{
+  @if ($range == tablet) { @media (min-width: 900px) { @content; } }
+  @else if ($range == desktop) { @media (min-width: 1280px) { @content; } }
+  @else if ($range == desktop-large) { @media (min-width: 1440px) { @content; } }
+}
+
+// for retina
+@mixin retina()
+{
+  @media (-webkit-min-device-pixel-ratio: 2) { @content; }
+}
+
+// full height from viewport
+@mixin full-height()
+{
+  min-height: 100vh;
+  @supports (-webkit-touch-callout: none) {
+    min-height: -webkit-fill-available;
+  }
+}
+
+// dark mode
+@mixin dark-mode($root: false)
+{
+  @if ($root)
+  {
+    &[data-theme=dark] {
+      @content;
+    }
+    &[data-theme=system],
+    &:not([data-theme]),
+    &[data-theme=""] {
+      @media (prefers-color-scheme: dark) {
+        @content;
+      }
+    }
+  }
+  @else
+  {
+    html[data-theme=dark] & {
+      @content;
+    }
+    @media (prefers-color-scheme: dark) {
+      html[data-theme=system] &,
+      html:not([data-theme]) &,
+      html[data-theme=""] & {
+        @content;
+      }
+    }
+  }
+}
+
+
+// === Button
+
+// button touch options
+@mixin button-extends()
+{
+  outline: none;
+  user-select: none;
+  cursor: pointer;
+  -webkit-tap-highlight-color: rgb(0 0 0 / 0%);
+}
+// hover event
+@mixin mouse-event($mode)
+{
+  @if ($mode == hover) {
+    @media (hover: hover) {
+      &:hover { @content; }
+    }
+  }
+  @else if ($mode == active) {
+    &:active { @content; }
+  }
+}
+
+
+// === Etc
+
+// background blur
+@mixin background-blur($size)
+{
+  @supports (backdrop-filter: blur($size)) {
+    backdrop-filter: blur($size);
+    @content;
+  }
+}
