@@ -4,11 +4,7 @@
 
 import fs from 'fs';
 
-interface Result {
-  success: boolean;
-}
-
-export default async (): Promise<Result> => {
+export default async () => {
   return {
     success: true,
   };
