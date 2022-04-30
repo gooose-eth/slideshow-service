@@ -55,7 +55,12 @@ function install()
     }
 
     // delete table
-    $model->db->exec("drop table ".__TABLE_NAME__);
+    try
+    {
+      $model->db->exec("drop table ".__TABLE_NAME__);
+    }
+    catch (Exception $e)
+    {}
 
     // create table
     $sql = file_get_contents(__PATH__.'/resource/db.default.sql');

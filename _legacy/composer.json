@@ -15,9 +15,9 @@
     "vlucas/phpdotenv": "^5.4.1",
     "redgoose/paginate": "^1.0.4",
     "redgoose/console": "^1.0.1",
-    "eftec/bladeone": "^4.4.1",
+    "eftec/bladeone": "^4.5.3",
     "altorouter/altorouter": "^2.0.2",
-    "firebase/php-jwt": "^v5.5.1",
+    "firebase/php-jwt": "^v6.1.0",
     "ext-pdo": "*",
     "ext-json": "*"
   }

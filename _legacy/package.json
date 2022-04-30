@@ -1,24 +1,22 @@
 {
   "name": "slideshow-service",
-  "version": "1.0.5",
+  "version": "1.1.1",
   "scripts": {
     "setup": "./scripts.sh setup",
     "start": "./scripts.sh start 5000",
-    "dev": "vite build --watch --config assets/config/vite.dev.config.js",
-    "build": "rm -rf assets/dist/ && vite build --config assets/config/vite.prod.config.js"
+    "build": "vite build"
   },
   "repository": "https://github.com/redgoose-dev/slideshow-service.git",
   "author": "redgoose <scripter@me.com>",
   "license": "MIT",
   "devDependencies": {
-    "@vitejs/plugin-vue": "^2.2.2",
-    "autoprefixer": "^10.4.2",
-    "sass": "^1.49.8",
-    "vite": "^2.8.4"
+    "@vitejs/plugin-vue": "^2.3.1",
+    "sass": "^1.50.1",
+    "vite": "^2.9.5"
   },
   "dependencies": {
-    "vue": "^3.2.31",
-    "vue-i18n": "^9.2.0-beta.30",
+    "vue": "^3.2.33",
+    "vue-i18n": "^9.2.0-beta.35",
     "vuex": "^4.0.2"
   }
 }
