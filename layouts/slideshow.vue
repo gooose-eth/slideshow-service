@@ -1,19 +1,26 @@
 <template>
 <main class="slideshow">
-  <Html class="mode-slideshow">
+  <Html
+    :class="[
+      'mode-slideshow',
+      preference.style.screenColor && `theme-${preference.style.screenColor}`,
+    ]">
     <Head>
       <Title>sdmikgsdg</Title>
     </Head>
     <Body/>
   </Html>
-  <div class="container">
+  <client-only>
     <slot/>
-  </div>
+  </client-only>
 </main>
 </template>
 
 <script lang="ts" setup>
-//
+import { preferenceStore, currentStore } from '~/store/slideshow';
+
+const preference = preferenceStore();
+const current = currentStore();
 </script>
 
 <style lang="scss">

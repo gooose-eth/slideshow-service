@@ -8,8 +8,20 @@
 </template>
 
 <script lang="ts" setup>
+import { initCustomEvent } from '~/libs/util';
+
 const nuxtApp = useNuxtApp();
 const route = useRoute();
+
+if (process.client)
+{
+  // create teleport element
+  const $body = document.createElement('div');
+  $body.id = 'service';
+  document.body.appendChild($body);
+  // initial custom event
+  initCustomEvent();
+}
 
 // setup
 const { data } = await useAsyncData('setup', () => $fetch('/api/setup', {
@@ -20,7 +32,11 @@ const { data } = await useAsyncData('setup', () => $fetch('/api/setup', {
 }));
 const { success } = data.value;
 
-nuxtApp.hook('page:finish', (): void => {
-  // window.scrollTo(0, 0); // TODO: 상단으로 올리기
-});
+// nuxtApp.hook('page:start', (): void => {
+//   console.log('start');
+// });
+// nuxtApp.hook('page:finish', (): void => {
+//   console.log('ffffififii')
+//   // window.scrollTo(0, 0); // TODO: 상단으로 올리기
+// });
 </script>

@@ -3,10 +3,13 @@
 
 :root {
   // color
-  --color-bg: #fafbfc;
-  --color-base: #222;
-  --color-weak: #666;
-  --color-key: #b31f37;
+  --color-bg: hsl(210 25% 98%);
+  --color-base: hsl(0 0% 13%);
+  --color-weak: hsl(0 0% 40%);
+  --color-key: hsl(350 70% 41%);
+  --color-invert: hsl(0 0% 100%);
+  --color-danger: hsl(4 80% 44%);
+  --color-shape: hsl(0 0% 80%);
   // size
   --size-text-base: 16px;
   // font
@@ -14,6 +17,11 @@
   --font-eng: 'ortsa', 'Helvetica Neue', Helvetica, Arial, sans-serif;
   @include mixin.dark-mode(true) {
     color-scheme: dark;
+    --color-bg: hsl(0 0% 13%);
+    --color-base: hsl(0 0% 94%);
+    --color-weak: hsl(0 0% 60%);
+    --color-key: hsl(148 73% 39%);
+    --color-invert: hsl(0 0% 0%);
   }
 }
 

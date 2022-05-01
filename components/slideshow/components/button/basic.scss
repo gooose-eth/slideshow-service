@@ -1,0 +1,64 @@
+@use '../../../../assets/scss/mixin';
+
+.button-basic {
+  display: block;
+  width: 100%;
+  height: 42px;
+  margin: 0;
+  padding: 0 16px;
+  box-sizing: border-box;
+  cursor: pointer;
+  border-radius: 2px;
+  border: none;
+  background: #909090;
+  font-size: 16px;
+  color: #fff;
+  letter-spacing: -.5px;
+  user-select: none;
+  transition: opacity 200ms ease-out;
+  -webkit-tap-highlight-color: transparent;
+  outline: none;
+  min-width: 160px;
+  text-align: center;
+  &:active {
+    opacity: .5;
+  }
+  &:focus-visible {
+    box-shadow: 0 0 0 2px var(--color-key), inset 0 0 8px 0 rgba(0,0,0,.2);
+  }
+  &:disabled {
+    cursor: not-allowed;
+    opacity: .5;
+  }
+  &--color {
+    &-key {
+      background: var(--color-key);
+      &:active {
+        box-shadow: inset 0 0 12px 0 rgba(0,0,0,.2);
+      }
+      &:focus-visible {
+        box-shadow:
+          inset 0 0 12px 0 rgba(0,0,0,.2),
+          0 0 0 2px var(--color-key),
+          inset 0 0 0 1px rgba(255,255,255,.75);
+      }
+    }
+    &-danger {
+      background: var(--color-danger);
+      &:active {
+        box-shadow: inset 0 0 12px 0 rgba(0,0,0,.2);
+      }
+    }
+  }
+
+  @include mixin.dark-mode() {
+    &--color {
+      &-key {
+        color: var(--color-base);
+      }
+      &-danger {
+        color: var(--color-base);
+      }
+    }
+  }
+}

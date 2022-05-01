@@ -1,0 +1,74 @@
+@use '../../../../assets/scss/mixin';
+
+.preference-side {
+  --button-size: 48px;
+  background-color: #909090;
+  &__button {
+    display: block;
+    width: var(--button-size);
+    height: var(--button-size);
+    margin: 0;
+    padding: 0;
+    border: none;
+    background: none;
+    border-radius: 0;
+    box-sizing: border-box;
+    transition: background-color var(--speed-button-active) ease-out;
+    @include mixin.button-extends();
+    --icon-size: 18px;
+    --icon-color: var(--color-invert);
+    --icon-stroke: 1.75;
+    &:active,
+    &:focus {
+      background-color: rgba(0,0,0,.2);
+    }
+    &:disabled {
+      background-color: var(--color-key);
+      cursor: default;
+    }
+    span {
+      display: block;
+    }
+    svg {
+      margin: 0 auto;
+    }
+    em {
+      display: none;
+    }
+  }
+
+  @include mixin.responsive(tablet) {
+    --button-size: 42px;
+    width: 160px;
+    &__button {
+      width: 100%;
+      span {
+        display: flex;
+        align-items: center;
+      }
+      svg {
+        margin-left: 16px;
+      }
+      em {
+        display: block;
+        flex: 1;
+        text-align: left;
+        margin: 0 0 0 12px;
+        font-weight: 400;
+        color: var(--color-invert);
+        font-size: 14px;
+        font-style: normal;
+        letter-spacing: -.25px;
+      }
+    }
+  }
+  @include mixin.dark-mode() {
+    background-color: #303030;
+    &__button {
+      --icon-color: var(--color-base);
+      em {
+        color: var(--color-base);
+      }
+    }
+  }
+}
