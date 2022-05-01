@@ -20,7 +20,7 @@
     box-sizing: border-box;
     pointer-events: none;
     appearance: none;
-    background: #e1e1e1;
+    background: var(--color-shape);
     border-radius: calc(var(--icon-size) * .5);
     box-shadow: inset 0 0 8px 0 rgba(0,0,0,.1), inset 0 0 0 1px rgba(0,0,0,.05);
     transition: background-color 300ms ease-out, box-shadow 200ms ease-out;
@@ -37,7 +37,7 @@
     top: var(--wrap-padding);
     width: calc(var(--icon-size) - calc(var(--wrap-padding) * 2));
     height: calc(var(--icon-size) - calc(var(--wrap-padding) * 2));
-    background-color: var(--color-bg);
+    background-color: #fff;
     border-radius: calc(var(--icon-size) * .5);
     transition: width 120ms ease-out;
     pointer-events: none;
@@ -56,11 +56,5 @@
   &--disabled {
     cursor: not-allowed;
     opacity: .5;
-  }
-
-  @include mixin.dark-mode() {
-    i {
-      background-color: var(--color-base);
-    }
   }
 }

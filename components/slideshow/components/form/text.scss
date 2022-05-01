@@ -14,7 +14,7 @@
   transition: box-shadow var(--speed-button-active) ease-out;
   font-size: 16px;
   letter-spacing: -.25px;
-  color: var(--color-fill);
+  color: var(--color-base);
   &:focus {
     box-shadow: 0 0 0 2px var(--color-key);
   }
@@ -30,7 +30,7 @@
     letter-spacing: normal;
     resize: vertical;
     --color-bg: var(--color-shape);
-    @include mixins.custom-scroll-style();
+    //@include mixins.custom-scroll-style();
   }
   &--inline {
     width: unset;

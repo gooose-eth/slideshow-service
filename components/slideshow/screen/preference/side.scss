@@ -16,7 +16,7 @@
     transition: background-color var(--speed-button-active) ease-out;
     @include mixin.button-extends();
     --icon-size: 18px;
-    --icon-color: var(--color-invert);
+    --icon-color: hsl(0 0% 100%);
     --icon-stroke: 1.75;
     &:active,
     &:focus {
@@ -54,8 +54,8 @@
         flex: 1;
         text-align: left;
         margin: 0 0 0 12px;
-        font-weight: 400;
-        color: var(--color-invert);
+        font-weight: 600;
+        color: hsl(0 0% 100%);
         font-size: 14px;
         font-style: normal;
         letter-spacing: -.25px;
@@ -64,11 +64,5 @@
   }
   @include mixin.dark-mode() {
     background-color: #303030;
-    &__button {
-      --icon-color: var(--color-base);
-      em {
-        color: var(--color-base);
-      }
-    }
   }
 }

@@ -27,24 +27,21 @@
     letter-spacing: -.25px;
     background: var(--color-shape);
     line-height: normal;
-    color: var(--color-fill);
+    color: var(--color-base);
     -webkit-appearance: none;
+    font-weight: 500;
   }
   &__icon {
     position: absolute;
     right: 12px;
     top: 50%;
     transform: translateY(-50%);
-    --icon-stroke: 1.5;
+    --icon-stroke: 1.75;
     --icon-size: 22px;
+    --icon-color: var(--color-base);
   }
   &--disabled {
     opacity: .5;
     cursor: not-allowed;
-  }
-  @include mixins.dark-mode() {
-    &__icon {
-      --icon-color: var(--color-fill);
-    }
   }
 }

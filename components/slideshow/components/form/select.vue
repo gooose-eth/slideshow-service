@@ -19,13 +19,13 @@
     </option>
     <slot/>
   </select>
-  <Icon icon-name="arrow-down" class="form-select__icon"/>
+  <Icon icon-name="arrowDown" class="form-select__icon"/>
 </label>
 </template>
 
 <script setup>
 import * as util from '../../libs/util';
-import Icon from '../Icon/index.vue';
+import Icon from '../icon/index.vue';
 
 const name = 'FormSelect';
 const props = defineProps({
