@@ -17,7 +17,6 @@
             name="pref_key"
             id="pref_key"
             :placeholder="t('base.inputKey')"
-            :inline="true"
             :required="true"
             :size="24"
             :maxlength="20"

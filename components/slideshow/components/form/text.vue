@@ -52,7 +52,7 @@
 
 <script setup>
 import { ref } from 'vue';
-import * as util from '../../libs/util';
+import { getValueFromType } from '~/libs/util';
 
 const name = 'FormText';
 const props = defineProps({
@@ -79,7 +79,7 @@ const root = ref(0);
 
 function onChange(e)
 {
-  emits('update:modelValue', util.getValueFromType(props.modelType, e.target.value));
+  emits('update:modelValue', getValueFromType(props.modelType, e.target.value));
 }
 function focus()
 {
@@ -92,5 +92,4 @@ defineExpose({
 });
 </script>
 
-<style src="./form.scss" lang="scss" scoped></style>
 <style src="./text.scss" lang="scss" scoped></style>

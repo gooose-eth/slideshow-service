@@ -1,30 +1,31 @@
 @use '../../../../assets/scss/mixin';
 
 .button-basic {
+  --button-shadow-1: inset 0 0 0 0 hsl(0 0% 0% / 0%);
+  --button-shadow-2: 0 0 0 0 hsl(0 0% 0% / 0%);
   display: block;
   width: 100%;
   height: 42px;
   margin: 0;
   padding: 0 16px;
   box-sizing: border-box;
-  cursor: pointer;
   border-radius: 2px;
   border: none;
-  background: #909090;
+  background-color: var(--button-bg, #aaa);
   font-size: 16px;
-  color: #fff;
+  font-weight: 500;
+  color: var(--button-color, #fff);
   letter-spacing: -.5px;
-  user-select: none;
-  transition: opacity 200ms ease-out;
-  -webkit-tap-highlight-color: transparent;
-  outline: none;
+  transition: box-shadow 100ms ease-out;
   min-width: 160px;
   text-align: center;
+  @include mixin.button-extends();
+  box-shadow: var(--button-shadow-1), var(--button-shadow-2);
   &:active {
-    opacity: .5;
+    --button-shadow-2: 0 0 0 2px var(--color-key);
   }
   &:focus-visible {
-    box-shadow: 0 0 0 2px var(--color-key), inset 0 0 8px 0 rgba(0,0,0,.2);
+    --button-shadow-2: 0 0 0 2px var(--color-key);
   }
   &:disabled {
     cursor: not-allowed;
@@ -32,32 +33,23 @@
   }
   &--color {
     &-key {
-      background: var(--color-key);
+      --button-bg: var(--color-key);
       &:active {
-        box-shadow: inset 0 0 12px 0 rgba(0,0,0,.2);
+        --button-shadow-2: 0 0 0 2px var(--color-base);
       }
       &:focus-visible {
-        box-shadow:
-          inset 0 0 12px 0 rgba(0,0,0,.2),
-          0 0 0 2px var(--color-key),
-          inset 0 0 0 1px rgba(255,255,255,.75);
+        --button-shadow-1: inset 0 0 8px 0 hsl(0 0% 0% / 20%);
+        --button-shadow-2: 0 0 0 2px var(--color-base);
       }
     }
     &-danger {
-      background: var(--color-danger);
+      --button-bg: var(--color-danger);
       &:active {
-        box-shadow: inset 0 0 12px 0 rgba(0,0,0,.2);
+        --button-shadow-2: 0 0 0 2px var(--color-base);
       }
-    }
-  }
-
-  @include mixin.dark-mode() {
-    &--color {
-      &-key {
-        color: var(--color-base);
-      }
-      &-danger {
-        color: var(--color-base);
+      &:focus-visible {
+        --button-shadow-1: inset 0 0 8px 0 hsl(0 0% 0% / 20%);
+        --button-shadow-2: 0 0 0 2px var(--color-base);
       }
     }
   }

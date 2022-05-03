@@ -1,10 +1,9 @@
 <template>
-<label
-  :class="[
-    'form',
-    'form-switch',
-    props.disabled && 'form-switch--disabled',
-  ]">
+<label :class="[
+  'form',
+  'form-switch',
+  props.disabled && 'form-switch--disabled',
+]">
   <input
     type="checkbox"
     :name="props.name"

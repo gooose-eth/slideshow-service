@@ -1,10 +1,9 @@
 <template>
-<label
-  :class="[
-    'form',
-    'form-upload',
-    disabled && 'form-upload--disabled',
-  ]">
+<label :class="[
+  'form',
+  'form-upload',
+  disabled && 'form-upload--disabled',
+]">
   <input
     ref="input"
     type="file"

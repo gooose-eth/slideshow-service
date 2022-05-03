@@ -16,9 +16,9 @@ import { computed } from 'vue';
 import * as src from './src';
 
 const name = 'Icon';
-const props = defineProps({
-  iconName: String,
-});
+const props = defineProps<{
+  iconName: string,
+}>();
 let unit = computed(() => {
   const comp = src[props.iconName];
   if (!comp) throw new Error('no icon source');

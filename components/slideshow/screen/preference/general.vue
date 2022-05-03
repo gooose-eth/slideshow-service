@@ -127,7 +127,7 @@
         <div class="field-basic__body">
           <div class="grid import-data">
             <div>
-              <ButtonBasic color="key" @click="onClickBackup">
+              <ButtonBasic color="keya" @click="onClickBackup">
                 백업
               </ButtonBasic>
             </div>

@@ -68,3 +68,16 @@ export function copyToClipboard(str: string): Promise<void>
     }
   });
 }
+
+export function getValueFromType(type: string, value: string): any
+{
+  switch (type)
+  {
+    case 'boolean':
+      return (value === 'true');
+    case 'number':
+      return Number(value);
+    default:
+      return value;
+  }
+}

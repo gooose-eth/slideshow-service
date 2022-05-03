@@ -1,29 +1,35 @@
 @use '../../assets/scss/mixins';
 
 .form-text {
+  --input-text-bg: #eaeaea;
+  --input-text-shadow-1: inset 0 2px 8px 0 hsl(0 0% 0% / 15%);
+  --input-text-shadow-2: inset 0 0 0 1px hsl(0 0% 0% / 20%);
+  --input-text-shadow-3: 0 0 0 2px hsl(0 0% 0% / 0%);
   display: block;
   width: 100%;
-  height: var(--form-height);
+  height: 42px;
   margin: 0;
-  padding: 0 var(--form-side-padding);
-  background: var(--color-shape);
+  padding: 0 16px;
+  background-color: var(--input-text-bg);
   border: none;
   box-sizing: border-box;
-  border-radius: var(--form-radius);
+  border-radius: 2px;
   outline: none;
   transition: box-shadow var(--speed-button-active) ease-out;
   font-size: 16px;
   letter-spacing: -.25px;
   color: var(--color-base);
+  box-shadow: var(--input-text-shadow-1), var(--input-text-shadow-2), var(--input-text-shadow-3);
   &:focus {
-    box-shadow: 0 0 0 2px var(--color-key);
+    --input-text-shadow-2: inset 0 0 0 1px hsl(0 0% 0% / 0%);
+    --input-text-shadow-3: 0 0 0 2px hsl(var(--color-key-hsl) / 100%);
   }
   &:disabled {
     opacity: .5;
     cursor: not-allowed;
   }
   &[type=textarea] {
-    padding: 12px var(--form-side-padding);
+    padding: 12px 16px;
     height: auto;
     border-radius: 4px;
     line-height: 1.62;
@@ -32,15 +38,13 @@
     --color-bg: var(--color-shape);
     //@include mixins.custom-scroll-style();
   }
-  &--inline {
-    width: unset;
-    display: inline-block;
-  }
   &--color {
     &-error {
-      box-shadow: 0 0 0 2px var(--color-danger);
+      --input-text-shadow-2: inset 0 0 0 1px hsl(var(--color-danger-hsl) / 100%);
+      --input-text-shadow-3: 0 0 0 2px hsl(0 0% 0% / 0%);
       &:focus {
-        box-shadow: 0 0 0 2px var(--color-danger);
+        --input-text-shadow-2: inset 0 0 0 1px hsl(0 0% 0% / 0%);
+        --input-text-shadow-3: 0 0 0 2px hsl(var(--color-danger-hsl) / 100%);
       }
     }
   }

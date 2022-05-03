@@ -24,7 +24,7 @@
 </template>
 
 <script setup>
-import * as util from '../../libs/util';
+import { getValueFromType } from '~/libs/util';
 import Icon from '../icon/index.vue';
 
 const name = 'FormSelect';
@@ -41,9 +41,8 @@ const emits = defineEmits([ 'update:modelValue', 'blur:modelValue' ]);
 
 function onChange(e)
 {
-  emits('update:modelValue', util.getValueFromType(props.modelType, e.target.value));
+  emits('update:modelValue', getValueFromType(props.modelType, e.target.value));
 }
 </script>
 
-<style src="./form.scss" lang="scss" scoped></style>
 <style src="./select.scss" lang="scss" scoped></style>

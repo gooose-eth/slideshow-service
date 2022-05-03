@@ -51,7 +51,7 @@ fieldset {
     }
   }
   .field-description {
-    margin: 6px 0 0;
+    margin: 4px 0 0;
   }
   .label {
     display: flex;
@@ -107,7 +107,7 @@ fieldset {
     padding: 0 16px 0 0;
     flex: 1;
     .field-description {
-      margin: 6px 0 0;
+      margin: 4px 0 0;
     }
   }
 }
@@ -154,5 +154,13 @@ fieldset {
   &:before {
     content: '* ';
     color: var(--color-danger);
+  }
+}
+
+.flex {
+  display: flex;
+  gap: var(--gap, 8px);
+  > * {
+    width: auto;
   }
 }

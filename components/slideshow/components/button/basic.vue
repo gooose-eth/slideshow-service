@@ -7,7 +7,7 @@
     'button-basic',
     color && `button-basic--color-${color}`,
   ]"
-  @click="$emit('click')">
+  @click="emits('click')">
   <slot/>
 </button>
 </template>
@@ -20,7 +20,7 @@ const props = defineProps({
   color: String, // key
   disabled: Boolean,
 });
-const emits = defineEmits({ 'click': null });
+const emits = defineEmits([ 'click' ]);
 </script>
 
 <style src="./basic.scss" lang="scss" scoped></style>

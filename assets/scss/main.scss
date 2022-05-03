@@ -3,13 +3,20 @@
 
 :root {
   // color
-  --color-bg: hsl(210 25% 98%);
-  --color-base: hsl(0 0% 13%);
-  --color-weak: hsl(0 0% 40%);
-  --color-key: hsl(350 70% 41%);
-  --color-invert: hsl(0 0% 100%);
-  --color-danger: hsl(4 80% 44%);
-  --color-shape: hsl(0 0% 88%);
+  --color-bg-hsl: 210 25% 98%;
+  --color-bg: hsl(var(--color-bg-hsl));
+  --color-base-hsl: 0 0% 13%;
+  --color-base: hsl(var(--color-base-hsl));
+  --color-weak-hsl: 0 0% 40%;
+  --color-weak: hsl(var(--color-weak-hsl));
+  --color-key-hsl: 350 70% 41%;
+  --color-key: hsl(var(--color-key-hsl));
+  --color-invert-hsl: 0 0% 100%;
+  --color-invert: hsl(var(--color-invert-hsl));
+  --color-danger-hsl: 4 80% 44%;
+  --color-danger: hsl(var(--color-danger-hsl));
+  --color-shape-hsl: 0 0% 88%;
+  --color-shape: hsl(var(--color-shape-hsl));
   // size
   --size-text-base: 16px;
   // font
@@ -17,12 +24,13 @@
   --font-eng: 'ortsa', 'Helvetica Neue', Helvetica, Arial, sans-serif;
   @include mixin.dark-mode(true) {
     color-scheme: dark;
-    --color-bg: hsl(0 0% 13%);
-    --color-base: hsl(0 0% 94%);
-    --color-weak: hsl(0 0% 60%);
-    --color-key: hsl(148 73% 39%);
-    --color-invert: hsl(0 0% 0%);
-    --color-shape: hsl(0 0% 9%);
+    --color-bg-hsl: 0 0% 13%;
+    --color-base-hsl: 0 0% 94%;
+    --color-weak-hsl: 0 0% 60%;
+    --color-key-hsl: 148 73% 39%;
+    --color-invert-hsl: 0 0% 0%;
+    --color-danger-hsl: 4 80% 44%;
+    --color-shape-hsl: 0 0% 9%;
   }
 }
 

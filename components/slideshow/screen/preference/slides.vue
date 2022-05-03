@@ -2,84 +2,69 @@
 <fieldset>
   <legend>Slides fields</legend>
   <div class="fields">
-<!--    <div class="field-basic">-->
-<!--      <h3 class="field-title">-->
-<!--        <label for="pref_initialNumber">-->
-<!--          {{t('title.initialNumber')}}-->
-<!--        </label>-->
-<!--      </h3>-->
-<!--      <p class="field-description">-->
-<!--        {{t('description.initialNumber')}}-->
-<!--      </p>-->
-<!--      <div class="field-basic__body">-->
-<!--        <FormText-->
-<!--          type="tel"-->
-<!--          name="pref_initialNumber"-->
-<!--          id="pref_initialNumber"-->
-<!--          v-model="state.initialNumber"-->
-<!--          placeholder="0"-->
-<!--          :inline="true"-->
-<!--          :maxlength="3"-->
-<!--          :size="5"-->
-<!--          model-type="number"-->
-<!--          @update:modelValue="onSave"/>-->
-<!--      </div>-->
-<!--    </div>-->
-<!--    <hr class="field-line">-->
-<!--    <div class="field-basic">-->
-<!--      <h3 class="field-title">-->
-<!--        <label for="pref_animationType">-->
-<!--          {{t('title.transitionType')}}-->
-<!--        </label>-->
-<!--      </h3>-->
-<!--      <p class="field-description">-->
-<!--        {{t('description.transitionType')}}-->
-<!--      </p>-->
-<!--      <div class="field-basic__body">-->
-<!--        <FormSelect-->
-<!--          name="pref_animationType"-->
-<!--          id="pref_animationType"-->
-<!--          v-model="state.animationType"-->
-<!--          @update:modelValue="onSave">-->
-<!--          <option value="none">-->
-<!--            {{t('base.none')}}-->
-<!--          </option>-->
-<!--          <option value="fade">-->
-<!--            {{t('label.fadeInOut')}}-->
-<!--          </option>-->
-<!--          <option value="horizontal">-->
-<!--            {{t('label.moveHorizontal')}}-->
-<!--          </option>-->
-<!--        </FormSelect>-->
-<!--      </div>-->
-<!--    </div>-->
-<!--    <div class="field-basic">-->
-<!--      <h3 class="field-title">-->
-<!--        <label for="pref_animationSpeed">-->
-<!--          {{t('title.transitionSpeed')}}-->
-<!--        </label>-->
-<!--      </h3>-->
-<!--      <p class="field-description">-->
-<!--        {{t('description.transitionSpeed')}}-->
-<!--      </p>-->
-<!--      <div class="field-basic__inline">-->
-<!--        <label class="label">-->
-<!--          <FormText-->
-<!--            type="tel"-->
-<!--            name="pref_animationSpeed"-->
-<!--            id="pref_animationSpeed"-->
-<!--            v-model="state.animationSpeed"-->
-<!--            placeholder="1000"-->
-<!--            :inline="true"-->
-<!--            :maxlength="4"-->
-<!--            :size="5"-->
-<!--            model-type="number"-->
-<!--            @update:modelValue="onSave"/>-->
-<!--          <span>ms</span>-->
-<!--        </label>-->
-<!--      </div>-->
-<!--    </div>-->
-<!--    <hr class="field-line">-->
+    <div class="field-basic">
+      <h3 class="field-title">
+        <label for="pref_initialNumber">기본 슬라이드 번호</label>
+      </h3>
+      <p class="field-description">
+        시작할때 표시되는 슬라이드 번호입니다. (번호는 0부터)
+      </p>
+      <div class="field-basic__body">
+        <FormText
+          type="tel"
+          name="pref_initialNumber"
+          id="pref_initialNumber"
+          v-model="readyPreference.slides.initialNumber"
+          placeholder="0"
+          :maxlength="3"
+          :size="5"
+          model-type="number"/>
+      </div>
+    </div>
+    <hr class="field-line">
+    <div class="field-basic">
+      <h3 class="field-title">
+        <label for="pref_animationType">트랜지션 종류</label>
+      </h3>
+      <p class="field-description">
+        슬라이드가 바뀔때의 트랜지션을 선택합니다.
+      </p>
+      <div class="field-basic__body">
+        <FormSelect
+          name="pref_animationType"
+          id="pref_animationType"
+          v-model="readyPreference.slides.animationType">
+          <option value="none">없음</option>
+          <option value="fade">투명도 전환</option>
+          <option value="horizontal">가로방향으로 이동</option>
+        </FormSelect>
+      </div>
+    </div>
+
+    <div class="field-basic">
+      <h3 class="field-title">
+        <label for="pref_animationSpeed">트랜지션 속도</label>
+      </h3>
+      <p class="field-description">
+        트랜지션 애니메이션 속도를 변경합니다.
+      </p>
+      <div class="field-basic__inline">
+        <label class="label">
+          <FormText
+            type="tel"
+            name="pref_animationSpeed"
+            id="pref_animationSpeed"
+            v-model="readyPreference.slides.animationSpeed"
+            placeholder="1000"
+            :maxlength="4"
+            :size="5"
+            model-type="number"/>
+          <span>ms</span>
+        </label>
+      </div>
+    </div>
+    <hr class="field-line">
+
 <!--    <div class="field-basic">-->
 <!--      <h3 class="field-title">-->
 <!--        <label for="pref_captionAnimationType">-->
@@ -104,6 +89,7 @@
 <!--        </FormSelect>-->
 <!--      </div>-->
 <!--    </div>-->
+
 <!--    <div class="field-basic">-->
 <!--      <h3 class="field-title">-->
 <!--        <label for="pref_captionAnimationSpeed">-->
@@ -120,7 +106,6 @@
 <!--          id="pref_captionAnimationSpeed"-->
 <!--          v-model="state.captionAnimationSpeed"-->
 <!--          placeholder="1000"-->
-<!--          :inline="true"-->
 <!--          :maxlength="4"-->
 <!--          :size="5"-->
 <!--          model-type="number"-->
@@ -128,6 +113,7 @@
 <!--      </div>-->
 <!--    </div>-->
 <!--    <hr class="field-line">-->
+
 <!--    <div class="field-switch">-->
 <!--      <div class="field-switch__body">-->
 <!--        <h3 class="field-title">-->
@@ -147,6 +133,7 @@
 <!--          @update:modelValue="onSave"/>-->
 <!--      </div>-->
 <!--    </div>-->
+
 <!--    <div class="field-basic">-->
 <!--      <h3 class="field-title">-->
 <!--        <label for="pref_autoplayDelay">-->
@@ -164,7 +151,6 @@
 <!--            id="pref_autoplayDelay"-->
 <!--            v-model="state.autoplayDelay"-->
 <!--            placeholder="1000"-->
-<!--            :inline="true"-->
 <!--            :maxlength="4"-->
 <!--            :size="5"-->
 <!--            model-type="number"-->
@@ -173,6 +159,7 @@
 <!--        </label>-->
 <!--      </div>-->
 <!--    </div>-->
+
 <!--    <div class="field-basic">-->
 <!--      <h3 class="field-title">-->
 <!--        <label for="pref_autoplayDirection">-->
@@ -196,6 +183,7 @@
 <!--          @update:modelValue="onSave"/>-->
 <!--      </div>-->
 <!--    </div>-->
+
 <!--    <div class="field-switch">-->
 <!--      <div class="field-switch__body">-->
 <!--        <h3 class="field-title">-->
@@ -216,6 +204,7 @@
 <!--      </div>-->
 <!--    </div>-->
 <!--    <hr class="field-line">-->
+
 <!--    <div class="field-switch">-->
 <!--      <div class="field-switch__body">-->
 <!--        <h3 class="field-title">-->
@@ -235,6 +224,7 @@
 <!--          @update:modelValue="onSave"/>-->
 <!--      </div>-->
 <!--    </div>-->
+
 <!--    <div class="field-switch">-->
 <!--      <div class="field-switch__body">-->
 <!--        <h3 class="field-title">-->
@@ -255,13 +245,18 @@
 <!--      </div>-->
 <!--    </div>-->
   </div>
+  <pre>{{readyPreference.slides}}</pre>
 </fieldset>
 </template>
 
-<script setup>
+<script lang="ts" setup>
 import { reactive } from 'vue';
-// import i18n from '../../i18n';
-// import * as object from '../../libs/object';
+import { readyPreferenceStore } from '~/store/slideshow';
+import { FormText, FormSelect, FormSwitch, FormRadio } from '../../components/form';
+
+const readyPreference = readyPreferenceStore();
+
+
 // import FormText from '../../components/Form/Text.vue';
 // import FormSelect from '../../components/Form/Select.vue';
 // import FormSwitch from '../../components/Form/Switch.vue';
@@ -293,4 +288,4 @@ import { reactive } from 'vue';
 // }
 </script>
 
-<!--<style src="./fieldset.scss" lang="scss" scoped></style>-->
+<style src="./fieldset.scss" lang="scss" scoped></style>

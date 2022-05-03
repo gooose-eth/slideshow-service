@@ -1,6 +1,6 @@
 <template>
-<label class="form-checkbox">
-  <span class="form-checkbox__body">
+<label class="checkbox">
+  <span class="checkbox__body">
     <input
       type="checkbox"
       :name="props.name"
@@ -13,7 +13,7 @@
       <Icon icon-name="check"/>
     </i>
   </span>
-  <em v-if="props.label" class="form-checkbox__label">
+  <em v-if="props.label" class="checkbox__label">
     {{props.label}}
   </em>
 </label>

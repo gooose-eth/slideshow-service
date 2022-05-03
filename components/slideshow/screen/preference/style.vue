@@ -9,7 +9,7 @@
       <p class="field-description">
         화면모드를 선택합니다.
       </p>
-      <div class="field-basic__body">
+      <div class="field-basic__body flex">
         <FormSelect
           name="pref_screenColor"
           id="pref_screenColor"
@@ -28,7 +28,7 @@
       <p class="field-description">
         슬라이드 이미지 표시방식을 선택합니다.
       </p>
-      <div class="field-basic__body">
+      <div class="field-basic__body flex">
         <FormSelect
           name="pref_imageType"
           id="pref_imageType"
@@ -46,7 +46,7 @@
       <p class="field-description">
         슬라이드 이미지 크기를 정합니다. 예) 가로,세로
       </p>
-      <div class="field-basic__body">
+      <div class="field-basic__body flex">
         <FormText
           type="text"
           name="pref_imageScale"
@@ -54,7 +54,6 @@
           :model-value="readyPreference.style.imageScale"
           placeholder="80%,80%"
           model-type="array"
-          :inline="true"
           :size="16"
           @update:model-value="onUpdateImageScale"/>
       </div>
@@ -75,7 +74,6 @@
             id="pref_captionScale"
             v-model="readyPreference.style.captionScale"
             placeholder="100"
-            :inline="true"
             :maxlength="3"
             :size="5"
             model-type="number"/>
@@ -90,7 +88,7 @@
       <p class="field-description">
         캡션의 위치를 설정합니다. 예)왼쪽,상단
       </p>
-      <div class="field-basic__body">
+      <div class="field-basic__body flex">
         <FormText
           type="text"
           name="pref_captionPosition"
@@ -98,7 +96,6 @@
           v-model="readyPreference.style.captionPosition"
           placeholder="30px,30px"
           model-type="array"
-          :inline="true"
           :size="16"
           @update:model-value="onUpdateCaptionPosition"/>
       </div>
@@ -113,7 +110,6 @@ import { FormText, FormSelect } from '../../components/form';
 
 const readyPreference = readyPreferenceStore();
 
-// methods
 function onUpdateImageScale(s)
 {
   readyPreference.style.imageScale = s.split(',');

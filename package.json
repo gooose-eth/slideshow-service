@@ -31,8 +31,7 @@
     "pinia": "^2.0.13"
   },
   "devDependencies": {
-    "nuxt": "npm:nuxt3@latest",
-    "pinia": "^2.0.13",
+    "nuxt": "^3.0.0-rc.2",
     "sass": "^1.51.0"
   }
 }
