@@ -126,7 +126,6 @@ import { preferenceStore, currentStore, dataStore, windowsStore } from '~/store/
 // import { getFormData } from '../../../libs/object';
 import { fullscreen, copyToClipboard } from '~/libs/util';
 import Icon from '../../components/icon/index.vue';
-// import { post } from '../../../libs/fetch';
 
 const service = serviceStore();
 const preference = preferenceStore();

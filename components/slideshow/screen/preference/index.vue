@@ -8,7 +8,7 @@
     <form class="preference__body" @submit="onSubmit">
       <header class="preference-header">
         <div class="preference-header__body">
-          <h2>{{header.title}}</h2>
+          <h1>{{header.title}}</h1>
           <p>{{header.description}}</p>
         </div>
         <nav class="preference-header__nav">
@@ -34,11 +34,10 @@ import { windowsStore, currentStore, readyPreferenceStore } from '~/store/slides
 import Icon from '../../components/icon/index.vue';
 import Side from './side.vue';
 
-const content = ref();
+const $content = ref();
 const windows = windowsStore();
 const current = currentStore();
 const readyPreference = readyPreferenceStore();
-const tab = ref('general'); // general,slides,style,data,keyboard,information
 const header = computed(() => {
   switch (readyPreference.tab)
   {
@@ -122,7 +121,7 @@ function onSubmit(e)
 //       keyboard: convertPureObject(state.structure.keyboard),
 //     };
 //     if (!checkPreference(preference)) throw new Error('Bad preference data.');
-//
+
 //     // update store
 //     store.dispatch('changePreference', preference);
 //     store.dispatch('changeMode', null);
@@ -135,7 +134,7 @@ function onSubmit(e)
 //     {
 //       store.dispatch('changeGroup', Object.keys(tree)[0]);
 //     }
-//
+
 //     // update or restart
 //     if (local.useProps.preference || local.useProps.tree)
 //     {
@@ -160,10 +159,11 @@ onMounted(() => {
 });
 onUnmounted(() => {
   current.autoplay = true;
+  readyPreference.destroy();
 });
 
 // watch
-watch(() => tab.value, () => content.value.scrollTo(0, 0));
+watch(() => readyPreference.tab, () => $content.value.scrollTo(0, 0));
 </script>
 
 <style src="./index.scss" lang="scss" scoped></style>

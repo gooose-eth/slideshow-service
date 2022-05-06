@@ -3,22 +3,20 @@
   <legend>Keyboard fields</legend>
   <div class="fields">
     <div class="field-switch">
-      <div class="field-switch__body">
-        <h3 class="field-title">
+      <header>
+        <h2 class="field-title">
           <label for="pref_enabled">
             키보드 단축키 사용
           </label>
-        </h3>
+        </h2>
         <p class="field-description">
           키보드 단축키를 사용합니다.
         </p>
-      </div>
-      <div class="field-switch__input">
-        <FormSwitch
-          name="pref_enabled"
-          id="pref_enabled"
-          v-model="readyPreference.keyboard.enabled"/>
-      </div>
+      </header>
+      <FormSwitch
+        name="pref_enabled"
+        id="pref_enabled"
+        v-model="readyPreference.keyboard.enabled"/>
     </div>
     <hr class="field-line">
   </div>
@@ -90,5 +88,5 @@ import { FormSwitch } from '../../components/form';
 const readyPreference = readyPreferenceStore();
 </script>
 
-<style src="./fieldset.scss" lang="scss" scoped></style>
+<style src="./preference.scss" lang="scss" scoped></style>
 <style src="./keyboard.scss" lang="scss" scoped></style>

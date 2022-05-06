@@ -81,3 +81,8 @@ export function getValueFromType(type: string, value: string): any
       return value;
   }
 }
+
+export function sleep(ms: number = 1000): Promise<Function>
+{
+  return new Promise(resolve => setTimeout(resolve, ms));
+}

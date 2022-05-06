@@ -3,33 +3,39 @@
   <legend>Slides fields</legend>
   <div class="fields">
     <div class="field-basic">
-      <h3 class="field-title">
-        <label for="pref_initialNumber">기본 슬라이드 번호</label>
-      </h3>
-      <p class="field-description">
-        시작할때 표시되는 슬라이드 번호입니다. (번호는 0부터)
-      </p>
-      <div class="field-basic__body">
-        <FormText
-          type="tel"
-          name="pref_initialNumber"
-          id="pref_initialNumber"
-          v-model="readyPreference.slides.initialNumber"
-          placeholder="0"
-          :maxlength="3"
-          :size="5"
-          model-type="number"/>
+      <header class="field-basic__header">
+        <h2 class="field-title">
+          <label for="pref_initialNumber">기본 슬라이드 번호</label>
+        </h2>
+        <p class="field-description">
+          시작할때 표시되는 슬라이드 번호입니다. (번호는 0부터)
+        </p>
+      </header>
+      <div class="flex">
+        <label>
+          <FormText
+            type="tel"
+            name="pref_initialNumber"
+            id="pref_initialNumber"
+            v-model="readyPreference.slides.initialNumber"
+            placeholder="0"
+            :maxlength="3"
+            :size="5"
+            model-type="number"/>
+        </label>
       </div>
     </div>
     <hr class="field-line">
     <div class="field-basic">
-      <h3 class="field-title">
-        <label for="pref_animationType">트랜지션 종류</label>
-      </h3>
-      <p class="field-description">
-        슬라이드가 바뀔때의 트랜지션을 선택합니다.
-      </p>
-      <div class="field-basic__body">
+      <header class="field-basic__header">
+        <h2 class="field-title">
+          <label for="pref_animationType">트랜지션 종류</label>
+        </h2>
+        <p class="field-description">
+          슬라이드가 바뀔때의 트랜지션을 선택합니다.
+        </p>
+      </header>
+      <div class="flex">
         <FormSelect
           name="pref_animationType"
           id="pref_animationType"
@@ -40,15 +46,16 @@
         </FormSelect>
       </div>
     </div>
-
     <div class="field-basic">
-      <h3 class="field-title">
-        <label for="pref_animationSpeed">트랜지션 속도</label>
-      </h3>
-      <p class="field-description">
-        트랜지션 애니메이션 속도를 변경합니다.
-      </p>
-      <div class="field-basic__inline">
+      <header class="field-basic__header">
+        <h2 class="field-title">
+          <label for="pref_animationSpeed">트랜지션 속도</label>
+        </h2>
+        <p class="field-description">
+          트랜지션 애니메이션 속도를 변경합니다.
+        </p>
+      </header>
+      <div class="flex">
         <label class="label">
           <FormText
             type="tel"
@@ -64,228 +71,158 @@
       </div>
     </div>
     <hr class="field-line">
-
-<!--    <div class="field-basic">-->
-<!--      <h3 class="field-title">-->
-<!--        <label for="pref_captionAnimationType">-->
-<!--          {{t('title.captionAnimationType')}}-->
-<!--        </label>-->
-<!--      </h3>-->
-<!--      <p class="field-description">-->
-<!--        {{t('description.captionAnimationType')}}-->
-<!--      </p>-->
-<!--      <div class="field-basic__body">-->
-<!--        <FormSelect-->
-<!--          name="pref_captionAnimationType"-->
-<!--          id="pref_captionAnimationType"-->
-<!--          v-model="state.captionAnimationType"-->
-<!--          @update:modelValue="onSave">-->
-<!--          <option value="none">-->
-<!--            {{t('base.none')}}-->
-<!--          </option>-->
-<!--          <option value="shuffle">-->
-<!--            {{t('base.shuffleText')}}-->
-<!--          </option>-->
-<!--        </FormSelect>-->
-<!--      </div>-->
-<!--    </div>-->
-
-<!--    <div class="field-basic">-->
-<!--      <h3 class="field-title">-->
-<!--        <label for="pref_captionAnimationSpeed">-->
-<!--          {{t('title.captionAnimationSpeed')}}-->
-<!--        </label>-->
-<!--      </h3>-->
-<!--      <p class="field-description">-->
-<!--        {{t('description.captionAnimationSpeed')}}-->
-<!--      </p>-->
-<!--      <div class="field-basic__inline">-->
-<!--        <FormText-->
-<!--          type="tel"-->
-<!--          name="pref_captionAnimationSpeed"-->
-<!--          id="pref_captionAnimationSpeed"-->
-<!--          v-model="state.captionAnimationSpeed"-->
-<!--          placeholder="1000"-->
-<!--          :maxlength="4"-->
-<!--          :size="5"-->
-<!--          model-type="number"-->
-<!--          @update:modelValue="onSave"/>-->
-<!--      </div>-->
-<!--    </div>-->
-<!--    <hr class="field-line">-->
-
-<!--    <div class="field-switch">-->
-<!--      <div class="field-switch__body">-->
-<!--        <h3 class="field-title">-->
-<!--          <label for="pref_autoplay">-->
-<!--            {{t('base.autoplay')}}-->
-<!--          </label>-->
-<!--        </h3>-->
-<!--        <p class="field-description">-->
-<!--          {{t('description.autoplay')}}-->
-<!--        </p>-->
-<!--      </div>-->
-<!--      <div class="field-switch__input">-->
-<!--        <FormSwitch-->
-<!--          name="pref_autoplay"-->
-<!--          id="pref_autoplay"-->
-<!--          v-model="state.autoplay"-->
-<!--          @update:modelValue="onSave"/>-->
-<!--      </div>-->
-<!--    </div>-->
-
-<!--    <div class="field-basic">-->
-<!--      <h3 class="field-title">-->
-<!--        <label for="pref_autoplayDelay">-->
-<!--          {{t('title.autoplayDelay')}}-->
-<!--        </label>-->
-<!--      </h3>-->
-<!--      <p class="field-description">-->
-<!--        {{t('description.autoplayDelay')}}-->
-<!--      </p>-->
-<!--      <div class="field-basic__inline">-->
-<!--        <label class="label">-->
-<!--          <FormText-->
-<!--            type="tel"-->
-<!--            name="pref_autoplayDelay"-->
-<!--            id="pref_autoplayDelay"-->
-<!--            v-model="state.autoplayDelay"-->
-<!--            placeholder="1000"-->
-<!--            :maxlength="4"-->
-<!--            :size="5"-->
-<!--            model-type="number"-->
-<!--            @update:modelValue="onSave"/>-->
-<!--          <span>ms</span>-->
-<!--        </label>-->
-<!--      </div>-->
-<!--    </div>-->
-
-<!--    <div class="field-basic">-->
-<!--      <h3 class="field-title">-->
-<!--        <label for="pref_autoplayDirection">-->
-<!--          {{t('title.autoplayDirection')}}-->
-<!--        </label>-->
-<!--      </h3>-->
-<!--      <p class="field-description">-->
-<!--        {{t('description.autoplayDirection')}}-->
-<!--      </p>-->
-<!--      <div class="field-basic__inline">-->
-<!--        <FormRadio-->
-<!--          name="pref_autoplayDirection"-->
-<!--          id="pref_autoplayDirection"-->
-<!--          :inline="true"-->
-<!--          :items="[-->
-<!--            { key: false, label: t('base.previous') },-->
-<!--            { key: true, label: t('base.next') },-->
-<!--          ]"-->
-<!--          model-type="boolean"-->
-<!--          v-model="state.autoplayDirection"-->
-<!--          @update:modelValue="onSave"/>-->
-<!--      </div>-->
-<!--    </div>-->
-
-<!--    <div class="field-switch">-->
-<!--      <div class="field-switch__body">-->
-<!--        <h3 class="field-title">-->
-<!--          <label for="pref_autoplayPauseOnHover">-->
-<!--            {{t('title.autoplayPauseOnHover')}}-->
-<!--          </label>-->
-<!--        </h3>-->
-<!--        <p class="field-description">-->
-<!--          {{t('description.autoplayPauseOnHover')}}-->
-<!--        </p>-->
-<!--      </div>-->
-<!--      <div class="field-switch__input">-->
-<!--        <FormSwitch-->
-<!--          name="pref_autoplayPauseOnHover"-->
-<!--          id="pref_autoplayPauseOnHover"-->
-<!--          v-model="state.autoplayPauseOnHover"-->
-<!--          @update:modelValue="onSave"/>-->
-<!--      </div>-->
-<!--    </div>-->
-<!--    <hr class="field-line">-->
-
-<!--    <div class="field-switch">-->
-<!--      <div class="field-switch__body">-->
-<!--        <h3 class="field-title">-->
-<!--          <label for="pref_loop">-->
-<!--            {{t('base.repeat')}}-->
-<!--          </label>-->
-<!--        </h3>-->
-<!--        <p class="field-description">-->
-<!--          {{t('description.repeat')}}-->
-<!--        </p>-->
-<!--      </div>-->
-<!--      <div class="field-switch__input">-->
-<!--        <FormSwitch-->
-<!--          name="pref_loop"-->
-<!--          id="pref_loop"-->
-<!--          v-model="state.loop"-->
-<!--          @update:modelValue="onSave"/>-->
-<!--      </div>-->
-<!--    </div>-->
-
-<!--    <div class="field-switch">-->
-<!--      <div class="field-switch__body">-->
-<!--        <h3 class="field-title">-->
-<!--          <label for="pref_swipe">-->
-<!--            {{t('base.swipe')}}-->
-<!--          </label>-->
-<!--        </h3>-->
-<!--        <p class="field-description">-->
-<!--          {{t('description.swipe')}}-->
-<!--        </p>-->
-<!--      </div>-->
-<!--      <div class="field-switch__input">-->
-<!--        <FormSwitch-->
-<!--          name="pref_swipe"-->
-<!--          id="pref_swipe"-->
-<!--          v-model="state.swipe"-->
-<!--          @update:modelValue="onSave"/>-->
-<!--      </div>-->
-<!--    </div>-->
+    <div class="field-basic">
+      <header class="field-basic__header">
+        <h2 class="field-title">
+          <label for="pref_captionAnimationType">캡션 애니메이션 종류</label>
+        </h2>
+        <p class="field-description">
+          슬라이드가 바뀔때의 캡션 트랜지션을 선택합니다.
+        </p>
+      </header>
+      <div class="flex">
+        <FormSelect
+          name="pref_captionAnimationType"
+          id="pref_captionAnimationType"
+          v-model="readyPreference.slides.captionAnimationType">
+          <option value="none">없음</option>
+          <option value="shuffle">무작위로 변하는 글자</option>
+        </FormSelect>
+      </div>
+    </div>
+    <div class="field-basic">
+      <header class="field-basic__header">
+        <h2 class="field-title">
+          <label for="pref_captionAnimationSpeed">캡션 애니메이션 속도</label>
+        </h2>
+        <p class="field-description">
+          값이 높을수록 애니메이션 속도가 빨라집니다.
+        </p>
+      </header>
+      <div class="flex">
+        <label>
+          <FormText
+            type="tel"
+            name="pref_captionAnimationSpeed"
+            id="pref_captionAnimationSpeed"
+            v-model="readyPreference.slides.captionAnimationSpeed"
+            placeholder="1000"
+            :maxlength="4"
+            :size="5"
+            model-type="number"/>
+        </label>
+      </div>
+    </div>
+    <hr class="field-line">
+    <div class="field-switch">
+      <header>
+        <h2 class="field-title">
+          <label for="pref_autoplay">자동재생</label>
+        </h2>
+        <p class="field-description">
+          슬라이드를 자동재생 합니다.
+        </p>
+      </header>
+      <FormSwitch
+        name="pref_autoplay"
+        id="pref_autoplay"
+        v-model="readyPreference.slides.autoplay"/>
+    </div>
+    <div class="field-basic">
+      <header class="field-basic__header">
+        <h2 class="field-title">
+          <label for="pref_autoplayDelay">자동재생 딜레이</label>
+        </h2>
+        <p class="field-description">
+          슬라이드가 자동으로 전환하기 전에 대기하는 시간입니다.
+        </p>
+      </header>
+      <div class="flex">
+        <label class="label">
+          <FormText
+            type="tel"
+            name="pref_autoplayDelay"
+            id="pref_autoplayDelay"
+            v-model="readyPreference.slides.autoplayDelay"
+            placeholder="1000"
+            :maxlength="4"
+            :size="5"
+            model-type="number"/>
+          <span>ms</span>
+        </label>
+      </div>
+    </div>
+    <div class="field-basic">
+      <header class="field-basic__header">
+        <h2 class="field-title">
+          <label for="pref_autoplayDirection">자동재생 방향</label>
+        </h2>
+        <p class="field-description">
+          슬라이드가 자동으로 전환하는 방향을 설정합니다.
+        </p>
+      </header>
+      <div class="flex">
+        <FormRadio
+          v-model="readyPreference.slides.autoplayDirection"
+          model-type="boolean"
+          :items="[
+            { key: false, label: '이전' },
+            { key: true, label: '다음' },
+          ]"/>
+      </div>
+    </div>
+    <div class="field-switch">
+      <header>
+        <h2 class="field-title">
+          <label for="pref_autoplayPauseOnHover">마우스 오버시 자동재생 일시정지</label>
+        </h2>
+        <p class="field-description">
+          슬라이드 영역에 마우스를 갖다대면 자동재생을 일시정지 합니다.
+        </p>
+      </header>
+      <FormSwitch
+        name="pref_autoplayPauseOnHover"
+        id="pref_autoplayPauseOnHover"
+        v-model="readyPreference.slides.autoplayPauseOnHover"/>
+    </div>
+    <div class="field-switch">
+      <header>
+        <h2 class="field-title">
+          <label for="pref_loop">반복</label>
+        </h2>
+        <p class="field-description">
+          슬라이드를 마지막에서 처음으로 이동합니다.
+        </p>
+      </header>
+      <FormSwitch
+        name="pref_loop"
+        id="pref_loop"
+        v-model="readyPreference.slides.loop"/>
+    </div>
+    <hr class="field-line">
+    <div class="field-switch">
+      <header>
+        <h2 class="field-title">
+          <label for="pref_swipe">밀어 넘기기</label>
+        </h2>
+        <p class="field-description">
+          터치 디바이스에서 밀어 넘기는 조작을 사용합니다.
+        </p>
+      </header>
+      <FormSwitch
+        name="pref_swipe"
+        id="pref_swipe"
+        v-model="readyPreference.slides.swipe"/>
+    </div>
   </div>
-  <pre>{{readyPreference.slides}}</pre>
 </fieldset>
 </template>
 
 <script lang="ts" setup>
-import { reactive } from 'vue';
 import { readyPreferenceStore } from '~/store/slideshow';
 import { FormText, FormSelect, FormSwitch, FormRadio } from '../../components/form';
 
 const readyPreference = readyPreferenceStore();
-
-
-// import FormText from '../../components/Form/Text.vue';
-// import FormSelect from '../../components/Form/Select.vue';
-// import FormSwitch from '../../components/Form/Switch.vue';
-// import FormRadio from '../../components/Form/Radio.vue';
-//
-// const name = 'PreferenceSlides';
-// const { t } = i18n.global;
-// const props = defineProps({ structure: Object });
-// const emits = defineEmits({ 'update': null });
-// let state = reactive({
-//   initialNumber: props.structure.initialNumber,
-//   animationType: props.structure.animationType,
-//   animationSpeed: props.structure.animationSpeed,
-//   captionAnimationType: props.structure.captionAnimationType,
-//   captionAnimationSpeed: props.structure.captionAnimationSpeed,
-//   autoplay: props.structure.autoplay,
-//   autoplayDelay: props.structure.autoplayDelay,
-//   autoplayDirection: props.structure.autoplayDirection,
-//   autoplayPauseOnHover: props.structure.autoplayPauseOnHover,
-//   loop: props.structure.loop,
-//   swipe: props.structure.swipe,
-// });
-//
-// // methods
-// function onSave()
-// {
-//   const structure = object.convertPureObject(state);
-//   emits('update', structure);
-// }
 </script>
 
-<style src="./fieldset.scss" lang="scss" scoped></style>
+<style src="./preference.scss" lang="scss" scoped></style>

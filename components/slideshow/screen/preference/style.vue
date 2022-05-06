@@ -3,13 +3,15 @@
   <legend>Style fields</legend>
   <div class="fields">
     <div class="field-basic">
-      <h3 class="field-title">
-        <label for="pref_screenColor">화면모드</label>
-      </h3>
-      <p class="field-description">
-        화면모드를 선택합니다.
-      </p>
-      <div class="field-basic__body flex">
+      <header class="field-basic__header">
+        <h2 class="field-title">
+          <label for="pref_screenColor">화면모드</label>
+        </h2>
+        <p class="field-description">
+          화면모드를 선택합니다.
+        </p>
+      </header>
+      <div class="flex">
         <FormSelect
           name="pref_screenColor"
           id="pref_screenColor"
@@ -22,13 +24,15 @@
     </div>
     <hr class="field-line">
     <div class="field-basic">
-      <h3 class="field-title">
-        <label for="pref_imageType">이미지 표시방식</label>
-      </h3>
-      <p class="field-description">
-        슬라이드 이미지 표시방식을 선택합니다.
-      </p>
-      <div class="field-basic__body flex">
+      <header class="field-basic__header">
+        <h2 class="field-title">
+          <label for="pref_imageType">이미지 표시방식</label>
+        </h2>
+        <p class="field-description">
+          슬라이드 이미지 표시방식을 선택합니다.
+        </p>
+      </header>
+      <div class="flex">
         <FormSelect
           name="pref_imageType"
           id="pref_imageType"
@@ -40,33 +44,48 @@
       </div>
     </div>
     <div class="field-basic">
-      <h3 class="field-title">
-        <label for="pref_imageScale">이미지 크기</label>
-      </h3>
-      <p class="field-description">
-        슬라이드 이미지 크기를 정합니다. 예) 가로,세로
-      </p>
-      <div class="field-basic__body flex">
-        <FormText
-          type="text"
-          name="pref_imageScale"
-          id="pref_imageScale"
-          :model-value="readyPreference.style.imageScale"
-          placeholder="80%,80%"
-          model-type="array"
-          :size="16"
-          @update:model-value="onUpdateImageScale"/>
+      <header class="field-basic__header">
+        <h2 class="field-title">
+          <label for="pref_imageScale">이미지 크기</label>
+        </h2>
+        <p class="field-description">
+          슬라이드 이미지 크기를 정합니다. 단위) px,%
+        </p>
+      </header>
+      <div class="flex">
+        <div class="label">
+          <span>가로:</span>
+          <FormText
+            type="text"
+            name="pref_imageScaleWidth"
+            id="pref_imageScale"
+            v-model="readyPreference.style.imageScale[0]"
+            placeholder="80%"
+            :size="8"
+            :maxlength="7"/>
+          <span>,</span>
+          <span>세로:</span>
+          <FormText
+            type="text"
+            name="pref_imageScaleHeight"
+            v-model="readyPreference.style.imageScale[1]"
+            placeholder="80%"
+            :size="8"
+            :maxlength="7"/>
+        </div>
       </div>
     </div>
     <hr class="field-line">
     <div class="field-basic">
-      <h3 class="field-title">
-        <label for="pref_captionScale">캡션 크기</label>
-      </h3>
-      <p class="field-description">
-        캡션의 크기를 설정합니다.
-      </p>
-      <div class="field-basic__inline">
+      <header class="field-basic__header">
+        <h2 class="field-title">
+          <label for="pref_captionScale">캡션 크기</label>
+        </h2>
+        <p class="field-description">
+          캡션의 크기를 설정합니다.
+        </p>
+      </header>
+      <div class="flex">
         <label class="label">
           <FormText
             type="tel"
@@ -82,22 +101,35 @@
       </div>
     </div>
     <div class="field-basic">
-      <h3 class="field-title">
-        <label for="pref_captionPosition">캡션 위치</label>
-      </h3>
-      <p class="field-description">
-        캡션의 위치를 설정합니다. 예)왼쪽,상단
-      </p>
-      <div class="field-basic__body flex">
-        <FormText
-          type="text"
-          name="pref_captionPosition"
-          id="pref_captionPosition"
-          v-model="readyPreference.style.captionPosition"
-          placeholder="30px,30px"
-          model-type="array"
-          :size="16"
-          @update:model-value="onUpdateCaptionPosition"/>
+      <header class="field-basic__header">
+        <h2 class="field-title">
+          <label for="pref_captionPosition">캡션 위치</label>
+        </h2>
+        <p class="field-description">
+          캡션의 위치를 설정합니다. 단위) px,%
+        </p>
+      </header>
+      <div class="flex">
+        <div class="label">
+          <span>왼쪽:</span>
+          <FormText
+            type="text"
+            name="pref_captionPositionWidth"
+            id="pref_captionPosition"
+            v-model="readyPreference.style.captionPosition[0]"
+            placeholder="80%"
+            :size="8"
+            :maxlength="6"/>
+          <span>,</span>
+          <span>상단:</span>
+          <FormText
+            type="text"
+            name="pref_captionPositionHeight"
+            v-model="readyPreference.style.captionPosition[1]"
+            placeholder="80%"
+            :size="8"
+            :maxlength="6"/>
+        </div>
       </div>
     </div>
   </div>
@@ -120,4 +152,4 @@ function onUpdateCaptionPosition(s)
 }
 </script>
 
-<style src="./fieldset.scss" lang="scss" scoped></style>
+<style src="./preference.scss" lang="scss" scoped></style>

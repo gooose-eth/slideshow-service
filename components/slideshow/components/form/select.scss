@@ -10,12 +10,12 @@
   --icon-color: var(--color-base);
   display: block;
   position: relative;
-  height: 42px;
+  height: 40px;
   box-sizing: border-box;
   user-select: none;
   -webkit-tap-highlight-color: transparent;
   &:focus-within {
-    --select-shadow-2: inset 0 0 0 1px hsl(0 0% 0% / 0%);
+    --select-shadow-2: inset 0 0 0 1px hsl(0 0% 100% / 100%);
     --select-shadow-3: 0 0 0 2px hsl(var(--color-key-hsl) / 100%);
   }
   &__body {
@@ -33,7 +33,7 @@
     color: var(--color-base);
     -webkit-appearance: none;
     font-weight: 500;
-    border-radius: 2px;
+    border-radius: 4px;
     box-shadow: var(--select-shadow-1), var(--select-shadow-2), var(--select-shadow-3);
     transition: box-shadow var(--speed-button-active) ease-out;
   }

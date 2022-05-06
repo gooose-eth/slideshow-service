@@ -13,10 +13,12 @@
     v-if="preference.general.hud"
     ref="$navigation"
     class="container__navigation"/>
-  <teleport to="#service">
+  <teleport to="body">
+    <transition name="modal-fade">
 <!--    <Group v-if="windows.group"/>-->
 <!--    <Thumbnail v-if="windows.thumbnail"/>-->
-    <Preference v-if="windows.preference"/>
+      <Preference v-if="windows.preference"/>
+    </transition>
   </teleport>
 </div>
 </template>

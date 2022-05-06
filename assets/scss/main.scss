@@ -72,3 +72,14 @@ html.mode-modal {
     overflow: hidden;
   }
 }
+
+// transition
+// modal-fade
+.modal-fade-enter-active,
+.modal-fade-leave-active {
+  transition: opacity 150ms ease-out;
+}
+.modal-fade-enter-from,
+.modal-fade-leave-to {
+  opacity: 0;
+}

@@ -3,7 +3,7 @@
   <Slideshow
     ref="$slideshow"
     @save="visibleSave = true"/>
-  <teleport to="#service">
+  <teleport to="body">
     <transition name="modal-fade">
       <ModalWrap v-if="visibleSave">
         <ModalBody>

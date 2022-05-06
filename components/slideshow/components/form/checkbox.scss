@@ -1,11 +1,12 @@
 @use '../../../../assets/scss/mixin';
 
 .checkbox {
-  --shadow-1: inset 0 0 8px 0 hsl(0 0% 0% / 20%);
-  --shadow-2: inset 0 0 0 1px hsl(0 0% 0% / 10%);
-  --shadow-3: 0 0 0 2px hsl(0 0% 0% / 0%);
+  --checkbox-shadow-1: inset 0 0 8px 0 hsl(0 0% 0% / 20%);
+  --checkbox-shadow-2: inset 0 0 0 1px hsl(0 0% 0% / 10%);
+  --checkbox-shadow-3: 0 0 0 2px hsl(0 0% 0% / 0%);
   display: grid;
   grid-template-columns: auto 1fr;
+  gap: 8px;
   align-items: center;
   cursor: pointer;
   user-select: none;
@@ -30,15 +31,15 @@
       width: 24px;
       height: 24px;
       box-sizing: border-box;
-      border-radius: 50%;
+      border-radius: 8px;
       background-color: var(--checkbox-bg, #e1e1e1);
-      box-shadow: var(--shadow-1), var(--shadow-2), var(--shadow-3);
+      box-shadow: var(--checkbox-shadow-1), var(--checkbox-shadow-2), var(--checkbox-shadow-3);
       overflow: hidden;
-      transition: background-color 200ms ease-out;
+      transition: background-color 120ms ease-out, box-shadow 120ms ease-out;
+      pointer-events: none;
       --icon-size: 14px;
       --icon-color: hsl(0 0% 100%);
       --icon-stroke: 3;
-      pointer-events: none;
       svg {
         display: block;
         transition: transform 200ms ease-out;
@@ -48,23 +49,24 @@
     }
     input:checked + i {
       --checkbox-bg: var(--color-key);
-      --shadow-2: inset 0 0 0 2px hsl(0 0% 0% / 0%);
-      --shadow-3: 0 0 0 0 hsl(0 0% 0% / 0%);
+      --checkbox-shadow-2: inset 0 0 0 2px hsl(0 0% 0% / 0%);
+      --checkbox-shadow-3: 0 0 0 0 hsl(0 0% 0% / 0%);
       svg {
         transform: scale(1);
       }
     }
     input:focus-visible + i {
-      --shadow-2: inset 0 0 0 2px hsl(0 0% 0% / 0%);
-      --shadow-3: 0 0 0 2px var(--color-key);
+      --checkbox-shadow-2: inset 0 0 0 1px hsl(0 0% 100% / 40%);
+      --checkbox-shadow-3: 0 0 0 2px hsl(var(--color-key-hsl) / 100%);
     }
   }
   &__label {
     display: block;
-    margin: 0 0 0 8px;
-    font-size: 14px;
+    margin: 0;
+    padding: 2px 0 0;
+    font-size: 15px;
     font-style: normal;
-    line-height: 1.15;
+    line-height: 1.05;
     font-weight: 500;
     color: var(--color-base);
     letter-spacing: -.25px;

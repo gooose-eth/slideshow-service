@@ -1,6 +1,5 @@
 <template>
 <label :class="[
-  'form',
   'form-upload',
   disabled && 'form-upload--disabled',
 ]">
@@ -21,7 +20,7 @@
 </label>
 </template>
 
-<script setup>
+<script lang="ts" setup>
 import { reactive, ref } from 'vue';
 import Icon from '../Icon/index.vue';
 
@@ -56,5 +55,4 @@ defineExpose({
 });
 </script>
 
-<style src="./form.scss" lang="scss" scoped></style>
 <style src="./upload.scss" lang="scss" scoped></style>

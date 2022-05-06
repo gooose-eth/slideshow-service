@@ -36,5 +36,5 @@ const signatures = {
 };
 </script>
 
-<style src="./fieldset.scss" lang="scss" scoped></style>
+<style src="./preference.scss" lang="scss" scoped></style>
 <style src="./information.scss" lang="scss" scoped></style>

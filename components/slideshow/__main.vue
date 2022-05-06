@@ -11,7 +11,7 @@
   @update-group="onUpdateGroup"
   @delete="onVisibleDelete(true)"
   @save="onVisiblePost(true)"/>
-<teleport to="#service">
+<teleport to="body">
   <Post
     v-if="state.visiblePost"
     :mode="props.mode"

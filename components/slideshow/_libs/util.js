@@ -1,13 +1,13 @@
-/**
- * sleep (delay tool)
- *
- * @param {Number} ms
- * @return {Promise}
- */
-export function sleep(ms = 1000)
-{
-  return new Promise(resolve => setTimeout(resolve, ms));
-}
+// /**
+//  * sleep (delay tool)
+//  *
+//  * @param {Number} ms
+//  * @return {Promise}
+//  */
+// export function sleep(ms = 1000)
+// {
+//   return new Promise(resolve => setTimeout(resolve, ms));
+// }
 
 /**
  * convert pure object

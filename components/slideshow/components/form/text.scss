@@ -1,27 +1,27 @@
-@use '../../assets/scss/mixins';
+@use '../../../../assets/scss/mixin';
 
 .form-text {
-  --input-text-bg: #eaeaea;
   --input-text-shadow-1: inset 0 2px 8px 0 hsl(0 0% 0% / 15%);
   --input-text-shadow-2: inset 0 0 0 1px hsl(0 0% 0% / 20%);
   --input-text-shadow-3: 0 0 0 2px hsl(0 0% 0% / 0%);
   display: block;
   width: 100%;
-  height: 42px;
+  height: 40px;
   margin: 0;
   padding: 0 16px;
-  background-color: var(--input-text-bg);
+  background-color: var(--input-text-bg, #eaeaea);
   border: none;
   box-sizing: border-box;
-  border-radius: 2px;
+  border-radius: 4px;
   outline: none;
   transition: box-shadow var(--speed-button-active) ease-out;
   font-size: 16px;
   letter-spacing: -.25px;
   color: var(--color-base);
+  font-weight: 500;
   box-shadow: var(--input-text-shadow-1), var(--input-text-shadow-2), var(--input-text-shadow-3);
   &:focus {
-    --input-text-shadow-2: inset 0 0 0 1px hsl(0 0% 0% / 0%);
+    --input-text-shadow-2: inset 0 0 0 1px hsl(0 0% 100% / 100%);
     --input-text-shadow-3: 0 0 0 2px hsl(var(--color-key-hsl) / 100%);
   }
   &:disabled {
@@ -34,9 +34,9 @@
     border-radius: 4px;
     line-height: 1.62;
     letter-spacing: normal;
-    resize: vertical;
+    resize: none;
     --color-bg: var(--color-shape);
-    //@include mixins.custom-scroll-style();
+    @include mixin.custom-scroll-style();
   }
   &--color {
     &-error {

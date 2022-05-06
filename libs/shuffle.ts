@@ -1,11 +1,18 @@
-/**
- * shuffle
- *
- * @param {HTMLElement} $el
- * @param {Object} options
- * @return {void}
- */
-function shuffle($el, options)
+interface Options {
+  text: string
+  waitChar?: string
+  charSpeed?: number
+  moveFix?: number
+  moveRange?: number
+  moveTrigger?: number
+  fps?: number
+  pattern?: string
+  randomTextType?: string
+  retry?: boolean
+  callback?: Function
+}
+
+export function shuffle($el: HTMLElement, options: Options): void
 {
   // merge options
   options = Object.assign({}, {
@@ -24,17 +31,17 @@ function shuffle($el, options)
   options.text = options.text.trim();
 
   // set values
-  let textKeys = [];
-  let frame;
-  let position;
-  let currentText;
-  let checkLast;
-  let checkPlay = false;
+  let textKeys: number[] = [];
+  let frame: number;
+  let position: number;
+  let currentText: string;
+  let checkLast: boolean;
+  let checkPlay: boolean = false;
 
   /**
    * stack
    */
-  function stack()
+  function stack(): void
   {
     let str = currentText;
     checkLast = true;
@@ -98,19 +105,6 @@ function shuffle($el, options)
     }
   }
 
-  /**
-   * get random word
-   * 무작위 문자를 가져온다.
-   *
-   * @param {string} pattern
-   * @return {string}
-   */
-  function randomWord(pattern)
-  {
-    const n = Math.floor(Math.random() * pattern.length);
-    return pattern.substring(n, n + 1);
-  }
-
   // play
   if (options.text || (options.text && !options.retry && $el.dataset.run !== 'true'))
   {
@@ -142,4 +136,11 @@ function shuffle($el, options)
   }
 }
 
-export default shuffle;
+/**
+ * 무작위 문자를 가져온다.
+ */
+function randomWord(pattern: string): string
+{
+  const n = Math.floor(Math.random() * pattern.length);
+  return pattern.substring(n, n + 1);
+}

@@ -5,9 +5,9 @@
   --wrap-padding: 4px;
   --icon-size: 28px;
   --icon-size-active: 8px;
-  --shadow-1: inset 0 0 8px 0 hsl(0 0% 0% / 20%);
-  --shadow-2: inset 0 0 0 1px hsl(0 0% 0% / 10%);
-  --shadow-3: 0 0 0 2px hsl(0 0% 0% / 0%);
+  --switch-shadow-1: inset 0 0 8px 0 hsl(0 0% 0% / 20%);
+  --switch-shadow-2: inset 0 0 0 1px hsl(0 0% 0% / 10%);
+  --switch-shadow-3: 0 0 0 2px hsl(0 0% 0% / 0%);
   display: block;
   position: relative;
   width: var(--wrap-width);
@@ -25,13 +25,13 @@
     appearance: none;
     background-color: var(--switch-bg, #e1e1e1);
     border-radius: calc(var(--icon-size) * .5);
-    box-shadow: var(--shadow-1), var(--shadow-2), var(--shadow-3);
+    box-shadow: var(--switch-shadow-1), var(--switch-shadow-2), var(--switch-shadow-3);
     transition: background-color 300ms ease-out, box-shadow 200ms ease-out;
     outline: none;
     border: none;
     &:focus-visible {
-      --shadow-2: inset 0 0 0 2px hsl(0 0% 0% / 0%);
-      --shadow-3: 0 0 0 2px var(--color-key);
+      --switch-shadow-2: inset 0 0 0 1px hsl(0 0% 100% / 40%);
+      --switch-shadow-3: 0 0 0 2px var(--color-key);
     }
   }
   i {

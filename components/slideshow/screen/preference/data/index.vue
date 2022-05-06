@@ -1,156 +1,165 @@
 <template>
-<fieldset class="pref-data">
+<fieldset class="preference-data">
   <legend>Data fields</legend>
-  <div class="fields">
-<!--    <div class="field-basic">-->
-<!--      <h3 class="field-title">-->
-<!--        {{t('title.manageSlideData')}}-->
-<!--      </h3>-->
-<!--      <div class="field-basic__body">-->
-<!--        <div class="manage-tree">-->
-<!--          <nav class="manage-tree-toolbar">-->
-<!--            <div>-->
-<!--              <FormRadio-->
-<!--                type="button"-->
-<!--                name="pref_mode"-->
-<!--                id="prof_mode"-->
-<!--                :title="t('title.changeMode')"-->
-<!--                :items="[-->
-<!--                  { key: 'basic', label: t('base.basic') },-->
-<!--                  { key: 'advanced', label: t('base.advanced') },-->
-<!--                ]"-->
-<!--                :modelValue="localState.mode"-->
-<!--                @update:model-value="onChangeMode"-->
-<!--                class="manage-tree__mode"/>-->
-<!--            </div>-->
-<!--            <div>-->
-<!--              <ButtonIcon-->
-<!--                :title="t('title.importSlideData')"-->
-<!--                icon-name="download"-->
-<!--                class="manage-tree__button"-->
-<!--                @click="localState.showImportData = true"/>-->
-<!--            </div>-->
-<!--          </nav>-->
-<!--          <div class="manage-tree-body">-->
-<!--            <Manage-->
-<!--              v-if="localState.mode === 'basic'"-->
-<!--              :tree="state.tree"-->
-<!--              @update="onUpdateTreeUI"/>-->
-<!--            <FormText-->
-<!--              v-else-if="localState.mode === 'advanced'"-->
-<!--              ref="tree"-->
-<!--              type="textarea"-->
-<!--              name="pref_tree"-->
-<!--              id="pref_tree"-->
-<!--              :placeholder="t('description.inputSlideDataCode')"-->
-<!--              :rows="15"-->
-<!--              :color="localState.textTreeColor"-->
-<!--              v-model="state.tree"-->
-<!--              @update:modelValue="onUpdateTreeSource"/>-->
-<!--          </div>-->
-<!--        </div>-->
-<!--      </div>-->
-<!--    </div>-->
+  <div class="manage-tree">
+    <div class="manage-tree__toolbar">
+      <FormRadio
+        type="button"
+        name="pref_mode"
+        id="prof_mode"
+        title="편집모드를 변경합니다."
+        :items="[
+          { key: 'basic', label: '기본' },
+          { key: 'advanced', label: '전문가' },
+        ]"
+        :model-value="state.mode"
+        class="manage-tree__mode"
+        @update:model-value="onChangeMode"/>
+      <ButtonIcon
+        title="슬라이드 데이터를 가져옵니다."
+        icon-name="download"
+        class="manage-tree__button"
+        @click="state.visibleImportData = true"/>
+    </div>
+    <div class="manage-tree__body">
+      <Manage
+        v-if="state.mode === 'basic'"
+        :tree="state.tree"
+        @update="onUpdateTreeFromManage"/>
+      <FormText
+        v-else-if="state.mode === 'advanced'"
+        ref="tree"
+        type="textarea"
+        name="pref_tree"
+        id="pref_tree"
+        v-model="state.tree"
+        placeholder="슬라이드 데이터 코드를 입력해주세요."
+        :rows="15"
+        :color="state.errorTree ? 'error' : undefined"
+        class="advanced-source"
+        @blur:model-value="onBlurTree"/>
+      <p
+        v-if="state.mode === 'advanced' && state.errorTree"
+        class="manage-tree__error-message">
+        JSON 데이터가 문제 생겼습니다.
+      </p>
+    </div>
   </div>
-<!--  <teleport to="#service">-->
-<!--    <ModalWrapper-->
-<!--      v-if="localState.showImportData"-->
-<!--      :title="t('title.getSlideItems')"-->
-<!--      class="pref-data__import-data"-->
-<!--      @close="localState.showImportData = false">-->
-<!--      <ImportData @update="onImportData"/>-->
-<!--    </ModalWrapper>-->
-<!--  </teleport>-->
+  <client-only>
+    <teleport to="body">
+      <transition name="modal-fade">
+        <ModalWrap
+          v-if="state.visibleImportData"
+          @close="state.visibleImportData = false">
+          <ImportData
+            @update="onImportData"
+            @close="state.visibleImportData = false"/>
+        </ModalWrap>
+      </transition>
+    </teleport>
+  </client-only>
 </fieldset>
 </template>
 
-<script setup>
+<script lang="ts" setup>
 import { reactive } from 'vue';
-// import i18n from '../../../i18n';
-// import { checkTree } from '../../../libs/object';
-// import { objectToString } from '../../../libs/string';
-// import FormText from '../../../components/Form/Text.vue';
-// import FormRadio from '../../../components/Form/Radio.vue';
-// import ButtonIcon from './ButtonIcon.vue';
-// import Manage from './Manage/index.vue';
-// import ModalWrapper from './ModalWrapper.vue';
-// import ImportData from './ImportData.vue';
+import { readyPreferenceStore } from '~/store/slideshow';
+import { FormRadio, FormText } from '../../../components/form';
+import { convertPureObject } from '~/libs/object';
+import { checkTree, objectToString } from '~/libs/slideshow';
+import ButtonIcon from './button-icon.vue';
+import Manage from './manage/index.vue';
+import { ModalWrap } from '~/components/modal';
+import ImportData from './import-data.vue';
 
-// const { t } = i18n.global;
-// const props = defineProps({ structure: Object });
-// const emits = defineEmits({ 'update': null });
-// let localState = reactive({
-//   mode: 'basic', // basic,advanced
-//   showImportData: false,
-//   textTreeColor: undefined,
-// });
-// let state = reactive({
-//   tree: localState.mode === 'advanced' ? JSON.stringify(props.structure.tree, null, 2) : props.structure.tree,
-// });
-// let timer;
-//
-// // methods
-// function onChangeMode(key)
-// {
-//   try
-//   {
-//     switch (key)
-//     {
-//       case 'basic':
-//         let tree = JSON.parse(state.tree);
-//         if (!checkTree(tree)) throw new Error('error tree');
-//         state.tree = tree;
-//         localState.mode = key;
-//         break;
-//       case 'advanced':
-//         state.tree = objectToString(state.tree);
-//         localState.mode = key;
-//         break;
-//     }
-//   }
-//   catch(e)
-//   {
-//     if (window.dev) console.error(e.message);
-//     alert(t('alert.invalidData'));
-//   }
-// }
-// function onUpdateTreeSource(str)
-// {
-//   if (timer) clearTimeout(timer);
-//   timer = setTimeout(() => {
-//     try
-//     {
-//       let tree = JSON.parse(str);
-//       localState.textTreeColor = undefined;
-//       // update parent component
-//       emits('update', { tree });
-//     }
-//     catch(e)
-//     {
-//       localState.textTreeColor = 'error';
-//     }
-//   }, 600);
-// }
-// function onUpdateTreeUI(tree)
-// {
-//   state.tree = tree;
-//   emits('update', { tree });
-// }
-// function onImportData(res)
-// {
-//   switch (localState.mode)
-//   {
-//     case 'advanced':
-//       state.tree = objectToString(res);
-//       break;
-//     default:
-//       state.tree = res;
-//       break;
-//   }
-//   emits('update', { tree: res });
-//   localState.showImportData = false;
-// }
+const readyPreference = readyPreferenceStore();
+const state = reactive({
+  mode: 'basic', // basic,advanced
+  tree: undefined,
+  visibleImportData: false,
+  errorTree: false,
+});
+let timer;
+
+// set tree
+state.tree = state.mode === 'advanced' ? objectToString(readyPreference.data) : convertPureObject(readyPreference.data);
+
+function onChangeMode(key: string): void
+{
+  try
+  {
+    switch (key)
+    {
+      case 'basic':
+      default:
+        let tree = JSON.parse(state.tree);
+        if (!checkTree(tree)) throw new Error('error tree');
+        state.tree = tree;
+        break;
+      case 'advanced':
+        state.tree = objectToString(state.tree);
+        break;
+    }
+    state.mode = key;
+  }
+  catch(e)
+  {
+    if (process.dev) console.error(e.message);
+    alert('데이터가 잘못되었습니다.');
+  }
+}
+
+function onBlurTree(value: string): void
+{
+  if (timer) clearTimeout(timer);
+  timer = setTimeout(() => {
+    try
+    {
+      JSON.parse(value);
+      updateReadyData();
+      state.errorTree = false;
+    }
+    catch (_)
+    {
+      state.errorTree = true;
+    }
+  });
+}
+
+function onUpdateTreeFromManage(tree)
+{
+  console.log('onUpdateTreeFromUI', tree);
+  // TODO: state.tree = tree;
+  // TODO: updateReadyData();
+}
+function onImportData(res)
+{
+  switch (state.mode)
+  {
+    case 'advanced':
+      state.tree = objectToString(res);
+      break;
+    case 'basic':
+    default:
+      state.tree = res;
+      break;
+  }
+  readyPreference.data = res;
+  state.visibleImportData = false;
+}
+
+function updateReadyData(): void
+{
+  try
+  {
+    let tree = state.mode === 'advanced' ? JSON.parse(state.tree) : convertPureObject(state.tree);
+    if (!checkTree(tree)) throw new Error('error tree');
+    readyPreference.data = tree;
+  }
+  catch(_)
+  {}
+}
 </script>
 
-<!--<style src="../fieldset.scss" lang="scss" scoped></style>-->
-<!--<style src="./index.scss" lang="scss" scoped></style>-->
+<style src="../preference.scss" lang="scss" scoped></style>
+<style src="./index.scss" lang="scss" scoped></style>

@@ -7,22 +7,21 @@
 </div>
 </template>
 
-<script setup>
+<script lang="ts" setup>
 import { ref, onMounted, onUnmounted } from 'vue';
-import * as util from '../../libs/util';
+import { sleep } from '~/libs/util';
 import Unit from './unit.vue';
 
 let show = ref(false);
 let mounted = false;
 
 // lifecycles
-onMounted(() => {
+onMounted(async (): void => {
   mounted = true;
-  util.sleep(50).then(() => {
-    if (mounted) show.value = true;
-  });
+  await sleep(50);
+  if (mounted) show.value = true;
 });
-onUnmounted(() => {
+onUnmounted((): void => {
   mounted = false;
 });
 </script>

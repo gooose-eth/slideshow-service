@@ -35,7 +35,7 @@
     box-sizing: border-box;
     -webkit-overflow-scrolling: touch;
     overflow: auto;
-    //@include mixin.custom-scroll-style();
+    @include mixin.custom-scroll-style();
   }
   @include mixin.responsive(tablet) {
     --header-height: 84px;
@@ -93,7 +93,7 @@
     justify-content: start;
     padding: 0 0 0 20px;
     box-sizing: border-box;
-    h2 {
+    h1 {
       margin: 0;
       line-height: 1;
       font-size: 20px;
@@ -138,13 +138,13 @@
   @include mixin.responsive(tablet) {
     &__body {
       padding: 0 0 0 30px;
-      h2 {
+      h1 {
         font-size: 30px;
         letter-spacing: -.5px;
       }
       p {
         display: block;
-        margin: 2px 0 0;
+        margin: 4px 0 0;
         font-size: 12px;
         line-height: 1.15;
         color: var(--color-weak);

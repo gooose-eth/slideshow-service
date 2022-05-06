@@ -15,10 +15,6 @@ const route = useRoute();
 
 if (process.client)
 {
-  // create teleport element
-  const $body = document.createElement('div');
-  $body.id = 'service';
-  document.body.appendChild($body);
   // initial custom event
   initCustomEvent();
 }
@@ -36,7 +32,6 @@ const { success } = data.value;
 //   console.log('start');
 // });
 // nuxtApp.hook('page:finish', (): void => {
-//   console.log('ffffififii')
-//   // window.scrollTo(0, 0); // TODO: 상단으로 올리기
+//   window.scrollTo(0, 0); // TODO: 상단으로 올리기
 // });
 </script>
