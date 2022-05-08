@@ -1,0 +1,115 @@
+@use '../../../../assets/scss/mixin';
+
+.groups {
+  display: grid;
+  grid-template-rows: 48px 1fr;
+  height: 100%;
+  box-sizing: border-box;
+  &__body {
+    overflow: auto;
+  }
+  @include mixin.responsive(tablet) {
+    grid-template-rows: auto 1fr;
+    width: 75vw;
+    height: 75vh;
+    max-width: 580px;
+    max-height: 640px;
+    background-color: var(--color-bg);
+    border-radius: 4px;
+    box-shadow: 0 2px 30px 0 hsl(0 0% 0% / 25%), 0 0 0 1px hsl(0 0% 0% / 10%);
+    overflow: hidden;
+  }
+  @include mixin.dark-mode() {
+    // TODO
+    //@include mixin.responsive(desktop) {
+    //  background: rgba(34,34,34,.75);
+    //}
+  }
+}
+
+.groups-header {
+  display: grid;
+  grid-template-columns: 1fr 48px;
+  align-items: center;
+  box-sizing: border-box;
+  user-select: none;
+  background-color: var(--color-shape);
+  &__body {
+    padding: 0 0 0 20px;
+    h1 {
+      margin: 0;
+      line-height: 1;
+      font-size: 18px;
+      font-weight: 700;
+      letter-spacing: -.25px;
+    }
+    p {
+      display: none;
+    }
+  }
+  &__close {
+    display: block;
+    height: 100%;
+    aspect-ratio: 1 / 1;
+    margin: 0;
+    padding: 0;
+    border: none;
+    background: none;
+    border-radius: 2px;
+    box-sizing: border-box;
+    transition: opacity 200ms ease-out;
+    @include mixin.button-extends();
+    @include mixin.mouse-event(active) {
+      opacity: .5;
+    }
+    &:focus-visible {
+      box-shadow: inset 0 0 0 2px var(--color-key);
+    }
+    --icon-stroke: 2;
+    --icon-size: 26px;
+    svg {
+      display: block;
+      margin: 0 auto;
+    }
+  }
+  @include mixin.responsive(tablet) {
+    grid-template-columns: 1fr auto;
+    padding: 16px 0;
+    &__body {
+      padding-left: 30px;
+      h1 {
+        font-size: 24px;
+        font-weight: 700;
+        letter-spacing: -.5px;
+      }
+      p {
+        display: block;
+        margin: 4px 0 0;
+        font-size: 12px;
+        line-height: 1.15;
+        color: var(--color-weak);
+      }
+    }
+    &__close {
+      margin: 0 16px 0 0;
+      height: 54px;
+      --icon-size: 36px;
+      --icon-stroke: 1.25;
+    }
+  }
+  @include mixin.dark-mode() {
+    // TODO
+    box-shadow: inset 0 -1px 0 0 var(--color-shape-button);
+  }
+}
+
+.groups-index {
+  margin: 0;
+  padding: 20px;
+  list-style: none;
+  display: grid;
+  gap: 12px;
+  @include mixin.responsive(tablet) {
+    padding: 30px;
+  }
+}

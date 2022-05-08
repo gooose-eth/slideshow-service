@@ -17,7 +17,7 @@
   font-weight: 500;
   color: hsl(0 0% 100%);
   letter-spacing: -.5px;
-  min-width: 160px;
+  min-width: 120px;
   text-align: center;
   @include mixin.button-extends();
   box-shadow: var(--button-shadow-1), var(--button-shadow-2), var(--button-shadow-3);

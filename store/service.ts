@@ -1,16 +1,20 @@
 import { defineStore } from 'pinia';
+import type * as Types from './service.d';
 
-interface Service {
-  title: string,
-  url: string,
-}
 export const serviceStore = defineStore('service', {
-  state(): Service
+  state(): Types.Service
   {
     return {
       title: 'Slideshow service',
-      // TODO: 값 연계하기
-      url: 'http://localhost:3000',
+      url: '',
     };
+  },
+  actions: {
+    setup(): void
+    {
+      if (!process.env) return;
+      this.title = process.env.SERVICE_NAME;
+      this.url = process.env.URL;
+    },
   },
 });

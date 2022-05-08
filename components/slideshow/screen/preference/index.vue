@@ -1,43 +1,42 @@
 <template>
-<article
-  class="preference"
-  @click="onClose"
-  @touchstart="onTouchStart">
-  <div class="preference__wrap" @click.stop="">
-    <Side/>
-    <form class="preference__body" @submit="onSubmit">
-      <header class="preference-header">
-        <div class="preference-header__body">
-          <h1>{{header.title}}</h1>
-          <p>{{header.description}}</p>
-        </div>
-        <nav class="preference-header__nav">
-          <button type="submit" title="적용하기" @click="onSubmit">
-            <Icon icon-name="check"/>
-          </button>
-          <button type="button" title="닫기" @click="onClose">
-            <Icon icon-name="x"/>
-          </button>
-        </nav>
-      </header>
-      <div ref="$content" class="preference__content">
-        <component :is="bodyComponent"/>
+<article class="preference">
+  <Side/>
+  <form class="preference__body" @submit.prevent="onSubmit">
+    <header class="preference-header">
+      <div class="preference-header__body">
+        <h1>{{header.title}}</h1>
+        <p>{{header.description}}</p>
       </div>
-    </form>
-  </div>
+      <nav class="preference-header__nav">
+        <button type="submit" title="적용하기">
+          <Icon icon-name="check"/>
+        </button>
+        <button type="button" title="닫기" @click="onClose">
+          <Icon icon-name="x"/>
+        </button>
+      </nav>
+    </header>
+    <div ref="$content" class="preference__content">
+      <component :is="bodyComponent"/>
+    </div>
+  </form>
 </article>
 </template>
 
 <script lang="ts" setup>
 import { defineAsyncComponent, computed, onMounted, onUnmounted, watch, ref } from 'vue';
-import { windowsStore, currentStore, readyPreferenceStore } from '~/store/slideshow';
+import { windowsStore, currentStore, preferenceStore, readyPreferenceStore, dataStore } from '~/store/slideshow';
+import { pureObject } from '~/libs/object';
+import { checkTree } from '~/libs/slideshow';
 import Icon from '../../components/icon/index.vue';
 import Side from './side.vue';
 
 const $content = ref();
 const windows = windowsStore();
 const current = currentStore();
+const preference = preferenceStore();
 const readyPreference = readyPreferenceStore();
+const data = dataStore();
 const header = computed(() => {
   switch (readyPreference.tab)
   {
@@ -97,54 +96,30 @@ const bodyComponent: any = computed(() => {
 // setup store
 readyPreference.setup();
 
-// methods
-function onTouchStart(e)
-{
-  if (e.touches && e.touches.length > 1) e.preventDefault();
-}
 function onClose()
 {
   windows.preference = false;
 }
-function onSubmit(e)
+function onSubmit()
 {
-  e.preventDefault();
-  if (!confirm('슬라이드쇼가 재시작됩니다.\n적용하시겠습니까?')) return;
+  if (!confirm('설정을 적용하시겠습니까?')) return;
   try
   {
-//     let tree = convertPureObject(state.structure.data.tree);
-//     checkTree(tree);
-//     let preference = {
-//       general: convertPureObject(state.structure.general),
-//       slides: convertPureObject(state.structure.slides),
-//       style: convertPureObject(state.structure.style),
-//       keyboard: convertPureObject(state.structure.keyboard),
-//     };
-//     if (!checkPreference(preference)) throw new Error('Bad preference data.');
-
-//     // update store
-//     store.dispatch('changePreference', preference);
-//     store.dispatch('changeMode', null);
-//     store.dispatch('changeActiveSlide', store.state.preference.slides.initialNumber);
-//     store.dispatch('changeAutoplay', false);
-//     store.commit('updateUseKeyboardEvent', true);
-//     store.dispatch('changeTree', tree);
-//     // check and update group
-//     if (!Object.keys(tree).filter(key => (key === store.state.group)).length)
-//     {
-//       store.dispatch('changeGroup', Object.keys(tree)[0]);
-//     }
-
-//     // update or restart
-//     if (local.useProps.preference || local.useProps.tree)
-//     {
-//       local.main.update('preference');
-//       local.main.update('tree');
-//     }
-//     else
-//     {
-//       local.main.restart().then();
-//     }
+    // update preference
+    preference.update(pureObject({
+      general: readyPreference.general,
+      slides: readyPreference.slides,
+      style: readyPreference.style,
+      keyboard: readyPreference.keyboard,
+    }));
+    // update tree
+    data.update(readyPreference.data);
+    // check and update group
+    if (!Object.keys(data.groups).filter(key => (key === current.tree)).length)
+    {
+      current.tree = Object.keys(data.groups)[0];
+    }
+    onClose();
   }
   catch(e)
   {
@@ -158,6 +133,7 @@ onMounted(() => {
   current.autoplay = false;
 });
 onUnmounted(() => {
+  if (windows.preference) return;
   current.autoplay = true;
   readyPreference.destroy();
 });

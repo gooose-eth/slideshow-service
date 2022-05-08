@@ -6,7 +6,7 @@
       preference.style.screenColor && `theme-${preference.style.screenColor}`,
     ]">
     <Head>
-      <Title>sdmikgsdg</Title>
+      <Title>{{serviceTitle}}</Title>
     </Head>
     <Body/>
   </Html>
@@ -17,10 +17,26 @@
 </template>
 
 <script lang="ts" setup>
+import { ref } from 'vue';
+import { serviceStore } from '~/store/service';
 import { preferenceStore, currentStore } from '~/store/slideshow';
 
+const route = useRoute();
+const service = serviceStore();
 const preference = preferenceStore();
 const current = currentStore();
+const serviceTitle = ref('');
+
+// setup
+switch (route.name)
+{
+  case 'create':
+    serviceTitle.value = `${service.title} / 슬라이드쇼 만들기`;
+    break;
+  default:
+    serviceTitle.value = service.title;
+    break;
+}
 </script>
 
 <style lang="scss">

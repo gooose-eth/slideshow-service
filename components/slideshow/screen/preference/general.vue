@@ -142,9 +142,8 @@
 <script lang="ts" setup>
 import { reactive } from 'vue';
 import { readyPreferenceStore, dataStore, currentStore } from '~/store/slideshow';
-// import * as object from '../../libs/object';
-// import * as local from '../../libs/local';
-// import * as string from '../../libs/string';
+import { pureObject } from '~/libs/object';
+import { twoDigit } from '~/libs/string';
 import { FormText, FormSwitch, FormCheckbox } from '../../components/form';
 import { ButtonBasic } from '../../components/button';
 
@@ -152,63 +151,63 @@ const readyPreference = readyPreferenceStore();
 const data = dataStore();
 const current = currentStore();
 
-function onClickBackup()
+function onClickBackup(): void
 {
   if (!confirm('정말 모든 데이터를 백업할까요?\n백업한 내용은 `JSON` 파일로 저장됩니다.')) return;
-//   let result = {
-//     preference: object.convertPureObject(store.state.preference),
-//     tree: object.convertPureObject(store.state.tree),
-//   };
-//   const date = new Date();
-//   let dateFormat = `${date.getFullYear()}${string.twoDigit(date.getMonth() + 1)}${string.twoDigit(date.getDate())}`;
-//   const element = document.createElement('a');
-//   element.setAttribute('href', `data:text/json;charset=utf-8,${encodeURIComponent(JSON.stringify(result, null, 2))}`);
-//   element.setAttribute('download', `slideshow_${dateFormat}.json`);
-//   element.click();
-}
-function onClickRestore()
-{
-  return new Promise((resolve, reject) => {
-//     const el = document.createElement('input');
-//     el.setAttribute('type', 'file');
-//     el.setAttribute('accept', 'application/json');
-//     el.addEventListener('change', e => {
-//       if (!(e.target.files && e.target.files.length > 0))
-//       {
-//         alert(t('alert.noSelectedFile'));
-//         return;
-//       }
-//       const file = e.target.files[0];
-//       const reader = new FileReader();
-//       reader.onload = e => {
-//         try
-//         {
-//           let json = JSON.parse(String(e.target.result));
-//           if (!confirm(t('confirm.restore'))) return;
-//           if (!(json.preference || json.tree)) throw new Error('no data');
-//           if (json.preference) store.dispatch('changePreference', json.preference);
-//           if (json.tree) store.dispatch('changeTree', json.tree);
-//           store.dispatch('changeMode', null);
-//           store.dispatch('changeActiveSlide', store.state.preference.slides.initialNumber);
-//           store.dispatch('changeAutoplay', false);
-//           store.commit('updateUseKeyboardEvent', true);
-//           alert(t('alert.completeRestore'));
-//           local.main.restart().then();
-//         }
-//         catch(e)
-//         {
-//           if (window.dev) console.error(e.message);
-//           alert(t('alert.failedRestore'));
-//         }
-//       };
-//       reader.readAsText(file);
-//     }, false);
-//     el.click();
+  const { general, slides, style, data, keyboard } = readyPreference;
+  let result = pureObject({
+    preference: { general, slides, style, keyboard },
+    tree: data,
   });
+  const date = new Date();
+  let dateFormat = `${date.getFullYear()}${twoDigit(date.getMonth() + 1)}${twoDigit(date.getDate())}`;
+  const element = document.createElement('a');
+  element.setAttribute('href', `data:text/json;charset=utf-8,${encodeURIComponent(JSON.stringify(result, null, 2))}`);
+  element.setAttribute('download', `slideshow_${dateFormat}.json`);
+  element.click();
 }
-function onClickReset()
+
+function onClickRestore(): void
 {
-  if (!confirm('정말로 모든 설정과 슬라이드 데이터를 초기화 하겠습니까?\n초기화하면 복구할 수 없습니다.')) return;
+  const el = document.createElement('input');
+  el.setAttribute('type', 'file');
+  el.setAttribute('accept', 'application/json');
+  el.addEventListener('change', (e: Event) => {
+    if ((<HTMLInputElement>e.target).files.length <= 0)
+    {
+      alert('선택한 파일이 없습니다.');
+      return;
+    }
+    const file: File = (<HTMLInputElement>e.target).files[0];
+    const reader: FileReader = new FileReader();
+    reader.onload = (e: ProgressEvent) => {
+      try
+      {
+        let json = JSON.parse(String((<FileReader>e.target).result));
+        if (!confirm('정말 모든 데이터를 복원할까요?\n이 작업은 현재 데이터가 모두 삭제됩니다.')) return;
+        if (!(json.preference || json.tree)) throw new Error('no data');
+        readyPreference.restore({
+          ...json.preference,
+          data: json.tree,
+        })
+        alert('복원을 끝냈습니다.\n설정을 확인해보시고 "적용하기" 버튼을 누르면 적용됩니다.');
+      }
+      catch(e)
+      {
+        if (process.dev) console.error(e.message);
+        alert('복원에 실패했습니다.');
+      }
+    };
+    reader.readAsText(file);
+  }, false);
+  el.click();
+}
+
+function onClickReset(): void
+{
+  if (!confirm('정말로 모든 설정과 슬라이드 데이터를 초기화 하겠습니까?')) return;
+  readyPreference.reset();
+  // alert('설정을 모두 초기화했습니다.\n설정을 확인해보시고 "적용하기" 버튼을 누르면 적용됩니다.');
   // store.dispatch('reset').then(() => local.main.restart().then());
 }
 </script>

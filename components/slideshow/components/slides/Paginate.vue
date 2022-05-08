@@ -16,15 +16,16 @@ const props = defineProps({
   font-size: 13px;
   line-height: 1.15;
   letter-spacing: -.5px;
-
-  .slideshow--hover & {
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity var(--speed-content-toggle) ease-out;
-  }
-  .slideshow--hover:hover & {
-    opacity: unset;
-    pointer-events: unset;
+  @media (hover: hover) {
+    .container--hover & {
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity var(--speed-content-toggle) ease-out;
+    }
+    .container--hover:hover & {
+      opacity: unset;
+      pointer-events: unset;
+    }
   }
 }
 </style>

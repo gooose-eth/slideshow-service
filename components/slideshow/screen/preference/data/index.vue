@@ -51,9 +51,11 @@
         <ModalWrap
           v-if="state.visibleImportData"
           @close="state.visibleImportData = false">
-          <ImportData
-            @update="onImportData"
-            @close="state.visibleImportData = false"/>
+          <ModalBody>
+            <ImportData
+              @update="onImportData"
+              @close="state.visibleImportData = false"/>
+          </ModalBody>
         </ModalWrap>
       </transition>
     </teleport>
@@ -65,11 +67,11 @@
 import { reactive } from 'vue';
 import { readyPreferenceStore } from '~/store/slideshow';
 import { FormRadio, FormText } from '../../../components/form';
-import { convertPureObject } from '~/libs/object';
+import { pureObject } from '~/libs/object';
 import { checkTree, objectToString } from '~/libs/slideshow';
 import ButtonIcon from './button-icon.vue';
 import Manage from './manage/index.vue';
-import { ModalWrap } from '~/components/modal';
+import { ModalWrap, ModalBody } from '~/components/modal';
 import ImportData from './import-data.vue';
 
 const readyPreference = readyPreferenceStore();
@@ -82,7 +84,7 @@ const state = reactive({
 let timer;
 
 // set tree
-state.tree = state.mode === 'advanced' ? objectToString(readyPreference.data) : convertPureObject(readyPreference.data);
+state.tree = state.mode === 'advanced' ? objectToString(readyPreference.data) : pureObject(readyPreference.data);
 
 function onChangeMode(key: string): void
 {
@@ -128,9 +130,8 @@ function onBlurTree(value: string): void
 
 function onUpdateTreeFromManage(tree)
 {
-  console.log('onUpdateTreeFromUI', tree);
-  // TODO: state.tree = tree;
-  // TODO: updateReadyData();
+  state.tree = tree;
+  updateReadyData();
 }
 function onImportData(res)
 {
@@ -152,7 +153,7 @@ function updateReadyData(): void
 {
   try
   {
-    let tree = state.mode === 'advanced' ? JSON.parse(state.tree) : convertPureObject(state.tree);
+    let tree = state.mode === 'advanced' ? JSON.parse(state.tree) : pureObject(state.tree);
     if (!checkTree(tree)) throw new Error('error tree');
     readyPreference.data = tree;
   }

@@ -48,6 +48,7 @@
     color: var(--color-base);
     text-align: center;
     border-radius: 0;
+    line-height: 1;
     @include mixin.button-extends();
     @include mixin.mouse-event(active) {
       opacity: .75;

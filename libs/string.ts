@@ -1,12 +1,16 @@
-export function convertStringToObject(str: string): object
+export function validUrl(str: string): boolean
 {
-  try
-  {
-    if (!str) throw new Error('no data');
-    return JSON.parse(decodeURIComponent(str));
+  if (!str) return false;
+  let url;
+  try {
+    url = new URL(str);
+  } catch (_) {
+    return false;
   }
-  catch(e)
-  {
-    return {};
-  }
+  return url.protocol === 'http:' || url.protocol === 'https:';
+}
+
+export function twoDigit(day: number|string): string
+{
+  return `0${day}`.slice(-2);
 }

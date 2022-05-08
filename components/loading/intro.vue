@@ -27,7 +27,7 @@ onUnmounted((): void => {
 </script>
 
 <style lang="scss" scoped>
-@use '../../../../assets/scss/mixin';
+@use '../../assets/scss/mixin';
 .loading-intro {
   --loading-size: 50px;
   --loading-speed: 500ms;

@@ -141,15 +141,6 @@ import { readyPreferenceStore } from '~/store/slideshow';
 import { FormText, FormSelect } from '../../components/form';
 
 const readyPreference = readyPreferenceStore();
-
-function onUpdateImageScale(s)
-{
-  readyPreference.style.imageScale = s.split(',');
-}
-function onUpdateCaptionPosition(s)
-{
-  readyPreference.style.captionPosition = s.split(',');
-}
 </script>
 
 <style src="./preference.scss" lang="scss" scoped></style>

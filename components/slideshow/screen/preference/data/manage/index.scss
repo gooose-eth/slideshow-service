@@ -1,163 +1,159 @@
 @use '../../../../../../assets/scss/mixin';
 
-.manage-tree {
-  position: relative;
+.tree-items {
+  --tree-shape-color: #ddd;
+  --tree-radius: 2px;
+  display: grid;
+  gap: 8px;
 }
-
 .tree-item {
-  &:nth-child(n+2) {
-    margin-top: 1px;
-  }
+  border: 1px solid var(--tree-shape-color);
+  box-sizing: border-box;
+  border-radius: var(--tree-radius);
   &__header {
     position: sticky;
     left: 0;
     right: 0;
     top: 0;
     z-index: 2;
-    display: flex;
+    display: grid;
+    grid-template-columns: 58px 1fr;
     align-items: center;
-    background-color: var(--color-shape);
-    border-radius: var(--size-shape-radius);
-    min-height: 48px;
-    > h3 {
+    background-color: var(--tree-shape-color);
+    border-top-left-radius: calc(var(--tree-radius) - 1px);
+    border-top-right-radius: calc(var(--tree-radius) - 1px);
+  }
+  &__fold {
+    padding: 0;
+    button {
+      display: block;
       margin: 0;
-      padding: 12px 16px 12px 4px;
-      flex: 1;
-      //@include mixin.text-single-line();
-      strong {
+      padding: 0;
+      aspect-ratio: 1 / 1;
+      width: 100%;
+      background: none;
+      border: none;
+      @include mixin.button-extends();
+      svg {
         display: block;
-        font-size: 14px;
-        letter-spacing: -.5px;
-        font-weight: 600;
-        line-height: 1.15;
+        margin: 0 auto;
       }
-      span {
-        display: block;
-        margin: 3px 0 0;
-        font-size: 11px;
-        font-weight: 400;
-        letter-spacing: -.5px;
-        line-height: 1.15;
-        color: var(--color-low-fill);
-      }
-      b {
-        font-weight: 600;
-        &:before {
-          content: '[';
+      &.fold {
+        --icon-size: 28px;
+        --icon-rotate: 0;
+        svg {
+          transform-origin: 50% 50%;
+          transition: transform 200ms ease-out;
+          will-change: transform;
+          transform: rotateX(var(--icon-rotate));
         }
-        &:after {
-          content: ']';
+        &--on {
+          --icon-rotate: 180deg;
         }
       }
-      em {
-        font-style: normal;
-        user-select: none;
-        &:before {
-          content: '(';
-        }
-        &:after {
-          content: ')';
-        }
+      &.minus {
+        cursor: default;
       }
     }
-    > nav {
-      display: flex;
-      align-items: center;
-      &:first-child {
-        margin-left: 6px;
+  }
+  &__title {
+    margin: 0;
+    padding: 12px 0;
+    min-width: 0;
+    strong {
+      display: block;
+      font-size: 15px;
+      letter-spacing: -.5px;
+      font-weight: 700;
+      line-height: 1.15;
+      @include mixin.text-single-line();
+    }
+    span {
+      display: block;
+      margin: 3px 0 0;
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: -.5px;
+      line-height: 1.15;
+      color: var(--color-weak);
+      @include mixin.text-single-line();
+    }
+    b {
+      font-weight: 600;
+      &:before {
+        content: '[';
       }
-      &:last-child {
-        margin-right: 6px;
-        opacity: 0;
-        pointer-events: none;
-        transition: opacity 200ms ease-out;
+      &:after {
+        content: ']';
       }
-      button {
-        display: none;
-        width: 32px;
-        height: 32px;
-        margin: 0;
-        padding: 0;
-        border: none;
-        box-sizing: border-box;
-        background: none;
-        cursor: pointer;
-        -webkit-tap-highlight-color: transparent;
-        transition: opacity var(--speed-button-active) ease-out, box-shadow var(--speed-button-active) ease-out;
-        border-radius: var(--size-shape-radius);
-        outline: none;
-        &:focus {
-          box-shadow: 0 0 0 2px var(--color-key);
-        }
-        &:active {
-          opacity: .5;
-        }
-        &:disabled {
-          cursor: default;
-          opacity: 1;
-        }
-        &:nth-child(n+2) {
-          margin-left: 1px;
-        }
-        svg {
-          --icon-color: var(--color-fill);
-          --icon-stroke: 1.75;
-        }
-        &.fold {
-          display: block;
-          svg {
-            --icon-size: 20px;
-            transform-origin: center;
-            transition: transform 200ms ease-out;
-            will-change: transform;
-          }
-          &--on {
-            svg {
-              transform: rotateX(180deg);
-            }
-          }
-        }
-        &.minus {
-          opacity: .5;
-        }
-        &.add {
-          svg {
-            --icon-size: 20px;
-          }
-        }
-        &.edit {
-          svg {
-            --icon-size: 16px;
-          }
-        }
-        &.remove {
-          svg {
-            --icon-size: 20px;
-          }
-        }
+    }
+    em {
+      font-style: normal;
+      user-select: none;
+      &:before {
+        content: '(';
+      }
+      &:after {
+        content: ')';
+      }
+    }
+  }
+  &__nav {
+    display: none;
+    gap: 0;
+    align-items: center;
+    margin-right: 6px;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 200ms ease-out;
+    button {
+      display: block;
+      width: 34px;
+      height: 40px;
+      margin: 0;
+      padding: 0;
+      border: none;
+      box-sizing: border-box;
+      background: none;
+      transition: opacity var(--speed-button-active) ease-out, box-shadow var(--speed-button-active) ease-out;
+      border-radius: 2px;
+      --icon-color: var(--color-base);
+      --icon-stroke: 2;
+      @include mixin.button-extends();
+      @include mixin.mouse-event(active) {
+        opacity: .5;
+      }
+      &:disabled {
+        cursor: default;
+        opacity: 1;
       }
       svg {
         display: block;
         margin: 0 auto;
-        --icon-color: var(--color-invert);
-        --icon-stroke: 1.5;
+      }
+      &.add {
+        --icon-size: 20px;
+      }
+      &.edit {
+        --icon-size: 16px;
+      }
+      &.remove {
         --icon-size: 20px;
       }
     }
   }
-  @include mixin.responsive(desktop) {
+  @include mixin.responsive(tablet) {
+    &__header {
+      grid-template-columns: 58px 1fr auto;
+    }
+    &__nav {
+      display: flex;
+    }
     &:hover {
-      .tree-item__header {
-        > nav:last-child {
+      .tree-item {
+        &__nav {
           opacity: 1;
           pointer-events: auto;
-        }
-      }
-    }
-    &__header {
-      > nav {
-        button {
-          display: block;
         }
       }
     }
@@ -166,14 +162,13 @@
 
 .add-tree {
   display: none;
-  @include mixin.responsive(desktop) {
+  @include mixin.responsive(tablet) {
     display: block;
     position: sticky;
     z-index: 3;
     left: 0;
     right: 0;
     bottom: 24px;
-    margin-top: 24px;
-    button {}
+    margin-top: 36px;
   }
 }

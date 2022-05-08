@@ -1,11 +1,8 @@
 <template>
 <form class="import-data" @submit.prevent="onSubmit">
-  <header class="import-data__header">
-    <h1>슬라이드 아이템 가져오기</h1>
-    <button type="button" @click="emits('close')">
-      <Icon icon-name="x"/>
-    </button>
-  </header>
+  <PopupHeader
+    title="슬라이드 아이템 가져오기"
+    @close="emits('close')"/>
   <fieldset>
     <legend>Import data fields</legend>
     <div class="fields">
@@ -22,7 +19,6 @@
             v-model="state.mode"/>
         </div>
       </div>
-
       <div v-if="state.mode === 'address'" class="field-basic">
         <header class="field-basic__header">
           <h2 class="field-title">
@@ -73,27 +69,23 @@
 
 <script lang="ts" setup>
 import { ref, reactive } from 'vue';
-// import i18n from '../../../i18n';
-// import { getApiData, getFileData } from '../../../libs/util';
-// import { checkTree } from '../../../libs/object';
-import { getFileData } from '~/libs/slideshow';
-import Icon from '../../../components/icon/index.vue';
+import { getFileData, checkTree } from '~/libs/slideshow';
+import { assetsStore } from '~/store/slideshow';
 import { FormRadio, FormText, FormUpload } from '../../../components/form';
 import { ButtonBasic } from '../../../components/button';
+import PopupHeader from './popup-header.vue';
 
 const $address = ref();
 const $file = ref();
+const assets = assetsStore();
 const emits = defineEmits([ 'update', 'close' ]);
 let state = reactive({
   mode: 'address', // address,file
-  address: 'https://raw.githubusercontent.com/redgoose-dev/slideshow/main/resource/example/tree.json',
+  address: assets.exampleImportUrl,
   file: null,
   processing: false,
 });
-// const address = ref(null);
-// const emits = defineEmits({ 'update': null });
 
-// methods
 function onSelectFile(e)
 {
   if (e[0]) state.file = e[0];
@@ -134,6 +126,7 @@ async function onSubmit(e)
         }
       };
     }
+    checkTree(res);
     emits('update', res);
   }
   catch(e)

@@ -10,23 +10,16 @@
       height: 48px;
       padding: 0;
       margin: 0;
-      background-color: hsl(0 0% 0% /40%);
+      background-color: var(--button-bg, hsl(0 0% 65% / 75%));
       border: none;
       font-size: 0;
-      transition: background-color var(--speed-button-active) ease-out;
-      border-radius: 1px;
+      transition: background-color 200ms ease-out;
+      border-radius: 2px;
       @include mixin.button-extends();
       --icon-color: var(--color-invert);
-      --icon-stroke: 1.5;
+      --icon-stroke: 1.75;
       --icon-size: 22px;
-      &:active,
-      &.on {
-        background-color: hsl(0 0% 0% / 70%);
-      }
-      &.active {
-        background-color: var(--color-key);
-      }
-      > svg {
+      svg {
         display: block;
         margin: 0 auto;
         &[aria-labelledby=settings],
@@ -34,19 +27,33 @@
           --icon-size: 20px;
         }
       }
+      @include mixin.mouse-event(hover) {
+        --button-bg: hsl(0 0% 60% / 90%);
+      }
+      &:active {
+        filter: brightness(90%);
+      }
+      &.on {
+        --button-bg: hsl(0 0% 60% / 90%);
+      }
+      &.active {
+        --button-bg: var(--color-key);
+      }
     }
   }
-  // TODO: 클래스 이름 조정 필요하다.
-  .slideshow--hover & {
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity var(--speed-content-toggle) ease-out;
-  }
-  .slideshow--hover:hover & {
-    opacity: unset;
-    pointer-events: unset;
+  @media (hover: hover) {
+    .container--hover & {
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 300ms ease-out;
+    }
+    .container--hover:hover & {
+      opacity: unset;
+      pointer-events: unset;
+    }
   }
   @include mixin.dark-mode() {
+    // TODO: 다듬기
     &__item {
       > button {
         background: rgba(17,17,17,.4);
@@ -72,18 +79,19 @@
     list-style: none;
     margin: 0;
     padding: 0;
-    width: 160px;
+    width: 170px;
     box-sizing: border-box;
-    background-color: rgba(0,0,0,.7);
-    border-radius: 1px;
+    background-color: hsl(0 0% 100% / 90%);
+    border-radius: 4px;
     overflow: hidden;
     pointer-events: none;
     opacity: 0;
-    transition: opacity var(--speed-button-active) ease-out;
+    transition: opacity 200ms ease-out;
+    box-shadow: 0 2px 16px hsl(0 0% 0% / 15%), inset 0 0 0 1px hsl(0 0% 0% / 5%);
   }
   li {
     &:nth-child(n+2) {
-      border-top: 1px solid rgba(255,255,255,.1);
+      border-top: 1px solid hsl(0 0% 75% / 50%);
     }
   }
   button {
@@ -95,16 +103,20 @@
     margin: 0;
     border: none;
     text-align: left;
-    background-color: rgba(255,255,255,0);
-    color: var(--color-invert);
-    font-size: 13px;
-    outline: none;
-    transition: background-color var(--speed-button-active) ease-out;
-    cursor: pointer;
-    -webkit-tap-highlight-color: transparent;
-    &.on,
+    background-color: var(--context-bg, hsl(0 0% 75% / 0%));
+    color: var(--color-base);
+    font-size: 14px;
+    font-weight: 600;
+    transition: background-color 200ms ease-out;
+    @include mixin.button-extends();
     &:active {
-      background-color: rgba(0,0,0,.2);
+      filter: brightness(80%);
+    }
+    @include mixin.mouse-event(hover) {
+      --context-bg: hsl(0 0% 75% / 20%);
+    }
+    &.on {
+      --context-bg: hsl(0 0% 75% / 30%);
     }
     &.active {
       color: var(--color-key);
@@ -120,27 +132,28 @@
     }
   }
   @include mixin.dark-mode() {
-    ul {
-      background-color: rgba(17,17,17,.7);
-    }
-    li {
-      &:nth-child(n+2) {
-        border-top: 1px solid rgba(255,255,255,.05);
-      }
-    }
-    button {
-      color: var(--color-base);
-      background-color: rgba(0,0,0,0);
-      &.on,
-      &:active {
-        background-color: rgba(0,0,0,.2);
-      }
-      &.active {
-        color: var(--color-key);
-      }
-      &.danger {
-        color: var(--color-danger);
-      }
-    }
+    // TODO: 다듬기
+    //ul {
+    //  background-color: rgba(17,17,17,.7);
+    //}
+    //li {
+    //  &:nth-child(n+2) {
+    //    border-top: 1px solid rgba(255,255,255,.05);
+    //  }
+    //}
+    //button {
+    //  color: var(--color-base);
+    //  background-color: rgba(0,0,0,0);
+    //  &.on,
+    //  &:active {
+    //    background-color: rgba(0,0,0,.2);
+    //  }
+    //  &.active {
+    //    color: var(--color-key);
+    //  }
+    //  &.danger {
+    //    color: var(--color-danger);
+    //  }
+    //}
   }
 }

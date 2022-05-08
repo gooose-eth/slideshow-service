@@ -39,7 +39,7 @@ const props = defineProps<{
   --icon-size: 20px;
   @include mixin.button-extends();
   &:active {
-    filter: brightness(110%);
+    filter: brightness(120%);
   }
   &:focus-visible {
     --button-shadow-2: inset 0 0 0 1px hsl(0 0% 100% / 50%);

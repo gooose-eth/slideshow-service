@@ -11,55 +11,47 @@
 <script setup>
 import Icon from '../Icon/index.vue';
 
-const name = 'ButtonClose';
 const props = defineProps({ title: String });
 const emits = defineEmits({ 'close': null });
 </script>
 
 <style lang="scss" scoped>
-@use '../../assets/scss/mixins';
-
+@use '../../../../assets/scss/mixin';
 .button-close {
-  --button-close-size: 48px;
   display: block;
-  width: var(--button-close-size);
-  height: var(--button-close-size);
+  width: var(--button-close-size, 48px);
+  height: var(--button-close-size, 48px);
   margin: 0;
   padding: 0;
   font-size: 0;
   border: none;
-  background: rgba(250,250,250,.75);
+  background: hsl(0 0% 98% / 75%);
   box-sizing: border-box;
-  cursor: pointer;
-  outline: none;
   border-radius: 2px;
-  -webkit-tap-highlight-color: transparent;
-  transition: opacity var(--speed-button-active) ease-out;
-  @supports (backdrop-filter: blur(5px)) {
-    backdrop-filter: blur(5px);
-  }
-  &:active {
+  transition: opacity 200ms ease-out;
+  @include mixin.button-extends();
+  @include mixin.background-blur(8px);
+  --icon-color: var(--color-base);
+  --icon-size: 36px;
+  --icon-stroke: 1.25px;
+  @include mixin.mouse-event(active) {
     opacity: .5;
   }
-  &:focus {
+  &:focus-visible {
     box-shadow: 0 0 0 2px var(--color-key);
   }
-  .slideshow-icon {
+  svg {
     display: block;
     margin: 0 auto;
-    --icon-color: var(--color-fill);
-    --icon-size: 36px;
-    --icon-stroke: 1.25px;
   }
-
-  @include mixins.responsive(tablet) {
+  @include mixin.responsive(tablet) {
     --button-close-size: 58px;
     .slideshow-icon {
       --icon-size: 52px;
       --icon-stroke: .75px;
     }
   }
-  @include mixins.dark-mode() {
+  @include mixin.dark-mode() {
     background: rgba(34,34,34,.75);
   }
 }

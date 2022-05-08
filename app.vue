@@ -9,9 +9,11 @@
 
 <script lang="ts" setup>
 import { initCustomEvent } from '~/libs/util';
+import { serviceStore } from '~/store/service';
 
 const nuxtApp = useNuxtApp();
 const route = useRoute();
+const service = serviceStore();
 
 if (process.client)
 {
@@ -20,6 +22,7 @@ if (process.client)
 }
 
 // setup
+if (process.server) service.setup();
 const { data } = await useAsyncData('setup', () => $fetch('/api/setup', {
   method: 'post',
   body: {
@@ -28,9 +31,6 @@ const { data } = await useAsyncData('setup', () => $fetch('/api/setup', {
 }));
 const { success } = data.value;
 
-// nuxtApp.hook('page:start', (): void => {
-//   console.log('start');
-// });
 // nuxtApp.hook('page:finish', (): void => {
 //   window.scrollTo(0, 0); // TODO: 상단으로 올리기
 // });

@@ -1,3 +1,5 @@
+import type { Preference } from '~/store/slideshow.d';
+
 interface Slide {
   src: string
   title?: string
@@ -64,4 +66,80 @@ export function getFileData(file: File, parse: boolean = true): Promise<object|a
       reject(new Error(e.message || 'failed get file data'));
     }
   });
+}
+
+function checkNestedKeys(src: object, type: string, keys: string[]): void
+{
+  const address = keys.join('.');
+  const message_errorType = `The type(${address}) is wrong.`;
+  for (let i = 0; i < keys.length; i++)
+  {
+    if (!src || !src.hasOwnProperty(keys[i]))
+    {
+      throw new Error(`The item(${address}) is missing or invalid.`);
+    }
+    src = src[keys[i]];
+  }
+  switch (type)
+  {
+    case 'array':
+      if (!Array.isArray(src)) throw new Error(message_errorType);
+      break;
+    case 'string':
+      if (typeof src !== 'string') throw new Error(message_errorType);
+      break;
+    case 'number':
+      if (typeof src !== 'number') throw new Error(message_errorType);
+      break;
+    case 'boolean':
+      if (typeof src !== 'boolean') throw new Error(message_errorType);
+      break;
+    case 'object':
+      if (typeof src !== 'object') throw new Error(message_errorType);
+      break;
+  }
+}
+
+export function checkPreference(item: Preference): boolean
+{
+  try
+  {
+    if (!item) throw new Error('no item');
+    if (!(item.general && item.slides && item.style && item.keyboard)) throw new Error('no item property');
+    // general
+    checkNestedKeys(item, 'boolean', ['general', 'hud']);
+    checkNestedKeys(item, 'boolean', ['general', 'hoverVisibleHud']);
+    checkNestedKeys(item, 'boolean', ['general', 'clickVisibleHud']);
+    checkNestedKeys(item, 'boolean', ['general', 'visibleHudContents', 'menu']);
+    checkNestedKeys(item, 'boolean', ['general', 'visibleHudContents', 'caption']);
+    checkNestedKeys(item, 'boolean', ['general', 'visibleHudContents', 'controller']);
+    checkNestedKeys(item, 'boolean', ['general', 'visibleHudContents', 'paginate']);
+    checkNestedKeys(item, 'boolean', ['general', 'visibleHudContents', 'group']);
+    // slides
+    checkNestedKeys(item, 'number', ['slides', 'initialNumber']);
+    checkNestedKeys(item, 'string', ['slides', 'animationType']);
+    checkNestedKeys(item, 'number', ['slides', 'animationSpeed']);
+    checkNestedKeys(item, 'string', ['slides', 'captionAnimationType']);
+    checkNestedKeys(item, 'number', ['slides', 'captionAnimationSpeed']);
+    checkNestedKeys(item, 'boolean', ['slides', 'autoplay']);
+    checkNestedKeys(item, 'number', ['slides', 'autoplayDelay']);
+    checkNestedKeys(item, 'boolean', ['slides', 'autoplayDirection']);
+    checkNestedKeys(item, 'boolean', ['slides', 'autoplayPauseOnHover']);
+    checkNestedKeys(item, 'boolean', ['slides', 'loop']);
+    checkNestedKeys(item, 'boolean', ['slides', 'swipe']);
+    // style
+    checkNestedKeys(item, 'string', ['style', 'screenColor']);
+    checkNestedKeys(item, 'string', ['style', 'imageType']);
+    checkNestedKeys(item, 'array', ['style', 'imageScale']);
+    checkNestedKeys(item, 'number', ['style', 'captionScale']);
+    checkNestedKeys(item, 'array', ['style', 'captionPosition']);
+    // keyboard
+    checkNestedKeys(item, 'boolean', ['keyboard', 'enabled']);
+    return true;
+  }
+  catch(e)
+  {
+    if (process.dev) console.error(e.message);
+    return false;
+  }
 }

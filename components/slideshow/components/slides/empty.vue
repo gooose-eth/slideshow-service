@@ -25,8 +25,7 @@ function onClickWrapper()
 {
   if (preference.general.clickVisibleHud)
   {
-    // TODO: 토글 HUD
-    // store.dispatch('changeHud');
+    preference.general.hud = !preference.general.hud;
   }
 }
 </script>

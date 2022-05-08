@@ -1,8 +1,5 @@
 <template>
-<nav
-  class="navigation"
-  @touchstart="onTouchStart"
-  @click="onClickWrapper">
+<nav class="navigation" @touchstart="onTouchStart" @click.stop="">
   <div v-if="visibleAutoplay" class="navigation__item">
     <button
       type="button"
@@ -96,7 +93,7 @@
           <button
             type="button"
             class="active"
-            @click="onClickContextItem(current.watchMode ? 'slideshowServiceNewWindow' : 'slideshowService')">
+            @click="onClickContextItem('slideshowService')">
             슬라이드쇼 서비스
           </button>
         </li>
@@ -108,25 +105,21 @@
       type="button"
       :title="`슬라이드쇼 ${current.labelMode}`"
       class="active"
-      @click="windows.save = true">
+      @click="emits('trigger', 'open-save')">
       <Icon icon-name="save"/>
     </button>
   </div>
 </nav>
 </template>
 
-<script setup>
-import { ref, reactive, computed, onMounted, onUnmounted } from 'vue';
+<script lang="ts" setup>
+import { ref, computed, onMounted, onUnmounted } from 'vue';
 import { serviceStore } from '~/store/service';
 import { preferenceStore, currentStore, dataStore, windowsStore } from '~/store/slideshow';
-// import store from '../../store';
-// import i18n from '../../i18n';
-// import * as local from '../../libs/local';
-// import * as util from '../../libs/util';
-// import { getFormData } from '../../../libs/object';
 import { fullscreen, copyToClipboard } from '~/libs/util';
 import Icon from '../../components/icon/index.vue';
 
+const emits = defineEmits([ 'trigger' ]);
 const service = serviceStore();
 const preference = preferenceStore();
 const current = currentStore();
@@ -188,16 +181,16 @@ function onClickMenuButton(e)
   }
   else
   {
-    window.on('click.navigationMenu', () => switchActiveMenu(false));
+    (<any>window).on('click.navigationMenu', () => switchActiveMenu(false));
     switchActiveMenu(true);
   }
 }
 function switchActiveMenu(sw)
 {
   activeMenu.value = sw;
-  if (!sw) window.off('click.navigationMenu');
+  if (!sw) (<any>window).off('click.navigationMenu');
 }
-function onClickContextItem(key)
+function onClickContextItem(key: string): void
 {
   switchActiveMenu(false);
   switch (key)
@@ -210,7 +203,8 @@ function onClickContextItem(key)
       activeFullscreen.value = !activeFullscreen.value;
       break;
     case 'slideshowService':
-    case 'slideshowServiceNewWindow':
+      route(current.watchMode ? 'slideshowServiceNewWindow' : 'slideshowService');
+      break;
     case 'preview':
       route(key);
       break;
@@ -232,12 +226,8 @@ function onTouchStart(e)
 {
   if (e.touches && e.touches.length > 1) e.preventDefault();
 }
-function onClickWrapper(e)
-{
-  e.stopPropagation();
-}
 
-function route(key)
+function route(key: string): void
 {
   switch(key)
   {
@@ -254,12 +244,12 @@ function route(key)
 }
 
 // public methods
-function blur()
+function blur(): void
 {
   switchActiveMenu(false);
 }
 
-async function logout()
+async function logout(): Promise<void>
 {
   if (!confirm('정말로 로그인할까요?')) return;
   // TODO: 로그아웃
@@ -273,12 +263,12 @@ async function logout()
 
 // lifecycles
 onMounted(() => {
-  document.on('fullscreenchange.slideshow', () => {
+  (<any>document).on('fullscreenchange.slideshow', () => {
     activeFullscreen.value = !!document.fullscreenElement;
   });
 });
 onUnmounted(() => {
-  document.off('fullscreenchange.slideshow');
+  (<any>document).off('fullscreenchange.slideshow');
 });
 
 // set expose

@@ -1,0 +1,55 @@
+<template>
+<header class="popup-header">
+  <h1>{{props.title}}</h1>
+  <button type="button" @click="emits('close')">
+    <Icon icon-name="x"/>
+  </button>
+</header>
+</template>
+
+<script lang="ts" setup>
+import Icon from '../../../components/icon/index.vue';
+const props = defineProps<{
+  title: string
+}>();
+const emits = defineEmits([ 'close' ]);
+</script>
+
+<style lang="scss" scoped>
+@use '../../../../../assets/scss/mixin';
+.popup-header {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  height: 48px;
+  background-color: #909090;
+  h1 {
+    margin: 0;
+    padding: 0 0 0 20px;
+    font-size: 18px;
+    font-weight: 600;
+    line-height: 1.25;
+    color: #fff;
+  }
+  button {
+    display: block;
+    width: 48px;
+    height: 48px;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    border-radius: 0;
+    background: none;
+    border: none;
+    --icon-color: #fff;
+    @include mixin.button-extends();
+    @include mixin.mouse-event(active) {
+      opacity: .5;
+    }
+    svg {
+      display: block;
+      margin: 0 auto;
+    }
+  }
+}
+</style>

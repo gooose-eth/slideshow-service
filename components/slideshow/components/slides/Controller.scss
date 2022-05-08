@@ -49,14 +49,16 @@
       transform: translateY(-50%);
     }
   }
-  .slideshow--hover & {
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity var(--speed-content-toggle) ease-out;
-  }
-  .slideshow--hover:hover & {
-    opacity: unset;
-    pointer-events: unset;
+  @media (hover: hover) {
+    .container--hover & {
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity var(--speed-content-toggle) ease-out;
+    }
+    .container--hover:hover & {
+      opacity: unset;
+      pointer-events: unset;
+    }
   }
   @include mixins.responsive(tablet) {
     button {

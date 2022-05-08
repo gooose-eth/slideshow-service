@@ -75,35 +75,7 @@ fieldset {
   &__header {
     margin-bottom: -8px;
   }
-  //&__inline {
-  //  margin: 10px 0 0;
-  //  display: flex;
-  //  align-items: center;
-  //  > *:nth-child(n+2) {
-  //    margin-left: 16px;
-  //  }
-  //}
-  //.field-description {
-  //  margin: 4px 0 0;
-  //}
-  //> * {
-  //  &:first-child {
-  //    margin-top: 0;
-  //  }
-  //}
 }
-
-//.field-check {
-//  display: flex;
-//  align-items: center;
-//  margin: var(--field-margin) 0;
-//  &__body {
-//    padding: 0 0 0 16px;
-//    .field-description {
-//      margin: 1px 0 0;
-//    }
-//  }
-//}
 
 .field-checks {
   margin: 0;
@@ -137,36 +109,9 @@ fieldset {
   }
 }
 
-//.field-multiple {
-//  display: flex;
-//  margin: 10px 0 0;
-//  &__body {
-//    flex: 1;
-//    margin-right: 10px;
-//  }
-//}
-//.field-upload {
-//  margin-top: 20px;
-//}
-
-//.submit-buttons {
-//  margin: var(--field-margin) 0 0;
-//  display: flex;
-//  align-items: center;
-//  justify-content: center;
-//}
-//
-//.required {
-//  &:before {
-//    content: '* ';
-//    color: var(--color-danger);
-//  }
-//}
-//
-//.flex {
-//  display: flex;
-//  gap: var(--gap, 8px);
-//  > * {
-//    width: auto;
-//  }
-//}
+.required {
+  &:before {
+    content: '* ';
+    color: var(--color-key);
+  }
+}

@@ -1,100 +1,92 @@
 import { defineStore } from 'pinia';
-import { convertPureObject } from '~/libs/object';
+import { pureObject } from '~/libs/object';
+import { checkPreference, checkTree } from '~/libs/slideshow';
+import * as defaults from '~/libs/defaults';
+import type * as Types from './slideshow.d';
 
-interface Preference {
-  general?: {
-    hud: boolean
-    hoverVisibleHud: boolean
-    clickVisibleHud: boolean
-    visibleHudContents: {
-      menu: boolean
-      caption: boolean
-      controller: boolean
-      paginate: boolean
-      group: boolean
-      thumbnail: boolean
-    }
-  }
-  slides?: {
-    initialNumber: number
-    animationType: string // none,fade,horizontal
-    animationSpeed: number
-    captionAnimationType: string // none,shuffle
-    captionAnimationSpeed: number
-    autoplay: boolean
-    autoplayDelay: number
-    autoplayDirection: boolean // next(true), prev(false)
-    autoplayPauseOnHover: boolean
-    loop: boolean
-    swipe: boolean
-  }
-  style?: {
-    screenColor: string // dark,light,system
-    imageType: string // none,contain,cover
-    imageScale: string[] // [ width, height ]
-    captionScale: number // %
-    captionPosition: string[] // [ left, top ]
-  }
-  keyboard?: {
-    enabled: boolean
-  }
-}
+/**
+ * 슬라이드쇼 설정
+ */
 export const preferenceStore = defineStore('slideshowPreference', {
   state()
   {
-    return <Preference>{
-      general: {
-        hud: true,
-        hoverVisibleHud: false,
-        clickVisibleHud: false,
-        visibleHudContents: {
-          menu: true,
-          caption: true,
-          controller: true,
-          paginate: true,
-          group: true,
-          thumbnail: false,
-        },
-      },
-      slides: {
-        initialNumber: 0,
-        animationType: 'horizontal', // none,fade,horizontal
-        animationSpeed: 500,
-        captionAnimationType: 'none', // none,shuffle
-        captionAnimationSpeed: 40,
-        autoplay: false,
-        autoplayDelay: 7000,
-        autoplayDirection: true, // next(true), prev(false)
-        autoplayPauseOnHover: false,
-        loop: true,
-        swipe: true,
-      },
-      style: {
-        screenColor: 'light', // dark,light,system
-        imageType: 'none', // none,contain,cover
-        imageScale: ['75%','75%'], // [ width, height ]
-        captionScale: 100, // %
-        captionPosition: ['32px','30px'], // [ left, top ]
-      },
-      keyboard: {
-        enabled: true,
-      },
-    };
+    return <Types.Preference>pureObject(defaults.preference);
+  },
+  actions: {
+    update(src: Types.Preference): void
+    {
+      if (!checkPreference(src)) throw new Error('Bad preference data.');
+      this.general = src.general;
+      this.slides = src.slides
+      this.style = src.style;
+      this.keyboard = src.keyboard;
+    }
   },
 });
 
-interface UsePreference {
-  general: boolean
-  slides: boolean
-  style: boolean
-  data: boolean
-  keyboard: boolean
-  information: boolean
-}
-export const usePreferenceStore = defineStore('slideshowUsePreference', {
-  state()
+/**
+ * 환경설정에서 저장하기전에 임시로 사용되는 데이터
+ */
+export const readyPreferenceStore = defineStore('readyPreference', {
+  state(): Types.ReadyPreference
   {
-    return <UsePreference>{
+    return {
+      tab: 'general',
+      general: undefined,
+      slides: undefined,
+      style: undefined,
+      data: undefined,
+      keyboard: undefined,
+    };
+  },
+  actions: {
+    setup(): void
+    {
+      const preference = preferenceStore();
+      const data = dataStore();
+      this.general = pureObject(preference.general);
+      this.slides = pureObject(preference.slides);
+      this.style = pureObject(preference.style);
+      this.data = pureObject(data.groups);
+      this.keyboard = pureObject(preference.keyboard);
+    },
+    destroy(): void
+    {
+      this.tab = 'general';
+      this.general = undefined;
+      this.slides = undefined;
+      this.style = undefined;
+      this.data = undefined;
+      this.keyboard = undefined;
+    },
+    restore(src: Types.ReadyPreference): void
+    {
+      const { general, slides, style, data, keyboard } = src;
+      this.general = general;
+      this.slides = slides;
+      this.style = style;
+      this.data = data;
+      this.keyboard = keyboard;
+    },
+    reset(): void
+    {
+      const { general, slides, style, keyboard } = <Types.Preference>pureObject(defaults.preference);
+      this.general = general;
+      this.slides = slides;
+      this.style = style;
+      this.data = pureObject(defaults.groups);
+      this.keyboard = keyboard;
+    }
+  },
+});
+
+/**
+ * 설정유닛을 사용유무
+ */
+export const usePreferenceStore = defineStore('slideshowUsePreference', {
+  state(): Types.UsePreference
+  {
+    return {
       general: true,
       slides: true,
       style: true,
@@ -105,42 +97,39 @@ export const usePreferenceStore = defineStore('slideshowUsePreference', {
   },
 });
 
-interface Data {
-  field: {
-    address: string
-  }
-  groups: object
-}
+/**
+ * 슬라이드쇼 데이터
+ * field: 데이터에 관한 정보들
+ * groups: 실질적인 데이터 구조
+ */
 export const dataStore = defineStore('slideshowData', {
-  state()
+  state(): Types.Data
   {
-    return <Data>{
+    return {
       field: {
         address: '',
       },
-      groups: {
-        default: {
-          name: '기본 슬라이드',
-          description: '시작의 슬라이드쇼',
-          slides: [],
-        },
-      },
+      groups: pureObject(defaults.groups),
     };
   },
   getters: {},
+  actions: {
+    update(src): void
+    {
+      src = pureObject(src);
+      if (!checkTree(src)) throw new Error('Failed check slides');
+      this.groups = src;
+    }
+  },
 });
 
-interface Current {
-  mode: string
-  tree: string
-  activeSlide: number
-  keyboardEvent: boolean
-  autoplay: boolean
-}
+/**
+ * 현재 상태에 대한 정보들
+ */
 export const currentStore = defineStore('slideshowCurrent', {
-  state()
+  state(): Types.Current
   {
-    return <Current>{
+    return {
       mode: '', // create,edit,watch
       tree: 'default',
       activeSlide: 0,
@@ -180,60 +169,29 @@ export const currentStore = defineStore('slideshowCurrent', {
   },
 });
 
-interface Windows {
-  preference: boolean
-  thumbnail: boolean
-  group: boolean
-  save: boolean
-}
+/**
+ * 팝업 윈도우가 열려있는지에 대한 값
+ */
 export const windowsStore = defineStore('slideshowWindows', {
-  state()
+  state(): Types.Windows
   {
-    return <Windows>{
+    return {
       preference: false,
       thumbnail: false,
       group: false,
-      save: false,
     };
   },
 });
 
-// 환경설정에서 저장하기전에 임시로 사용되는 데이터
-interface ReadyPreference extends Preference {
-  tab?: string
-  data?: object
-}
-export const readyPreferenceStore = defineStore('readyPreference', {
-  state()
+/**
+ * 기타 요소들
+ */
+export const assetsStore = defineStore('slideshowAssets', {
+  state(): Types.Assets
   {
-    return <ReadyPreference>{
-      tab: 'general',
-      general: undefined,
-      slides: undefined,
-      style: undefined,
-      data: undefined,
-      keyboard: undefined,
+    return {
+      // 데이터 가져오기 예제 URL
+      exampleImportUrl: 'https://raw.githubusercontent.com/redgoose-dev/slideshow/main/resource/example/tree.json',
     };
-  },
-  actions: {
-    setup()
-    {
-      const preference = preferenceStore();
-      const data = dataStore();
-      this.general = convertPureObject(preference.general);
-      this.slides = convertPureObject(preference.slides);
-      this.style = convertPureObject(preference.style);
-      this.data = convertPureObject(data.groups);
-      this.keyboard = convertPureObject(preference.keyboard);
-    },
-    destroy()
-    {
-      this.tab = 'general';
-      this.general = undefined;
-      this.slides = undefined;
-      this.style = undefined;
-      this.data = undefined;
-      this.keyboard = undefined;
-    },
   },
 });
