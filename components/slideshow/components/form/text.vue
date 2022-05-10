@@ -50,7 +50,7 @@
   @blur="$emit('blur:modelValue', $event.target.value)"/>
 </template>
 
-<script setup>
+<script lang="ts" setup>
 import { ref } from 'vue';
 import { getValueFromType } from '~/libs/util';
 

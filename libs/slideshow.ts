@@ -1,3 +1,4 @@
+import { pureObject } from '~/libs/object';
 import type { Preference } from '~/store/slideshow.d';
 
 interface Slide {
@@ -141,5 +142,69 @@ export function checkPreference(item: Preference): boolean
   {
     if (process.dev) console.error(e.message);
     return false;
+  }
+}
+
+/**
+ * set area true
+ */
+export function setAreaTrue(src: boolean[], total: number, current: number, loop: boolean): boolean[]
+{
+  function setTrue(sw)
+  {
+    if (sw)
+    {
+      if (src[current + 1] !== undefined) src[current + 1] = true;
+    }
+    else
+    {
+      if (src[current - 1] !== undefined) src[current - 1] = true;
+    }
+  }
+  src = pureObject(src);
+  if (loop)
+  {
+    if (current === 0)
+    {
+      src[total - 1] = true;
+      setTrue(true);
+    }
+    else if (current === total - 1)
+    {
+      src[0] = true;
+      setTrue(false);
+    }
+    else
+    {
+      setTrue(true);
+      setTrue(false);
+    }
+  }
+  else
+  {
+    setTrue(true);
+    setTrue(false);
+  }
+  return src;
+}
+
+/**
+ * move number
+ */
+export function moveNumber(total: number = 0, value: number = 0, loop: boolean = true): number
+{
+  if (total - 1 < value)
+  {
+    if (!loop) return total - 1;
+    return 0;
+  }
+  else if (value < 0)
+  {
+    if (!loop) return 0;
+    return total - 1;
+  }
+  else
+  {
+    return Number(value);
   }
 }

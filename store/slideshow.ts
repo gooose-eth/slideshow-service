@@ -12,6 +12,17 @@ export const preferenceStore = defineStore('slideshowPreference', {
   {
     return <Types.Preference>pureObject(defaults.preference);
   },
+  getters: {
+    pure(): object
+    {
+      return pureObject({
+        general: this.general,
+        slides: this.slides,
+        style: this.style,
+        keyboard: this.keyboard,
+      });
+    },
+  },
   actions: {
     update(src: Types.Preference): void
     {
@@ -112,7 +123,22 @@ export const dataStore = defineStore('slideshowData', {
       groups: pureObject(defaults.groups),
     };
   },
-  getters: {},
+  getters: {
+    pureGroups(): object
+    {
+      return pureObject(this.groups);
+    },
+    slides(): {}[]
+    {
+      const current = currentStore();
+      return this.groups[current.tree].slides;
+    },
+    existSlide(): boolean
+    {
+      const current = currentStore();
+      return this.groups[current.tree].slides?.length > 0;
+    },
+  },
   actions: {
     update(src): void
     {
@@ -138,7 +164,7 @@ export const currentStore = defineStore('slideshowCurrent', {
     };
   },
   getters: {
-    labelMode(): string
+    label(): string
     {
       switch (this.mode)
       {
@@ -161,10 +187,28 @@ export const currentStore = defineStore('slideshowCurrent', {
       const data = dataStore();
       return this.mode === 'watch' && !!data.field?.address;
     },
-    existSlide(): boolean
+  },
+  actions: {
+    setup(type: string, params?: any): void
     {
-      const data = dataStore();
-      return data.groups[this.tree].slides?.length > 0;
+      switch (type)
+      {
+        case 'create':
+          this.mode = 'create';
+          this.tree = 'default';
+          this.activeSlide = 0;
+          this.keyboardEvent = true;
+          this.autoplay = false;
+          break;
+        case 'watch':
+        case 'edit':
+          this.mode = params.mode;
+          this.tree = params.tree;
+          this.activeSlide = params.activeSlide;
+          this.keyboardEvent = params.keyboardEvent;
+          this.autoplay = params.autoplay;
+          break;
+      }
     },
   },
 });
@@ -176,10 +220,22 @@ export const windowsStore = defineStore('slideshowWindows', {
   state(): Types.Windows
   {
     return {
+      keys: [ 'preference', 'thumbnail', 'group', 'save' ],
       preference: false,
       thumbnail: false,
       group: false,
+      save: false,
     };
+  },
+  getters: {
+    open(): boolean
+    {
+      let open = false;
+      this.keys.forEach(key => {
+        if (this[key]) open = true;
+      });
+      return open;
+    }
   },
 });
 

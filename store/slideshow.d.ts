@@ -66,9 +66,11 @@ export interface Current {
 }
 
 export interface Windows {
+  keys: string[]
   preference: boolean
   thumbnail: boolean
   group: boolean
+  save: boolean
 }
 
 export interface Assets {

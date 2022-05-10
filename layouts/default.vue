@@ -18,7 +18,7 @@
     <nav class="header__nav">
       <ul>
         <li>
-          <nuxt-link to="/create" title="만들기">
+          <nuxt-link to="/create/" title="만들기">
             만들기
           </nuxt-link>
         </li>
@@ -28,7 +28,7 @@
           </button>
         </li>
         <li>
-          <nuxt-link to="/about" title="슬라이드쇼 서비스">
+          <nuxt-link to="/about/" title="슬라이드쇼 서비스">
             정보
           </nuxt-link>
         </li>

@@ -21,6 +21,8 @@ if (process.client)
   initCustomEvent();
 }
 
+// console.log(route.name)
+
 // setup
 if (process.server) service.setup();
 const { data } = await useAsyncData('setup', () => $fetch('/api/setup', {

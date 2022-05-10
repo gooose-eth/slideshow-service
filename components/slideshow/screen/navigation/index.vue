@@ -51,7 +51,7 @@
             환경설정
           </button>
         </li>
-        <li v-if="current.existSlide">
+        <li v-if="data.existSlide">
           <button
             type="button"
             @click="onClickContextItem('thumbnail')">
@@ -103,9 +103,9 @@
   <div v-if="!current.watchMode" class="navigation__item">
     <button
       type="button"
-      :title="`슬라이드쇼 ${current.labelMode}`"
+      :title="`슬라이드쇼 ${current.label}`"
       class="active"
-      @click="emits('trigger', 'open-save')">
+      @click="windows.save = true">
       <Icon icon-name="save"/>
     </button>
   </div>
@@ -129,7 +129,7 @@ const activeMenu = ref(false);
 const activeFullscreen = ref(false);
 const visibleAutoplay = computed(() => {
   if (!preference.slides.autoplay) return false;
-  return current.existSlide;
+  return data.existSlide;
 });
 const visibleGroup = computed(() => {
   if (!preference.general.visibleHudContents.group) return false;
@@ -170,7 +170,7 @@ const visibleGroup = computed(() => {
 // private methods
 function onClickAutoplay()
 {
-  if (current.existSlide) current.autoplay = !current.autoplay;
+  if (data.existSlide) current.autoplay = !current.autoplay;
 }
 function onClickMenuButton(e)
 {
