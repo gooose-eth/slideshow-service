@@ -39,15 +39,16 @@
         </ModalBody>
       </ModalWrap>
     </transition>
+    <pre v-if="!!dev" class="console">{{dev}}</pre>
   </teleport>
 </div>
 </template>
 
 <script lang="ts" setup>
-import { ref, onMounted, onUnmounted } from 'vue';
+import {ref, onMounted, onUnmounted, computed} from 'vue';
 import { preferenceStore, currentStore, dataStore, windowsStore } from '~/store/slideshow';
-import Slides from './components/slides/index.vue';
-import Empty from './components/slides/empty.vue';
+import Slides from './slides/index.vue';
+import Empty from './slides/empty.vue';
 import Navigation from './screen/navigation/index.vue';
 import Preference from './screen/preference/index.vue';
 import { ModalWrap, ModalBody } from '~/components/modal';
@@ -147,7 +148,7 @@ function onKeydown(e)
 
 onMounted(() => {
   // setup slides
-  // local.setupSlides(slides.value);
+  // local.setupSlides($slides.value);
   // on keyboard event
   if (preference.keyboard.enabled)
   {
@@ -168,6 +169,30 @@ onUnmounted(() => {
     // window.off(`keydown.${keyboardEventName}`);
   }
 });
+
+const dev = process.dev ? computed(() => {
+  let tree = {
+    autoplay: current.autoplay,
+  };
+  return Object.keys(tree).map(key => {
+    return `${key}: ${tree[key]}`;
+  }).join('\n');
+}) : undefined;
 </script>
 
 <style src="./index.scss" lang="scss" scoped></style>
+<style lang="scss" scoped>
+.console {
+  position: fixed;
+  z-index: 9999;
+  left: 20px;
+  bottom: 20px;
+  background: hsl(120 50% 90% / 75%);
+  pointer-events: none;
+  box-sizing: border-box;
+  padding: 16px;
+  border-radius: 4px;
+  font-size: 13px;
+  font-weight: 600;
+}
+</style>

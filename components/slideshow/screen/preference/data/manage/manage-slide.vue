@@ -95,8 +95,8 @@
 import { reactive, ref } from 'vue';
 import { validUrl } from '~/libs/string';
 import PopupHeader from '../popup-header.vue';
-import { ButtonBasic } from '~/components/slideshow/components/button';
-import { FormText } from '~/components/slideshow/components/form';
+import { ButtonBasic } from '~/components/button';
+import { FormText } from '~/components/form';
 
 interface PropsForm {
   type: string

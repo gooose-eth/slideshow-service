@@ -66,7 +66,7 @@
 <script lang="ts" setup>
 import { reactive } from 'vue';
 import { readyPreferenceStore } from '~/store/slideshow';
-import { FormRadio, FormText } from '../../../components/form';
+import { FormRadio, FormText } from '~/components/form';
 import { pureObject } from '~/libs/object';
 import { checkTree, objectToString } from '~/libs/slideshow';
 import ButtonIcon from './button-icon.vue';

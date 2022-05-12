@@ -220,7 +220,7 @@
 
 <script lang="ts" setup>
 import { readyPreferenceStore } from '~/store/slideshow';
-import { FormText, FormSelect, FormSwitch, FormRadio } from '../../components/form';
+import { FormText, FormSelect, FormSwitch, FormRadio } from '~/components/form';
 
 const readyPreference = readyPreferenceStore();
 </script>

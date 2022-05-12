@@ -83,7 +83,7 @@
 
 <script lang="ts" setup>
 import { readyPreferenceStore } from '~/store/slideshow';
-import { FormSwitch } from '../../components/form';
+import { FormSwitch } from '~/components/form';
 
 const readyPreference = readyPreferenceStore();
 </script>

@@ -119,6 +119,7 @@ export const dataStore = defineStore('slideshowData', {
     return {
       field: {
         address: '',
+        // TODO: 수정모드를 고려해서 항목을 더 추가할 예정이다.
       },
       groups: pureObject(defaults.groups),
     };
@@ -128,10 +129,15 @@ export const dataStore = defineStore('slideshowData', {
     {
       return pureObject(this.groups);
     },
-    slides(): {}[]
+    slides(): Types.Slide[]
     {
       const current = currentStore();
       return this.groups[current.tree].slides;
+    },
+    slide(): Types.Slide
+    {
+      const current = currentStore();
+      return this.groups[current.tree].slides[current.activeSlide];
     },
     existSlide(): boolean
     {
@@ -161,6 +167,7 @@ export const currentStore = defineStore('slideshowCurrent', {
       activeSlide: 0,
       keyboardEvent: true,
       autoplay: false,
+      swiped: false,
     };
   },
   getters: {

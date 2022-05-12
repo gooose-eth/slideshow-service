@@ -9,6 +9,7 @@ export interface Preference {
       controller: boolean
       paginate: boolean
       group: boolean
+      autoplay: boolean
     }
   }
   slides?: {
@@ -63,6 +64,7 @@ export interface Current {
   activeSlide: number
   keyboardEvent: boolean
   autoplay: boolean
+  swiped: boolean
 }
 
 export interface Windows {

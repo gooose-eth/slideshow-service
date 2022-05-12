@@ -27,7 +27,7 @@
 </template>
 
 <script lang="ts" setup>
-import Icon from '../../components/icon/index.vue';
+import Icon from '~/components/icon/index.vue';
 
 const props = defineProps<{
   src?: string

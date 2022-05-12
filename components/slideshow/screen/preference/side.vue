@@ -78,7 +78,7 @@
 </template>
 
 <script setup>
-import Icon from '../../components/icon/index.vue';
+import Icon from '~/components/icon/index.vue';
 import { usePreferenceStore, readyPreferenceStore } from '~/store/slideshow';
 
 const usePreference = usePreferenceStore();

@@ -11,6 +11,7 @@ export const preference: SlideshowTypes.Preference = {
       controller: true,
       paginate: true,
       group: true,
+      autoplay: true,
     },
   },
   slides: {

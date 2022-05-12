@@ -1,0 +1,77 @@
+@use '../../assets/scss/mixin';
+
+.form-radio {
+  --radio-shadow-1: inset 0 2px 8px hsl(0 0% 0% / 10%);
+  --radio-shadow-2: inset 0 0 0 1px hsl(0 0% 0% / 15%);
+  --radio-shadow-3: 0 0 0 3px hsl(var(--color-key-hsl) / 0%);
+  --radio-radius: 4px;
+  position: relative;
+  user-select: none;
+  display: flex;
+  height: 40px;
+  background-color: hsl(0 0% 100%);
+  transition: box-shadow var(--speed-button-active) ease-out;
+  box-sizing: border-box;
+  border-radius: var(--radio-radius);
+  gap: 1px;
+  &:after {
+    content: '';
+    display: block;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    pointer-events: none;
+    border-radius: var(--radio-radius);
+    box-shadow: var(--radio-shadow-1), var(--radio-shadow-2), var(--radio-shadow-3);
+    transition: box-shadow 100ms ease-out;
+  }
+  &:focus-within {
+    --radio-shadow-2: inset 0 0 0 1px hsl(0 0% 100% / 25%);
+    --radio-shadow-3: 0 0 0 3px hsl(var(--color-key-hsl) / 100%);
+  }
+  &__button {
+    flex: 1;
+    display: block;
+    margin: 0;
+    padding: 0 24px;
+    height: 100%;
+    box-sizing: border-box;
+    border: none;
+    background: #eaeaea;
+    font-size: 16px;
+    letter-spacing: -.5px;
+    font-weight: 500;
+    transition: background-color 200ms ease-out, color 200ms ease-out;
+    white-space: nowrap;
+    color: var(--color-base);
+    text-align: center;
+    border-radius: 0;
+    line-height: 1;
+    @include mixin.button-extends();
+    @include mixin.mouse-event(active) {
+      opacity: .75;
+    }
+    &:disabled {
+      background: var(--color-key);
+      color: #fff;
+      cursor: default;
+    }
+    &:first-child {
+      border-top-left-radius: var(--radio-radius);
+      border-bottom-left-radius: var(--radio-radius);
+    }
+    &:last-child {
+      border-top-right-radius: var(--radio-radius);
+      border-bottom-right-radius: var(--radio-radius);
+    }
+  }
+  @include mixin.dark-mode() {
+    &__button {
+      &:disabled {
+        color: var(--color-base);
+      }
+    }
+  }
+}

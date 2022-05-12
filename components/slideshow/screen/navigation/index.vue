@@ -117,7 +117,7 @@ import { ref, computed, onMounted, onUnmounted } from 'vue';
 import { serviceStore } from '~/store/service';
 import { preferenceStore, currentStore, dataStore, windowsStore } from '~/store/slideshow';
 import { fullscreen, copyToClipboard } from '~/libs/util';
-import Icon from '../../components/icon/index.vue';
+import Icon from '~/components/icon/index.vue';
 
 const emits = defineEmits([ 'trigger' ]);
 const service = serviceStore();
@@ -129,6 +129,7 @@ const activeMenu = ref(false);
 const activeFullscreen = ref(false);
 const visibleAutoplay = computed(() => {
   if (!preference.slides.autoplay) return false;
+  if (!preference.general.visibleHudContents.autoplay) return false;
   return data.existSlide;
 });
 const visibleGroup = computed(() => {
@@ -136,41 +137,11 @@ const visibleGroup = computed(() => {
   return Object.keys(data.groups)?.length > 0;
 });
 
-// const { t } = i18n.global;
-// const { Custom } = window;
-// let state = reactive({
-//   activeMenu: false,
-//   activeFullscreen: false,
-// });
-// let computes = reactive({
-//   visibleThumbnail: computed(() => {
-//     return store.state.slides?.length > 0;
-//   }),
-//   visibleAutoplay: computed(() => {
-//     const { slides, preference } = store.state;
-//     if (!preference.slides.autoplay) return false;
-//     return slides && slides.length > 0;
-//   }),
-//   visibleGroup: computed(() => {
-//     if (!store.state.preference.general.visibleHudContents.group) return false;
-//     return store.state.tree && Object.keys(store.state.tree).length > 1;
-//   }),
-//   buttonTitleSave: computed(() => {
-//     switch (store.state.serviceMode)
-//     {
-//       case 'create':
-//         return t('base.createSlideshow');
-//       case 'manage':
-//         return t('base.editSlideshow');
-//     }
-//   }),
-// });
-// const form = getFormData(Custom.form);
-
 // private methods
 function onClickAutoplay()
 {
-  if (data.existSlide) current.autoplay = !current.autoplay;
+  if (!data.existSlide) return;
+  current.autoplay = !current.autoplay;
 }
 function onClickMenuButton(e)
 {

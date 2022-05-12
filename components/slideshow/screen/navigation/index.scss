@@ -54,21 +54,22 @@
   }
   @include mixin.dark-mode() {
     // TODO: 다듬기
-    &__item {
-      > button {
-        background: rgba(17,17,17,.4);
-        --icon-color: var(--color-base);
-        &:active,
-        &.on {
-          background-color: rgba(17,17,17,.8);
-        }
-        &.active {
-          background-color: var(--color-key);
-        }
-      }
-    }
+    //&__item {
+    //  > button {
+    //    background: rgba(17,17,17,.4);
+    //    --icon-color: var(--color-base);
+    //    &:active,
+    //    &.on {
+    //      background-color: rgba(17,17,17,.8);
+    //    }
+    //    &.active {
+    //      background-color: var(--color-key);
+    //    }
+    //  }
+    //}
   }
 }
+
 .navigation-context {
   position: relative;
   user-select: none;

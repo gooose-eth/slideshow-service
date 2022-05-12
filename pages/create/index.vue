@@ -18,7 +18,6 @@ definePageMeta({
 
 const $slideshow = ref();
 const current = currentStore();
-const windows = windowsStore();
 const visibleSave = ref(false);
 const loading = ref(false);
 const error = ref(undefined);

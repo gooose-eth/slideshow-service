@@ -27,8 +27,7 @@
 import { defineAsyncComponent, computed, onMounted, onUnmounted, watch, ref } from 'vue';
 import { windowsStore, currentStore, preferenceStore, readyPreferenceStore, dataStore } from '~/store/slideshow';
 import { pureObject } from '~/libs/object';
-import { checkTree } from '~/libs/slideshow';
-import Icon from '../../components/icon/index.vue';
+import Icon from '~/components/icon/index.vue';
 import Side from './side.vue';
 
 const $content = ref();
@@ -92,6 +91,7 @@ const bodyComponent: any = computed(() => {
       return null;
   }
 });
+let saveAutoplay = false;
 
 // setup store
 readyPreference.setup();
@@ -130,11 +130,12 @@ function onSubmit()
 
 // lifecycles
 onMounted(() => {
+  saveAutoplay = current.autoplay;
   current.autoplay = false;
 });
 onUnmounted(() => {
   if (windows.preference) return;
-  current.autoplay = true;
+  current.autoplay = saveAutoplay;
   readyPreference.destroy();
 });
 

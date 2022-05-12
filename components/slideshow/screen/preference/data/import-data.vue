@@ -71,8 +71,8 @@
 import { ref, reactive } from 'vue';
 import { getFileData, checkTree } from '~/libs/slideshow';
 import { assetsStore } from '~/store/slideshow';
-import { FormRadio, FormText, FormUpload } from '../../../components/form';
-import { ButtonBasic } from '../../../components/button';
+import { FormRadio, FormText, FormUpload } from '~/components/form';
+import { ButtonBasic } from '~/components/button';
 import PopupHeader from './popup-header.vue';
 
 const $address = ref();

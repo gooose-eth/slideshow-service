@@ -103,6 +103,12 @@
             label="그룹"
             v-model="readyPreference.general.visibleHudContents.group"/>
         </li>
+        <li>
+          <FormCheckbox
+            name="pref_hudContents"
+            label="자동재생"
+            v-model="readyPreference.general.visibleHudContents.autoplay"/>
+        </li>
       </ul>
     </div>
     <template v-if="current.mode !== 'watch'">
@@ -140,12 +146,11 @@
 </template>
 
 <script lang="ts" setup>
-import { reactive } from 'vue';
 import { readyPreferenceStore, dataStore, currentStore } from '~/store/slideshow';
 import { pureObject } from '~/libs/object';
 import { twoDigit } from '~/libs/string';
-import { FormText, FormSwitch, FormCheckbox } from '../../components/form';
-import { ButtonBasic } from '../../components/button';
+import { FormText, FormSwitch, FormCheckbox } from '~/components/form';
+import { ButtonBasic } from '~/components/button';
 
 const readyPreference = readyPreferenceStore();
 const data = dataStore();

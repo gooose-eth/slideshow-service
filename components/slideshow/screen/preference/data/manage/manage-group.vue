@@ -125,8 +125,8 @@
 
 <script lang="ts" setup>
 import { reactive } from 'vue';
-import { ButtonBasic } from '../../../../components/button';
-import { FormText, FormRadio } from '../../../../components/form';
+import { ButtonBasic } from '~/components/button';
+import { FormText, FormRadio } from '~/components/form';
 import PopupHeader from '../popup-header.vue';
 
 interface PropsForm {

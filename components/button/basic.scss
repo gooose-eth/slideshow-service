@@ -1,0 +1,44 @@
+@use '../../assets/scss/mixin';
+
+.button-basic {
+  --button-shadow-1: inset 0 0 12px hsl(0 0% 0% / 10%);
+  --button-shadow-2: inset 0 0 0 1px hsl(0 0% 0% / 10%);
+  --button-shadow-3: 0 0 0 2px hsl(0 0% 0% / 0%);
+  display: block;
+  width: 100%;
+  height: 40px;
+  margin: 0;
+  padding: 0 16px;
+  box-sizing: border-box;
+  border-radius: 2px;
+  border: none;
+  background-color: var(--button-bg, #aaa);
+  font-size: 16px;
+  font-weight: 500;
+  color: hsl(0 0% 100%);
+  letter-spacing: -.5px;
+  min-width: 120px;
+  text-align: center;
+  @include mixin.button-extends();
+  box-shadow: var(--button-shadow-1), var(--button-shadow-2), var(--button-shadow-3);
+  transition: box-shadow 120ms ease-out, filter 120ms ease-out;
+  &:active {
+    filter: brightness(110%);
+  }
+  &:focus-visible {
+    --button-shadow-2: inset 0 0 0 1px hsl(0 0% 100% / 50%);
+    --button-shadow-3: 0 0 0 3px hsl(var(--color-key-hsl) / 100%);
+  }
+  &:disabled {
+    cursor: not-allowed;
+    opacity: .5;
+  }
+  &--color {
+    &-key {
+      --button-bg: var(--color-key);
+    }
+    &-danger {
+      --button-bg: var(--color-danger);
+    }
+  }
+}

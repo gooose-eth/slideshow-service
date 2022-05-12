@@ -12,7 +12,7 @@ interface Options {
   callback?: Function
 }
 
-export function shuffle($el: HTMLElement, options: Options): void
+export default function shuffle($el: HTMLElement, options: Options): void
 {
   // merge options
   options = Object.assign({}, {
@@ -26,7 +26,7 @@ export function shuffle($el: HTMLElement, options: Options): void
     pattern: 'abcdefghijklmnopqrstuvwxyz0123456789-_!@#$%^&*()+~<>', // random text pattern
     randomTextType: null, // unicode,pattern
     retry: true, // 함수가 실행할때마다 텍스트가 새로 만들어진다.
-    callback: null, // 애니메이션이 끝나고 실행되는 함수
+    callback: undefined, // 애니메이션이 끝나고 실행되는 함수
   }, options);
   options.text = options.text.trim();
 

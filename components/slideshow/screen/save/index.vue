@@ -125,8 +125,8 @@
 <script lang="ts" setup>
 import { ref, computed, reactive, onMounted } from 'vue';
 import { currentStore, windowsStore, preferenceStore, dataStore } from '~/store/slideshow';
-import { ButtonBasic } from '../../components/button';
-import { FormText, FormSwitch } from '../../components/form';
+import { ButtonBasic } from '~/components/button';
+import { FormText, FormSwitch } from '~/components/form';
 
 const $title = ref();
 const current = currentStore();

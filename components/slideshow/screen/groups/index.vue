@@ -31,14 +31,15 @@
 
 <script lang="ts" setup>
 import { computed, onMounted, onUnmounted } from 'vue';
-import { dataStore, currentStore, windowsStore } from '~/store/slideshow';
-import Icon from '../../components/icon/index.vue';
+import { dataStore, currentStore, windowsStore, preferenceStore } from '~/store/slideshow';
+import Icon from '~/components/icon/index.vue';
 import Item from './item.vue';
 
 const emits = defineEmits([ 'change', 'close' ]);
 const data = dataStore();
 const current = currentStore();
 const windows = windowsStore();
+const preference = preferenceStore();
 const index = computed(() => {
   return Object.keys(data.groups).map(key => {
     const item = data.groups[key];
@@ -62,6 +63,7 @@ const index = computed(() => {
     }
   }).filter(Boolean);
 });
+let saveAutoplay = false;
 
 function onClickChange(key: string): void
 {
@@ -70,13 +72,13 @@ function onClickChange(key: string): void
   windows.group = false;
 }
 
-// TODO: 오토플레이 일시정지 기능처리
-// onMounted(() => {
-//   if (local.slides) local.slides.pause(true);
-// });
-// onUnmounted(() => {
-//   if (local.slides) local.slides.pause(false);
-// });
+onMounted(() => {
+  saveAutoplay = current.autoplay;
+  current.autoplay = false;
+});
+onUnmounted(() => {
+  current.autoplay = saveAutoplay;
+});
 </script>
 
 <style src="./index.scss" lang="scss" scoped></style>

@@ -30,8 +30,8 @@
 <script lang="ts" setup>
 import { computed, onMounted, onUnmounted } from 'vue';
 import { dataStore, currentStore, windowsStore } from '~/store/slideshow';
-import { ButtonClose } from '../../components/button';
-import Icon from '../../components/icon/index.vue';
+import { ButtonClose } from '~/components/button';
+import Icon from '~/components/icon/index.vue';
 
 const data = dataStore();
 const current = currentStore();
@@ -39,6 +39,7 @@ const windows = windowsStore();
 const title = computed(() => (data.groups[current.tree].name));
 const description = computed(() => (data.groups[current.tree].description));
 const index = computed(() => (data.groups[current.tree].slides));
+let saveAutoplay = false;
 
 function onSelect(n: number): void
 {
@@ -46,12 +47,12 @@ function onSelect(n: number): void
   windows.thumbnail = false;
 }
 
-// TODO: 오토플레이 일시정지 기능처리
 onMounted(() => {
-  // if (local.slides) local.slides.pause(true);
+  saveAutoplay = current.autoplay;
+  current.autoplay = false;
 });
 onUnmounted(() => {
-  // if (local.slides) local.slides.pause(false);
+  current.autoplay = saveAutoplay;
 });
 </script>
 

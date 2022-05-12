@@ -138,7 +138,7 @@
 
 <script lang="ts" setup>
 import { readyPreferenceStore } from '~/store/slideshow';
-import { FormText, FormSelect } from '../../components/form';
+import { FormText, FormSelect } from '~/components/form';
 
 const readyPreference = readyPreferenceStore();
 </script>

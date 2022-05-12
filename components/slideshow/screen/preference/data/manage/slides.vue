@@ -51,9 +51,8 @@
 
 <script lang="ts" setup>
 import { reactive } from 'vue';
-// import i18n from '../../../../i18n';
 import { pureObject } from '~/libs/object';
-import Icon from '../../../../components/icon/index.vue';
+import Icon from '~/components/icon/index.vue';
 
 interface Props {
   itemKey?: string

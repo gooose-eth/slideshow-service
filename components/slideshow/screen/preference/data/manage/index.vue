@@ -100,8 +100,8 @@
 <script lang="ts" setup>
 import { reactive, computed } from 'vue';
 import { pureObject } from '~/libs/object';
-import Icon from '../../../../components/icon/index.vue';
-import { ButtonBasic } from '../../../../components/button';
+import Icon from '~/components/icon/index.vue';
+import { ButtonBasic } from '~/components/button';
 import { ModalWrap, ModalBody } from '~/components/modal';
 import Slides from './slides.vue';
 import ManageGroup from './manage-group.vue';
