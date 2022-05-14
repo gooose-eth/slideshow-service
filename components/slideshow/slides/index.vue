@@ -254,7 +254,7 @@ function change(n: number, userAnimationType: string = undefined): void
 
 function prev(): void
 {
-  if (data.slides?.length <= 0) return;
+  if (!data.existSlide) return;
   let n = moveNumber(
     data.slides.length,
     current.activeSlide - 1,
@@ -265,7 +265,7 @@ function prev(): void
 
 function next(): void
 {
-  if (data.slides?.length <= 0) return;
+  if (!data.existSlide) return;
   let n = moveNumber(
     data.slides.length,
     current.activeSlide + 1,

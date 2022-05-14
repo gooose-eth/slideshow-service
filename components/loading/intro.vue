@@ -16,9 +16,9 @@ let show = ref(false);
 let mounted = false;
 
 // lifecycles
-onMounted(async (): void => {
+onMounted(async (): Promise<void> => {
   mounted = true;
-  await sleep(50);
+  await sleep(100);
   if (mounted) show.value = true;
 });
 onUnmounted((): void => {

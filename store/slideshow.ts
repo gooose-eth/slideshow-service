@@ -164,10 +164,11 @@ export const currentStore = defineStore('slideshowCurrent', {
     return {
       mode: '', // create,edit,watch
       tree: 'default',
-      activeSlide: 0,
-      keyboardEvent: true,
-      autoplay: false,
+      activeSlide: defaults.preference.slides.initialNumber,
+      keyboardEvent: defaults.preference.keyboard.enabled,
+      autoplay: defaults.preference.slides.autoplay,
       swiped: false,
+      loading: true,
     };
   },
   getters: {
@@ -216,7 +217,14 @@ export const currentStore = defineStore('slideshowCurrent', {
           this.autoplay = params.autoplay;
           break;
       }
+      this.loading = false;
     },
+    destroy(): void
+    {
+      this.mode = '';
+      this.tree = 'default';
+      this.loading = true;
+    }
   },
 });
 
@@ -242,7 +250,15 @@ export const windowsStore = defineStore('slideshowWindows', {
         if (this[key]) open = true;
       });
       return open;
-    }
+    },
+  },
+  actions: {
+    close(): void
+    {
+      this.keys.forEach(key => {
+        this[key] = false;
+      });
+    },
   },
 });
 

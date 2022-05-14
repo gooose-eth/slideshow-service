@@ -165,6 +165,7 @@ async function play(n: number, userAnimationType: string = undefined): Promise<v
       break;
     case 'none':
     default:
+      state.active = _active;
       current.activeSlide = _active;
       state.loaded = setAreaTrue(state.loaded, data.slides.length, current.activeSlide, preference.slides.loop);
       break;

@@ -13,16 +13,16 @@
     <button
       type="button"
       title="그룹"
-      @click="windows.group = true">
-      <Icon icon-name="folder" class="folder"/>
+      @click="route('open-groups')">
+      <Icon icon-name="folder"/>
     </button>
   </div>
-  <div v-if="current.mode !== 'watch'" class="navigation__item">
+  <div v-if="data.existSlide" class="navigation__item">
     <button
       type="button"
-      title="환경설정"
-      @click="windows.preference = true">
-      <Icon icon-name="settings" class="folder"/>
+      title="슬라이드 목록"
+      @click="route('open-thumbnail')">
+      <Icon icon-name="grid"/>
     </button>
   </div>
   <div v-if="current.editMode" class="navigation__item">
@@ -30,7 +30,7 @@
       type="button"
       title="미리보기"
       @click="route('preview')">
-      <Icon icon-name="cast" class="folder"/>
+      <Icon icon-name="cast"/>
     </button>
   </div>
   <div v-if="preference.general.visibleHudContents.menu" class="navigation__item">
@@ -46,16 +46,9 @@
       activeMenu && 'navigation-context--on',
     ]">
       <ul>
-        <li v-if="current.watchMode">
-          <button type="button" @click="windows.preference = true">
+        <li>
+          <button type="button" @click="route('open-preference')">
             환경설정
-          </button>
-        </li>
-        <li v-if="data.existSlide">
-          <button
-            type="button"
-            @click="onClickContextItem('thumbnail')">
-            썸네일 보기
           </button>
         </li>
         <li>
@@ -105,7 +98,7 @@
       type="button"
       :title="`슬라이드쇼 ${current.label}`"
       class="active"
-      @click="windows.save = true">
+      @click="route('open-save')">
       <Icon icon-name="save"/>
     </button>
   </div>
@@ -129,7 +122,6 @@ const activeMenu = ref(false);
 const activeFullscreen = ref(false);
 const visibleAutoplay = computed(() => {
   if (!preference.slides.autoplay) return false;
-  if (!preference.general.visibleHudContents.autoplay) return false;
   return data.existSlide;
 });
 const visibleGroup = computed(() => {
@@ -166,9 +158,6 @@ function onClickContextItem(key: string): void
   switchActiveMenu(false);
   switch (key)
   {
-    case 'thumbnail':
-      windows.thumbnail = true;
-      break;
     case 'fullscreen':
       fullscreen(!activeFullscreen.value);
       activeFullscreen.value = !activeFullscreen.value;
@@ -210,6 +199,22 @@ function route(key: string): void
       break;
     case 'preview':
       window.open(`/watch/${data.field.address}/`);
+      break;
+    case 'open-thumbnail':
+      switchActiveMenu(false);
+      windows.thumbnail = true;
+      break;
+    case 'open-groups':
+      switchActiveMenu(false);
+      windows.group = true;
+      break;
+    case 'open-preference':
+      switchActiveMenu(false);
+      windows.preference = true;
+      break;
+    case 'open-save':
+      switchActiveMenu(false);
+      windows.save = true;
       break;
   }
 }

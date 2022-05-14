@@ -60,10 +60,6 @@
         <td>썸네일 이미지 목록화면을 엽니다.</td>
       </tr>
       <tr>
-        <th><code>R</code></th>
-        <td>슬라이드쇼 재실행</td>
-      </tr>
-      <tr>
         <th><code>H</code></th>
         <td>조작과 상태요소들을 보여줍니다.</td>
       </tr>

@@ -23,7 +23,8 @@
         display: block;
         margin: 0 auto;
         &[aria-labelledby=settings],
-        &[aria-labelledby=folder] {
+        &[aria-labelledby=folder],
+        &[aria-labelledby=grid] {
           --icon-size: 20px;
         }
       }

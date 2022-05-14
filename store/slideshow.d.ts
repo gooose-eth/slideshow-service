@@ -9,7 +9,7 @@ export interface Preference {
       controller: boolean
       paginate: boolean
       group: boolean
-      autoplay: boolean
+      thumbnail: boolean
     }
   }
   slides?: {
@@ -65,6 +65,7 @@ export interface Current {
   keyboardEvent: boolean
   autoplay: boolean
   swiped: boolean
+  loading: boolean
 }
 
 export interface Windows {

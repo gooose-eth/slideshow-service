@@ -32,6 +32,7 @@
 <script lang="ts" setup>
 import { computed, onMounted, onUnmounted } from 'vue';
 import { dataStore, currentStore, windowsStore, preferenceStore } from '~/store/slideshow';
+import { sleep } from '~/libs/util';
 import Icon from '~/components/icon/index.vue';
 import Item from './item.vue';
 
@@ -65,11 +66,15 @@ const index = computed(() => {
 });
 let saveAutoplay = false;
 
-function onClickChange(key: string): void
+async function onClickChange(key: string): Promise<void>
 {
   if (!confirm('선택한 슬라이드로 사용할까요?\n슬라이드를 변경하면 다시 시작합니다.')) return;
-  current.tree = key;
   windows.group = false;
+  current.loading = true;
+  current.tree = key;
+  current.activeSlide = 0;
+  await sleep(80);
+  current.loading = false;
 }
 
 onMounted(() => {

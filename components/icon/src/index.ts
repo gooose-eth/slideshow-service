@@ -25,3 +25,4 @@ export { default as settings } from './icon-settings.vue';
 export { default as tool } from './icon-tool.vue';
 export { default as upload } from './icon-upload.vue';
 export { default as x } from './icon-x.vue';
+export { default as grid } from './icon-grid.vue';

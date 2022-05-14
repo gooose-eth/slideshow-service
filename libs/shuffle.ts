@@ -96,7 +96,7 @@ export default function shuffle($el: HTMLElement, options: Options): void
     }
 
     // last stack
-    if (checkLast && checkPlay)
+    if ($el && checkLast && checkPlay)
     {
       if ($el.dataset.id) clearInterval(parseInt($el.dataset.id));
       $el.textContent = currentText;
@@ -104,6 +104,8 @@ export default function shuffle($el: HTMLElement, options: Options): void
       if (options.callback) options.callback();
     }
   }
+
+  if (!$el) return;
 
   // play
   if (options.text || (options.text && !options.retry && $el.dataset.run !== 'true'))

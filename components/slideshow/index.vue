@@ -1,5 +1,6 @@
 <template>
-<div :class="[
+<Loading v-if="current.loading"/>
+<div v-else :class="[
   'container',
   preference.general.hoverVisibleHud && 'container--hover',
 ]">
@@ -29,7 +30,7 @@
     </transition>
     <transition name="modal-fade">
       <ModalWrap v-if="windows.thumbnail" :full-screen="true" @close="windows.thumbnail = false">
-        <Thumbnail/>
+        <Thumbnail @change="onChangeActiveSlide"/>
       </ModalWrap>
     </transition>
     <transition name="modal-fade">
@@ -39,13 +40,12 @@
         </ModalBody>
       </ModalWrap>
     </transition>
-    <pre v-if="!!dev" class="console">{{dev}}</pre>
   </teleport>
 </div>
 </template>
 
 <script lang="ts" setup>
-import {ref, onMounted, onUnmounted, computed} from 'vue';
+import { ref, onMounted, onUnmounted, computed } from 'vue';
 import { preferenceStore, currentStore, dataStore, windowsStore } from '~/store/slideshow';
 import Slides from './slides/index.vue';
 import Empty from './slides/empty.vue';
@@ -55,10 +55,12 @@ import { ModalWrap, ModalBody } from '~/components/modal';
 import Groups from './screen/groups/index.vue';
 import Thumbnail from './screen/thumbnail/index.vue';
 import Save from './screen/save/index.vue';
+import Loading from '~/components/loading/intro.vue';
 
 const $navigation = ref();
 const $slides = ref();
 const props = defineProps({
+  mode: String, // create
   error: Object,
 });
 const emits = defineEmits([ 'open-save' ]);
@@ -69,130 +71,111 @@ const windows = windowsStore();
 const keyboardEventName = 'slideshow-keyboard';
 let keys = [];
 
-function onKeyup(e)
+function onKeyup(e: KeyboardEvent): void
 {
-  // if (!store.state.keyboardEvent) return;
-  // if (keys.length > 1)
-  // {
-  //   const idx = keys.indexOf(e.keyCode);
-  //   if (idx > -1) keys.splice(idx);
-  //   return;
-  // }
-  // if ($navigation.value) $navigation.value.blur();
-  // if (computes.mode)
-  // {
-  //   switch (e.keyCode)
-  //   {
-  //     case 27: // esc
-  //       store.dispatch('changeMode', null);
-  //       break;
-  //   }
-  // }
-  // else
-  // {
-  //   switch (e.keyCode)
-  //   {
-  //     case 37: // arrow left
-  //       if (local.slides) local.slides.prev();
-  //       break;
-  //     case 39: // arrow right
-  //       if (local.slides) local.slides.next();
-  //       break;
-  //     case 65: // a
-  //       if (local.slides && store.state.preference.slides.autoplay)
-  //       {
-  //         local.slides.autoplay();
-  //       }
-  //       break;
-  //     case 80: // p
-  //       store.dispatch('changeMode', 'preference');
-  //       break;
-  //     case 84: // t
-  //       store.dispatch('changeMode', 'thumbnail');
-  //       break;
-  //     case 82: // r
-  //       if (confirm(t('confirm.restart')) && local.main)
-  //       {
-  //         local.main.restart().then();
-  //       }
-  //       break;
-  //     case 71: // g
-  //       if (store.state.tree && Object.keys(store.state.tree).length > 1)
-  //       {
-  //         store.dispatch('changeMode', 'group');
-  //       }
-  //       break;
-  //     case 72: // h
-  //       store.dispatch('changeHud');
-  //       break;
-  //     case 83: // s
-  //       switch (store.state.serviceMode)
-  //       {
-  //         case 'create':
-  //         case 'manage':
-  //           local.main.save();
-  //           break;
-  //       }
-  //       break;
-  //   }
-  // }
-  // keys = [];
-}
-
-function onKeydown(e)
-{
-  // if (!store.state.keyboardEvent) return;
-  // if (keys.indexOf(e.keyCode) > -1) return;
-  // keys.push(e.keyCode);
-}
-
-onMounted(() => {
-  // setup slides
-  // local.setupSlides($slides.value);
-  // on keyboard event
-  if (preference.keyboard.enabled)
+  if (current.loading) return;
+  if (!current.keyboardEvent) return;
+  if (keys.length > 1)
   {
-    // window.on(`keyup.${keyboardEventName}`, onKeyup);
-    // window.on(`keydown.${keyboardEventName}`, onKeydown);
+    const idx = keys.indexOf(e.code);
+    if (idx > -1) keys.splice(idx);
+    return;
+  }
+  if ($navigation.value) $navigation.value.blur();
+  if (windows.open)
+  {
+    switch (e.code)
+    {
+      case 'Escape': // esc
+        windows.close();
+        break;
+    }
   }
   else
   {
-    // window.off(`keyup.${keyboardEventName}`);
-    // window.off(`keydown.${keyboardEventName}`);
+    switch (e.code)
+    {
+      case 'ArrowLeft': // arrow left
+        $slides.value.prev();
+        break;
+      case 'ArrowRight': // arrow right
+        $slides.value.next();
+        break;
+      case 'KeyA': // a
+        if (data.existSlide && preference.slides.autoplay)
+        {
+          current.autoplay = !current.autoplay;
+        }
+        break;
+      case 'KeyP': // p
+        windows.preference = true;
+        break;
+      case 'KeyT': // t
+        windows.thumbnail = true;
+        break;
+      case 'KeyG': // g
+        if (Object.keys(data.groups)?.length > 1)
+        {
+          windows.group = true;
+        }
+        break;
+      case 'KeyH': // h
+        preference.general.hud = !preference.general.hud;
+        break;
+      case 'KeyS': // s
+        switch (current.mode)
+        {
+          case 'create':
+          case 'manage':
+            windows.save = true;
+            break;
+        }
+        break;
+    }
+  }
+  keys = [];
+}
+
+function onKeydown(e: KeyboardEvent): void
+{
+  if (current.loading) return;
+  if (!current.keyboardEvent) return;
+  if (windows.open) return;
+  if (keys.indexOf(e.code) > -1) return;
+  keys.push(e.code);
+}
+
+function onChangeActiveSlide(n: number): void
+{
+  $slides.value.change(n, 'none');
+}
+
+onMounted(() => {
+  // on keyboard event
+  if (preference.keyboard.enabled)
+  {
+    (<any>window).on(`keyup.${keyboardEventName}`, onKeyup);
+    (<any>window).on(`keydown.${keyboardEventName}`, onKeydown);
+  }
+  else
+  {
+    (<any>window).off(`keyup.${keyboardEventName}`);
+    (<any>window).off(`keydown.${keyboardEventName}`);
   }
 });
 onUnmounted(() => {
+  console.log('onUnmounted')
   // off keyboard event
   if (preference.keyboard.enabled)
   {
-    // window.off(`keyup.${keyboardEventName}`);
-    // window.off(`keydown.${keyboardEventName}`);
+    (<any>window).off(`keyup.${keyboardEventName}`);
+    (<any>window).off(`keydown.${keyboardEventName}`);
   }
+  current.destroy();
 });
 
-const dev = process.dev ? computed(() => {
-  let tree = {
-    autoplay: current.autoplay,
-  };
-  return Object.keys(tree).map(key => {
-    return `${key}: ${tree[key]}`;
-  }).join('\n');
-}) : undefined;
+// setup
+current.setup(props.mode);
 </script>
 
 <style src="./index.scss" lang="scss" scoped></style>
-<style lang="scss" scoped>
-.console {
-  position: fixed;
-  z-index: 9999;
-  left: 20px;
-  bottom: 20px;
-  background: hsl(120 50% 90% / 75%);
-  pointer-events: none;
-  box-sizing: border-box;
-  padding: 16px;
-  border-radius: 4px;
-  font-size: 13px;
-  font-weight: 600;
-}
-</style>

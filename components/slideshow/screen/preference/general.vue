@@ -106,8 +106,8 @@
         <li>
           <FormCheckbox
             name="pref_hudContents"
-            label="자동재생"
-            v-model="readyPreference.general.visibleHudContents.autoplay"/>
+            label="슬라이드 목록"
+            v-model="readyPreference.general.visibleHudContents.thumbnail"/>
         </li>
       </ul>
     </div>

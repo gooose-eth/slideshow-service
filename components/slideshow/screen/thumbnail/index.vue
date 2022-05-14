@@ -20,19 +20,22 @@
       <p>슬라이드가 없습니다.</p>
     </div>
   </div>
-  <ButtonClose
+  <button
+    type="button"
     title="닫기"
     class="thumbnail__close"
-    @click="windows.thumbnail = false"/>
+    @click="windows.thumbnail = false">
+    <Icon icon-name="x"/>
+  </button>
 </article>
 </template>
 
 <script lang="ts" setup>
 import { computed, onMounted, onUnmounted } from 'vue';
 import { dataStore, currentStore, windowsStore } from '~/store/slideshow';
-import { ButtonClose } from '~/components/button';
 import Icon from '~/components/icon/index.vue';
 
+const emits = defineEmits([ 'change' ]);
 const data = dataStore();
 const current = currentStore();
 const windows = windowsStore();
@@ -43,8 +46,8 @@ let saveAutoplay = false;
 
 function onSelect(n: number): void
 {
-  current.activeSlide = n;
   windows.thumbnail = false;
+  emits('change', n);
 }
 
 onMounted(() => {

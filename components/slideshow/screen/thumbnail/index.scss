@@ -112,8 +112,29 @@
     z-index: 2;
     top: 4px;
     right: 4px;
-    background-color: hsl(0 0% 100% / 75%);
+    display: block;
+    margin: 0;
+    padding: 0;
+    background: hsl(0 0% 100% / 75%);
+    width: 48px;
+    aspect-ratio: 1 / 1;
+    border: none;
+    border-radius: 2px;
     --button-close-size: 54px;
+    --icon-size: 36px;
+    --icon-stroke: 1.25;
+    &:focus-visible {
+      box-shadow: 0 0 0 2px var(--color-key);
+    }
+    @include mixin.button-extends();
+    @include mixin.mouse-event(active) {
+      opacity: .5;
+    }
+    @include mixin.background-blur(4px);
+    svg {
+      display: block;
+      margin: 0 auto;
+    }
   }
   @include mixin.responsive(mobile-large) {
     &__index {
@@ -157,8 +178,9 @@
       top: 24px;
       right: 24px;
       background-color: hsl(var(--color-bg-hsl) / 50%);
-      --icon-size: 42px;
-      --icon-stroke: 1.25;
+      width: 64px;
+      --icon-size: 54px;
+      --icon-stroke: 1;
     }
   }
   @include mixin.responsive(desktop) {
@@ -176,5 +198,8 @@
     &__index {
       --column: 6;
     }
+  }
+  @include mixin.dark-mode() {
+    //
   }
 }

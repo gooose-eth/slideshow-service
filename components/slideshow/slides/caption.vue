@@ -36,12 +36,12 @@ function playTransition(type: string): void
   {
     case 'shuffle':
       clearTimer();
-      if ($description.value.dataset.id)
+      if ($description.value?.dataset.id)
       {
         clearInterval(Number($description.value.dataset.id));
         $description.value.innerText = '';
       }
-      if (data.slide.title)
+      if (data.slide?.title)
       {
         shuffle($title.value, {
           text: data.slide.title,
@@ -49,7 +49,7 @@ function playTransition(type: string): void
           randomTextType: 'pattern',
         });
       }
-      if (data.slide.description)
+      if (data.slide?.description)
       {
         interval = setTimeout(() => {
           clearTimer();
