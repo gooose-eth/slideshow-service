@@ -7,20 +7,20 @@
   </Html>
   <header class="header">
     <h1 class="header__logo">
-      <nuxt-link to="/">
+      <a href="/">
         <picture>
           <source srcset="/images/layout/img-logo.webp 1x, /images/layout/img-logo@2x.webp 2x" type="image/webp">
           <source srcset="/images/layout/img-logo.png 1x, /images/layout/img-logo@2x.png 2x" type="image/png">
           <img src="/images/layout/img-logo.png" alt="service title">
         </picture>
-      </nuxt-link>
+      </a>
     </h1>
     <nav class="header__nav">
       <ul>
         <li>
-          <nuxt-link to="/create/" title="만들기">
+          <a href="/create/" title="만들기">
             만들기
-          </nuxt-link>
+          </a>
         </li>
         <li>
           <button type="button" title="관리하기" @click="onClickManage">

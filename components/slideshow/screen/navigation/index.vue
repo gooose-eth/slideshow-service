@@ -82,16 +82,16 @@
             로그아웃
           </button>
         </li>
-        <li>
-          <button
-            type="button"
-            class="active"
-            @click="onClickContextItem('slideshowService')">
-            슬라이드쇼 서비스
-          </button>
-        </li>
       </ul>
     </div>
+  </div>
+  <div v-if="!current.watchMode" class="navigation__item">
+    <button
+      type="button"
+      title="슬라이드쇼 서비스로 바로가기"
+      @click="route('service')">
+      <Icon icon-name="home"/>
+    </button>
   </div>
   <div v-if="!current.watchMode" class="navigation__item">
     <button
@@ -215,6 +215,10 @@ function route(key: string): void
     case 'open-save':
       switchActiveMenu(false);
       windows.save = true;
+      break;
+    case 'service':
+      if (!confirm('슬라이드쇼 서비스로 돌아갈까요?')) return;
+      location.href = '/';
       break;
   }
 }
