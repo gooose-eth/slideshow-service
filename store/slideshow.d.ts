@@ -70,6 +70,7 @@ export interface Current {
 
 export interface Windows {
   keys: string[]
+  children: string[]
   preference: boolean
   thumbnail: boolean
   group: boolean

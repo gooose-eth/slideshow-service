@@ -11,20 +11,20 @@
     height: var(--item-height);
     text-decoration: none;
     color: var(--color-base);
-    background-color: #fff;
+    background-color: var(--item-bg, hsl(0 0% 100%));
     border-radius: 2px;
     box-shadow: var(--item-shadow-1), var(--item-shadow-2);
     overflow: hidden;
     transition: box-shadow 200ms ease-out;
     @include mixin.button-extends();
     @include mixin.mouse-event(hover) {
-      --item-shadow-2: 0 0 0 1px hsl(0 0% 0% / 50%);
+      --item-shadow-2: 0 0 0 1px hsl(0 0% 0% / 35%);
     }
     &:focus-visible {
       --item-shadow-2: 0 0 0 3px var(--color-key);
     }
     &:active {
-      --item-shadow-2: 0 0 0 1px hsl(0 0% 0% / 50%);
+      --item-shadow-2: 0 0 0 1px hsl(0 0% 0% / 35%);
     }
     &.selected {
       background-color: var(--color-key);
@@ -68,13 +68,13 @@
     place-content: center;
     background: hsl(0 0% 75%);
     height: 100%;
+    --icon-size: 40px;
+    --icon-stroke: 1;
+    --icon-color: hsl(0 0% 100%);
     svg {
       display: block;
       margin: 0 auto;
       opacity: .75;
-      --icon-size: 40px;
-      --icon-stroke: 1;
-      --icon-color: var(--color-invert);
     }
   }
   &__body {
@@ -117,26 +117,34 @@
     }
   }
   @include mixin.dark-mode() {
-    // TODO
+    --item-bg: hsl(0 0% 18%);
+    --item-shadow-1: 0 0 12px 0 hsl(0 0% 0% / 25%);
+    --item-shadow-2: 0 0 0 1px hsl(0 0% 0% / 15%);
     &__image {
-      svg {
-        --icon-color: var(--color-low-fill);
-      }
+      background: hsl(0 0% 25%);
     }
-    &-wrap {
-      box-shadow: 0 0 10px 0 rgba(0,0,0,.2);
-      &--selected {
+    &__no-image {
+      background: hsl(0 0% 25%);
+      --icon-color: hsl(0 0% 50%);
+    }
+    &__wrap {
+      @include mixin.mouse-event(hover) {
+        &:not(.selected) {
+          --item-shadow-2: 0 0 0 1px hsl(0 0% 100% / 35%);
+        }
+      }
+      &.selected {
         .group-item {
           &__body {
             h2 {
-              color: var(--color-fill);
+              color: var(--color-base);
             }
             p {
-              color: var(--color-fill);
+              color: var(--color-base);
             }
           }
           &__meta {
-            color: var(--color-fill);
+            color: var(--color-base);
           }
         }
       }

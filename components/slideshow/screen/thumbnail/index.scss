@@ -67,12 +67,13 @@
         box-shadow: var(--item-shadow-1);
         pointer-events: none;
         box-sizing: border-box;
+        transition: box-shadow 150ms ease-out;
       }
       &:focus-visible:before {
         --item-shadow-1: inset 0 0 0 2px hsl(var(--color-key-hsl) / 100%);
       }
       @include mixin.mouse-event(hover) {
-        --item-shadow-1: inset 0 0 0 2px hsl(var(--color-weak-hsl) / 50%);
+        --item-shadow-1: inset 0 0 0 2px hsl(var(--color-weak-hsl) / 75%);
       }
       &:disabled {
         cursor: default;
@@ -115,14 +116,14 @@
     display: block;
     margin: 0;
     padding: 0;
-    background: hsl(0 0% 100% / 75%);
+    background: hsl(var(--color-bg-hsl) / 75%);
     width: 48px;
     aspect-ratio: 1 / 1;
     border: none;
     border-radius: 2px;
     --button-close-size: 54px;
     --icon-size: 36px;
-    --icon-stroke: 1.25;
+    --icon-stroke: 1;
     &:focus-visible {
       box-shadow: 0 0 0 2px var(--color-key);
     }
@@ -177,10 +178,9 @@
     &__close {
       top: 24px;
       right: 24px;
-      background-color: hsl(var(--color-bg-hsl) / 50%);
       width: 64px;
-      --icon-size: 54px;
-      --icon-stroke: 1;
+      --icon-size: 48px;
+      --icon-stroke: .75;
     }
   }
   @include mixin.responsive(desktop) {
@@ -198,8 +198,5 @@
     &__index {
       --column: 6;
     }
-  }
-  @include mixin.dark-mode() {
-    //
   }
 }

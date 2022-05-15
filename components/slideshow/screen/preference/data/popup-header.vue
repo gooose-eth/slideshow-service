@@ -22,7 +22,7 @@ const emits = defineEmits([ 'close' ]);
   grid-template-columns: 1fr auto;
   align-items: center;
   height: 48px;
-  background-color: #909090;
+  background-color: hsl(0 0% 56%);
   h1 {
     margin: 0;
     padding: 0 0 0 20px;
@@ -50,6 +50,9 @@ const emits = defineEmits([ 'close' ]);
       display: block;
       margin: 0 auto;
     }
+  }
+  @include mixin.dark-mode() {
+    background-color: hsl(0 0% 25%);
   }
 }
 </style>

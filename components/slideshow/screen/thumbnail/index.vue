@@ -11,7 +11,7 @@
           type="button"
           :disabled="k === current.activeSlide"
           @click="onSelect(k)">
-          <img :src="o.thumbnail" :alt="o.title"/>
+          <img :src="o.thumbnail" :alt="o.title" :draggable="false"/>
         </button>
       </li>
     </ul>

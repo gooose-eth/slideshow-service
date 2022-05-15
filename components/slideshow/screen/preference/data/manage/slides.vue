@@ -13,7 +13,7 @@
     @dragstart="onDragStart">
     <div class="data-slide__handle">
       <i>
-        <Icon icon-name="menuFlat"/>
+        <Icon icon-name="move"/>
       </i>
     </div>
     <div class="data-slide__body">

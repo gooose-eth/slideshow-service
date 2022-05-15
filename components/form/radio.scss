@@ -9,7 +9,7 @@
   user-select: none;
   display: flex;
   height: 40px;
-  background-color: hsl(0 0% 100%);
+  background-color: var(--radio-color-bg, hsl(0 0% 92%));
   transition: box-shadow var(--speed-button-active) ease-out;
   box-sizing: border-box;
   border-radius: var(--radio-radius);
@@ -39,11 +39,11 @@
     height: 100%;
     box-sizing: border-box;
     border: none;
-    background: #eaeaea;
+    background: none;
     font-size: 16px;
     letter-spacing: -.5px;
     font-weight: 500;
-    transition: background-color 200ms ease-out, color 200ms ease-out;
+    transition: background-color 150ms ease-out, color 150ms ease-out;
     white-space: nowrap;
     color: var(--color-base);
     text-align: center;
@@ -52,9 +52,12 @@
     @include mixin.button-extends();
     @include mixin.mouse-event(active) {
       opacity: .75;
+      &:disabled {
+        opacity: unset;
+      }
     }
     &:disabled {
-      background: var(--color-key);
+      background-color: var(--color-key);
       color: #fff;
       cursor: default;
     }
@@ -68,10 +71,11 @@
     }
   }
   @include mixin.dark-mode() {
-    &__button {
-      &:disabled {
-        color: var(--color-base);
-      }
-    }
+    --radio-color-bg: hsl(0 0% 7%);
+    //&__button {
+    //  &:disabled {
+    //    color: var(--color-base);
+    //  }
+    //}
   }
 }

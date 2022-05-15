@@ -19,7 +19,7 @@
         title="슬라이드 데이터를 가져옵니다."
         icon-name="download"
         class="manage-tree__button"
-        @click="state.visibleImportData = true"/>
+        @click="controlVisibleImportData(true)"/>
     </div>
     <div class="manage-tree__body">
       <Manage
@@ -50,11 +50,11 @@
       <transition name="modal-fade">
         <ModalWrap
           v-if="state.visibleImportData"
-          @close="state.visibleImportData = false">
+          @close="controlVisibleImportData(false)">
           <ModalBody>
             <ImportData
               @update="onImportData"
-              @close="state.visibleImportData = false"/>
+              @close="controlVisibleImportData(false)"/>
           </ModalBody>
         </ModalWrap>
       </transition>
@@ -65,7 +65,7 @@
 
 <script lang="ts" setup>
 import { reactive } from 'vue';
-import { readyPreferenceStore } from '~/store/slideshow';
+import { readyPreferenceStore, windowsStore } from '~/store/slideshow';
 import { FormRadio, FormText } from '~/components/form';
 import { pureObject } from '~/libs/object';
 import { checkTree, objectToString } from '~/libs/slideshow';
@@ -74,6 +74,7 @@ import Manage from './manage/index.vue';
 import { ModalWrap, ModalBody } from '~/components/modal';
 import ImportData from './import-data.vue';
 
+const windows = windowsStore();
 const readyPreference = readyPreferenceStore();
 const state = reactive({
   mode: 'basic', // basic,advanced
@@ -146,7 +147,7 @@ function onImportData(res)
       break;
   }
   readyPreference.data = res;
-  state.visibleImportData = false;
+  controlVisibleImportData(false);
 }
 
 function updateReadyData(): void
@@ -159,6 +160,11 @@ function updateReadyData(): void
   }
   catch(_)
   {}
+}
+
+function controlVisibleImportData(sw: boolean): void
+{
+  state.visibleImportData = sw;
 }
 </script>
 

@@ -6,7 +6,7 @@
   --icon-size: 28px;
   --icon-size-active: 8px;
   --switch-shadow-1: inset 0 0 8px 0 hsl(0 0% 0% / 20%);
-  --switch-shadow-2: inset 0 0 0 1px hsl(0 0% 0% / 10%);
+  --switch-shadow-2: inset 0 0 0 1px hsl(0 0% 0% / 15%);
   --switch-shadow-3: 0 0 0 2px hsl(0 0% 0% / 0%);
   display: block;
   position: relative;
@@ -23,7 +23,7 @@
     box-sizing: border-box;
     pointer-events: none;
     appearance: none;
-    background-color: var(--switch-bg, #e1e1e1);
+    background-color: var(--switch-bg, hsl(0 0% 92%));
     border-radius: calc(var(--icon-size) * .5);
     box-shadow: var(--switch-shadow-1), var(--switch-shadow-2), var(--switch-shadow-3);
     transition: background-color 300ms ease-out, box-shadow 200ms ease-out;
@@ -45,7 +45,7 @@
     border-radius: calc(var(--icon-size) * .5);
     transition: width 120ms ease-out;
     pointer-events: none;
-    box-shadow: 0 0 3px 0 hsl(0 0% 0% / 15%);
+    box-shadow: 0 0 0 1px hsl(0 0% 0% / 10%), 0 0 3px 0 hsl(0 0% 0% / 15%);
   }
   &:active i {
     width: calc(var(--icon-size) - calc(var(--wrap-padding) * 2) + var(--icon-size-active));
@@ -60,5 +60,16 @@
   &--disabled {
     cursor: not-allowed;
     opacity: .5;
+  }
+  @include mixin.dark-mode() {
+    --switch-bg: hsl(0 0% 7%);
+    input {
+      &:focus-visible {
+        --switch-shadow-2: inset 0 0 0 1px hsl(0 0% 100% / 0%);
+      }
+    }
+    i {
+      background-color: var(--color-base);
+    }
   }
 }

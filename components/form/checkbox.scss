@@ -32,7 +32,7 @@
       height: 24px;
       box-sizing: border-box;
       border-radius: 8px;
-      background-color: var(--checkbox-bg, #e1e1e1);
+      background-color: var(--checkbox-bg, hsl(0 0% 92%));
       box-shadow: var(--checkbox-shadow-1), var(--checkbox-shadow-2), var(--checkbox-shadow-3);
       overflow: hidden;
       transition: background-color 120ms ease-out, box-shadow 120ms ease-out;
@@ -70,5 +70,8 @@
     font-weight: 500;
     color: var(--color-base);
     letter-spacing: -.25px;
+  }
+  @include mixin.dark-mode() {
+    --checkbox-bg: hsl(0 0% 7%);
   }
 }

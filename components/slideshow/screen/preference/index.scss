@@ -11,6 +11,7 @@
   height: 100%;
   cursor: auto;
   box-sizing: border-box;
+  background-color: var(--preference-color-bg, var(--color-bg));
   &__body {
     display: grid;
     grid-template-rows: var(--header-height, 48px) 1fr;
@@ -37,12 +38,8 @@
     overflow: hidden;
   }
   @include mixin.dark-mode() {
-    // TODO
     @include mixin.responsive(tablet) {
-      background: rgba(34,34,34,.75);
-      &__wrap {
-        box-shadow: 0 1px 30px 0 rgba(0,0,0,.5), 0 0 1px 0 rgba(0,0,0,.51);
-      }
+      box-shadow: 0 2px 30px 0 hsl(0 0% 0% / 50%), 0 0 0 1px hsl(0 0% 0% / 15%);
     }
   }
 }
@@ -117,7 +114,7 @@
     &__body {
       padding: 0 0 0 30px;
       h1 {
-        font-size: 30px;
+        font-size: 26px;
         letter-spacing: -.5px;
       }
       p {
@@ -139,9 +136,8 @@
     }
   }
   @include mixin.dark-mode() {
-    // TODO:
     &:before {
-      background-color: #303030;
+      background-color: hsl(0 0% 25%);
     }
   }
 }

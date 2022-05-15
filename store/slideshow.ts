@@ -236,6 +236,7 @@ export const windowsStore = defineStore('slideshowWindows', {
   {
     return {
       keys: [ 'preference', 'thumbnail', 'group', 'save' ],
+      children: [],
       preference: false,
       thumbnail: false,
       group: false,

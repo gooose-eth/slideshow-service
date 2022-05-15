@@ -10,13 +10,14 @@
       height: 48px;
       padding: 0;
       margin: 0;
-      background-color: var(--button-bg, hsl(0 0% 65% / 75%));
+      background-color: var(--button-bg, hsl(0 0% 85% / 75%));
       border: none;
       font-size: 0;
-      transition: background-color 200ms ease-out;
+      transition: background-color 150ms ease-out, filter 150ms ease-out;
       border-radius: 2px;
       @include mixin.button-extends();
-      --icon-color: var(--color-invert);
+      @include mixin.background-blur(8px);
+      --icon-color: hsl(0 0% 0% / 75%);
       --icon-stroke: 1.75;
       --icon-size: 22px;
       svg {
@@ -29,15 +30,16 @@
         }
       }
       @include mixin.mouse-event(hover) {
-        --button-bg: hsl(0 0% 60% / 90%);
+        --button-bg: hsl(0 0% 80% / 90%);
       }
-      &:active {
-        filter: brightness(90%);
+      @include mixin.mouse-event(active) {
+        filter: brightness(110%);
       }
       &.on {
-        --button-bg: hsl(0 0% 60% / 90%);
+        --button-bg: hsl(0 0% 80% / 90%);
       }
       &.active {
+        --icon-color: hsl(0 0% 100% / 75%);
         --button-bg: var(--color-key);
       }
     }
@@ -54,20 +56,21 @@
     }
   }
   @include mixin.dark-mode() {
-    // TODO: 다듬기
-    //&__item {
-    //  > button {
-    //    background: rgba(17,17,17,.4);
-    //    --icon-color: var(--color-base);
-    //    &:active,
-    //    &.on {
-    //      background-color: rgba(17,17,17,.8);
-    //    }
-    //    &.active {
-    //      background-color: var(--color-key);
-    //    }
-    //  }
-    //}
+    &__item {
+      > button {
+        --button-bg: hsl(0 0% 5% / 35%);
+        --icon-color: hsl(0 0% 100% / 75%);
+        @include mixin.mouse-event(hover) {
+          --button-bg: hsl(0 0% 5% / 60%);
+        }
+        &.on {
+          --button-bg: hsl(0 0% 5% / 60%);
+        }
+        &.active {
+          --button-bg: hsl(var(--color-key-hsl) / 90%);
+        }
+      }
+    }
   }
 }
 
@@ -83,7 +86,7 @@
     padding: 0;
     width: 170px;
     box-sizing: border-box;
-    background-color: hsl(0 0% 100% / 90%);
+    background: none;
     border-radius: 4px;
     overflow: hidden;
     pointer-events: none;
@@ -105,20 +108,21 @@
     margin: 0;
     border: none;
     text-align: left;
-    background-color: var(--context-bg, hsl(0 0% 75% / 0%));
+    background-color: var(--context-bg, hsl(0 0% 100% / 75%));
     color: var(--color-base);
     font-size: 14px;
     font-weight: 600;
     transition: background-color 200ms ease-out;
+    @include mixin.background-blur(8px);
     @include mixin.button-extends();
     &:active {
-      filter: brightness(80%);
+      filter: brightness(90%);
     }
     @include mixin.mouse-event(hover) {
-      --context-bg: hsl(0 0% 75% / 20%);
+      --context-bg: hsl(0 0% 92% / 75%);
     }
     &.on {
-      --context-bg: hsl(0 0% 75% / 30%);
+      --context-bg: hsl(0 0% 92% / 75%);
     }
     &.active {
       color: var(--color-key);
@@ -134,28 +138,22 @@
     }
   }
   @include mixin.dark-mode() {
-    // TODO: 다듬기
-    //ul {
-    //  background-color: rgba(17,17,17,.7);
-    //}
-    //li {
-    //  &:nth-child(n+2) {
-    //    border-top: 1px solid rgba(255,255,255,.05);
-    //  }
-    //}
-    //button {
-    //  color: var(--color-base);
-    //  background-color: rgba(0,0,0,0);
-    //  &.on,
-    //  &:active {
-    //    background-color: rgba(0,0,0,.2);
-    //  }
-    //  &.active {
-    //    color: var(--color-key);
-    //  }
-    //  &.danger {
-    //    color: var(--color-danger);
-    //  }
-    //}
+    li {
+      &:nth-child(n+2) {
+        border-color: hsl(0 0% 15% / 75%);
+      }
+    }
+    button {
+      --context-bg: hsl(0 0% 5% / 60%);
+      &:active {
+        filter: brightness(120%);
+      }
+      @include mixin.mouse-event(hover) {
+        --context-bg: hsl(0 0% 0% / 75%);
+      }
+      &.on {
+        --context-bg: hsl(0 0% 0% / 75%);
+      }
+    }
   }
 }

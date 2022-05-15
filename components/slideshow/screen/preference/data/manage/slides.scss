@@ -5,7 +5,8 @@
   padding: 0;
   list-style: none;
   box-sizing: border-box;
-  border-radius: var(--size-shape-radius);
+  background-color: hsl(0 0% 95%);
+  display: grid;
   &__empty {
     display: flex;
     align-items: center;
@@ -16,7 +17,11 @@
     user-select: none;
   }
   @include mixin.responsive(tablet) {
-    padding: 4px;
+    gap: 8px;
+    padding: 16px;
+  }
+  @include mixin.dark-mode() {
+    background-color: hsl(0 0% 0% / 10%);
   }
 }
 
@@ -78,16 +83,15 @@
   }
   @include mixin.responsive(tablet) {
     grid-template-columns: 64px 1fr auto;
-    margin: 8px;
+    margin: 0;
     border-radius: var(--size-shape-radius);
-    box-shadow: 0 0 8px 0 rgba(0,0,0,.15), inset 0 0 0 1px #ddd;
+    box-shadow: 0 0 8px 0 hsl(0 0% 0% / 15%), inset 0 0 0 1px hsl(0 0% 87%);
     background-color: var(--color-bg);
-    transition: box-shadow var(--speed-button-active) ease-out;
     &:nth-child(n+2) {
       border-top: none;
     }
-    &:hover {
-      box-shadow: 0 0 12px 0 rgba(0,0,0,.15), inset 0 0 0 1px var(--color-key);
+    @include mixin.mouse-event(hover) {
+      box-shadow: 0 0 12px 0 hsl(0 0% 0% / 15%), inset 0 0 0 1px var(--color-key);
       .data-slide__nav {
         opacity: 1;
         pointer-events: auto;
@@ -107,11 +111,12 @@
           opacity: .5;
         }
       }
+      --icon-color: var(--color-base);
+      --icon-size: 18px;
+      --icon-stroke: 1.5;
       svg {
         display: block;
         margin: 0 auto;
-        --icon-color: var(--color-base);
-        --icon-size: 20px;
       }
     }
     &__body {
@@ -167,7 +172,7 @@
         right: 0;
         top: 0;
         bottom: 0;
-        background: hsl(0 0% 75% / 100%);
+        background: hsl(0 0% 75%);
         box-sizing: border-box;
         border-radius: var(--size-shape-radius);
       }
@@ -175,9 +180,15 @@
   }
   @include mixin.dark-mode() {
     @include mixin.responsive(tablet) {
-      box-shadow: 0 0 15px 0 rgba(0,0,0,.3), inset 0 0 0 1px #181818;
+      background: hsl(0 0% 8%);
+      box-shadow: 0 0 15px 0 hsl(0 0% 0% / 30%), 0 0 0 1px hsl(0 0% 100% / 8%);
       &:hover {
-        box-shadow: 0 0 12px 0 rgba(0,0,0,.15), inset 0 0 0 1px var(--color-key);
+        box-shadow: 0 0 12px 0 hsl(0 0% 0% / 15%), inset 0 0 0 1px hsl(var(--color-key-hsl) / 100%);
+      }
+      &--placeholder {
+        &:after {
+          background: hsl(0 0% 18%);
+        }
       }
     }
   }

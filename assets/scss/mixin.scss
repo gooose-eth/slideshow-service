@@ -113,7 +113,7 @@
     width: var(--scroll-size, 16px);
   }
   &::-webkit-scrollbar-thumb {
-    background-color: var(--scroll-color, hsl(0 0% 60% / 100%));
+    background-color: var(--scroll-color, hsl(0 0% 60%));
     border-radius: calc(var(--scroll-size, 16px) * .5);
     background-clip: padding-box;
     border: var(--scroll-padding, 5px) solid transparent;
@@ -123,6 +123,6 @@
     box-shadow: inset 0 0 0 hsl(0 0% 0% / 0%);
   }
   @include dark-mode() {
-    //
+    --scroll-color: hsl(0 0% 30%);
   }
 }

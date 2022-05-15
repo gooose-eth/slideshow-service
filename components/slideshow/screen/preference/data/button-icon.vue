@@ -29,7 +29,7 @@ const props = defineProps<{
   padding: 0;
   font-size: 0;
   border: none;
-  background: var(--button-bg, #aaa);
+  background: var(--button-bg, hsl(0 0% 67%));
   border-radius: 2px;
   box-sizing: border-box;
   box-shadow: var(--button-shadow-1), var(--button-shadow-2), var(--button-shadow-3);
@@ -39,7 +39,7 @@ const props = defineProps<{
   --icon-size: 20px;
   @include mixin.button-extends();
   &:active {
-    filter: brightness(120%);
+    filter: brightness(110%);
   }
   &:focus-visible {
     --button-shadow-2: inset 0 0 0 1px hsl(0 0% 100% / 50%);
@@ -48,6 +48,15 @@ const props = defineProps<{
   > svg {
     display: block;
     margin: 0 auto;
+  }
+  @include mixin.dark-mode() {
+    --button-bg: hsl(0 0% 28%);
+    &:active {
+      filter: brightness(120%);
+    }
+    &:focus-visible {
+      --button-shadow-2: inset 0 0 0 1px hsl(0 0% 0% / 50%);
+    }
   }
 }
 </style>

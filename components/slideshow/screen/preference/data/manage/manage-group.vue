@@ -47,7 +47,8 @@
               placeholder="이름을 입력해주세요."
               :maxlength="32"
               :size="32"
-              v-model="state.form.name"/>
+              v-model="state.form.name"
+              @update:modelValue="onInputEvent"/>
           </label>
         </div>
       </div>
@@ -66,7 +67,8 @@
             id="pref_description"
             placeholder="설명을 입력해주세요."
             :maxlength="80"
-            v-model="state.form.description"/>
+            v-model="state.form.description"
+            @update:modelValue="onInputEvent"/>
         </div>
       </div>
       <div class="field-basic">
@@ -89,7 +91,8 @@
               { key: 'array', label: '배열' },
               { key: 'url', label: `URL 주소` },
             ]"
-            v-model="state.form.slidesType"/>
+            v-model="state.form.slidesType"
+            @update:modelValue="onInputEvent"/>
         </div>
       </div>
       <div v-if="state.form.slidesType === 'url'" class="field-basic">
@@ -108,7 +111,8 @@
             id="pref_slidesUrl"
             placeholder="URL을 입력하세요."
             :required="true"
-            v-model="state.form.slidesUrl"/>
+            v-model="state.form.slidesUrl"
+            @update:modelValue="onInputEvent"/>
         </div>
       </div>
     </div>
@@ -124,7 +128,8 @@
 </template>
 
 <script lang="ts" setup>
-import { reactive } from 'vue';
+import { reactive, onMounted, onUnmounted } from 'vue';
+import { windowsStore } from '~/store/slideshow';
 import { ButtonBasic } from '~/components/button';
 import { FormText, FormRadio } from '~/components/form';
 import PopupHeader from '../popup-header.vue';
@@ -142,6 +147,7 @@ const props = defineProps<{
   form: PropsForm
 }>();
 const emits = defineEmits([ 'close', 'submit' ]);
+const windows = windowsStore();
 let state = reactive({
   form: props.form,
   error: {
@@ -151,10 +157,12 @@ let state = reactive({
     type: props.form.slidesType || 'array', // url,array
     url: props.form.slidesUrl || '', // api url address
   },
+  input: false,
 });
 
 function onUpdateKey(str: string): void
 {
+  onInputEvent();
   if (!str) state.error.key = true;
   state.error.key = !/^[a-zA-Z0-9_]+$/.test(str);
 }
@@ -175,6 +183,29 @@ function onSubmit(e: SubmitEvent): void
     alert('처리에 문제가 생겼습니다.');
   }
 }
+
+function onInputEvent(): void
+{
+  if (state.input) return;
+  state.input = true;
+}
+
+function onKeyup(e: KeyboardEvent): void
+{
+  if (e.code !== 'Escape') return;
+  if (state.input && !confirm('입력한 내용이 있습니다. 이 창을 닫을까요?')) return;
+  emits('close');
+}
+
+onMounted(() => {
+  (<any>window).on('keyup.preference-data', onKeyup);
+  windows.children.push('slidesGroup');
+});
+onUnmounted(() => {
+  (<any>window).off('keyup.preference-data');
+  let idx = windows.children.indexOf('slidesGroup');
+  windows.children.splice(idx, 1);
+});
 </script>
 
 <style src="../../preference.scss" lang="scss" scoped></style>

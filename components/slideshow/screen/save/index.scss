@@ -38,10 +38,11 @@
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: 8px;
-    padding: 24px 32px;
-    margin: 24px -32px 0;
+    padding: 20px 32px;
+    margin: 20px -32px 0;
     box-sizing: border-box;
     background-color: var(--color-bg);
+    --button-height: 44px;
     &:before {
       content: '';
       display: block;
@@ -62,17 +63,23 @@
     max-height: 640px;
     padding: 50px 50px 0;
     border-radius: 8px;
-    box-shadow: 0 2px 20px 0 rgba(0,0,0,.25), 0 0 0 1px rgba(0,0,0,.1);
+    box-shadow: 0 2px 20px 0 hsl(0 0% 0% / 30%), 0 0 0 1px hsl(0 0% 0% / 15%);
     &__header {
       h1 {
         font-size: 32px;
       }
     }
-    &__body {
-    }
     &__nav {
-      padding: 24px 50px;
-      margin: 32px -50px 0;
+      padding: 20px 50px;
+      margin: 28px -50px 0;
+    }
+  }
+  @include mixin.dark-mode() {
+    box-shadow: 0 2px 30px 0 hsl(0 0% 0% / 50%), 0 0 0 1px hsl(0 0% 0% / 15%);
+    &__nav {
+      &:before {
+        background-color: hsl(0 0% 30%);
+      }
     }
   }
 }

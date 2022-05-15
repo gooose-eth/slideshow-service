@@ -2,7 +2,7 @@
 
 .preference-side {
   --button-size: 48px;
-  background-color: #909090;
+  background-color: var(--preference-side-bg, hsl(0 0% 56%));
   &__button {
     display: block;
     width: var(--button-size);
@@ -11,16 +11,21 @@
     padding: 0;
     border: none;
     background: none;
-    border-radius: 0;
     box-sizing: border-box;
-    transition: background-color var(--speed-button-active) ease-out;
+    transition: background-color 200ms ease-out;
+    border-radius: 0;
     @include mixin.button-extends();
     --icon-size: 18px;
     --icon-color: hsl(0 0% 100%);
     --icon-stroke: 1.75;
-    &:active,
-    &:focus {
-      background-color: rgba(0,0,0,.2);
+    @include mixin.mouse-event(hover) {
+      background-color: hsl(0 0% 0% / 15%);
+    }
+    @include mixin.mouse-event(active) {
+      background-color: hsl(0 0% 0% / 30%);
+    }
+    &:focus-visible {
+      box-shadow: inset 0 0 0 2px hsl(var(--color-key-hsl) / 100%);
     }
     &:disabled {
       background-color: var(--color-key);
@@ -36,7 +41,6 @@
       display: none;
     }
   }
-
   @include mixin.responsive(tablet) {
     --button-size: 42px;
     width: 160px;
@@ -63,6 +67,6 @@
     }
   }
   @include mixin.dark-mode() {
-    background-color: #303030;
+    --preference-side-bg: hsl(0 0% 19%);
   }
 }

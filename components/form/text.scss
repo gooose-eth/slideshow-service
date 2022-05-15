@@ -9,12 +9,12 @@
   height: 40px;
   margin: 0;
   padding: 0 16px;
-  background-color: var(--input-text-bg, #eaeaea);
+  background-color: var(--input-text-bg, hsl(0 0% 92%));
   border: none;
   box-sizing: border-box;
   border-radius: 4px;
   outline: none;
-  transition: box-shadow var(--speed-button-active) ease-out;
+  transition: box-shadow 120ms ease-out;
   font-size: 16px;
   letter-spacing: -.25px;
   color: var(--color-base);
@@ -35,7 +35,6 @@
     line-height: 1.62;
     letter-spacing: normal;
     resize: none;
-    --color-bg: var(--color-shape);
     @include mixin.custom-scroll-style();
   }
   &--color {
@@ -46,6 +45,12 @@
         --input-text-shadow-2: inset 0 0 0 1px hsl(0 0% 0% / 0%);
         --input-text-shadow-3: 0 0 0 2px hsl(var(--color-danger-hsl) / 100%);
       }
+    }
+  }
+  @include mixin.dark-mode() {
+    --input-text-bg: hsl(0 0% 7%);
+    &:focus {
+      --input-text-shadow-2: inset 0 0 0 1px hsl(0 0% 0% / 100%);
     }
   }
 }

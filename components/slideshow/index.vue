@@ -87,6 +87,7 @@ function onKeyup(e: KeyboardEvent): void
     switch (e.code)
     {
       case 'Escape': // esc
+        if (windows.children.length > 0) return;
         windows.close();
         break;
     }

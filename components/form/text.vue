@@ -1,7 +1,7 @@
 <template>
 <textarea
   v-if="props.type === 'textarea'"
-  ref="root"
+  ref="$root"
   :type="props.type"
   :name="props.name"
   :id="props.id"
@@ -26,7 +26,7 @@
   @blur="$emit('blur:modelValue', $event.target.value)"/>
 <input
   v-else
-  ref="root"
+  ref="$root"
   :type="props.type"
   :name="props.name"
   :id="props.id"
@@ -75,15 +75,15 @@ const props = defineProps({
   modelValue: [ String, Number, Boolean, Array ],
 });
 const emits = defineEmits([ 'update:modelValue', 'blur:modelValue' ]);
-const root = ref(0);
+const $root = ref();
 
-function onChange(e)
+function onChange(e: InputEvent)
 {
-  emits('update:modelValue', getValueFromType(props.modelType, e.target.value));
+  emits('update:modelValue', getValueFromType(props.modelType, (<HTMLInputElement>e.target).value));
 }
 function focus()
 {
-  if (root.value) root.value.focus();
+  if ($root.value) $root.value.focus();
 }
 
 // set expose

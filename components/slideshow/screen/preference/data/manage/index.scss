@@ -1,10 +1,13 @@
 @use '../../../../../../assets/scss/mixin';
 
 .tree-items {
-  --tree-shape-color: #ddd;
+  --tree-shape-color: hsl(0 0% 87%);
   --tree-radius: 2px;
   display: grid;
   gap: 8px;
+  @include mixin.dark-mode() {
+    --tree-shape-color: hsl(0 0% 10%);
+  }
 }
 .tree-item {
   border: 1px solid var(--tree-shape-color);
@@ -39,7 +42,8 @@
         margin: 0 auto;
       }
       &.fold {
-        --icon-size: 28px;
+        --icon-stroke: 2;
+        --icon-size: 24px;
         --icon-rotate: 0;
         svg {
           transform-origin: 50% 50%;
@@ -58,7 +62,7 @@
   }
   &__title {
     margin: 0;
-    padding: 12px 0;
+    padding: 16px 0;
     min-width: 0;
     strong {
       display: block;

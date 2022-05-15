@@ -22,7 +22,8 @@
             id="pref_src"
             placeholder="URL을 입력하세요."
             :required="false"
-            v-model="state.form.src"/>
+            v-model="state.form.src"
+            @update:modelValue="onInputEvent"/>
           <ButtonBasic type="button" @click="onClickCheckUrl('src')">
             URL 열기
           </ButtonBasic>
@@ -43,7 +44,8 @@
             name="pref_thumbnail"
             id="pref_thumbnail"
             placeholder="URL을 입력하세요."
-            v-model="state.form.thumbnail"/>
+            v-model="state.form.thumbnail"
+            @update:modelValue="onInputEvent"/>
           <ButtonBasic type="button" @click="onClickCheckUrl('thumbnail')">
             URL 열기
           </ButtonBasic>
@@ -62,7 +64,8 @@
           name="pref_title"
           id="pref_title"
           placeholder="제목을 입력해주세요."
-          v-model="state.form.title"/>
+          v-model="state.form.title"
+          @update:modelValue="onInputEvent"/>
       </div>
       <div class="field-basic">
         <header class="field-basic__header">
@@ -77,7 +80,8 @@
           name="pref_description"
           id="pref_description"
           placeholder="설명을 입력해주세요."
-          v-model="state.form.description"/>
+          v-model="state.form.description"
+          @update:modelValue="onInputEvent"/>
       </div>
     </div>
     <nav class="manage-slide__bottom">
@@ -92,8 +96,9 @@
 </template>
 
 <script lang="ts" setup>
-import { reactive, ref } from 'vue';
+import { ref, reactive, onMounted, onUnmounted } from 'vue';
 import { validUrl } from '~/libs/string';
+import { windowsStore } from '~/store/slideshow';
 import PopupHeader from '../popup-header.vue';
 import { ButtonBasic } from '~/components/button';
 import { FormText } from '~/components/form';
@@ -112,8 +117,10 @@ const props = defineProps<{
   form: PropsForm
 }>();
 const emits = defineEmits([ 'close', 'submit' ]);
+const windows = windowsStore();
 let state = reactive({
-  form: props.form
+  form: props.form,
+  input: false,
 });
 
 function onClickCheckUrl(key: string): void
@@ -155,6 +162,29 @@ function onSubmit(): void
     alert('처리에 문제가 생겼습니다.');
   }
 }
+
+function onInputEvent(): void
+{
+  if (state.input) return;
+  state.input = true;
+}
+
+function onKeyup(e: KeyboardEvent): void
+{
+  if (e.code !== 'Escape') return;
+  if (state.input && !confirm('입력한 내용이 있습니다. 이 창을 닫을까요?')) return;
+  emits('close');
+}
+
+onMounted(() => {
+  (<any>window).on('keyup.preference-data', onKeyup);
+  windows.children.push('slidesSlide');
+});
+onUnmounted(() => {
+  (<any>window).off('keyup.preference-data');
+  let idx = windows.children.indexOf('slidesSlide');
+  windows.children.splice(idx, 1);
+});
 </script>
 
 <style src="../../preference.scss" lang="scss" scoped></style>

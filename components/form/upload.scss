@@ -1,6 +1,7 @@
 @use '../../assets/scss/mixin';
 
 .form-upload {
+  --upload-bg: hsl(0 0% 92%);
   --upload-shadow-1: inset 0 2px 8px 0 hsl(0 0% 0% / 15%);
   --upload-shadow-2: inset 0 0 0 1px hsl(0 0% 0% / 20%);
   --upload-shadow-3: 0 0 0 2px hsl(0 0% 0% / 0%);
@@ -10,7 +11,7 @@
   height: 40px;
   cursor: pointer;
   box-sizing: border-box;
-  background-color: var(--upload-bg, #eaeaea);
+  background-color: var(--upload-bg);
   border-radius: var(--upload-radius);
   user-select: none;
   -webkit-tap-highlight-color: transparent;
@@ -76,7 +77,7 @@
       height: 100%;
       border-top-right-radius: var(--upload-radius);
       border-bottom-right-radius: var(--upload-radius);
-      --icon-color: #fff;
+      --icon-color: hsl(0 0% 100%);
       --icon-size: 20px;
       --icon-stroke: 1.75;
       > svg {
@@ -91,12 +92,9 @@
   }
 
   @include mixin.dark-mode() {
-    &__body {
-      > i {
-        > svg {
-          --icon-color: var(--color-fill);
-        }
-      }
+    --upload-bg: hsl(0 0% 7%);
+    &:focus-within {
+      --upload-shadow-2: inset 0 0 0 1px hsl(0 0% 0% / 50%);
     }
   }
 }

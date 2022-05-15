@@ -110,7 +110,7 @@ import ManageSlide from './manage-slide.vue';
 const props = defineProps<{
   tree: object
 }>();
-const emits = defineEmits([ 'update' ]);
+const emits = defineEmits([ 'update', 'close' ]);
 const state = reactive({
   fold: createFold(),
   showManageGroup: false,

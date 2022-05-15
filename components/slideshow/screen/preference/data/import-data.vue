@@ -34,7 +34,8 @@
             name="pref_address"
             id="pref_address"
             placeholder="주소를 입력해주세요."
-            v-model="state.address"/>
+            v-model="state.address"
+            @update:modelValue="onInputEvent"/>
         </div>
       </div>
       <div v-if="state.mode === 'file'" class="field-basic">
@@ -68,9 +69,9 @@
 </template>
 
 <script lang="ts" setup>
-import { ref, reactive } from 'vue';
+import { ref, reactive, onMounted, onUnmounted } from 'vue';
 import { getFileData, checkTree } from '~/libs/slideshow';
-import { assetsStore } from '~/store/slideshow';
+import { assetsStore, windowsStore } from '~/store/slideshow';
 import { FormRadio, FormText, FormUpload } from '~/components/form';
 import { ButtonBasic } from '~/components/button';
 import PopupHeader from './popup-header.vue';
@@ -78,17 +79,21 @@ import PopupHeader from './popup-header.vue';
 const $address = ref();
 const $file = ref();
 const assets = assetsStore();
+const windows = windowsStore();
 const emits = defineEmits([ 'update', 'close' ]);
 let state = reactive({
   mode: 'address', // address,file
   address: assets.exampleImportUrl,
   file: null,
   processing: false,
+  input: false,
 });
 
 function onSelectFile(e)
 {
-  if (e[0]) state.file = e[0];
+  if (!e[0]) return;
+  onInputEvent();
+  state.file = e[0];
 }
 
 async function onSubmit(e)
@@ -136,6 +141,29 @@ async function onSubmit(e)
     state.processing = false;
   }
 }
+
+function onInputEvent(): void
+{
+  if (state.input) return;
+  state.input = true;
+}
+
+function onKeyup(e: KeyboardEvent): void
+{
+  if (e.code !== 'Escape') return;
+  if (state.input && !confirm('입력한 내용이 있습니다. 이 창을 닫을까요?')) return;
+  emits('close');
+}
+
+onMounted(() => {
+  (<any>window).on('keyup.preference-data', onKeyup);
+  windows.children.push('importData');
+});
+onUnmounted(() => {
+  (<any>window).off('keyup.preference-data');
+  let idx = windows.children.indexOf('importData');
+  windows.children.splice(idx, 1);
+});
 </script>
 
 <style src="../preference.scss" lang="scss" scoped></style>

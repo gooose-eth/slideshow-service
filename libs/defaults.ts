@@ -28,7 +28,7 @@ export const preference: SlideshowTypes.Preference = {
     swipe: true,
   },
   style: {
-    screenColor: 'light', // dark,light,system // TODO: 나중에 `system`으로 변경하기
+    screenColor: 'system', // dark,light,system
     imageType: 'none', // none,contain,cover
     imageScale: ['75%','75%'], // [ width, height ]
     captionScale: 100, // %
