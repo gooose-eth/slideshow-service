@@ -1,7 +1,6 @@
 <template>
 <label
   :class="[
-    'form',
     'form-select',
     props.disabled && 'form-select--disabled',
   ]">

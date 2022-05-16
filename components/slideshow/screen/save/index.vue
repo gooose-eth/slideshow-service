@@ -178,9 +178,9 @@ async function onSubmit(e: SubmitEvent): Promise<void>
       body: params,
     });
     if (!success) throw new Error(message);
-    alert('슬라이드쇼를 만들었습니다.');
+    // alert('슬라이드쇼를 만들었습니다.');
     // TODO: 만들어진 슬라이드쇼 데이터 주소를 받아와서 `/watch/{ADDRESS}/` 형식으로된 주소로 이동하기
-    location.href = `/watch/${address}/`;
+    // location.href = `/watch/${address}/`;
   }
   catch(e)
   {

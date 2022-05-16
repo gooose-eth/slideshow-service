@@ -46,5 +46,10 @@ function onTouchStart(e: TouchEvent): void
       background: none;
     }
   }
+  @include mixin.dark-mode() {
+    @include mixin.responsive(tablet) {
+      background-color: hsl(0 0% 8% / 75%);
+    }
+  }
 }
 </style>

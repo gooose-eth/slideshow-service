@@ -1,6 +1,5 @@
 <template>
 <label :class="[
-  'form',
   'form-switch',
   props.disabled && 'form-switch--disabled',
 ]">

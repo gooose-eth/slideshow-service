@@ -7,20 +7,20 @@
   </Html>
   <header class="header">
     <h1 class="header__logo">
-      <a href="/">
+      <nuxt-link to="/">
         <picture>
           <source srcset="/images/layout/img-logo.webp 1x, /images/layout/img-logo@2x.webp 2x" type="image/webp">
           <source srcset="/images/layout/img-logo.png 1x, /images/layout/img-logo@2x.png 2x" type="image/png">
           <img src="/images/layout/img-logo.png" alt="service title">
         </picture>
-      </a>
+      </nuxt-link>
     </h1>
     <nav class="header__nav">
       <ul>
         <li>
-          <a href="/create/" title="만들기">
+          <nuxt-link to="/create/" title="만들기">
             만들기
-          </a>
+          </nuxt-link>
         </li>
         <li>
           <button type="button" title="관리하기" @click="onClickManage">
@@ -41,17 +41,52 @@
   <footer class="footer">
     <p class="footer__copyright">Copyright {{year}} redgoose. All right reserved.</p>
   </footer>
+  <client-only>
+    <teleport to="body">
+      <transition name="modal-fade">
+        <ModalWrap v-if="manageWindow" @close="manageWindow = false">
+          <ModalBody>
+            <Authorization
+              mode="edit"
+              :processing="processingAuthorization"
+              @submit="onSubmitEdit"
+              @close="manageWindow = false"/>
+          </ModalBody>
+        </ModalWrap>
+      </transition>
+    </teleport>
+  </client-only>
 </main>
 </template>
 
 <script lang="ts" setup>
 import { ref } from 'vue';
+import { ModalWrap } from '~/components/modal';
+import Authorization from '~/components/authorization/index.vue';
 
+const manageWindow = ref(false);
+const processingAuthorization = ref(false);
 const year = ref((new Date()).getFullYear());
 
 function onClickManage(): void
 {
-  console.log('call onClickManage()');
+  manageWindow.value = true;
+}
+
+async function onSubmitEdit(): Promise<void>
+{
+  try
+  {
+    processingAuthorization.value = true;
+    // TODO
+    processingAuthorization.value = false;
+    manageWindow.value = false
+  }
+  catch (e)
+  {
+    processingAuthorization.value = false;
+  }
+  console.log('onSubmitEdit()')
 }
 </script>
 

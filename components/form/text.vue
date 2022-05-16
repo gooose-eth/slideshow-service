@@ -17,7 +17,6 @@
   :disabled="props.disabled"
   :readOnly="props.readOnly"
   :class="[
-    'form',
     'form-text',
     props.inline && 'form-text--inline',
     props.color && `form-text--color-${props.color}`,
@@ -41,7 +40,6 @@
   :disabled="props.disabled"
   :readOnly="props.readOnly"
   :class="[
-    'form',
     'form-text',
     props.inline && 'form-text--inline',
     props.color && `form-text--color-${props.color}`,

@@ -107,11 +107,13 @@
 
 <script lang="ts" setup>
 import { ref, computed, onMounted, onUnmounted } from 'vue';
+import { useRouter } from 'vue-router';
 import { serviceStore } from '~/store/service';
 import { preferenceStore, currentStore, dataStore, windowsStore } from '~/store/slideshow';
 import { fullscreen, copyToClipboard } from '~/libs/util';
 import Icon from '~/components/icon/index.vue';
 
+const router = useRouter();
 const emits = defineEmits([ 'trigger' ]);
 const service = serviceStore();
 const preference = preferenceStore();
@@ -218,7 +220,7 @@ function route(key: string): void
       break;
     case 'service':
       if (!confirm('슬라이드쇼 서비스로 돌아갈까요?')) return;
-      location.href = '/';
+      router.push('/').then();
       break;
   }
 }

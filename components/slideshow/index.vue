@@ -165,7 +165,6 @@ onMounted(() => {
   }
 });
 onUnmounted(() => {
-  console.log('onUnmounted')
   // off keyboard event
   if (preference.keyboard.enabled)
   {

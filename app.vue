@@ -21,17 +21,26 @@ if (process.client)
   initCustomEvent();
 }
 
-// console.log(route.name)
-
 // setup
 if (process.server) service.setup();
 const { data } = await useAsyncData('setup', () => $fetch('/api/setup', {
   method: 'post',
   body: {
-    mode: 'default', // default,watch,admin
+    mode: getRouteMode(), // default,watch,admin
   },
 }));
 const { success } = data.value;
+
+function getRouteMode(): string
+{
+  switch (route.name)
+  {
+    case 'create':
+      return route.name;
+    default:
+      return 'default';
+  }
+}
 
 // nuxtApp.hook('page:finish', (): void => {
 //   window.scrollTo(0, 0); // TODO: 상단으로 올리기

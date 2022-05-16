@@ -18,9 +18,4 @@
     border-radius: 2px;
     box-shadow: 0 0 0 1px hsl(0 0% 0% / 15%), 0 2px 16px hsl(0 0% 0% / 25%);
   }
-  @include mixin.dark-mode() {
-    @include mixin.responsive(tablet) {
-      box-shadow: 0 0 0 1px hsl(0 0% 0% / 15%), 0 2px 24px hsl(0 0% 0% / 50%);
-    }
-  }
 }
