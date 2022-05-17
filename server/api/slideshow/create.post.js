@@ -2,7 +2,9 @@
  * slideshow / create
  */
 
-import { testUrl } from '../../libs/util.js';
+import { testUrl, checkImage } from '../../libs/util.js';
+import { create } from '../../db/queries.js';
+import { createPassword, uniqueId } from '../../libs/password.js';
 
 /**
  * check params
@@ -17,6 +19,7 @@ async function checkParams(body)
   if (!password) throw new Error('no password');
   if (thumbnail) testUrl(thumbnail);
   if (!slideshow) throw new Error('no slideshow data');
+  if (!(slideshow.tree && slideshow.preference && slideshow.group)) throw new Error('invalid slideshow');
 }
 
 export default async e => {
@@ -24,10 +27,24 @@ export default async e => {
   {
     const body = await useBody(e);
     await checkParams(body);
-    // console.log(body);
+    // check thumbnail image
+    if (body.thumbnail) await checkImage(body.thumbnail);
+    const { password, salt } = await createPassword(body.password);
+    const address = uniqueId();
+    // insert date
+    await create({
+      address,
+      title: body.title,
+      description: body.description,
+      password,
+      salt,
+      thumbnail: body.thumbnail,
+      public: body.public,
+      slideshow: JSON.stringify(body.slideshow),
+    });
     return {
       success: true,
-      address: 'foooo',
+      address,
     };
   }
   catch (e)

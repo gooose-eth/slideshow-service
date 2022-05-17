@@ -7,14 +7,15 @@ import mariadb from 'mariadb';
  */
 export default async function connect(multiple = false)
 {
-  const { DB_HOST, DB_PORT, DB_DATABASE, DB_USERNAME, DB_PASSWORD, TIMEZONE } = process.env;
+  const { DB_HOST, DB_PORT, DB_DATABASE, DB_USERNAME, DB_PASSWORD, TIMEZONE, TIMEZONE_OFFSET } = process.env;
   return mariadb.createConnection({
     host: DB_HOST,
     port: DB_PORT,
     user: DB_USERNAME,
     password: DB_PASSWORD,
     database: DB_DATABASE,
-    timezone: TIMEZONE,
+    timezone: TIMEZONE_OFFSET,
     multipleStatements: multiple,
+    dateStrings: 'date',
   });
 }

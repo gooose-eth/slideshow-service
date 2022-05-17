@@ -125,6 +125,7 @@
 <script lang="ts" setup>
 import { ref, computed, reactive, onMounted } from 'vue';
 import { currentStore, windowsStore, preferenceStore, dataStore } from '~/store/slideshow';
+import { newLink } from '~/libs/util';
 import { ButtonBasic } from '~/components/button';
 import { FormText, FormSwitch } from '~/components/form';
 
@@ -178,9 +179,8 @@ async function onSubmit(e: SubmitEvent): Promise<void>
       body: params,
     });
     if (!success) throw new Error(message);
-    // alert('슬라이드쇼를 만들었습니다.');
-    // TODO: 만들어진 슬라이드쇼 데이터 주소를 받아와서 `/watch/{ADDRESS}/` 형식으로된 주소로 이동하기
-    // location.href = `/watch/${address}/`;
+    alert('슬라이드쇼를 만들었습니다.');
+    location.href = `/watch/${address}/`;
   }
   catch(e)
   {
@@ -192,7 +192,7 @@ async function onSubmit(e: SubmitEvent): Promise<void>
 
 function onClickOpenThumbnailImage(): void
 {
-  console.log('onClickOpenThumbnailImage', fields.thumbnail);
+  newLink(fields.thumbnail);
 }
 
 onMounted(() => {

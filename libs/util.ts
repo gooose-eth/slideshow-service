@@ -86,3 +86,16 @@ export function sleep(ms: number = 1000): Promise<Function>
 {
   return new Promise(resolve => setTimeout(resolve, ms));
 }
+
+export function newLink(url: string): void
+{
+  const pop = window.open(url);
+  try
+  {
+    pop.focus();
+  }
+  catch (e)
+  {
+    alert(`브라우저 팝업차단을 해제해주세요.`);
+  }
+}
