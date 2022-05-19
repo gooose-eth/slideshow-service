@@ -23,15 +23,15 @@
     "last 2 versions"
   ],
   "dependencies": {
-    "@pinia/nuxt": "^0.1.8",
-    "dotenv": "^16.0.0",
+    "@pinia/nuxt": "^0.1.9",
+    "dotenv": "^16.0.1",
     "express": "^4.18.1",
     "mariadb": "^3.0.0",
-    "ohmyfetch": "^0.4.16",
-    "pinia": "^2.0.13"
+    "ohmyfetch": "^0.4.17",
+    "pinia": "^2.0.14"
   },
   "devDependencies": {
-    "nuxt": "^3.0.0-rc.2",
+    "nuxt": "^3.0.0-rc.3",
     "sass": "^1.51.0"
   }
 }

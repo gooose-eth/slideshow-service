@@ -3,12 +3,12 @@ import mariadb from 'mariadb';
 /**
  * connect database
  * @param {boolean} multiple
- * @return {Promise}
+ * @return {Promise<any>}
  */
-export default async function connect(multiple = false)
+export async function connect(multiple = false)
 {
-  const { DB_HOST, DB_PORT, DB_DATABASE, DB_USERNAME, DB_PASSWORD, TIMEZONE, TIMEZONE_OFFSET } = process.env;
-  return mariadb.createConnection({
+  const { DB_HOST, DB_PORT, DB_DATABASE, DB_USERNAME, DB_PASSWORD, TIMEZONE_OFFSET } = process.env;
+  return await mariadb.createConnection({
     host: DB_HOST,
     port: DB_PORT,
     user: DB_USERNAME,

@@ -16,10 +16,10 @@ export default async e => {
       case 'create':
       case 'watch':
       case 'admin':
-        console.log('setup() =>', body.mode);
+        console.log('SETUP() =>', body.mode);
         break;
       default:
-        console.log('setup() =>', 'default');
+        console.log('SETUP() =>', 'default');
         break;
     }
 

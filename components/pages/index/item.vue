@@ -2,10 +2,13 @@
 <nuxt-link :to="`/watch/${props.address}/`" class="item">
   <figure class="item__image">
     <img
+      v-if="!props.img"
       :src="props.img"
       :width="280"
       :height="180"
-      :alt="props.title">
+      :alt="props.title"
+      onerror="this.src='/images/index/img-thumbnail-error.jpg'">
+    <IconRandom v-else icon-name="image"/>
   </figure>
   <div class="item__body">
     <em>{{props.date}}</em>
@@ -16,9 +19,10 @@
 </template>
 
 <script lang="ts" setup>
+import IconRandom from '~/components/icon/random.vue';
 const props = defineProps<{
   address: string
-  img: string
+  img?: string
   date: string
   title: string
   description?: string

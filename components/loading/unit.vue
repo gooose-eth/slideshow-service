@@ -9,19 +9,19 @@
 .loading-unit {
   position: relative;
   margin: 0;
-  width: var(--loading-size);
-  height: var(--loading-size);
+  width: var(--loading-size, 50px);
+  height: var(--loading-size, 50px);
   box-sizing: border-box;
   span {
     display: block;
-    width: var(--loading-size);
+    width: var(--loading-size, 50px);
     height: 5px;
     background-color: rgba(0,0,0,.25);
     position: absolute;
-    top: calc(var(--loading-size) + 9px);
+    top: calc(var(--loading-size, 50px) + 9px);
     left: 0;
     border-radius: 50%;
-    animation: shadow var(--loading-speed) linear infinite;
+    animation: shadow var(--loading-speed, 500ms) linear infinite;
     @keyframes shadow {
       50% {
         transform: scale(1.2, 1);
@@ -31,10 +31,10 @@
   em {
     display: block;
     font-style: normal;
-    width: var(--loading-size);
-    height: var(--loading-size);
-    background-color: var(--color-key);
-    animation: animate var(--loading-speed) linear infinite;
+    width: var(--loading-size, 50px);
+    height: var(--loading-size, 50px);
+    background-color: var(--loading-color, hsl(0 0% 0%));
+    animation: animate var(--loading-speed, 500ms) linear infinite;
     position: absolute;
     top: 0;
     left: 0;

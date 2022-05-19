@@ -1,3 +1,95 @@
 @use '../../../assets/scss/mixin';
 
-.item {}
+.item {
+  --item-radius: 4px;
+  --item-shadow-line: 0 0 0 1px hsl(0 0% 0% / 5%);
+  --item-shadow-blur: 0 0 24px 0 hsl(0 0% 0% / 15%);
+  display: grid;
+  grid-template-rows: auto auto;
+  border-radius: var(--item-radius);
+  background: var(--item-background, hsl(0 0% 100%));
+  box-shadow: var(--item-shadow-line), var(--item-shadow-blur);
+  text-decoration: none;
+  user-select: none;
+  transition: box-shadow 200ms ease-out;
+  @include mixin.mouse-event(hover) {
+    --item-shadow-line: 0 0 0 3px hsl(var(--color-key-hsl) / 100%);
+    --item-shadow-blur: 0 8px 32px hsl(0 0% 0% / 24%);
+  }
+  @include mixin.mouse-event(active) {
+    --item-shadow-line: 0 0 0 3px hsl(var(--color-key-hsl) / 100%);
+    --item-shadow-blur: 0 8px 32px hsl(0 0% 0% / 24%);
+  }
+  &__image {
+    display: grid;
+    place-content: center;
+    margin: 0;
+    background: var(--item-image-background, hsl(0 0% 80%));
+    aspect-ratio: 28 / 16;
+    overflow: hidden;
+    border-top-left-radius: var(--item-radius);
+    border-top-right-radius: var(--item-radius);
+    --icon-size: 36px;
+    --icon-stroke: 1;
+    --icon-color: hsl(0 0% 100% / 100%);
+    img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .icon {
+      display: block;
+      filter: drop-shadow(0 0px 4px hsl(0 0% 0% / 20%));
+    }
+  }
+  &__body {
+    padding: 20px;
+    min-width: 0;
+    em {
+      display: block;
+      font-family: var(--font-eng);
+      font-size: 11px;
+      color: var(--color-weak);
+      line-height: 1;
+      font-style: normal;
+      @include mixin.text-single-line();
+    }
+    h2 {
+      margin: 6px 0 0;
+      font-size: 15px;
+      color: var(--color-base);
+      font-weight: 700;
+      line-height: 1.25;
+      letter-spacing: -.25px;
+      @include mixin.text-single-line();
+    }
+    p {
+      margin: 2px 0 0;
+      line-height: 1.25;
+      font-size: 12px;
+      color: var(--color-weak);
+      letter-spacing: -.5px;
+      @include mixin.text-single-line();
+    }
+  }
+  @include mixin.responsive(tablet) {
+    &__body {
+      padding: 16px;
+    }
+  }
+  @include mixin.dark-mode() {
+    --item-background: hsl(0 0% 5%);
+    --item-image-background: hsl(0 0% 20%);
+    --item-shadow-blur: 0 8px 32px hsl(0 0% 0% / 24%);
+    @include mixin.mouse-event(hover) {
+      --item-shadow-blur: 0 8px 32px hsl(0 0% 0% / 50%);
+    }
+    @include mixin.mouse-event(active) {
+      --item-shadow-blur: 0 8px 32px hsl(0 0% 0% / 50%);
+    }
+    &__image {
+      --icon-color: hsl(0 0% 100% / 50%);
+    }
+  }
+}
