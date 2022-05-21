@@ -2,15 +2,12 @@
  * Setup service
  */
 
-// import fs from 'fs';
+// TODO: 쿠키 때문에 사용할일이 있을것이다.
 
 export default async e => {
   try
   {
     const body = await useBody(e);
-    // console.log(fs)
-    // let aaa = fs;
-
     switch (body.mode)
     {
       case 'create':

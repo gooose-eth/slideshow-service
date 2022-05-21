@@ -51,14 +51,14 @@
     em {
       display: block;
       font-family: var(--font-eng);
-      font-size: 11px;
+      font-size: 10px;
       color: var(--color-weak);
       line-height: 1;
       font-style: normal;
       @include mixin.text-single-line();
     }
     h2 {
-      margin: 6px 0 0;
+      margin: 5px 0 0;
       font-size: 15px;
       color: var(--color-base);
       font-weight: 700;
@@ -67,7 +67,7 @@
       @include mixin.text-single-line();
     }
     p {
-      margin: 2px 0 0;
+      margin: 1px 0 0;
       line-height: 1.25;
       font-size: 12px;
       color: var(--color-weak);
@@ -84,7 +84,7 @@
     --item-background: hsl(0 0% 5%);
     --item-image-background: hsl(0 0% 20%);
     --item-shadow-blur: 0 8px 32px hsl(0 0% 0% / 24%);
-    --item-shadow-line: 0 0 0 1px hsl(0 0% 100% / 3%);
+    --item-shadow-line: 0 0 0 1px hsl(0 0% 100% / 2%);
     @include mixin.mouse-event(hover) {
       --item-shadow-line: 0 0 0 3px hsl(var(--color-key-hsl) / 100%);
       --item-shadow-blur: 0 8px 32px hsl(0 0% 0% / 50%);

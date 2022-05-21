@@ -14,9 +14,19 @@
       padding: 16px 16px;
       margin: -16px 0;
       @include mixin.disable-drag();
-      &:focus,
-      &:hover,
-      &:active {
+      @include mixin.mouse-event(hover) {
+        img {
+          will-change: filter;
+          filter: invert(1);
+        }
+      }
+      @include mixin.mouse-event(active) {
+        img {
+          will-change: filter;
+          filter: invert(1);
+        }
+      }
+      &:focus-visible {
         img {
           will-change: filter;
           filter: invert(1);
