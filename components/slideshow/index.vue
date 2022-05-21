@@ -40,12 +40,14 @@
         </ModalBody>
       </ModalWrap>
     </transition>
+    <div v-if="!!debug" class="debug">
+      <pre>{{debug}}</pre>
+    </div>
   </teleport>
 </div>
 </template>
 
 <script lang="ts" setup>
-import { ref, onMounted, onUnmounted, computed } from 'vue';
 import { preferenceStore, currentStore, dataStore, windowsStore } from '~/store/slideshow';
 import Slides from './slides/index.vue';
 import Empty from './slides/empty.vue';
@@ -60,7 +62,7 @@ import Loading from '~/components/loading/intro.vue';
 const $navigation = ref();
 const $slides = ref();
 const props = defineProps({
-  mode: String, // create
+  mode: String, // create,watch
   error: Object,
 });
 const emits = defineEmits([ 'open-save' ]);
@@ -70,6 +72,13 @@ const data = dataStore();
 const windows = windowsStore();
 const keyboardEventName = 'slideshow-keyboard';
 let keys = [];
+const debug = computed(() => {
+  return process.dev ? {
+    mode: current.mode,
+    address: data.field?.address,
+    activeSlide: current.activeSlide,
+  } : null;
+});
 
 function onKeyup(e: KeyboardEvent): void
 {
@@ -105,7 +114,7 @@ function onKeyup(e: KeyboardEvent): void
       case 'KeyA': // a
         if (data.existSlide && preference.slides.autoplay)
         {
-          current.autoplay = !current.autoplay;
+          current.update('autoplay', !current.autoplay);
         }
         break;
       case 'KeyP': // p
@@ -173,9 +182,6 @@ onUnmounted(() => {
   }
   current.destroy();
 });
-
-// setup
-current.setup(props.mode);
 </script>
 
 <style src="./index.scss" lang="scss" scoped></style>

@@ -24,11 +24,12 @@
 </template>
 
 <script lang="ts" setup>
-import { defineAsyncComponent, computed, onMounted, onUnmounted, watch, ref } from 'vue';
 import { windowsStore, currentStore, preferenceStore, readyPreferenceStore, dataStore } from '~/store/slideshow';
 import { pureObject } from '~/libs/object';
+import { setStorage, getStorage } from '~/libs/storage';
 import Icon from '~/components/icon/index.vue';
 import Side from './side.vue';
+import * as defaults from "~/libs/defaults";
 
 const $content = ref();
 const windows = windowsStore();
@@ -119,6 +120,16 @@ function onSubmit()
     {
       current.tree = Object.keys(data.groups)[0];
     }
+    // save storage
+    if (current.watchMode)
+    {
+      const storage = getStorage(data.field.address);
+      setStorage(data.field.address, {
+        ...storage,
+        preference: preference.pure,
+      });
+    }
+    // close window
     onClose();
   }
   catch(e)

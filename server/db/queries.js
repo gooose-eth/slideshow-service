@@ -1,6 +1,7 @@
 import { connect } from './connect.js';
 
 let conn;
+const tableName = 'slideshow';
 
 /**
  * get count
@@ -14,7 +15,7 @@ export async function getCount(op)
   let res, sql, tail;
   tail = `where public=1`;
   if (q) tail += ` and title like '%${q}%'`;
-  sql = `select count(*) total from slideshow ${tail}`;
+  sql = `select count(*) total from ${tableName} ${tail}`;
   res = await conn.query(sql);
   return Number(res[0]?.total || 0);
 }
@@ -33,18 +34,22 @@ export async function getItems(op)
   if (q) tail += `and title like '%${q}%' `;
   tail += `order by ${op.order || 'regdate'} ${op.sort || 'desc'} `;
   tail += `limit ${(page-1) * size},${size} `;
-  sql = `select ${field || '*'} from slideshow ${tail}`;
+  sql = `select ${field || '*'} from ${tableName} ${tail}`;
   return await conn.query(sql);
 }
 
 /**
  * get slideshow item
  * @param {object} op
- * @return {Promise<object>}
+ * @return {Promise<object|null>}
  */
 export async function getItem(op)
 {
-  const { address } = op;
+  if (!conn) conn = await connect();
+  const { address, field } = op;
+  let sql = `select ${field || '*'} from ${tableName} where address="${address}"`;
+  const [ item ] = await conn.query(sql);
+  return item || null;
 }
 
 /**
@@ -57,7 +62,7 @@ export async function create(src)
   try
   {
     if (!conn) conn = await connect();
-    let sql = `insert into slideshow(\`key\`, address, title, description, slideshow, password, salt, thumbnail, \`public\`, hit, regdate, \`update\`) values (null, '${src.address}', '${src.title}', '${src.description}', '${src.slideshow}', '${src.password}', '${src.salt}', '${src.thumbnail}', '${src.public}', 0, now(), now())`;
+    let sql = `insert into ${tableName}(\`key\`, address, title, description, slideshow, password, salt, thumbnail, \`public\`, hit, regdate, \`update\`) values (null, \"${src.address}\", \"${src.title}\", \"${src.description}\", \"${src.slideshow}\", '${src.password}', '${src.salt}', '${src.thumbnail}', '${src.public}', 0, now(), now())`;
     await conn.query(sql);
   }
   catch(e)

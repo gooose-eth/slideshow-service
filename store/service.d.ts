@@ -1,4 +1,5 @@
 export interface Service {
-  title: string,
-  url: string,
+  title: string
+  description: string
+  url: string
 }

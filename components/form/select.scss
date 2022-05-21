@@ -7,7 +7,7 @@
   --select-shadow-outline: 0 0 0 2px hsl(0 0% 0% / 0%);
   --icon-stroke: 2;
   --icon-size: 20px;
-  --icon-color: var(--color-base);
+  --icon-color: hsl(var(--color-base-hsl) / 75%);
   display: block;
   position: relative;
   height: 40px;

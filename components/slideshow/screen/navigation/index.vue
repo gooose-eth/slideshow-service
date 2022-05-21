@@ -41,10 +41,7 @@
       @click="onClickMenuButton">
       <Icon icon-name="menu"/>
     </button>
-    <div :class="[
-      'navigation-context',
-      activeMenu && 'navigation-context--on',
-    ]">
+    <div :class="[ 'navigation-context', activeMenu && 'navigation-context--on' ]">
       <ul>
         <li>
           <button type="button" @click="route('open-preference')">
@@ -66,6 +63,11 @@
             공유하기
           </button>
         </li>
+        <li v-if="current.watchMode">
+          <button type="button" @click="onClickContextItem('edit')">
+            수정하기
+          </button>
+        </li>
         <li v-if="current.editMode">
           <button
             type="button"
@@ -74,12 +76,20 @@
             삭제하기
           </button>
         </li>
-        <li v-if="current.watchMode">
+        <li v-if="current.editMode">
           <button
             type="button"
             class="danger"
             @click="onClickContextItem('logout')">
             로그아웃
+          </button>
+        </li>
+        <li v-if="current.watchMode">
+          <button
+            type="button"
+            class="active"
+            @click="onClickContextItem('slideshowService')">
+            슬라이드쇼
           </button>
         </li>
       </ul>
@@ -88,7 +98,7 @@
   <div v-if="!current.watchMode" class="navigation__item">
     <button
       type="button"
-      title="슬라이드쇼 서비스로 바로가기"
+      title="슬라이드쇼로 바로가기"
       @click="route('service')">
       <Icon icon-name="home"/>
     </button>
@@ -106,8 +116,6 @@
 </template>
 
 <script lang="ts" setup>
-import { ref, computed, onMounted, onUnmounted } from 'vue';
-import { useRouter } from 'vue-router';
 import { serviceStore } from '~/store/service';
 import { preferenceStore, currentStore, dataStore, windowsStore } from '~/store/slideshow';
 import { fullscreen, copyToClipboard } from '~/libs/util';
@@ -135,7 +143,9 @@ const visibleGroup = computed(() => {
 function onClickAutoplay()
 {
   if (!data.existSlide) return;
-  current.autoplay = !current.autoplay;
+  const sw: boolean = !current.autoplay;
+  current.autoplay = sw;
+  current.update('autoplay', sw);
 }
 function onClickMenuButton(e)
 {
@@ -165,13 +175,13 @@ function onClickContextItem(key: string): void
       activeFullscreen.value = !activeFullscreen.value;
       break;
     case 'slideshowService':
-      route(current.watchMode ? 'slideshowServiceNewWindow' : 'slideshowService');
+      route(!!history.state.back ? 'slideshowService' : 'slideshowServiceNewWindow');
       break;
     case 'preview':
       route(key);
       break;
     case 'share':
-      let url = `${service.url.replace(/\/$/, '')}/watch/${data.field.address}/`;
+      let url = `${service.url.replace(/\/$/, '')}/watch/${data.field.address}`;
       copyToClipboard(url).then(() => alert('주소가 복사되었습니다.'));
       break;
     case 'delete':
@@ -181,6 +191,9 @@ function onClickContextItem(key: string): void
       break;
     case 'logout':
       logout().then();
+      break;
+    case 'edit':
+      router.push(`/edit/${data.field.address}`);
       break;
   }
 }
@@ -194,13 +207,13 @@ function route(key: string): void
   switch(key)
   {
     case 'slideshowService':
-      location.href = '/';
+      router.push('/').then();
       break;
     case 'slideshowServiceNewWindow':
       window.open('/');
       break;
     case 'preview':
-      window.open(`/watch/${data.field.address}/`);
+      window.open(`/watch/${data.field.address}`);
       break;
     case 'open-thumbnail':
       switchActiveMenu(false);
@@ -219,7 +232,7 @@ function route(key: string): void
       windows.save = true;
       break;
     case 'service':
-      if (!confirm('슬라이드쇼 서비스로 돌아갈까요?')) return;
+      if (!confirm('슬라이드쇼로 돌아갈까요?')) return;
       router.push('/').then();
       break;
   }

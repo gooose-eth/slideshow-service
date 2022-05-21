@@ -22,7 +22,7 @@
             :maxlength="24"
             placeholder="주소를 입력해주세요."
             :required="true"
-            :disabled="false"/>
+            :disabled="!!props.address"/>
         </div>
       </div>
       <div class="field">
@@ -48,10 +48,10 @@
         type="submit"
         :color="submitClassName"
         :disabled="props.processing">
-        {{labels.submit}}
+        {{props.processing ? '처리중..' : labels.submit}}
       </ButtonBasic>
       <ButtonBasic
-        v-if="showCloseButton"
+        v-if="props.showCloseButton"
         @click="emits('close')">
         닫기
       </ButtonBasic>
@@ -61,17 +61,18 @@
 </template>
 
 <script lang="ts" setup>
-import { ref, reactive, computed } from 'vue';
 import { ButtonBasic } from '~/components/button';
 import { FormText } from '~/components/form';
 
 const props = defineProps<{
-  mode: string
+  mode: string // watch,edit,delete
   processing?: boolean
+  address?: string
+  showCloseButton?: boolean
 }>();
 const emits = defineEmits([ 'submit', 'close' ]);
 const fields = reactive({
-  address: '',
+  address: props.address,
   password: '',
 });
 const labels = computed(() => {
@@ -106,13 +107,13 @@ const submitClassName = computed(() => {
       return 'key';
   }
 });
-const showCloseButton = computed(() => {
-  return (props.mode !== 'watch')
-});
 
 function onSubmit(): void
 {
-  emits('submit');
+  emits('submit', {
+    address: fields.address,
+    password: fields.password,
+  });
 }
 </script>
 

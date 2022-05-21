@@ -4,10 +4,7 @@
   <div class="index__body">
     <Loading v-if="loading" message="불러오는 중.."/>
     <template v-else>
-      <ErrorItems
-        v-if="!!error"
-        :message="error"
-        class="index__error"/>
+      <ErrorItems v-if="!!error" :message="error" class="index__error"/>
       <ul v-else-if="index.items?.length > 0" class="index__items">
         <li v-for="item in index.items">
           <Item
@@ -18,10 +15,7 @@
             :date="item.regdate.split(' ')[0]"/>
         </li>
       </ul>
-      <ErrorItems
-        v-else
-        type="empty"
-        message="슬라이드쇼가 없어요!"/>
+      <ErrorItems v-else type="empty" message="슬라이드쇼가 없어요!"/>
     </template>
     <nav v-if="index.total > 0" class="index__paginate">
       <Pagination

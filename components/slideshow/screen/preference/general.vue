@@ -2,15 +2,17 @@
 <fieldset>
   <legend>General fields</legend>
   <div class="fields">
-    <template v-if="data.field.address">
+    <template v-if="current.watchMode || current.editMode">
       <div class="field-basic">
-        <h2 class="field-title">
-          <label for="pref_slideshowAddress">슬라이드쇼 주소</label>
-        </h2>
-        <p class="field-description">
-          슬라이드쇼 서비스에서 사용하는 주소입니다.
-        </p>
-        <div class="field-basic__body">
+        <header class="field-basic__header">
+          <h2 class="field-title">
+            <label for="pref_slideshowAddress">슬라이드쇼 주소</label>
+          </h2>
+          <p class="field-description">
+            슬라이드쇼에서 사용하는 주소입니다.
+          </p>
+        </header>
+        <div>
           <FormText
             type="text"
             name="pref_slideshowAddress"
@@ -212,8 +214,6 @@ function onClickReset(): void
 {
   if (!confirm('정말로 모든 설정과 슬라이드 데이터를 초기화 하겠습니까?')) return;
   readyPreference.reset();
-  // alert('설정을 모두 초기화했습니다.\n설정을 확인해보시고 "적용하기" 버튼을 누르면 적용됩니다.');
-  // store.dispatch('reset').then(() => local.main.restart().then());
 }
 </script>
 

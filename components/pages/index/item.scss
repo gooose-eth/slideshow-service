@@ -27,8 +27,8 @@
     overflow: hidden;
     border-top-left-radius: var(--item-radius);
     border-top-right-radius: var(--item-radius);
-    --icon-size: 36px;
-    --icon-stroke: 1;
+    --icon-size: 42px;
+    --icon-stroke: .5;
     --icon-color: hsl(0 0% 100% / 100%);
     &.no-img {
       display: grid;
@@ -94,7 +94,7 @@
       --item-shadow-blur: 0 8px 32px hsl(0 0% 0% / 50%);
     }
     &__image {
-      --icon-color: hsl(0 0% 100% / 50%);
+      --icon-color: hsl(0 0% 65% / 100%);
     }
   }
 }

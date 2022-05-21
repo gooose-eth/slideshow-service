@@ -2,6 +2,7 @@ import { defineStore } from 'pinia';
 import { pureObject } from '~/libs/object';
 import { checkPreference, checkTree } from '~/libs/slideshow';
 import * as defaults from '~/libs/defaults';
+import { getStorage, setStorage } from '~/libs/storage';
 import type * as Types from './slideshow.d';
 
 /**
@@ -106,6 +107,31 @@ export const usePreferenceStore = defineStore('slideshowUsePreference', {
       information: true,
     };
   },
+  actions: {
+    setup(mode: string)
+    {
+      switch (mode)
+      {
+        case 'create':
+        case 'edit':
+          this.general = true;
+          this.slides = true;
+          this.style = true;
+          this.data = true;
+          this.keyboard = true;
+          this.information = true;
+          break;
+        case 'watch':
+          this.general = true;
+          this.slides = true;
+          this.style = true;
+          this.data = false;
+          this.keyboard = true;
+          this.information = true;
+          break;
+      }
+    }
+  },
 });
 
 /**
@@ -119,7 +145,11 @@ export const dataStore = defineStore('slideshowData', {
     return {
       field: {
         address: '',
-        // TODO: 수정모드를 고려해서 항목을 더 추가할 예정이다.
+        title: '',
+        description: '',
+        regdate: '',
+        thumbnail: '',
+        public: true,
       },
       groups: pureObject(defaults.groups),
     };
@@ -142,7 +172,7 @@ export const dataStore = defineStore('slideshowData', {
     existSlide(): boolean
     {
       const current = currentStore();
-      return this.groups[current.tree].slides?.length > 0;
+      return this.groups[current.tree]?.slides?.length > 0;
     },
   },
   actions: {
@@ -151,7 +181,16 @@ export const dataStore = defineStore('slideshowData', {
       src = pureObject(src);
       if (!checkTree(src)) throw new Error('Failed check slides');
       this.groups = src;
-    }
+    },
+    resetFields(): void
+    {
+      this.field.address = '';
+      this.field.title = '';
+      this.field.description = '';
+      this.field.regdate = '';
+      this.field.thumbnail = '';
+      this.field.public = true;
+    },
   },
 });
 
@@ -197,27 +236,18 @@ export const currentStore = defineStore('slideshowCurrent', {
     },
   },
   actions: {
-    setup(type: string, params?: any): void
+    update(key: string, value: any): void
     {
-      switch (type)
-      {
-        case 'create':
-          this.mode = 'create';
-          this.tree = 'default';
-          this.activeSlide = 0;
-          this.keyboardEvent = true;
-          this.autoplay = false;
-          break;
-        case 'watch':
-        case 'edit':
-          this.mode = params.mode;
-          this.tree = params.tree;
-          this.activeSlide = params.activeSlide;
-          this.keyboardEvent = params.keyboardEvent;
-          this.autoplay = params.autoplay;
-          break;
-      }
-      this.loading = false;
+      this[key] = value;
+      const data = dataStore();
+      const storage = getStorage(data.field.address);
+      setStorage(data.field.address, {
+        ...storage,
+        current: {
+          ...(storage?.current ? storage.current : {}),
+          [key]: value,
+        },
+      });
     },
     destroy(): void
     {

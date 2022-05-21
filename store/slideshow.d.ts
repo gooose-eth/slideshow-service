@@ -54,6 +54,12 @@ export interface UsePreference {
 export interface Data {
   field: {
     address: string
+    address: string
+    title: string
+    description: string
+    regdate: string
+    thumbnail: string
+    public: boolean
   }
   groups: object
 }

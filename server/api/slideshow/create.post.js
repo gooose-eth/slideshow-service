@@ -40,7 +40,7 @@ export default async e => {
       salt,
       thumbnail: body.thumbnail,
       public: body.public,
-      slideshow: JSON.stringify(body.slideshow),
+      slideshow: encodeURIComponent(JSON.stringify(body.slideshow)),
     });
     return {
       success: true,

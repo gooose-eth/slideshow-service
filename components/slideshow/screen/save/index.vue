@@ -130,6 +130,7 @@ import { ButtonBasic } from '~/components/button';
 import { FormText, FormSwitch } from '~/components/form';
 
 const $title = ref();
+const router = useRouter();
 const current = currentStore();
 const preference = preferenceStore();
 const data = dataStore();
@@ -152,7 +153,7 @@ const headerTitle = computed(() => {
     case 'manage':
       return '슬라이드쇼 수정하기';
     default:
-      return '슬라이드쇼 서비스';
+      return '슬라이드쇼';
   }
 });
 
@@ -180,7 +181,9 @@ async function onSubmit(e: SubmitEvent): Promise<void>
     });
     if (!success) throw new Error(message);
     alert('슬라이드쇼를 만들었습니다.');
-    location.href = `/watch/${address}/`;
+    processing.value = false;
+    await router.push(`/watch/${address}`);
+    emits('close');
   }
   catch(e)
   {

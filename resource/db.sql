@@ -3,10 +3,10 @@ set SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 -- table `slideshow`
 create table `slideshow` (
   `key` tinyint(11) not null,
-  `address` varchar(30) not null comment 'Watch ID',
+  `address` varchar(30) not null comment 'Watch address',
   `title` varchar(120) not null,
   `description` varchar(255) default null,
-  `slideshow` mediumtext not null,
+  `slideshow` longtext not null comment 'Slideshow json data',
   `password` varchar(120) not null comment 'Slideshow password',
   `salt` varchar(120) not null comment 'Salt for password',
   `thumbnail` varchar(100) default null comment 'Thumbnail image address',

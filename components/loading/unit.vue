@@ -33,7 +33,7 @@
     font-style: normal;
     width: var(--loading-size, 50px);
     height: var(--loading-size, 50px);
-    background-color: var(--loading-color, hsl(0 0% 0%));
+    background-color: var(--loading-color, var(--color-key));
     animation: animate var(--loading-speed, 500ms) linear infinite;
     position: absolute;
     top: 0;

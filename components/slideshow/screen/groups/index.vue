@@ -73,6 +73,7 @@ async function onClickChange(key: string): Promise<void>
   current.loading = true;
   current.tree = key;
   current.activeSlide = 0;
+  current.update('tree', key);
   await sleep(80);
   current.loading = false;
 }

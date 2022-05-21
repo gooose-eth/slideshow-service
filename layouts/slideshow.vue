@@ -4,15 +4,8 @@
     :class="[
       'mode-slideshow',
       preference.style.screenColor && `theme-${preference.style.screenColor}`,
-    ]">
-    <Head>
-      <Title>{{serviceTitle}}</Title>
-    </Head>
-    <Body/>
-  </Html>
-  <client-only>
-    <slot/>
-  </client-only>
+    ]"/>
+  <slot/>
 </main>
 </template>
 

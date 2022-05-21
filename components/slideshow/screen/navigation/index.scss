@@ -58,7 +58,7 @@
   @include mixin.dark-mode() {
     &__item {
       > button {
-        --button-bg: hsl(0 0% 5% / 35%);
+        --button-bg: hsl(0 0% 5% / 25%);
         --icon-color: hsl(0 0% 100% / 75%);
         @include mixin.mouse-event(hover) {
           --button-bg: hsl(0 0% 5% / 60%);

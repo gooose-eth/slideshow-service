@@ -24,7 +24,6 @@ export default async e => {
   }
   catch (e)
   {
-    console.log(e.message)
     return {
       success: false,
       message: e.message,

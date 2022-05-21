@@ -1,10 +1,5 @@
 <template>
 <main class="viewport">
-  <Html>
-    <Head>
-      <Title>슬라이드쇼 서비스</Title>
-    </Head>
-  </Html>
   <header class="header">
     <h1 class="header__logo">
       <nuxt-link to="/">
@@ -28,8 +23,8 @@
           </button>
         </li>
         <li>
-          <nuxt-link to="/about/" title="슬라이드쇼 서비스">
-            정보
+          <nuxt-link to="/about/" title="슬라이드쇼">
+            슬라이드쇼
           </nuxt-link>
         </li>
       </ul>
