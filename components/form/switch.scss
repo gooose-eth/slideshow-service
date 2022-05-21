@@ -5,9 +5,9 @@
   --wrap-padding: 4px;
   --icon-size: 28px;
   --icon-size-active: 8px;
-  --switch-shadow-1: inset 0 0 8px 0 hsl(0 0% 0% / 20%);
-  --switch-shadow-2: inset 0 0 0 1px hsl(0 0% 0% / 15%);
-  --switch-shadow-3: 0 0 0 2px hsl(0 0% 0% / 0%);
+  --switch-shadow-glow: inset 0 0 8px 0 hsl(0 0% 0% / 20%);
+  --switch-shadow-border: inset 0 0 0 1px hsl(0 0% 0% / 15%);
+  --switch-shadow-outline: 0 0 0 2px hsl(0 0% 0% / 0%);
   display: block;
   position: relative;
   width: var(--wrap-width);
@@ -25,13 +25,13 @@
     appearance: none;
     background-color: var(--switch-bg, hsl(0 0% 92%));
     border-radius: calc(var(--icon-size) * .5);
-    box-shadow: var(--switch-shadow-1), var(--switch-shadow-2), var(--switch-shadow-3);
+    box-shadow: var(--switch-shadow-border), var(--switch-shadow-glow), var(--switch-shadow-outline);
     transition: background-color 300ms ease-out, box-shadow 200ms ease-out;
     outline: none;
     border: none;
     &:focus-visible {
-      --switch-shadow-2: inset 0 0 0 1px hsl(0 0% 100% / 40%);
-      --switch-shadow-3: 0 0 0 2px var(--color-key);
+      --switch-shadow-border: inset 0 0 0 1px hsl(0 0% 100% / 40%);
+      --switch-shadow-outline: 0 0 0 2px var(--color-key);
     }
   }
   i {
@@ -52,6 +52,7 @@
   }
   input:checked {
     --switch-bg: var(--color-key);
+    --switch-shadow-border: inset 0 0 0 1px hsl(0 0% 100% / 0%);
     & + i {
       left: unset;
       right: var(--wrap-padding);
@@ -63,9 +64,13 @@
   }
   @include mixin.dark-mode() {
     --switch-bg: hsl(0 0% 7%);
+    --switch-shadow-border: 0 0 0 1px hsl(0 0% 100% / 8%);
     input {
+      &:checked {
+        --switch-shadow-border: inset 0 0 0 1px hsl(0 0% 100% / 0%);
+      }
       &:focus-visible {
-        --switch-shadow-2: inset 0 0 0 1px hsl(0 0% 100% / 0%);
+        --switch-shadow-border: inset 0 0 0 1px hsl(0 0% 0% / 0%);
       }
     }
     i {

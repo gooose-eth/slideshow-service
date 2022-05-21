@@ -2,9 +2,9 @@
 
 .form-select {
   --select-bg: hsl(0 0% 92%);
-  --select-shadow-1: inset 0 2px 8px 0 hsl(0 0% 0% / 15%);
-  --select-shadow-2: inset 0 0 0 1px hsl(0 0% 0% / 20%);
-  --select-shadow-3: 0 0 0 2px hsl(0 0% 0% / 0%);
+  --select-shadow-glow: inset 0 2px 8px 0 hsl(0 0% 0% / 15%);
+  --select-shadow-border: inset 0 0 0 1px hsl(0 0% 0% / 20%);
+  --select-shadow-outline: 0 0 0 2px hsl(0 0% 0% / 0%);
   --icon-stroke: 2;
   --icon-size: 20px;
   --icon-color: var(--color-base);
@@ -15,8 +15,8 @@
   user-select: none;
   -webkit-tap-highlight-color: transparent;
   &:focus-within {
-    --select-shadow-2: inset 0 0 0 1px hsl(0 0% 100% / 100%);
-    --select-shadow-3: 0 0 0 2px hsl(var(--color-key-hsl) / 100%);
+    --select-shadow-border: inset 0 0 0 1px hsl(0 0% 100% / 100%);
+    --select-shadow-outline: 0 0 0 2px hsl(var(--color-key-hsl) / 100%);
   }
   &__body {
     width: 100%;
@@ -34,7 +34,7 @@
     -webkit-appearance: none;
     font-weight: 500;
     border-radius: 4px;
-    box-shadow: var(--select-shadow-1), var(--select-shadow-2), var(--select-shadow-3);
+    box-shadow: var(--select-shadow-glow), var(--select-shadow-border), var(--select-shadow-outline);
     transition: box-shadow var(--speed-button-active) ease-out;
   }
   &__icon {
@@ -50,9 +50,10 @@
   }
   @include mixin.dark-mode() {
     --select-bg: hsl(0 0% 7%);
+    --select-shadow-border: inset 0 0 0 1px hsl(0 0% 100% / 12%);
     &:focus-within {
-      --select-shadow-2: inset 0 0 0 1px hsl(0 0% 0% / 0%);
-      --select-shadow-3: 0 0 0 2px hsl(var(--color-key-hsl) / 100%);
+      --select-shadow-border: inset 0 0 0 1px hsl(0 0% 0% / 100%);
+      --select-shadow-outline: 0 0 0 2px hsl(var(--color-key-hsl) / 100%);
     }
   }
 }

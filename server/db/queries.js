@@ -3,6 +3,23 @@ import { connect } from './connect.js';
 let conn;
 
 /**
+ * get count
+ * @param {object} op
+ * @return {Promise<number>}
+ */
+export async function getCount(op)
+{
+  if (!conn) conn = await connect();
+  const { q } = op;
+  let res, sql, tail;
+  tail = `where public=1`;
+  if (q) tail += ` and title like '%${q}%'`;
+  sql = `select count(*) total from slideshow ${tail}`;
+  res = await conn.query(sql);
+  return Number(res[0]?.total || 0);
+}
+
+/**
  * get slideshow items
  * @param {object} op
  * @return {Promise<object>}
@@ -10,18 +27,14 @@ let conn;
 export async function getItems(op)
 {
   if (!conn) conn = await connect();
-  const { page, size } = op;
-  let where = '';
-  let sql = `select COUNT(*) total from slideshow${where}`;
-  // let [ count ] = await conn.query(sqlCount);
-  // console.log(count);
-  // let sql = `select * from slideshow${where}`;
-  let res = await conn.query(sql);
-  // TODO: 여기부분부터 계속 진행하기.. (ㅠㅠ)
-  res.forEach(item => {
-    console.log(item)
-  })
-  return [];
+  const { page, size, field, q } = op;
+  let sql, tail;
+  tail = `where public=1 `;
+  if (q) tail += `and title like '%${q}%' `;
+  tail += `order by ${op.order || 'regdate'} ${op.sort || 'desc'} `;
+  tail += `limit ${(page-1) * size},${size} `;
+  sql = `select ${field || '*'} from slideshow ${tail}`;
+  return await conn.query(sql);
 }
 
 /**

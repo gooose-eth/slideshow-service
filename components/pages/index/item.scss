@@ -21,8 +21,6 @@
     --item-shadow-blur: 0 8px 32px hsl(0 0% 0% / 24%);
   }
   &__image {
-    display: grid;
-    place-content: center;
     margin: 0;
     background: var(--item-image-background, hsl(0 0% 80%));
     aspect-ratio: 28 / 16;
@@ -32,6 +30,10 @@
     --icon-size: 36px;
     --icon-stroke: 1;
     --icon-color: hsl(0 0% 100% / 100%);
+    &.no-img {
+      display: grid;
+      place-content: center;
+    }
     img {
       display: block;
       width: 100%;
@@ -82,10 +84,13 @@
     --item-background: hsl(0 0% 5%);
     --item-image-background: hsl(0 0% 20%);
     --item-shadow-blur: 0 8px 32px hsl(0 0% 0% / 24%);
+    --item-shadow-line: 0 0 0 1px hsl(0 0% 100% / 3%);
     @include mixin.mouse-event(hover) {
+      --item-shadow-line: 0 0 0 3px hsl(var(--color-key-hsl) / 100%);
       --item-shadow-blur: 0 8px 32px hsl(0 0% 0% / 50%);
     }
     @include mixin.mouse-event(active) {
+      --item-shadow-line: 0 0 0 3px hsl(var(--color-key-hsl) / 100%);
       --item-shadow-blur: 0 8px 32px hsl(0 0% 0% / 50%);
     }
     &__image {

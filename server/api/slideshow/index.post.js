@@ -2,28 +2,29 @@
  * slideshow / index
  */
 
-import { getItems } from '../../db/queries.js';
+import { getItems, getCount } from '../../db/queries.js';
 
 export default async e => {
   try
   {
-    const body = await useBody(e);
-    const res = await getItems({
-      page: body.page,
-      size: body.size,
-    });
-    // TODO: 디비에서 데이터 가져오기 작업
+    const { page, size, field, q } = await useBody(e);
+    const op = {
+      page,
+      size,
+      field,
+      q,
+    };
+    const total = await getCount(op);
+    const items = await getItems(op);
     return {
       success: true,
-      total: 100,
-      items: [1,2,3,4,5],
+      total,
+      items,
     };
   }
   catch (e)
   {
-    console.group('ERROR');
-    console.error(e);
-    console.groupEnd();
+    console.log(e.message)
     return {
       success: false,
       message: e.message,

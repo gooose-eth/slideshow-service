@@ -1,9 +1,9 @@
 @use '../../assets/scss/mixin';
 
 .form-text {
-  --input-text-shadow-1: inset 0 2px 8px 0 hsl(0 0% 0% / 15%);
-  --input-text-shadow-2: inset 0 0 0 1px hsl(0 0% 0% / 20%);
-  --input-text-shadow-3: 0 0 0 2px hsl(0 0% 0% / 0%);
+  --input-text-shadow-glow: inset 0 2px 8px 0 hsl(0 0% 0% / 15%);
+  --input-text-shadow-border: inset 0 0 0 1px hsl(0 0% 0% / 20%);
+  --input-text-shadow-outline: 0 0 0 2px hsl(0 0% 0% / 0%);
   display: block;
   width: 100%;
   height: 40px;
@@ -19,10 +19,10 @@
   letter-spacing: -.25px;
   color: var(--color-base);
   font-weight: 500;
-  box-shadow: var(--input-text-shadow-1), var(--input-text-shadow-2), var(--input-text-shadow-3);
+  box-shadow: var(--input-text-shadow-glow), var(--input-text-shadow-border), var(--input-text-shadow-outline);
   &:focus {
-    --input-text-shadow-2: inset 0 0 0 1px hsl(0 0% 100% / 100%);
-    --input-text-shadow-3: 0 0 0 2px hsl(var(--color-key-hsl) / 100%);
+    --input-text-shadow-border: inset 0 0 0 1px hsl(0 0% 100% / 100%);
+    --input-text-shadow-outline: 0 0 0 2px hsl(var(--color-key-hsl) / 100%);
   }
   &:disabled {
     opacity: .5;
@@ -39,18 +39,19 @@
   }
   &--color {
     &-error {
-      --input-text-shadow-2: inset 0 0 0 1px hsl(var(--color-danger-hsl) / 100%);
-      --input-text-shadow-3: 0 0 0 2px hsl(0 0% 0% / 0%);
+      --input-text-shadow-border: inset 0 0 0 1px hsl(var(--color-danger-hsl) / 100%);
+      --input-text-shadow-outline: 0 0 0 2px hsl(0 0% 0% / 0%);
       &:focus {
-        --input-text-shadow-2: inset 0 0 0 1px hsl(0 0% 0% / 0%);
-        --input-text-shadow-3: 0 0 0 2px hsl(var(--color-danger-hsl) / 100%);
+        --input-text-shadow-border: inset 0 0 0 1px hsl(0 0% 0% / 0%);
+        --input-text-shadow-outline: 0 0 0 2px hsl(var(--color-danger-hsl) / 100%);
       }
     }
   }
   @include mixin.dark-mode() {
     --input-text-bg: hsl(0 0% 7%);
+    --input-text-shadow-border: inset 0 0 0 1px hsl(0 0% 100% / 12%);
     &:focus {
-      --input-text-shadow-2: inset 0 0 0 1px hsl(0 0% 0% / 100%);
+      --input-text-shadow-border: inset 0 0 0 1px hsl(0 0% 0% / 100%);
     }
   }
 }

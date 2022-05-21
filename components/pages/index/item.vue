@@ -1,8 +1,8 @@
 <template>
 <nuxt-link :to="`/watch/${props.address}/`" class="item">
-  <figure class="item__image">
+  <figure :class="[ 'item__image', !props.img && 'no-img' ]">
     <img
-      v-if="!props.img"
+      v-if="!!props.img"
       :src="props.img"
       :width="280"
       :height="180"

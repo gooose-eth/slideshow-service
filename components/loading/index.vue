@@ -32,7 +32,7 @@ onUnmounted((): void => {
 .loading {
   display: grid;
   place-content: center;
-  height: 50vh;
+  height: 45vh;
   user-select: none;
   --loading-size: 50px;
   --loading-speed: 600ms;

@@ -26,7 +26,7 @@
   @include mixin.responsive(tablet) {
     --index-items-column: 3;
     --index-items-gap: 30px;
-    margin: 40px 0 82px;
+    margin: 42px 0 82px;
   }
   @include mixin.responsive(desktop) {
     --index-items-column: 4;

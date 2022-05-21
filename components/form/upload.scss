@@ -2,9 +2,9 @@
 
 .form-upload {
   --upload-bg: hsl(0 0% 92%);
-  --upload-shadow-1: inset 0 2px 8px 0 hsl(0 0% 0% / 15%);
-  --upload-shadow-2: inset 0 0 0 1px hsl(0 0% 0% / 20%);
-  --upload-shadow-3: 0 0 0 2px hsl(0 0% 0% / 0%);
+  --upload-shadow-glow: inset 0 2px 8px 0 hsl(0 0% 0% / 15%);
+  --upload-shadow-border: inset 0 0 0 1px hsl(0 0% 0% / 20%);
+  --upload-shadow-outline: 0 0 0 2px hsl(0 0% 0% / 0%);
   --upload-radius: 2px;
   position: relative;
   display: block;
@@ -23,14 +23,14 @@
     right: 0;
     top: 0;
     bottom: 0;
-    box-shadow: var(--upload-shadow-1), var(--upload-shadow-2), var(--upload-shadow-3);
+    box-shadow: var(--upload-shadow-border), var(--upload-shadow-outline), var(--upload-shadow-glow);
     pointer-events: none;
     border-radius: var(--upload-radius);
     transition: box-shadow 120ms ease-out;
   }
   &:focus-within {
-    --upload-shadow-2: inset 0 0 0 1px hsl(0 0% 100% / 50%);
-    --upload-shadow-3: 0 0 0 2px hsl(var(--color-key-hsl) / 100%);
+    --upload-shadow-border: inset 0 0 0 1px hsl(0 0% 100% / 50%);
+    --upload-shadow-outline: 0 0 0 2px hsl(var(--color-key-hsl) / 100%);
   }
   &__input {
     display: block;
@@ -93,8 +93,9 @@
 
   @include mixin.dark-mode() {
     --upload-bg: hsl(0 0% 7%);
+    --upload-shadow-border: inset 0 0 0 1px hsl(0 0% 100% / 12%);
     &:focus-within {
-      --upload-shadow-2: inset 0 0 0 1px hsl(0 0% 0% / 50%);
+      --upload-shadow-border: inset 0 0 0 1px hsl(0 0% 0% / 50%);
     }
   }
 }

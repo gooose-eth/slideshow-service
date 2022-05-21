@@ -1,9 +1,9 @@
 @use '../../assets/scss/mixin';
 
 .form-radio {
-  --radio-shadow-1: inset 0 2px 8px hsl(0 0% 0% / 10%);
-  --radio-shadow-2: inset 0 0 0 1px hsl(0 0% 0% / 15%);
-  --radio-shadow-3: 0 0 0 3px hsl(var(--color-key-hsl) / 0%);
+  --radio-shadow-glow: inset 0 2px 8px hsl(0 0% 0% / 10%);
+  --radio-shadow-border: inset 0 0 0 1px hsl(0 0% 0% / 15%);
+  --radio-shadow-outline: 0 0 0 3px hsl(var(--color-key-hsl) / 0%);
   --radio-radius: 4px;
   position: relative;
   user-select: none;
@@ -24,12 +24,12 @@
     bottom: 0;
     pointer-events: none;
     border-radius: var(--radio-radius);
-    box-shadow: var(--radio-shadow-1), var(--radio-shadow-2), var(--radio-shadow-3);
+    box-shadow: var(--radio-shadow-glow), var(--radio-shadow-border), var(--radio-shadow-outline);
     transition: box-shadow 100ms ease-out;
   }
   &:focus-within {
-    --radio-shadow-2: inset 0 0 0 1px hsl(0 0% 100% / 25%);
-    --radio-shadow-3: 0 0 0 3px hsl(var(--color-key-hsl) / 100%);
+    --radio-shadow-border: inset 0 0 0 1px hsl(0 0% 100% / 25%);
+    --radio-shadow-outline: 0 0 0 3px hsl(var(--color-key-hsl) / 100%);
   }
   &__button {
     flex: 1;
@@ -72,10 +72,6 @@
   }
   @include mixin.dark-mode() {
     --radio-color-bg: hsl(0 0% 7%);
-    //&__button {
-    //  &:disabled {
-    //    color: var(--color-base);
-    //  }
-    //}
+    --radio-shadow-border: inset 0 0 0 1px hsl(0 0% 100% / 12%);
   }
 }

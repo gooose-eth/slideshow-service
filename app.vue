@@ -15,21 +15,7 @@ const nuxtApp = useNuxtApp();
 const route = useRoute();
 const service = serviceStore();
 
-if (process.client)
-{
-  // initial custom event
-  initCustomEvent();
-}
-
-// setup
-if (process.server) service.setup();
-const { data } = await useAsyncData('setup', () => $fetch('/api/setup', {
-  method: 'post',
-  body: {
-    mode: getRouteMode(), // default,watch,admin
-  },
-}));
-const { success } = data.value;
+if (process.client) initCustomEvent();
 
 function getRouteMode(): string
 {
@@ -42,7 +28,18 @@ function getRouteMode(): string
   }
 }
 
-// nuxtApp.hook('page:finish', (): void => {
-//   window.scrollTo(0, 0); // TODO: 상단으로 올리기
-// });
+nuxtApp.hook('page:finish', (): void => {
+  window.scrollTo(0, 0);
+});
+
+// setup
+if (process.server) service.setup();
+const { data } = await useAsyncData('setup', () => $fetch('/api/setup', {
+  method: 'post',
+  body: {
+    mode: getRouteMode(), // default,watch,admin
+  },
+}));
+const { success } = data.value;
+if (!success) throw new Error('Error setup');
 </script>

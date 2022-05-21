@@ -1,9 +1,9 @@
 @use '../../assets/scss/mixin';
 
 .checkbox {
-  --checkbox-shadow-1: inset 0 0 8px 0 hsl(0 0% 0% / 20%);
-  --checkbox-shadow-2: inset 0 0 0 1px hsl(0 0% 0% / 10%);
-  --checkbox-shadow-3: 0 0 0 2px hsl(0 0% 0% / 0%);
+  --checkbox-shadow-glow: inset 0 0 8px 0 hsl(0 0% 0% / 20%);
+  --checkbox-shadow-border: inset 0 0 0 1px hsl(0 0% 0% / 10%);
+  --checkbox-shadow-outline: 0 0 0 2px hsl(0 0% 0% / 0%);
   display: grid;
   grid-template-columns: auto 1fr;
   gap: 8px;
@@ -33,7 +33,7 @@
       box-sizing: border-box;
       border-radius: 8px;
       background-color: var(--checkbox-bg, hsl(0 0% 92%));
-      box-shadow: var(--checkbox-shadow-1), var(--checkbox-shadow-2), var(--checkbox-shadow-3);
+      box-shadow: var(--checkbox-shadow-border), var(--checkbox-shadow-outline), var(--checkbox-shadow-glow);
       overflow: hidden;
       transition: background-color 120ms ease-out, box-shadow 120ms ease-out;
       pointer-events: none;
@@ -49,15 +49,15 @@
     }
     input:checked + i {
       --checkbox-bg: var(--color-key);
-      --checkbox-shadow-2: inset 0 0 0 2px hsl(0 0% 0% / 0%);
-      --checkbox-shadow-3: 0 0 0 0 hsl(0 0% 0% / 0%);
+      --checkbox-shadow-border: inset 0 0 0 2px hsl(0 0% 0% / 0%);
+      --checkbox-shadow-outline: 0 0 0 0 hsl(0 0% 0% / 0%);
       svg {
         transform: scale(1);
       }
     }
     input:focus-visible + i {
-      --checkbox-shadow-2: inset 0 0 0 1px hsl(0 0% 100% / 40%);
-      --checkbox-shadow-3: 0 0 0 2px hsl(var(--color-key-hsl) / 100%);
+      --checkbox-shadow-border: inset 0 0 0 1px hsl(0 0% 100% / 40%);
+      --checkbox-shadow-outline: 0 0 0 2px hsl(var(--color-key-hsl) / 100%);
     }
   }
   &__label {
@@ -73,5 +73,6 @@
   }
   @include mixin.dark-mode() {
     --checkbox-bg: hsl(0 0% 7%);
+    --checkbox-shadow-border: inset 0 0 0 1px hsl(0 0% 100% / 12%);
   }
 }
