@@ -5,6 +5,7 @@ export const CODE = {
   'NOT-MATCH-PASSWORD': 'NOT-MATCH-PASSWORD',
   'NO-TOKEN': 'NO-TOKEN',
   'INVALID-TOKEN': 'INVALID-TOKEN',
+  'ERROR-PARAMS': 'ERROR-PARAMS',
 };
 
 export const labels = {

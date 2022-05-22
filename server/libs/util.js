@@ -45,3 +45,13 @@ export async function checkImage(path)
   let res = await $fetch(path);
   if (!/^image/.test(res.type)) throw new Error('no image file');
 }
+
+/**
+ * replace quot
+ * @param {string} str
+ * @return {string}
+ */
+export function replaceQuot(str)
+{
+  return str;
+}

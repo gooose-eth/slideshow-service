@@ -10,7 +10,7 @@ let evt, body;
 
 async function submitCreate()
 {
-  await checkParams();
+  checkParams();
   // check thumbnail image
   if (body.thumbnail) await checkImage(body.thumbnail);
   const { password, salt } = await createPassword(body.password);
@@ -36,15 +36,22 @@ async function submitCreate()
  * check params
  * @throws {Error}
  */
-async function checkParams()
+function checkParams()
 {
-  const { title, description, password, thumbnail, slideshow } = body;
-  if (!title) throw new Error('no title');
-  if (!description) throw new Error('no description');
-  if (!password) throw new Error('no password');
-  if (thumbnail) testUrl(thumbnail);
-  if (!slideshow) throw new Error('no slideshow data');
-  if (!(slideshow.tree && slideshow.preference && slideshow.group)) throw new Error('invalid slideshow');
+  try
+  {
+    const { title, description, password, thumbnail, slideshow } = body;
+    if (!title) throw new Error('no title');
+    if (!description) throw new Error('no description');
+    if (!password) throw new Error('no password');
+    if (thumbnail) testUrl(thumbnail);
+    if (!slideshow) throw new Error('no slideshow data');
+    if (!(slideshow.tree && slideshow.preference && slideshow.group)) throw new Error('invalid slideshow');
+  }
+  catch (_)
+  {
+    throw new Error('ERROR-PARAMS');
+  }
 }
 
 export default async e => {

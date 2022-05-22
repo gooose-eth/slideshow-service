@@ -4,10 +4,14 @@
 
 import { getItems, getCount } from '../../db/queries.js';
 
+let evt, body;
+
 export default async e => {
+  evt = e;
+  body = await useBody(evt);
   try
   {
-    const { page, size, field, q, publicFilter } = await useBody(e);
+    const { page, size, field, q, publicFilter } = body;
     const op = {
       page,
       size,

@@ -133,7 +133,7 @@ function onKeyup(e: KeyboardEvent): void
         switch (current.mode)
         {
           case 'create':
-          case 'manage':
+          case 'edit':
             windows.save = true;
             break;
         }

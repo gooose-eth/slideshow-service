@@ -3,16 +3,18 @@
  */
 
 import { getItem } from '../../db/queries.js';
-import { checkPassword } from '../../libs/password.js';
+import { checkPassword, createPassword } from '../../libs/password.js';
 import { makeToken, updateToken, checkToken, getCookie } from '../../libs/token.js';
+import { checkImage, testUrl, replaceQuot } from '../../libs/util.js';
+import { edit } from '../../db/queries.js';
+
+let evt, body;
 
 /**
  * authorization
- * @param {any} evt
- * @param {any} body
  * @return {Promise<object>}
  */
-async function authorization(evt, body)
+async function authorization()
 {
   let item, check, token;
   if (!body.address) throw new Error('NO-ADDRESS');
@@ -47,11 +49,9 @@ async function authorization(evt, body)
 
 /**
  * submit authorization
- * @param {any} evt
- * @param {any} body
  * @return {Promise<object>}
  */
-async function submitAuthorization(evt, body)
+async function submitAuthorization()
 {
   let item, check;
   if (!body.address) throw new Error('NO-ADDRESS');
@@ -83,40 +83,92 @@ async function submitAuthorization(evt, body)
 
 /**
  * submit edit
- * @param {any} evt
- * @param {any} body
  * @return {Promise<object>}
  */
-async function submitEdit(evt, body)
+async function submitEdit()
 {
-  console.log('TODO: 여기서부터 작업하기');
+  checkParams();
+  // get cookie
+  const cookie = getCookie(evt, body.address);
+  let token = cookie?.token;
+  if (!token) throw new Error('NO-TOKEN');
+  // get item
+  let item = await getItem({
+    address: body.address,
+    field: 'salt',
+  });
+  // check token
+  if (!checkToken(token, item.salt)) throw new Error('INVALID-TOKEN');
+  // update item
+  // TODO: 제목과 설명항목에서 큰따옴표와 작은 따옴표 변환처리를 하는것부터 시작해야겠다.
+  console.log(replaceQuot(body.title))
+  let data = {
+    title: replaceQuot(body.title),
+    description: body.description,
+    public: body.public,
+    slideshow: encodeURIComponent(JSON.stringify(body.slideshow)),
+  }
+  if (body.password)
+  {
+    const { password, salt } = await createPassword(body.password);
+    data.password = password;
+    data.salt = salt;
+  }
+  if (body.thumbnail)
+  {
+    await checkImage(body.thumbnail);
+    data.thumbnail = body.thumbnail;
+  }
+  await edit(body.address, data);
+  console.log('COMPLETE EDIT DATA')
   return {
     success: true,
-    message: 'slideshow / edit',
   };
 }
 
-export default async evt => {
+/**
+ * check params
+ * @throws {Error}
+ */
+function checkParams()
+{
   try
   {
-    const body = await useBody(evt);
+    const { title, description, password, thumbnail, slideshow } = body;
+    if (!title) throw new Error('ERROR-PARAM');
+    if (!description) throw new Error('no description');
+    if (thumbnail) testUrl(thumbnail);
+    if (!slideshow) throw new Error('no slideshow data');
+    if (!(slideshow.tree && slideshow.preference && slideshow.group)) throw new Error('invalid slideshow');
+  }
+  catch(_)
+  {
+    throw new Error('ERROR-PARAMS');
+  }
+}
+
+export default async e => {
+  try
+  {
+    evt = e;
+    body = await useBody(evt);
     switch (body.mode)
     {
       case 'authorization':
-        return await authorization(evt, body);
+        return await authorization();
       case 'submit-authorization':
-        return await submitAuthorization(evt, body);
+        return await submitAuthorization();
       case 'submit':
-        return await submitEdit(evt, body);
+        return await submitEdit();
       default:
         throw new Error('NO-MODE');
     }
   }
-  catch(e)
+  catch(err)
   {
     return {
       success: false,
-      message: e.message,
+      message: err.message,
     };
   }
 };

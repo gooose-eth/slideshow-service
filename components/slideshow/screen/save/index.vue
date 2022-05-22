@@ -75,6 +75,28 @@
           서비스 목록에서 사용하는 이미지 URL 주소를 입력합니다.
         </p>
       </div>
+      <div class="field">
+        <p class="label field__label">
+          <label for="password" :class="[ current.createMode ? 'required' : '' ]">
+            비밀번호
+          </label>
+        </p>
+        <div class="field__body">
+          <FormText
+            ref="$password"
+            v-model="fields.password"
+            type="password"
+            name="password"
+            id="password"
+            :minlength="4"
+            :maxlength="30"
+            placeholder="비밀번호를 입력하세요."
+            :required="current.createMode"/>
+        </div>
+        <p v-if="current.editMode" class="help field__help">
+          새로운 비밀번호로 변경하려면 입력하세요.
+        </p>
+      </div>
       <div class="field-switch">
         <div class="field-switch__body">
           <p class="label field__label">
@@ -140,12 +162,12 @@ async function onSubmit(_evt): Promise<void>
   try
   {
     processing.value = true;
-    let params = {
+    let params: any = {
       mode: 'submit',
       title: fields.title,
       description: fields.description,
-      password: fields.password,
       thumbnail: fields.thumbnail,
+      password: fields.password,
       public: fields.public ? 1 : 0,
       slideshow: {
         group: current.tree,
@@ -153,6 +175,7 @@ async function onSubmit(_evt): Promise<void>
         tree: data.pureGroups,
       },
     };
+    if (current.editMode) params.address = data.field.address;
     let { success, message, address } = await $fetch(`/api/slideshow/${current.mode}`, {
       method: 'post',
       responseType: 'json',
@@ -167,10 +190,10 @@ async function onSubmit(_evt): Promise<void>
         location.href = `/watch/${address}`;
         break;
       case 'edit':
-        alert('슬라이드쇼를 수정했습니다.');
+        // alert('슬라이드쇼를 수정했습니다.');
         break;
     }
-    emits('close');
+    // emits('close');
   }
   catch(e)
   {

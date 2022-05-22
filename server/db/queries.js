@@ -75,12 +75,25 @@ export async function create(src)
 /**
  * edit slideshow
  * @param {string} address
- * @param {any} src
+ * @param {any} body
  * @return {Promise<void>}
  */
-export async function edit(address, src)
+export async function edit(address, body)
 {
-  //
+  try
+  {
+    if (!conn) conn = await connect();
+    let fields = Object.keys(body).map(key => {
+      if (!key) return false;
+      return `${key}="${body[key]}"`;
+    }).filter(Boolean).join(',');
+    let sql = `update ${tableName} set ${fields} where address="${address}"`;
+    await conn.query(sql);
+  }
+  catch(e)
+  {
+    throw new Error('Failed edit data.');
+  }
 }
 
 /**
