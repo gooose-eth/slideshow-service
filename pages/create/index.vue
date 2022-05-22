@@ -9,7 +9,7 @@
     </Head>
   </Html>
   <client-only>
-    <Slideshow ref="$slideshow" mode="create"/>
+    <Slideshow ref="$slideshow"/>
   </client-only>
 </article>
 </template>

@@ -1,10 +1,17 @@
 <template>
-<div :class="[ !isAuth && 'authorization-wrap' ]">
-  <client-only v-if="isAuth">
-    <Slideshow ref="$slideshow" mode="watch"/>
+<div v-if="isAuth">
+  <Html>
+    <Head>
+      <Title>슬라이드쇼 수정하기</Title>
+    </Head>
+  </Html>
+  <client-only>
+    <Slideshow ref="$slideshow"/>
   </client-only>
+</div>
+<div v-else class="authorization-wrap">
   <Authorization
-    v-else
+    ref="$authorization"
     mode="edit"
     :address="route.params.address"
     :show-close-button="false"
@@ -16,34 +23,52 @@
 <script lang="ts" setup>
 import { serviceStore } from '~/store/service';
 import { currentStore, dataStore, preferenceStore, usePreferenceStore } from '~/store/slideshow';
+import { captureError, CODE } from '~/libs/error';
 import Slideshow from '~/components/slideshow/index.vue';
 import Authorization from '~/components/authorization/index.vue';
 
 const $slideshow = ref();
+const $authorization = ref();
+const config = useRuntimeConfig();
 const route = useRoute();
 const service = serviceStore();
 const current = currentStore();
 const data = dataStore();
 const preference = preferenceStore();
-const isAuth = ref(false);
-const processingAuth = ref(false);
+const usePreference = usePreferenceStore();
+const isAuth: any = ref(false);
+const processingAuth: any = ref(false);
 
-// TODO: 쿠키값 아이디어
-// TODO: 인증에 필요한 토큰값을 만들지 못했기 때문에 패스워드를 활용해도 좋아보인다.
-// TODO: 쿠키값의 형태는 key: `slideshow-{address}`, value: `{salt 앞에서 24자리}`
-// TODO: salt 값을 이용하면 토큰이 진짜인지 진위여부를 알 수 있을것이다.
-
-async function fetch(): Promise<any>
+async function authorization(): Promise<any>
 {
+  let token: string;
   const { address } = route.params;
-  // TODO: 클라이언트 - 쿠키값 가져오기
-  // TODO: 클라이언트 - 쿠키값이 없으면 인증 화면이 나오도록..
-  // TODO: 클라이언트 - 쿠키값이 있으면 노드 영역으로 주소와 토큰값을 보내기
-  // TODO: 노드 - 주소값으로 데이터 가져오기
-  // TODO: 노드 - 데이터로 토큰값 진짜인지 검증하기 (쿠키값 아이디어 참고)
-  // TODO: 노드 - 데이터 리턴하기
-  // TODO: 클라이언트 - 받은 데이터로 스토어에 데이터 담기
-  // TODO: 클라이언트 - isAuth 값 변경해서 슬라이드쇼가 나오도록 하기
+  if (process.server)
+  {
+    const cookie: any = useCookie(`${config.COOKIE_PREFIX}${address}`, {
+      path: '/',
+      httpOnly: true,
+      secure: true,
+      maxAge: 60 * 60 * 24 * config.COOKIE_AGE_DAY,
+    });
+    token = cookie.value?.token;
+  }
+  let { success, message, data } = await $fetch('/api/slideshow/edit', {
+    method: 'post',
+    body: {
+      mode: 'authorization',
+      address,
+      token,
+    },
+  });
+  if (!success)
+  {
+    if (message === CODE['NO-TOKEN']) return;
+    captureError(['/pages/edit/:address.vue', 'authorization()'], 'error', message);
+    return;
+  }
+  await updateStore(data);
+  isAuth.value = true;
 }
 
 async function onSubmitAuthorization(fields: { address: string, password: string }): Promise<void>
@@ -51,31 +76,70 @@ async function onSubmitAuthorization(fields: { address: string, password: string
   try
   {
     processingAuth.value = true;
-    console.log('onSubmitAuthorization()', fields);
-    // TODO: 클라이언트 - 주소와 비밀번호를 노드 영역으로 보내기
-    // TODO: 노드 - 주소로 db 데이터 가져와서 비밀번호 검사하기
-    // TODO: 노드 - 비밀번호 검사 통과되었으면 쿠키등록
-    // TODO: 노드 - 데이터 리턴하기
-    // TODO: 클라이언트 - 받은 데이터로 스토어에 데이터 담기
-    // TODO: 클라이언트 - isAuth 값 변경해서 슬라이드쇼가 나오도록 하기
+    const { address, password } = fields;
+    let { success, message, data } = await $fetch('/api/slideshow/edit', {
+      method: 'post',
+      body: {
+        mode: 'submit-authorization',
+        address,
+        password,
+      },
+    });
+    if (!success) throw new Error(message);
     processingAuth.value = false;
+    await updateStore(data);
+    isAuth.value = true;
+    await nextTick();
+    current.loading = false;
   }
   catch (e)
   {
-    //
+    if (CODE['NOT-MATCH-PASSWORD'] !== e.message)
+    {
+      captureError(['/pages/edit/:address.vue', 'onSubmitAuthorization()'], 'error', e.message);
+    }
+    alert('인증 실패했습니다.');
     processingAuth.value = false;
+    $authorization.value.focusPassword();
   }
 }
 
+async function updateStore(item: any): Promise<void>
+{
+  // preference
+  preference.general = item.slideshow.preference.general;
+  preference.slides = item.slideshow.preference.slides;
+  preference.style = item.slideshow.preference.style;
+  preference.keyboard = item.slideshow.preference.keyboard;
+  // use preference
+  usePreference.setup('edit');
+  // data
+  data.groups = item.slideshow.tree;
+  // fields
+  data.field.address = item.address;
+  data.field.title = item.title;
+  data.field.description = item.description;
+  data.field.regdate = item.regdate;
+  data.field.thumbnail = item.thumbnail;
+  data.field.public = item.public === 1;
+  // current
+  current.mode = 'edit';
+  current.tree = item.slideshow.group;
+  current.activeSlide = preference.slides.initialNumber;
+  current.keyboardEvent = preference.keyboard.enabled;
+  current.autoplay = preference.slides.autoplay;
+}
+
 onMounted(async () => {
-  //
+  await nextTick();
+  current.loading = false;
 });
 
 // actions
 definePageMeta({
   layout: 'slideshow',
 });
-await fetch();
+await authorization();
 </script>
 
 <style src="./:address.scss" lang="scss" scoped/>

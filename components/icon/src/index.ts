@@ -42,3 +42,4 @@ export { default as chevronLeft } from './icon-chevron-left.vue';
 export { default as chevronRight } from './icon-chevron-right.vue';
 export { default as chevronsLeft } from './icon-chevrons-left.vue';
 export { default as chevronsRight } from './icon-chevrons-right.vue';
+export { default as lock } from './icon-lock.vue';

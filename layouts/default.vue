@@ -13,17 +13,12 @@
     <nav class="header__nav">
       <ul>
         <li>
-          <nuxt-link to="/create/" title="만들기">
+          <nuxt-link to="/create" title="만들기">
             만들기
           </nuxt-link>
         </li>
         <li>
-          <button type="button" title="관리하기" @click="onClickManage">
-            관리하기
-          </button>
-        </li>
-        <li>
-          <nuxt-link to="/about/" title="슬라이드쇼">
+          <nuxt-link to="/about" title="슬라이드쇼">
             슬라이드쇼
           </nuxt-link>
         </li>
@@ -36,53 +31,13 @@
   <footer class="footer">
     <p class="footer__copyright">Copyright {{year}} redgoose. All right reserved.</p>
   </footer>
-  <client-only>
-    <teleport to="body">
-      <transition name="modal-fade">
-        <ModalWrap v-if="manageWindow" @close="manageWindow = false">
-          <ModalBody>
-            <Authorization
-              mode="edit"
-              :processing="processingAuthorization"
-              @submit="onSubmitEdit"
-              @close="manageWindow = false"/>
-          </ModalBody>
-        </ModalWrap>
-      </transition>
-    </teleport>
-  </client-only>
 </main>
 </template>
 
 <script lang="ts" setup>
 import { ref } from 'vue';
-import { ModalWrap } from '~/components/modal';
-import Authorization from '~/components/authorization/index.vue';
 
-const manageWindow = ref(false);
-const processingAuthorization = ref(false);
 const year = ref((new Date()).getFullYear());
-
-function onClickManage(): void
-{
-  manageWindow.value = true;
-}
-
-async function onSubmitEdit(): Promise<void>
-{
-  try
-  {
-    processingAuthorization.value = true;
-    // TODO
-    processingAuthorization.value = false;
-    manageWindow.value = false
-  }
-  catch (e)
-  {
-    processingAuthorization.value = false;
-  }
-  console.log('onSubmitEdit()')
-}
 </script>
 
 <style src="./default.scss" lang="scss" scoped></style>

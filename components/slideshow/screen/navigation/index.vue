@@ -25,14 +25,6 @@
       <Icon icon-name="grid"/>
     </button>
   </div>
-  <div v-if="current.editMode" class="navigation__item">
-    <button
-      type="button"
-      title="미리보기"
-      @click="route('preview')">
-      <Icon icon-name="cast"/>
-    </button>
-  </div>
   <div v-if="preference.general.visibleHudContents.menu" class="navigation__item">
     <button
       type="button"
@@ -60,20 +52,12 @@
           <button
             type="button"
             @click="onClickContextItem('share')">
-            공유하기
+            주소 복사하기
           </button>
         </li>
         <li v-if="current.watchMode">
           <button type="button" @click="onClickContextItem('edit')">
             수정하기
-          </button>
-        </li>
-        <li v-if="current.editMode">
-          <button
-            type="button"
-            class="danger"
-            @click="onClickContextItem('delete')">
-            삭제하기
           </button>
         </li>
         <li v-if="current.editMode">
@@ -95,12 +79,12 @@
       </ul>
     </div>
   </div>
-  <div v-if="!current.watchMode" class="navigation__item">
+  <div v-if="current.editMode" class="navigation__item">
     <button
       type="button"
-      title="슬라이드쇼로 바로가기"
-      @click="route('service')">
-      <Icon icon-name="home"/>
+      title="미리보기"
+      @click="route('preview')">
+      <Icon icon-name="cast"/>
     </button>
   </div>
   <div v-if="!current.watchMode" class="navigation__item">
@@ -110,6 +94,14 @@
       class="active"
       @click="route('open-save')">
       <Icon icon-name="save"/>
+    </button>
+  </div>
+  <div v-if="!current.watchMode" class="navigation__item">
+    <button
+      type="button"
+      title="슬라이드쇼로 바로가기"
+      @click="route('service')">
+      <Icon icon-name="home"/>
     </button>
   </div>
 </nav>
@@ -184,16 +176,11 @@ function onClickContextItem(key: string): void
       let url = `${service.url.replace(/\/$/, '')}/watch/${data.field.address}`;
       copyToClipboard(url).then(() => alert('주소가 복사되었습니다.'));
       break;
-    case 'delete':
-      // TODO: 슬라이드쇼 데이터 삭제하기
-      console.log('delete slideshow');
-      // local.main.deleteSlideshow();
-      break;
     case 'logout':
       logout().then();
       break;
     case 'edit':
-      router.push(`/edit/${data.field.address}`);
+      location.href = `/edit/${data.field.address}`;
       break;
   }
 }

@@ -29,11 +29,12 @@ export async function getItems(op)
 {
   if (!conn) conn = await connect();
   const { page, size, field, q } = op;
-  let sql, tail;
-  tail = `where public=1 `;
-  if (q) tail += `and title like '%${q}%' `;
-  tail += `order by ${op.order || 'regdate'} ${op.sort || 'desc'} `;
-  tail += `limit ${(page-1) * size},${size} `;
+  let sql, tail = '';
+  tail += op.publicFilter ? ' public=1' : '';
+  if (q) tail += ` and title like '%${q}%'`;
+  if (tail) tail = `where${tail}`;
+  tail += ` order by ${op.order || 'regdate'} ${op.sort || 'desc'}`;
+  tail += ` limit ${(page-1) * size},${size}`;
   sql = `select ${field || '*'} from ${tableName} ${tail}`;
   return await conn.query(sql);
 }
@@ -62,7 +63,7 @@ export async function create(src)
   try
   {
     if (!conn) conn = await connect();
-    let sql = `insert into ${tableName}(\`key\`, address, title, description, slideshow, password, salt, thumbnail, \`public\`, hit, regdate, \`update\`) values (null, \"${src.address}\", \"${src.title}\", \"${src.description}\", \"${src.slideshow}\", '${src.password}', '${src.salt}', '${src.thumbnail}', '${src.public}', 0, now(), now())`;
+    let sql = `insert into ${tableName}(\`key\`, address, title, description, slideshow, password, salt, thumbnail, \`public\`, regdate, \`update\`) values (null, \"${src.address}\", \"${src.title}\", \"${src.description}\", \"${src.slideshow}\", '${src.password}', '${src.salt}', '${src.thumbnail}', '${src.public}', now(), now())`;
     await conn.query(sql);
   }
   catch(e)

@@ -4,6 +4,7 @@
   --item-radius: 4px;
   --item-shadow-line: 0 0 0 1px hsl(0 0% 0% / 5%);
   --item-shadow-blur: 0 0 24px 0 hsl(0 0% 0% / 15%);
+  position: relative;
   display: grid;
   grid-template-rows: auto auto;
   border-radius: var(--item-radius);
@@ -28,7 +29,7 @@
     border-top-left-radius: var(--item-radius);
     border-top-right-radius: var(--item-radius);
     --icon-size: 42px;
-    --icon-stroke: .5;
+    --icon-stroke: .75;
     --icon-color: hsl(0 0% 100% / 100%);
     &.no-img {
       display: grid;
@@ -75,6 +76,26 @@
       @include mixin.text-single-line();
     }
   }
+  &__lock {
+    display: grid;
+    place-content: center;
+    position: absolute;
+    z-index: 2;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    background: hsl(0 0% 50% / 50%);
+    pointer-events: none;
+    border-radius: var(--item-radius);
+    @include mixin.background-blur(12px);
+    --icon-size: 48px;
+    --icon-stroke: 1;
+    --icon-color: hsl(0 0% 100% / 100%);
+    .icon {
+      display: block;
+    }
+  }
   @include mixin.responsive(tablet) {
     &__body {
       padding: 16px;
@@ -95,6 +116,10 @@
     }
     &__image {
       --icon-color: hsl(0 0% 65% / 100%);
+    }
+    &__lock {
+      background: hsl(0 0% 5% / 75%);
+      --icon-color: hsl(0 0% 75% / 100%);
     }
   }
 }

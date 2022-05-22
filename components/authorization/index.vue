@@ -64,6 +64,7 @@
 import { ButtonBasic } from '~/components/button';
 import { FormText } from '~/components/form';
 
+const $password: any = ref();
 const props = defineProps<{
   mode: string // watch,edit,delete
   processing?: boolean
@@ -115,6 +116,16 @@ function onSubmit(): void
     password: fields.password,
   });
 }
+
+function focusPassword(): void
+{
+  if (!$password.value) return;
+  $password.value.focus();
+}
+
+defineExpose({
+  focusPassword,
+});
 </script>
 
 <style src="./index.scss" lang="scss" scoped></style>

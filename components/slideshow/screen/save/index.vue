@@ -6,6 +6,19 @@
   <form class="post__body" @submit.prevent="onSubmit">
     <fieldset>
       <legend>슬라이드쇼 정보 입력 폼</legend>
+      <div v-if="current.editMode" class="field">
+        <p class="label field__label">
+          <label for="address">주소</label>
+        </p>
+        <div class="field__body">
+          <FormText
+            v-model="fields.address"
+            type="text"
+            name="address"
+            id="address"
+            :disabled="true"/>
+        </div>
+      </div>
       <div class="field">
         <p class="label field__label">
           <label for="title" class="required">제목</label>
@@ -62,48 +75,13 @@
           서비스 목록에서 사용하는 이미지 URL 주소를 입력합니다.
         </p>
       </div>
-      <div class="field">
-        <p class="label field__label">
-          <label for="password" :class="[ current.createMode ? 'required' : '' ]">
-            비밀번호
-          </label>
-        </p>
-        <div class="field__body">
-          <FormText
-            ref="$password"
-            v-model="fields.password"
-            type="password"
-            name="password"
-            id="password"
-            :minlength="4"
-            :maxlength="30"
-            placeholder="비밀번호를 입력하세요."
-            :required="current.createMode"/>
-        </div>
-        <p v-if="current.editMode" class="help field__help">
-          새로운 비밀번호로 변경하려면 입력하세요.
-        </p>
-      </div>
-      <div v-if="current.editMode" class="field">
-        <p class="label field__label">
-          <label for="address">주소</label>
-        </p>
-        <div class="field__body">
-          <FormText
-            v-model="fields.address"
-            type="text"
-            name="address"
-            id="address"
-            :read-only="true"/>
-        </div>
-      </div>
       <div class="field-switch">
         <div class="field-switch__body">
           <p class="label field__label">
             <label for="public">슬라이드쇼 공개하기</label>
           </p>
           <p class="help field__help">
-            이 슬라이드를 외부에 공유합니다.
+            이 슬라이드를 공개합니다.
           </p>
         </div>
         <FormSwitch v-model="fields.public" name="public" id="public"/>
@@ -137,11 +115,11 @@ const data = dataStore();
 const windows = windowsStore();
 const emits = defineEmits([ 'close' ]);
 const fields = reactive({
-  title: '',
-  description: '',
+  title: data.field.title || '',
+  description: data.field.description || '',
   password: '',
-  thumbnail: '',
-  address: '',
+  thumbnail: data.field.thumbnail || '',
+  address: data.field.address || '',
   public: true,
 });
 const processing = ref(false);
@@ -150,19 +128,20 @@ const headerTitle = computed(() => {
   {
     case 'create':
       return '슬라이드쇼 만들기';
-    case 'manage':
+    case 'edit':
       return '슬라이드쇼 수정하기';
     default:
       return '슬라이드쇼';
   }
 });
 
-async function onSubmit(e: SubmitEvent): Promise<void>
+async function onSubmit(_evt): Promise<void>
 {
   try
   {
     processing.value = true;
     let params = {
+      mode: 'submit',
       title: fields.title,
       description: fields.description,
       password: fields.password,
@@ -174,15 +153,23 @@ async function onSubmit(e: SubmitEvent): Promise<void>
         tree: data.pureGroups,
       },
     };
-    let { success, message, address } = await $fetch('/api/slideshow/create', {
+    let { success, message, address } = await $fetch(`/api/slideshow/${current.mode}`, {
       method: 'post',
       responseType: 'json',
       body: params,
     });
     if (!success) throw new Error(message);
-    alert('슬라이드쇼를 만들었습니다.');
     processing.value = false;
-    await router.push(`/watch/${address}`);
+    switch (current.mode)
+    {
+      case 'create':
+        alert('슬라이드쇼를 만들었습니다.');
+        location.href = `/watch/${address}`;
+        break;
+      case 'edit':
+        alert('슬라이드쇼를 수정했습니다.');
+        break;
+    }
     emits('close');
   }
   catch(e)

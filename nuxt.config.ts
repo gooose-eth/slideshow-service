@@ -1,6 +1,6 @@
 import { defineNuxtConfig } from 'nuxt';
 
-// const { URL_BASE } = process.env;
+const { COOKIE_AGE_DAY, COOKIE_PREFIX, INDEX_SIZE } = process.env;
 
 // https://v3.nuxtjs.org/docs/directory-structure/nuxt.config
 export default defineNuxtConfig({
@@ -12,7 +12,12 @@ export default defineNuxtConfig({
     '@pinia/nuxt',
   ],
   publicRuntimeConfig: {
-    // URL_BASE,
+    index: {
+      size: Number(INDEX_SIZE),
+    },
   },
-  privateRuntimeConfig: {},
+  privateRuntimeConfig: {
+    COOKIE_AGE_DAY: Number(COOKIE_AGE_DAY || 7),
+    COOKIE_PREFIX,
+  },
 });

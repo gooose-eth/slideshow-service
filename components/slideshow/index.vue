@@ -61,10 +61,6 @@ import Loading from '~/components/loading/intro.vue';
 
 const $navigation = ref();
 const $slides = ref();
-const props = defineProps({
-  mode: String, // create,watch
-  error: Object,
-});
 const emits = defineEmits([ 'open-save' ]);
 const current = currentStore();
 const preference = preferenceStore();
@@ -77,6 +73,7 @@ const debug = computed(() => {
     mode: current.mode,
     address: data.field?.address,
     activeSlide: current.activeSlide,
+    keyboard: current.keyboardEvent,
   } : null;
 });
 
@@ -124,7 +121,7 @@ function onKeyup(e: KeyboardEvent): void
         windows.thumbnail = true;
         break;
       case 'KeyG': // g
-        if (Object.keys(data.groups)?.length > 1)
+        if (Object.keys(data.groups)?.length > 0)
         {
           windows.group = true;
         }

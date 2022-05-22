@@ -12,7 +12,8 @@
             :img="item.thumbnail"
             :title="item.title"
             :description="item.description"
-            :date="item.regdate.split(' ')[0]"/>
+            :date="item.regdate.split(' ')[0]"
+            :private="item.public === 0"/>
         </li>
       </ul>
       <ErrorItems v-else type="empty" message="슬라이드쇼가 없어요!"/>
@@ -21,7 +22,7 @@
       <Pagination
         :model-value="Number(route.query.page || 1)"
         :total="index.total"
-        :size="intro.size"
+        :size="config.index.size"
         :range="5"
         @update:modelValue="onChangePage"/>
     </nav>
@@ -31,7 +32,6 @@
 
 <script lang="ts" setup>
 import { serialize } from '~/libs/string';
-import { introStore } from '~/store/service';
 import ErrorItems from '~/components/error/items.vue';
 import Item from '~/components/pages/index/item.vue';
 import Pagination from '~/components/navigation/pagination.vue';
@@ -39,7 +39,7 @@ import Loading from '~/components/loading/index.vue';
 
 const route = useRoute();
 const router = useRouter();
-const intro = introStore();
+const config = useRuntimeConfig().public;
 const loading = ref(false);
 const index = reactive({
   total: 0,
@@ -57,9 +57,10 @@ async function fetch(): Promise<void>
       responseType: 'json',
       body: {
         page: Number(route.query.page || 1),
-        size: intro.size,
-        field: 'address,title,description,regdate,thumbnail',
+        size: config.index.size,
+        field: 'address,title,description,regdate,thumbnail,public',
         q: route.query.q || '',
+        publicFilter: false,
       },
     });
     if (!res.success) throw new Error('Failed get items.');

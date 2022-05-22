@@ -142,6 +142,19 @@
           슬라이드쇼 재설정
         </ButtonBasic>
       </div>
+      <div v-if="current.editMode" class="field-basic">
+        <header class="field-basic__header">
+          <h2 class="field-title">
+            <label>슬라이드쇼 삭제</label>
+          </h2>
+          <p class="field-description">
+            이 슬라이드쇼의 데이터를 전부 삭제합니다. 삭제하면 복구할 수 없습니다.
+          </p>
+        </header>
+        <ButtonBasic color="danger" @click="onClickDeleteSlideshow">
+          슬라이드쇼 삭제하기
+        </ButtonBasic>
+      </div>
     </template>
   </div>
 </fieldset>
@@ -214,6 +227,12 @@ function onClickReset(): void
 {
   if (!confirm('정말로 모든 설정과 슬라이드 데이터를 초기화 하겠습니까?')) return;
   readyPreference.reset();
+}
+
+async function onClickDeleteSlideshow(): Promise<void>
+{
+  if (!confirm('정말로 슬라이드쇼를 삭제할까요?')) return;
+  // TODO: 슬라이드쇼 삭제기능 작업하기
 }
 </script>
 

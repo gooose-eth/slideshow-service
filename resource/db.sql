@@ -11,7 +11,6 @@ create table `slideshow` (
   `salt` varchar(120) not null comment 'Salt for password',
   `thumbnail` varchar(100) default null comment 'Thumbnail image address',
   `public` tinyint(1) default 1 not null comment 'Is public item',
-  `hit` int(11) default 0 not null comment 'visit count',
   `regdate` datetime not null,
   `update` datetime not null
 ) engine=InnoDB default charset=utf8mb4;

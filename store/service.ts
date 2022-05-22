@@ -18,12 +18,3 @@ export const serviceStore = defineStore('service', {
     },
   },
 });
-
-export const introStore = defineStore('service-intro', {
-  state()
-  {
-    return {
-      size: 24,
-    };
-  }
-});

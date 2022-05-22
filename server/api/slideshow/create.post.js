@@ -6,12 +6,37 @@ import { testUrl, checkImage } from '../../libs/util.js';
 import { create } from '../../db/queries.js';
 import { createPassword, uniqueId } from '../../libs/password.js';
 
+let evt, body;
+
+async function submitCreate()
+{
+  await checkParams();
+  // check thumbnail image
+  if (body.thumbnail) await checkImage(body.thumbnail);
+  const { password, salt } = await createPassword(body.password);
+  const address = uniqueId();
+  // insert date
+  await create({
+    address,
+    title: body.title,
+    description: body.description,
+    password,
+    salt,
+    thumbnail: body.thumbnail,
+    public: body.public,
+    slideshow: encodeURIComponent(JSON.stringify(body.slideshow)),
+  });
+  return {
+    success: true,
+    address,
+  };
+}
+
 /**
  * check params
- * @params {object} body
  * @throws {Error}
  */
-async function checkParams(body)
+async function checkParams()
 {
   const { title, description, password, thumbnail, slideshow } = body;
   if (!title) throw new Error('no title');
@@ -25,33 +50,21 @@ async function checkParams(body)
 export default async e => {
   try
   {
-    const body = await useBody(e);
-    await checkParams(body);
-    // check thumbnail image
-    if (body.thumbnail) await checkImage(body.thumbnail);
-    const { password, salt } = await createPassword(body.password);
-    const address = uniqueId();
-    // insert date
-    await create({
-      address,
-      title: body.title,
-      description: body.description,
-      password,
-      salt,
-      thumbnail: body.thumbnail,
-      public: body.public,
-      slideshow: encodeURIComponent(JSON.stringify(body.slideshow)),
-    });
-    return {
-      success: true,
-      address,
-    };
+    evt = e;
+    body = await useBody(evt);
+    switch (body.mode)
+    {
+      case 'submit':
+        return await submitCreate();
+      default:
+        throw new Error('NO-MODE');
+    }
   }
-  catch (e)
+  catch (err)
   {
     return {
       success: false,
-      message: e.message,
+      message: err.message,
     };
   }
 };

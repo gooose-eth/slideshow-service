@@ -1,38 +1,22 @@
 /**
- * slideshow / edit
+ * slideshow / item
  */
 
 import { getItem } from '../../db/queries.js';
 import { checkPassword } from '../../libs/password.js';
-import { makeToken, updateToken, checkToken, getCookie } from '../../libs/token.js';
+import { getCookie, updateToken, makeToken, checkToken } from '../../libs/token.js';
+
+let evt, body
 
 /**
- * authorization
- * @param {any} evt
- * @param {any} body
+ * get fetch item
  * @return {Promise<object>}
  */
-async function authorization(evt, body)
+async function getFetchItem()
 {
-  let item, check, token;
-  if (!body.address) throw new Error('NO-ADDRESS');
-  if (body.token)
+  function makeResultData(item)
   {
-    token = body.token;
-  }
-  else
-  {
-    const cookie = getCookie(evt, body.address);
-    token = cookie?.token;
-  }
-  if (!token) throw new Error('NO-TOKEN');
-  item = await getItem({ address: body.address });
-  check = checkToken(token, item.salt);
-  if (!check) throw new Error('INVALID-TOKEN');
-  item.slideshow = JSON.parse(decodeURIComponent(item.slideshow));
-  return {
-    success: true,
-    data: {
+    return {
       address: item.address,
       title: item.title,
       description: item.description,
@@ -41,17 +25,61 @@ async function authorization(evt, body)
       public: item.public,
       regdate: item.regdate,
       update: item.update,
-    },
-  };
+    };
+  }
+
+  let item, token, check;
+  item = await getItem({
+    address: body.address,
+    field: '*',
+  });
+  if (!item) throw new Error('NO-SLIDESHOW');
+  item.slideshow = JSON.parse(decodeURIComponent(item.slideshow));
+  if (item.public === 0)
+  {
+    // 비공개 데이터일 경우..
+    if (body.token)
+    {
+      token = body.token;
+    }
+    else
+    {
+      const cookie = getCookie(evt, body.address);
+      token = cookie?.token;
+    }
+    if (token)
+    {
+      check = checkToken(token, item.salt);
+      if (check)
+      {
+        updateLog(evt, body);
+        return {
+          success: true,
+          data: makeResultData(item),
+        };
+      }
+    }
+    return {
+      success: true,
+      data: null,
+    };
+  }
+  else
+  {
+    // 공개용 데이터일 경우..
+    updateLog(evt, body);
+    return {
+      success: true,
+      data: makeResultData(item),
+    };
+  }
 }
 
 /**
  * submit authorization
- * @param {any} evt
- * @param {any} body
  * @return {Promise<object>}
  */
-async function submitAuthorization(evt, body)
+async function submitAuthorization()
 {
   let item, check;
   if (!body.address) throw new Error('NO-ADDRESS');
@@ -78,45 +106,34 @@ async function submitAuthorization(evt, body)
       regdate: item.regdate,
       update: item.update,
     },
-  }
-}
-
-/**
- * submit edit
- * @param {any} evt
- * @param {any} body
- * @return {Promise<object>}
- */
-async function submitEdit(evt, body)
-{
-  console.log('TODO: 여기서부터 작업하기');
-  return {
-    success: true,
-    message: 'slideshow / edit',
   };
 }
 
-export default async evt => {
+function updateLog(evt, body)
+{
+
+}
+
+export default async e => {
   try
   {
-    const body = await useBody(evt);
+    evt = e;
+    body = await useBody(evt);
     switch (body.mode)
     {
-      case 'authorization':
-        return await authorization(evt, body);
+      case 'fetch':
+        return await getFetchItem();
       case 'submit-authorization':
-        return await submitAuthorization(evt, body);
-      case 'submit':
-        return await submitEdit(evt, body);
+        return await submitAuthorization();
       default:
         throw new Error('NO-MODE');
     }
   }
-  catch(e)
+  catch (err)
   {
     return {
       success: false,
-      message: e.message,
+      message: err.message,
     };
   }
-};
+}
