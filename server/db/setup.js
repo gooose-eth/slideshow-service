@@ -1,5 +1,5 @@
 import fs from 'fs';
-import conn from './connect.js';
+import { connect } from './connect.js';
 
 const path = './resource/db.sql';
 
@@ -9,7 +9,7 @@ const path = './resource/db.sql';
  */
 export async function setup()
 {
-  const connect = await conn(true);
+  const conn = await connect(true);
   let sql = fs.readFileSync(path).toString()
     .split('\n')
     .map((line) => {
@@ -17,7 +17,7 @@ export async function setup()
       return line;
     })
     .join('');
-  await connect.query(sql);
+  await conn.query(sql);
 }
 
 /**
@@ -26,6 +26,6 @@ export async function setup()
  */
 export async function destroy()
 {
-  const connect = await conn();
-  await connect.query('drop table slideshow');
+  const conn = await connect();
+  await conn.query('drop table slideshow');
 }

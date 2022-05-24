@@ -127,6 +127,7 @@ async function updateStore(item: any): Promise<void>
   data.field.regdate = item.regdate;
   data.field.thumbnail = item.thumbnail;
   data.field.public = item.public === 1;
+  if (item.token) data.field.token = item.token;
   // current
   current.mode = 'watch';
   current.tree = item.slideshow.group;

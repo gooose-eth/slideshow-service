@@ -1,4 +1,7 @@
 import mariadb from 'mariadb';
+import { useResource } from '../init.js';
+
+let conn;
 
 /**
  * connect database
@@ -7,15 +10,19 @@ import mariadb from 'mariadb';
  */
 export async function connect(multiple = false)
 {
-  const { DB_HOST, DB_PORT, DB_DATABASE, DB_USERNAME, DB_PASSWORD, TIMEZONE_OFFSET } = process.env;
-  return await mariadb.createConnection({
-    host: DB_HOST,
-    port: DB_PORT,
-    user: DB_USERNAME,
-    password: DB_PASSWORD,
-    database: DB_DATABASE,
-    timezone: TIMEZONE_OFFSET,
+  if (conn) return conn;
+  const { env } = useResource();
+  if (!env) throw new Error('FAIL-CONNECT-DATABASE');
+  const { host, port, userName, password, database, timezone } = env.DB;
+  conn = await mariadb.createConnection({
+    host,
+    port,
+    user: userName,
+    password,
+    database,
+    timezone,
     multipleStatements: multiple,
     dateStrings: 'date',
   });
+  return conn;
 }

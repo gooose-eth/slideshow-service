@@ -2,16 +2,17 @@
  * slideshow / index
  */
 
+import { setupResource, useResource } from '../../init.js';
 import { getItems, getCount } from '../../db/queries.js';
 
-let evt, body;
+let res;
 
 export default async e => {
-  evt = e;
-  body = await useBody(evt);
+  await setupResource(e);
+  res = useResource();
   try
   {
-    const { page, size, field, q, publicFilter } = body;
+    const { page, size, field, q, publicFilter } = res.body;
     const op = {
       page,
       size,
@@ -37,6 +38,7 @@ export default async e => {
   }
   catch (e)
   {
+    console.error('ERROR', e.message);
     return {
       success: false,
       message: e.message,

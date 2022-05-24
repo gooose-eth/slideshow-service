@@ -2,13 +2,13 @@
  * slideshow / edit
  */
 
-import { getItem } from '../../db/queries.js';
+import { setupResource, useResource } from '../../init.js';
+import { getItem, edit } from '../../db/queries.js';
 import { checkPassword, createPassword } from '../../libs/password.js';
 import { makeToken, updateToken, checkToken, getCookie } from '../../libs/token.js';
 import { checkImage, testUrl, replaceQuot } from '../../libs/util.js';
-import { edit } from '../../db/queries.js';
 
-let evt, body;
+let res;
 
 /**
  * authorization
@@ -17,18 +17,18 @@ let evt, body;
 async function authorization()
 {
   let item, check, token;
-  if (!body.address) throw new Error('NO-ADDRESS');
-  if (body.token)
+  if (!res.body.address) throw new Error('NO-ADDRESS');
+  if (res.body.token)
   {
-    token = body.token;
+    token = res.body.token;
   }
   else
   {
-    const cookie = getCookie(evt, body.address);
+    const cookie = getCookie(res.evt, res.body.address);
     token = cookie?.token;
   }
   if (!token) throw new Error('NO-TOKEN');
-  item = await getItem({ address: body.address });
+  item = await getItem({ address: res.body.address });
   check = checkToken(token, item.salt);
   if (!check) throw new Error('INVALID-TOKEN');
   item.slideshow = JSON.parse(decodeURIComponent(item.slideshow));
@@ -43,6 +43,7 @@ async function authorization()
       public: item.public,
       regdate: item.regdate,
       update: item.update,
+      token,
     },
   };
 }
@@ -54,15 +55,15 @@ async function authorization()
 async function submitAuthorization()
 {
   let item, check;
-  if (!body.address) throw new Error('NO-ADDRESS');
-  if (!body.password) throw new Error('NO-PASSWORD');
+  if (!res.body.address) throw new Error('NO-ADDRESS');
+  if (!res.body.password) throw new Error('NO-PASSWORD');
   item = await getItem({
-    address: body.address,
+    address: res.body.address,
     field: '*',
   });
-  check = checkPassword(body.password, item.password, item.salt);
+  check = checkPassword(res.body.password, item.password, item.salt);
   if (!check) throw new Error('NOT-MATCH-PASSWORD');
-  updateToken(evt, body.address, {
+  updateToken(res.evt, res.body.address, {
     token: makeToken(item.salt),
   });
   item.slideshow = JSON.parse(decodeURIComponent(item.slideshow));
@@ -89,38 +90,35 @@ async function submitEdit()
 {
   checkParams();
   // get cookie
-  const cookie = getCookie(evt, body.address);
+  const cookie = getCookie(res.evt, res.body.address);
   let token = cookie?.token;
   if (!token) throw new Error('NO-TOKEN');
   // get item
   let item = await getItem({
-    address: body.address,
+    address: res.body.address,
     field: 'salt',
   });
   // check token
   if (!checkToken(token, item.salt)) throw new Error('INVALID-TOKEN');
   // update item
-  // TODO: 제목과 설명항목에서 큰따옴표와 작은 따옴표 변환처리를 하는것부터 시작해야겠다.
-  console.log(replaceQuot(body.title))
   let data = {
-    title: replaceQuot(body.title),
-    description: body.description,
-    public: body.public,
-    slideshow: encodeURIComponent(JSON.stringify(body.slideshow)),
+    title: replaceQuot(res.body.title),
+    description: replaceQuot(res.body.description),
+    public: String(res.body.public),
+    slideshow: encodeURIComponent(JSON.stringify(res.body.slideshow)),
   }
-  if (body.password)
+  if (res.body.password)
   {
-    const { password, salt } = await createPassword(body.password);
+    const { password, salt } = await createPassword(res.body.password);
     data.password = password;
     data.salt = salt;
   }
-  if (body.thumbnail)
+  if (res.body.thumbnail)
   {
-    await checkImage(body.thumbnail);
-    data.thumbnail = body.thumbnail;
+    await checkImage(res.body.thumbnail);
+    data.thumbnail = res.body.thumbnail;
   }
-  await edit(body.address, data);
-  console.log('COMPLETE EDIT DATA')
+  await edit(res.body.address, data);
   return {
     success: true,
   };
@@ -134,7 +132,7 @@ function checkParams()
 {
   try
   {
-    const { title, description, password, thumbnail, slideshow } = body;
+    const { title, description, thumbnail, slideshow } = res.body;
     if (!title) throw new Error('ERROR-PARAM');
     if (!description) throw new Error('no description');
     if (thumbnail) testUrl(thumbnail);
@@ -150,9 +148,9 @@ function checkParams()
 export default async e => {
   try
   {
-    evt = e;
-    body = await useBody(evt);
-    switch (body.mode)
+    await setupResource(e);
+    res = useResource();
+    switch (res.body.mode)
     {
       case 'authorization':
         return await authorization();

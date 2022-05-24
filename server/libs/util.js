@@ -53,5 +53,8 @@ export async function checkImage(path)
  */
 export function replaceQuot(str)
 {
+  str = str.replace(/"/gi, `\\"`);
+  str = str.replace(/'/gi, `\\'`);
+  str = str.replace(/`/gi, '\\`');
   return str;
 }

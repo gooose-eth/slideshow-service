@@ -2,29 +2,30 @@
  * slideshow / create
  */
 
-import { testUrl, checkImage } from '../../libs/util.js';
+import { setupResource, useResource } from '../../init.js';
 import { create } from '../../db/queries.js';
 import { createPassword, uniqueId } from '../../libs/password.js';
+import { testUrl, checkImage, replaceQuot } from '../../libs/util.js';
 
-let evt, body;
+let res;
 
 async function submitCreate()
 {
   checkParams();
   // check thumbnail image
-  if (body.thumbnail) await checkImage(body.thumbnail);
-  const { password, salt } = await createPassword(body.password);
+  if (res.body.thumbnail) await checkImage(res.body.thumbnail);
+  const { password, salt } = await createPassword(res.body.password);
   const address = uniqueId();
   // insert date
   await create({
     address,
-    title: body.title,
-    description: body.description,
+    title: replaceQuot(res.body.title),
+    description: replaceQuot(res.body.description),
     password,
     salt,
-    thumbnail: body.thumbnail,
-    public: body.public,
-    slideshow: encodeURIComponent(JSON.stringify(body.slideshow)),
+    thumbnail: res.body.thumbnail,
+    public: res.body.public,
+    slideshow: encodeURIComponent(JSON.stringify(res.body.slideshow)),
   });
   return {
     success: true,
@@ -40,7 +41,7 @@ function checkParams()
 {
   try
   {
-    const { title, description, password, thumbnail, slideshow } = body;
+    const { title, description, password, thumbnail, slideshow } = res.body;
     if (!title) throw new Error('no title');
     if (!description) throw new Error('no description');
     if (!password) throw new Error('no password');
@@ -57,9 +58,9 @@ function checkParams()
 export default async e => {
   try
   {
-    evt = e;
-    body = await useBody(evt);
-    switch (body.mode)
+    await setupResource(e);
+    res = useResource();
+    switch (res.body.mode)
     {
       case 'submit':
         return await submitCreate();

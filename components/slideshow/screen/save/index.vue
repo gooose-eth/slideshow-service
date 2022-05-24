@@ -142,7 +142,7 @@ const fields = reactive({
   password: '',
   thumbnail: data.field.thumbnail || '',
   address: data.field.address || '',
-  public: true,
+  public: data.field.public,
 });
 const processing = ref(false);
 const headerTitle = computed(() => {
@@ -190,10 +190,11 @@ async function onSubmit(_evt): Promise<void>
         location.href = `/watch/${address}`;
         break;
       case 'edit':
-        // alert('슬라이드쇼를 수정했습니다.');
+        alert('슬라이드쇼를 수정했습니다.');
+        location.reload();
         break;
     }
-    // emits('close');
+    emits('close');
   }
   catch(e)
   {

@@ -1,3 +1,6 @@
+import { useResource } from '../init.js';
+
+let res;
 const start = 12;
 const length = 24;
 
@@ -9,7 +12,8 @@ const length = 24;
  */
 export function getCookie(evt, address)
 {
-  let cookie = useCookie(evt.req, `${process.env.COOKIE_PREFIX}${address}`);
+  if (!res) res = useResource();
+  let cookie = useCookie(evt, `${res.env.COOKIE_PREFIX}${address}`);
   try
   {
     cookie = JSON.parse(cookie);
@@ -29,7 +33,8 @@ export function getCookie(evt, address)
  */
 export function updateToken(evt, address, value)
 {
-  let cookie = useCookie(evt, `${process.env.COOKIE_PREFIX}${address}`);
+  if (!res) res = useResource();
+  let cookie = useCookie(res.evt, `${res.env.COOKIE_PREFIX}${address}`);
   try
   {
     cookie = JSON.parse(cookie);
@@ -42,13 +47,25 @@ export function updateToken(evt, address, value)
     ...cookie,
     ...value,
   };
-  setCookie(evt, `${process.env.COOKIE_PREFIX}${address}`, JSON.stringify(cookie, null), {
+  setCookie(evt, `${res.env.COOKIE_PREFIX}${address}`, JSON.stringify(cookie, null), {
     path: '/',
     httpOnly: true,
     secure: true,
-    maxAge: 60 * 60 * 24 * (process.env.COOKIE_AGE_DAY || 7),
+    maxAge: 60 * 60 * 24 * (res.env.COOKIE_AGE_DAY || 7),
   });
 }
+
+/**
+ * clear cookie
+ * @param {any} evt
+ * @param {string} address
+ */
+export function clearCookie(evt, address)
+{
+  if (!res) res = useResource();
+  deleteCookie(evt, `${res.env.COOKIE_PREFIX}${address}`);
+}
+
 
 /**
  * make token
@@ -69,12 +86,4 @@ export function makeToken(salt)
 export function checkToken(token, salt)
 {
   return token === salt.slice(start, start + length);
-}
-
-/**
- * clear token
- */
-export function clearToken()
-{
-  // TODO: 로그아웃할때 필요할것이다.
 }

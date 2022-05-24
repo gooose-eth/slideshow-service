@@ -108,7 +108,7 @@
     margin: 0;
     border: none;
     text-align: left;
-    background-color: var(--context-bg, hsl(0 0% 100% / 75%));
+    background-color: var(--context-bg, hsl(0 0% 100% / 85%));
     color: var(--color-base);
     font-size: 14px;
     font-weight: 600;
@@ -119,16 +119,18 @@
       filter: brightness(90%);
     }
     @include mixin.mouse-event(hover) {
-      --context-bg: hsl(0 0% 92% / 75%);
+      --context-bg: hsl(0 0% 92% / 85%);
     }
     &.on {
       --context-bg: hsl(0 0% 92% / 75%);
     }
     &.active {
       color: var(--color-key);
+      font-weight: 700;
     }
     &.danger {
       color: var(--color-danger);
+      font-weight: 700;
     }
   }
   &--on {

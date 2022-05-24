@@ -60,6 +60,7 @@ export interface Data {
     regdate: string
     thumbnail: string
     public: boolean
+    token: string
   }
   groups: object
 }

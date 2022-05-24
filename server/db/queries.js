@@ -1,6 +1,5 @@
 import { connect } from './connect.js';
 
-let conn;
 const tableName = 'slideshow';
 
 /**
@@ -10,7 +9,7 @@ const tableName = 'slideshow';
  */
 export async function getCount(op)
 {
-  if (!conn) conn = await connect();
+  const conn = await connect();
   const { q } = op;
   let res, sql, tail;
   tail = `where public=1`;
@@ -27,7 +26,7 @@ export async function getCount(op)
  */
 export async function getItems(op)
 {
-  if (!conn) conn = await connect();
+  const conn = await connect();
   const { page, size, field, q } = op;
   let sql, tail = '';
   tail += op.publicFilter ? ' public=1' : '';
@@ -46,7 +45,7 @@ export async function getItems(op)
  */
 export async function getItem(op)
 {
-  if (!conn) conn = await connect();
+  const conn = await connect();
   const { address, field } = op;
   let sql = `select ${field || '*'} from ${tableName} where address="${address}"`;
   const [ item ] = await conn.query(sql);
@@ -62,7 +61,7 @@ export async function create(src)
 {
   try
   {
-    if (!conn) conn = await connect();
+    const conn = await connect();
     let sql = `insert into ${tableName}(\`key\`, address, title, description, slideshow, password, salt, thumbnail, \`public\`, regdate, \`update\`) values (null, \"${src.address}\", \"${src.title}\", \"${src.description}\", \"${src.slideshow}\", '${src.password}', '${src.salt}', '${src.thumbnail}', '${src.public}', now(), now())`;
     await conn.query(sql);
   }
@@ -82,7 +81,7 @@ export async function edit(address, body)
 {
   try
   {
-    if (!conn) conn = await connect();
+    const conn = await connect();
     let fields = Object.keys(body).map(key => {
       if (!key) return false;
       return `${key}="${body[key]}"`;
@@ -103,5 +102,12 @@ export async function edit(address, body)
  */
 export async function remove(address)
 {
-  //
+  try
+  {
+    const conn = await connect();
+  }
+  catch (e)
+  {
+    //
+  }
 }

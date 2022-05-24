@@ -32,6 +32,13 @@ export const preferenceStore = defineStore('slideshowPreference', {
       this.slides = src.slides
       this.style = src.style;
       this.keyboard = src.keyboard;
+    },
+    destroy(): void
+    {
+      this.general = {};
+      this.slides = {};
+      this.style = {};
+      this.keyboard = {};
     }
   },
 });
@@ -150,6 +157,7 @@ export const dataStore = defineStore('slideshowData', {
         regdate: '',
         thumbnail: '',
         public: true,
+        token: '',
       },
       groups: pureObject(defaults.groups),
     };
@@ -190,6 +198,11 @@ export const dataStore = defineStore('slideshowData', {
       this.field.regdate = '';
       this.field.thumbnail = '';
       this.field.public = true;
+      this.field.token = '';
+    },
+    destroy(): void
+    {
+      this.resetFields();
     },
   },
 });
@@ -289,6 +302,14 @@ export const windowsStore = defineStore('slideshowWindows', {
       this.keys.forEach(key => {
         this[key] = false;
       });
+    },
+    destroy(): void
+    {
+      this.children = [];
+      this.preference = false;
+      this.thumbnail = false;
+      this.group = false;
+      this.save = false;
     },
   },
 });

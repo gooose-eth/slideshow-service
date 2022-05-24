@@ -2,11 +2,12 @@
  * slideshow / item
  */
 
+import { setupResource, useResource } from '../../init.js';
 import { getItem } from '../../db/queries.js';
 import { checkPassword } from '../../libs/password.js';
 import { getCookie, updateToken, makeToken, checkToken } from '../../libs/token.js';
 
-let evt, body
+let res;
 
 /**
  * get fetch item
@@ -28,9 +29,9 @@ async function getFetchItem()
     };
   }
 
-  let item, token, check;
+  let item, token, check, data;
   item = await getItem({
-    address: body.address,
+    address: res.body.address,
     field: '*',
   });
   if (!item) throw new Error('NO-SLIDESHOW');
@@ -38,24 +39,26 @@ async function getFetchItem()
   if (item.public === 0)
   {
     // 비공개 데이터일 경우..
-    if (body.token)
+    if (res.body.token)
     {
-      token = body.token;
+      token = res.body.token;
     }
     else
     {
-      const cookie = getCookie(evt, body.address);
+      const cookie = getCookie(res.evt, res.body.address);
       token = cookie?.token;
     }
     if (token)
     {
       check = checkToken(token, item.salt);
+      data = makeResultData(item);
+      data.token = token;
       if (check)
       {
-        updateLog(evt, body);
+        updateLog(res.evt, res.body);
         return {
           success: true,
-          data: makeResultData(item),
+          data,
         };
       }
     }
@@ -67,7 +70,7 @@ async function getFetchItem()
   else
   {
     // 공개용 데이터일 경우..
-    updateLog(evt, body);
+    updateLog(res.evt, res.body);
     return {
       success: true,
       data: makeResultData(item),
@@ -81,18 +84,17 @@ async function getFetchItem()
  */
 async function submitAuthorization()
 {
-  let item, check;
-  if (!body.address) throw new Error('NO-ADDRESS');
-  if (!body.password) throw new Error('NO-PASSWORD');
+  let item, check, token;
+  if (!res.body.address) throw new Error('NO-ADDRESS');
+  if (!res.body.password) throw new Error('NO-PASSWORD');
   item = await getItem({
-    address: body.address,
+    address: res.body.address,
     field: '*',
   });
-  check = checkPassword(body.password, item.password, item.salt);
+  check = checkPassword(res.body.password, item.password, item.salt);
   if (!check) throw new Error('NOT-MATCH-PASSWORD');
-  updateToken(evt, body.address, {
-    token: makeToken(item.salt),
-  });
+  token = makeToken(item.salt);
+  updateToken(res.evt, res.body.address, { token });
   item.slideshow = JSON.parse(decodeURIComponent(item.slideshow));
   return {
     success: true,
@@ -105,21 +107,22 @@ async function submitAuthorization()
       public: item.public,
       regdate: item.regdate,
       update: item.update,
+      token,
     },
   };
 }
 
 function updateLog(evt, body)
 {
-
+  //
 }
 
 export default async e => {
   try
   {
-    evt = e;
-    body = await useBody(evt);
-    switch (body.mode)
+    await setupResource(e);
+    res = useResource();
+    switch (res.body.mode)
     {
       case 'fetch':
         return await getFetchItem();

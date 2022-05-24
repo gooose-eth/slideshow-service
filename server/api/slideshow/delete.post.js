@@ -2,13 +2,22 @@
  * slideshow / delete
  */
 
-let evt, body;
+import { setupResource, useResource } from '../../init.js';
+
+let res;
 
 export default async e => {
-  evt = e;
-  body = await useBody(evt);
-  return {
-    message: 'slideshow / delete',
-    success: true,
-  };
+  try
+  {
+    await setupResource(e);
+    res = useResource();
+    return {
+      message: 'slideshow / delete',
+      success: true,
+    };
+  }
+  catch (err)
+  {
+
+  }
 };

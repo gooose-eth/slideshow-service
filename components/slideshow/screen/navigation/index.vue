@@ -48,6 +48,11 @@
             전체화면
           </button>
         </li>
+        <li v-if="current.editMode">
+          <button type="button" @click="onClickContextItem('preview')">
+            미리보기
+          </button>
+        </li>
         <li v-if="!!data.field.address">
           <button
             type="button"
@@ -60,7 +65,7 @@
             수정하기
           </button>
         </li>
-        <li v-if="current.editMode">
+        <li v-if="!!data.field.token">
           <button
             type="button"
             class="danger"
@@ -79,14 +84,14 @@
       </ul>
     </div>
   </div>
-  <div v-if="current.editMode" class="navigation__item">
-    <button
-      type="button"
-      title="미리보기"
-      @click="route('preview')">
-      <Icon icon-name="cast"/>
-    </button>
-  </div>
+<!--  <div v-if="current.editMode" class="navigation__item">-->
+<!--    <button-->
+<!--      type="button"-->
+<!--      title="미리보기"-->
+<!--      @click="route('preview')">-->
+<!--      <Icon icon-name="cast"/>-->
+<!--    </button>-->
+<!--  </div>-->
   <div v-if="!current.watchMode" class="navigation__item">
     <button
       type="button"
@@ -111,6 +116,7 @@
 import { serviceStore } from '~/store/service';
 import { preferenceStore, currentStore, dataStore, windowsStore } from '~/store/slideshow';
 import { fullscreen, copyToClipboard } from '~/libs/util';
+import { captureError } from '~/libs/error';
 import Icon from '~/components/icon/index.vue';
 
 const router = useRouter();
@@ -233,14 +239,24 @@ function blur(): void
 
 async function logout(): Promise<void>
 {
-  if (!confirm('정말로 로그인할까요?')) return;
-  // TODO: 로그아웃
-  const { data } = await useAsyncData('logout', () => $fetch('/api/logout', {
+  if (!confirm('정말로 로그아웃 할까요?')) return;
+  const { success, message } = await $fetch(`/api/slideshow/logout`, {
     method: 'post',
-  }));
-  console.log('logout()', data);
-  // await post(`${Custom.path}logout/${form.address}/`, {});
-  // location.reload();
+    responseType: 'json',
+    body: {
+      address: data.field.address,
+      token: data.field.token,
+    },
+  });
+  if (success)
+  {
+    location.href = '/';
+  }
+  else
+  {
+    captureError(['/components/slideshow/screen/navigation/index.vue', 'logout()'], 'error', message);
+    alert('로그아웃하지 못했습니다.');
+  }
 }
 
 // lifecycles

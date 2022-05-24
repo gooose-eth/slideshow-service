@@ -3,7 +3,7 @@
   <Html
     :class="[
       'mode-slideshow',
-      preference.style.screenColor && `theme-${preference.style.screenColor}`,
+      theme,
     ]"/>
   <slot/>
 </main>
@@ -19,6 +19,7 @@ const service = serviceStore();
 const preference = preferenceStore();
 const current = currentStore();
 const serviceTitle = ref('');
+const theme: any = computed(() => (preference.style?.screenColor ? `theme-${preference.style.screenColor}` : ''));
 
 // setup
 switch (route.name)

@@ -74,6 +74,7 @@ const debug = computed(() => {
     address: data.field?.address,
     activeSlide: current.activeSlide,
     keyboard: current.keyboardEvent,
+    token: data.field?.token,
   } : null;
 });
 
@@ -178,6 +179,9 @@ onUnmounted(() => {
     (<any>window).off(`keydown.${keyboardEventName}`);
   }
   current.destroy();
+  windows.destroy();
+  data.destroy();
+  preference.destroy();
 });
 </script>
 
