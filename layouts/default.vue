@@ -18,8 +18,8 @@
           </nuxt-link>
         </li>
         <li>
-          <nuxt-link to="/about" title="슬라이드쇼">
-            슬라이드쇼
+          <nuxt-link to="/about" title="슬라이드쇼 소개">
+            소개
           </nuxt-link>
         </li>
       </ul>
