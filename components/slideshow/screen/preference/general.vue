@@ -164,6 +164,7 @@
 import { readyPreferenceStore, dataStore, currentStore } from '~/store/slideshow';
 import { pureObject } from '~/libs/object';
 import { twoDigit } from '~/libs/string';
+import { captureError } from '~/libs/error';
 import { FormText, FormSwitch, FormCheckbox } from '~/components/form';
 import { ButtonBasic } from '~/components/button';
 
@@ -231,8 +232,26 @@ function onClickReset(): void
 
 async function onClickDeleteSlideshow(): Promise<void>
 {
-  if (!confirm('정말로 슬라이드쇼를 삭제할까요?')) return;
-  // TODO: 슬라이드쇼 삭제기능 작업하기
+  try
+  {
+    if (!confirm('정말로 슬라이드쇼를 삭제할까요?')) return;
+    const { success, message } = await $fetch('/api/slideshow/delete', {
+      method: 'post',
+      responseType: 'json',
+      headers: { 'Authorization': `bearer ${data.field.token}` },
+      body: {
+        address: data.field.address,
+      },
+    });
+    if (!success) throw new Error(message);
+    alert('슬라이드쇼를 삭제했습니다.');
+    location.href = '/';
+  }
+  catch (e)
+  {
+    captureError(['/components/slideshow/screen/preference/general.vue', 'onClickDeleteSlideshow()'], 'error', e.message);
+    alert('슬라이드쇼를 삭제하지 못했습니다.');
+  }
 }
 </script>
 

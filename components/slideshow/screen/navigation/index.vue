@@ -73,25 +73,17 @@
             로그아웃
           </button>
         </li>
-        <li v-if="current.watchMode">
+        <li>
           <button
             type="button"
             class="active"
             @click="onClickContextItem('slideshowService')">
-            슬라이드쇼
+            슬라이드쇼로 바로가기
           </button>
         </li>
       </ul>
     </div>
   </div>
-<!--  <div v-if="current.editMode" class="navigation__item">-->
-<!--    <button-->
-<!--      type="button"-->
-<!--      title="미리보기"-->
-<!--      @click="route('preview')">-->
-<!--      <Icon icon-name="cast"/>-->
-<!--    </button>-->
-<!--  </div>-->
   <div v-if="!current.watchMode" class="navigation__item">
     <button
       type="button"
@@ -99,14 +91,6 @@
       class="active"
       @click="route('open-save')">
       <Icon icon-name="save"/>
-    </button>
-  </div>
-  <div v-if="!current.watchMode" class="navigation__item">
-    <button
-      type="button"
-      title="슬라이드쇼로 바로가기"
-      @click="route('service')">
-      <Icon icon-name="home"/>
     </button>
   </div>
 </nav>
@@ -243,6 +227,7 @@ async function logout(): Promise<void>
   const { success, message } = await $fetch(`/api/slideshow/logout`, {
     method: 'post',
     responseType: 'json',
+    headers: { 'Authorization': `bearer ${data.field.token}` },
     body: {
       address: data.field.address,
       token: data.field.token,

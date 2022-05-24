@@ -105,9 +105,11 @@ export async function remove(address)
   try
   {
     const conn = await connect();
+    const sql = `delete from ${tableName} where address="${address}"`;
+    await conn.query(sql);
   }
   catch (e)
   {
-    //
+    throw new Error('Failed remove data.');
   }
 }

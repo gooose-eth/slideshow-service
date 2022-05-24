@@ -2,7 +2,9 @@
  * slideshow / delete
  */
 
-import { setupResource, useResource } from '../../init.js';
+import { setupResource, useResource, checkAuthorization } from '../../init.js';
+import { remove } from '../../db/queries.js';
+import { clearCookie } from '../../libs/token.js';
 
 let res;
 
@@ -11,13 +13,19 @@ export default async e => {
   {
     await setupResource(e);
     res = useResource();
+    if (!res.body.address) throw new Error('NO-ADDRESS');
+    await checkAuthorization();
+    clearCookie(res.evt, res.body.address);
+    await remove(res.body.address);
     return {
-      message: 'slideshow / delete',
       success: true,
     };
   }
   catch (err)
   {
-
+    return {
+      success: false,
+      message: err.message,
+    };
   }
 };

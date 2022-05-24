@@ -55,7 +55,7 @@ async function getFetchItem()
       data.token = token;
       if (check)
       {
-        updateLog(res.evt, res.body);
+        updateLog(res.evt, res.body).then();
         return {
           success: true,
           data,
@@ -70,7 +70,7 @@ async function getFetchItem()
   else
   {
     // 공개용 데이터일 경우..
-    updateLog(res.evt, res.body);
+    updateLog(res.evt, res.body).then();
     return {
       success: true,
       data: makeResultData(item),
@@ -112,9 +112,9 @@ async function submitAuthorization()
   };
 }
 
-function updateLog(evt, body)
+async function updateLog(evt, body)
 {
-  //
+  // TODO: 추후에 로그 데이터 업데이트하기
 }
 
 export default async e => {

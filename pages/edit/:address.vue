@@ -77,7 +77,7 @@ async function onSubmitAuthorization(fields: { address: string, password: string
   {
     processingAuth.value = true;
     const { address, password } = fields;
-    let { success, message, data } = await $fetch('/api/slideshow/edit', {
+    let { success, message, item } = await $fetch('/api/slideshow/edit', {
       method: 'post',
       body: {
         mode: 'submit-authorization',
@@ -87,7 +87,7 @@ async function onSubmitAuthorization(fields: { address: string, password: string
     });
     if (!success) throw new Error(message);
     processingAuth.value = false;
-    await updateStore(data);
+    await updateStore(item);
     isAuth.value = true;
     await nextTick();
     current.loading = false;

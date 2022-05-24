@@ -2,7 +2,7 @@
  * slideshow / edit
  */
 
-import { setupResource, useResource } from '../../init.js';
+import { setupResource, useResource, checkAuthorization } from '../../init.js';
 import { getItem, edit } from '../../db/queries.js';
 import { checkPassword, createPassword } from '../../libs/password.js';
 import { makeToken, updateToken, checkToken, getCookie } from '../../libs/token.js';
@@ -54,7 +54,7 @@ async function authorization()
  */
 async function submitAuthorization()
 {
-  let item, check;
+  let item, check, token;
   if (!res.body.address) throw new Error('NO-ADDRESS');
   if (!res.body.password) throw new Error('NO-PASSWORD');
   item = await getItem({
@@ -63,13 +63,12 @@ async function submitAuthorization()
   });
   check = checkPassword(res.body.password, item.password, item.salt);
   if (!check) throw new Error('NOT-MATCH-PASSWORD');
-  updateToken(res.evt, res.body.address, {
-    token: makeToken(item.salt),
-  });
+  token = makeToken(item.salt);
+  updateToken(res.evt, res.body.address, { token });
   item.slideshow = JSON.parse(decodeURIComponent(item.slideshow));
   return {
     success: true,
-    data: {
+    item: {
       address: item.address,
       title: item.title,
       description: item.description,
@@ -78,6 +77,7 @@ async function submitAuthorization()
       public: item.public,
       regdate: item.regdate,
       update: item.update,
+      token,
     },
   }
 }
@@ -88,18 +88,8 @@ async function submitAuthorization()
  */
 async function submitEdit()
 {
+  await checkAuthorization();
   checkParams();
-  // get cookie
-  const cookie = getCookie(res.evt, res.body.address);
-  let token = cookie?.token;
-  if (!token) throw new Error('NO-TOKEN');
-  // get item
-  let item = await getItem({
-    address: res.body.address,
-    field: 'salt',
-  });
-  // check token
-  if (!checkToken(token, item.salt)) throw new Error('INVALID-TOKEN');
   // update item
   let data = {
     title: replaceQuot(res.body.title),

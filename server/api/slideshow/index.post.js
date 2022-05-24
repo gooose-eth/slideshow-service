@@ -38,7 +38,6 @@ export default async e => {
   }
   catch (e)
   {
-    console.error('ERROR', e.message);
     return {
       success: false,
       message: e.message,

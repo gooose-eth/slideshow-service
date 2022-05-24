@@ -179,6 +179,7 @@ async function onSubmit(_evt): Promise<void>
     let { success, message, address } = await $fetch(`/api/slideshow/${current.mode}`, {
       method: 'post',
       responseType: 'json',
+      headers: { 'Authorization': `bearer ${data.field.token}` },
       body: params,
     });
     if (!success) throw new Error(message);
