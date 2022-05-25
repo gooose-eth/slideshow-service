@@ -8,7 +8,12 @@
   <figure>
     <picture>
       <source srcset="/images/about/about-001.webp 1x, /images/about/about-001@2x.webp 2x">
-      <img src="/images/about/about-001.webp" alt="slideshow screen">
+      <img
+        src="/images/about/about-001.webp"
+        width="683"
+        height="501"
+        loading="lazy"
+        alt="slideshow screen">
     </picture>
   </figure>
   <p>
@@ -23,7 +28,12 @@
   <figure>
     <picture>
       <source srcset="/images/about/about-002.webp 1x, /images/about/about-002@2x.webp 2x">
-      <img src="/images/about/about-002.webp" alt="slideshow screen">
+      <img
+        src="/images/about/about-002.webp"
+        width="213"
+        height="133"
+        loading="lazy"
+        alt="slideshow screen">
     </picture>
   </figure>
   <p>
@@ -33,7 +43,12 @@
   <figure>
     <picture>
       <source srcset="/images/about/about-003.webp 1x, /images/about/about-003@2x.webp 2x">
-      <img src="/images/about/about-003.webp" alt="slideshow screen">
+      <img
+        src="/images/about/about-003.webp"
+        width="888"
+        height="402"
+        loading="lazy"
+        alt="slideshow screen">
     </picture>
   </figure>
   <p>
@@ -43,7 +58,12 @@
   <figure>
     <picture>
       <source srcset="/images/about/about-004.webp 1x, /images/about/about-004@2x.webp 2x">
-      <img src="/images/about/about-004.webp" alt="slideshow screen">
+      <img
+        src="/images/about/about-004.webp"
+        width="725"
+        height="645"
+        loading="lazy"
+        alt="slideshow screen">
     </picture>
   </figure>
   <p>
@@ -53,7 +73,12 @@
   <figure>
     <picture>
       <source srcset="/images/about/about-005.webp 1x, /images/about/about-005@2x.webp 2x">
-      <img src="/images/about/about-005.webp" alt="slideshow screen">
+      <img
+        src="/images/about/about-005.webp"
+        width="897"
+        height="497"
+        loading="lazy"
+        alt="slideshow screen">
     </picture>
   </figure>
   <p>
@@ -63,34 +88,60 @@
     설정을 변경하고 더이상 수정할것이 없으면 <code>우측 위 디스켓 아이콘</code>버튼을 누르면 <code>슬라이드쇼 만들기</code>창이 열립니다. 마지막으로 슬라이드쇼에 대한 정보를 입력하고 <code>만들기</code> 버튼을 누르면 슬라이드쇼가 만들어집니다.
   </p>
   <h3>Watch</h3>
-  <p>TODO: 여기서부터 점검하기..</p>
-  <p>
-    슬라이드쇼 목록에서 썸네일 아이콘을 누르면 해당 슬라이드쇼를 감상할 수 있습니다. 처음에는 슬라이드쇼를 만들때 기본으로 설정되어 있는 환경에서 감상하지만 환경설정을 이용하여 입맛에 맞게 슬라이드쇼의 환경을 변경할 수 있습니다.<br/>
-    변경한 설정은 슬라이드쇼마다 각각 다르게 저장되어 있기 때문에 변경한 환경으로 그대로 유지하면서 이용할 수 있습니다.<br/>
-    <br/>
-    슬라이드쇼 메뉴에서 <code>공유하기</code>기능을 통하여 현재 감상하고 있는 슬라이드쇼의 주소를 복사하여 다른곳에 공유하는데 활용할 수 있습니다.
-  </p>
-  <h3>Manage</h3>
-  <p>
-    먼저 만들어둔 슬라이드쇼를 수정하려할때 메뉴에서 <code>관리하기</code>를 누르면 인증화면이 나옵니다. 인증창에서 슬라이드쇼를 만들때 만들어진 주소와 입력했던 비밀번호를 입력하고 인증합니다.<br/>
-    <br/>
-    인증에 성공하면 마지막으로 슬라이드쇼를 저장했던 상태에서 계속 편집할 수 있습니다.<br/>
-    <br/>
-    편집이 끝나면 <code>디스켓 아이콘</code> 버튼을 눌러 슬라이드쇼 업데이트를 완료합니다.
-  </p>
-  <h3>Delete</h3>
-  <p>
-    슬라이드쇼를 삭제하려면 <code>슬라이드쇼 편집모드</code>에서 <code>메뉴 > 삭제하기</code> 과정으로 선택하면 한번 더 슬라이드쇼 주소와 비밀번호를 입력하면 삭제합니다.
-  </p>
   <figure>
     <picture>
-      <source srcset="/images/about/slideshow-screen-005.webp 1x, /images/about/slideshow-screen-005@2x.webp 2x">
-      <img src="/images/about/slideshow-screen-005.webp" alt="screen">
+      <source srcset="/images/about/about-006.webp 1x, /images/about/about-006@2x.webp 2x">
+      <img
+        src="/images/about/about-006.webp"
+        width="1237"
+        height="926"
+        loading="lazy"
+        alt="slideshow screen">
     </picture>
   </figure>
   <p>
-    슬라이드쇼를 삭제하면 다시 복구할 수 없는것을 주의해주세요.
+    처음 방문할때 슬라이드쇼를 만든 사람이 설정한 상태에서 감상을 할 수 있지만 직접 환경설정을 입맛에 맞게 변경하여 감상할 수 있습니다.<br/>
+    변경한 설정은 슬라이드쇼마다 각각 다르게 저장되어 있기 때문에 변경한 환경으로 그대로 유지하면서 이용할 수 있습니다.<br/>
+    <br/>
+    <code>슬라이드쇼 메뉴 > 주소 복사하기</code> 기능을 통하여 현재 감상하고 있는 슬라이드쇼의 주소를 복사하여 다른곳에 공유하는데 활용할 수 있습니다.
   </p>
+  <h3>Manage</h3>
+  <p>
+    만들어둔 슬라이드쇼를 수정하려할때 슬라이드쇼 메뉴에서 <code>수정하기</code> 항목을 선택하면 슬라이드쇼를 편집할 수 있습니다.<br/>
+    만들었을때의 비밀번호로 인증에 성공하면 마지막으로 슬라이드쇼를 저장했던 상태에서 계속 편집할 수 있습니다.
+  </p>
+  <figure>
+    <picture>
+      <source srcset="/images/about/about-007.webp 1x, /images/about/about-007@2x.webp 2x">
+      <img
+        src="/images/about/about-007.webp"
+        width="242"
+        height="102"
+        loading="lazy"
+        alt="slideshow screen">
+    </picture>
+  </figure>
+  <p>
+    편집이 끝나면 <code>디스켓 아이콘</code> 버튼을 눌러 슬라이드쇼 업데이트를 완료합니다.
+  </p>
+  <h3>Delete</h3>
+  <figure>
+    <picture>
+      <source srcset="/images/about/about-008.webp 1x, /images/about/about-008@2x.webp 2x">
+      <img
+        src="/images/about/about-008.webp"
+        width="736"
+        height="324"
+        loading="lazy"
+        alt="slideshow screen">
+    </picture>
+  </figure>
+  <p>
+    <code>슬라이드쇼 편집화면 > 환경설정</code> 창에서 <code>기본</code> 탭에 <code>슬라이드쇼 삭제하기</code> 버튼을 누르면 슬라이드쇼를 삭제할 수 있습니다.
+    <br/>
+    삭제하면 다시 복구할 수 없으므로 주의해주세요.
+  </p>
+  <hr class="section-line">
   <h2>Creator</h2>
   <ul>
     <li>redgoose: <a href="https://redgoose.me" target="_blank">https://redgoose.me</a></li>

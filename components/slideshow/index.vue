@@ -40,9 +40,9 @@
         </ModalBody>
       </ModalWrap>
     </transition>
-    <div v-if="!!debug" class="debug">
-      <pre>{{debug}}</pre>
-    </div>
+<!--    <div v-if="!!debug" class="debug">-->
+<!--      <pre>{{debug}}</pre>-->
+<!--    </div>-->
   </teleport>
 </div>
 </template>
