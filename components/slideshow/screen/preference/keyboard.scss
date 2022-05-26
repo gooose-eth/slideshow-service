@@ -1,0 +1,131 @@
+@use '../../../../assets/scss/mixin';
+
+.keyboard-guide {
+  margin: 40px 0 0;
+  &__header {
+    h3 {
+      margin: 0;
+      font-size: 18px;
+      font-weight: 600;
+      letter-spacing: -.5px;
+      line-height: 1.25;
+    }
+    p {
+      margin: 4px 0 0;
+      font-size: 12px;
+      letter-spacing: -.25px;
+      line-height: 1.15;
+      color: var(--color-weak);
+    }
+  }
+  &__body {
+    display: block;
+    margin: 16px 0 0;
+    border-collapse: collapse;
+    th,
+    td {
+      padding: 0;
+    }
+    thead {
+      display: none;
+    }
+    tbody {
+      display: block;
+      tr {
+        display: block;
+        &:nth-child(n+2) {
+          margin-top: 12px;
+        }
+      }
+      th {
+        display: block;
+        text-align: left;
+      }
+      td {
+        display: block;
+        margin: 4px 0 0;
+        font-size: 14px;
+        line-height: 1.15;
+      }
+    }
+    code {
+      display: inline-block;
+      padding: 5px 6px;
+      border-radius: 2px;
+      font-size: 13px;
+      line-height: 1;
+      color: hsl(0 0% 100%);
+      background-color: hsl(0 0% 47%);
+      user-select: none;
+    }
+  }
+  @include mixin.responsive(tablet) {
+    &__body {
+      display: table;
+      width: 100%;
+      border: 1px solid #909090;
+      th,
+      td {
+        border: 1px solid #ccc;
+      }
+      thead {
+        display: table-header-group;
+        th,
+        td {
+          padding: 8px;
+          font-weight: 600;
+          font-size: 14px;
+          text-align: center;
+          letter-spacing: -.5px;
+          background-color: hsl(0 0% 0% / 5%);
+        }
+      }
+      tbody {
+        display: table-row-group;
+        tr {
+          display: table-row;
+        }
+        th {
+          display: table-cell;
+          text-align: center;
+          padding: 8px 0;
+          width: 150px;
+        }
+        td {
+          display: table-cell;
+          margin: 0;
+          padding: 8px 16px;
+        }
+      }
+    }
+  }
+  @include mixin.dark-mode() {
+    &__body {
+      tbody {
+        th {
+          code {
+            color: var(--color-base);
+          }
+        }
+      }
+    }
+    @include mixin.responsive(tablet) {
+      &__body {
+        th,
+        td {
+          border-color: hsl(0 0% 20%);
+        }
+        thead {
+          th,
+          td {
+            background-color: hsl(0 0% 0% / 20%);
+            border-bottom-color: hsl(0 0% 30%);
+          }
+        }
+        code {
+          background-color: hsl(0 0% 25%);
+        }
+      }
+    }
+  }
+}

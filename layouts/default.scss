@@ -1,0 +1,136 @@
+@use '../assets/scss/mixin';
+
+.header {
+  padding: 24px 0 0;
+  text-align: center;
+  &__logo {
+    display: grid;
+    place-content: center;
+    margin: 0;
+    a {
+      position: relative;
+      display: block;
+      outline: none;
+      padding: 16px 16px;
+      margin: -16px 0;
+      @include mixin.disable-drag();
+      @include mixin.mouse-event(hover) {
+        img {
+          will-change: filter;
+          filter: invert(1);
+        }
+      }
+      @include mixin.mouse-event(active) {
+        img {
+          will-change: filter;
+          filter: invert(1);
+        }
+      }
+      &:focus-visible {
+        img {
+          will-change: filter;
+          filter: invert(1);
+        }
+      }
+    }
+    img {
+      display: block;
+      width: 54px;
+      user-select: none;
+      transition: filter 300ms ease-out;
+      @include mixin.disable-drag();
+    }
+  }
+  &__nav {
+    --size-middle-padding: 2px;
+    margin: 16px 0 0;
+    ul {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+      &:hover > li:not(:hover) > :is(a,button) {
+        opacity: .5;
+      }
+    }
+    li {
+      display: flex;
+      align-items: center;
+      font-size: 14px;
+      font-weight: 600;
+      &:nth-child(n+2) {
+        &:before {
+          content: '/';
+          display: block;
+          margin-right: var(--size-middle-padding);
+          opacity: .5;
+          font-size: 13px;
+          color: var(--color-weak);
+        }
+      }
+    }
+    a,
+    button {
+      display: block;
+      padding: 4px 12px;
+      transition: opacity 200ms ease-out;
+      color: var(--color-base);
+      user-select: none;
+      font-size: 14px;
+      font-weight: 600;
+      line-height: 1.15;
+      -webkit-tap-highlight-color: transparent;
+    }
+    a {
+      text-decoration: none;
+      &.router-link-exact-active {
+        color: var(--color-key);
+        cursor: default;
+      }
+    }
+    button {
+      margin: 0;
+      border: none;
+      background: none;
+      cursor: pointer;
+    }
+  }
+  @include mixin.responsive(tablet) {
+    padding-top: 42px;
+    &__logo {
+      img {
+        width: 80px;
+      }
+    }
+    &__nav {
+      margin-top: 20px;
+      --size-middle-padding: 4px;
+    }
+  }
+}
+
+.footer {
+  display: grid;
+  place-content: center;
+  padding: 0 0 8px;
+  &__copyright {
+    user-select: none;
+    font-size: 11px;
+    letter-spacing: -.25px;
+    color: var(--color-weak);
+    font-weight: 500;
+  }
+  @include mixin.responsive(tablet) {
+    padding-bottom: 24px;
+  }
+}
+
+.container {
+  margin: 0;
+  padding: 0 24px;
+  @include mixin.responsive(tablet) {
+    padding: 0 60px;
+  }
+}

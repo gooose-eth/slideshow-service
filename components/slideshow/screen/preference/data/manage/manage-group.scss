@@ -1,0 +1,25 @@
+@use '../../../../../../assets/scss/mixin';
+
+.manage-group {
+  display: grid;
+  grid-template-rows: 48px 1fr;
+  height: 100%;
+  background-color: var(--color-bg);
+  box-sizing: border-box;
+  &__body {
+    overflow: auto;
+  }
+  &__bottom {
+    margin: 40px 0 0;
+    display: grid;
+    place-content: center;
+  }
+  @include mixin.responsive(tablet) {
+    width: 540px;
+    height: 75vh;
+    max-height: 560px;
+    overflow: hidden;
+    border-radius: 2px;
+    box-shadow: 0 2px 16px hsl(0 0% 0% / 25%);
+  }
+}

@@ -1,0 +1,117 @@
+@use '../../../../assets/scss/mixin';
+
+fieldset {
+  margin: 0;
+  padding: 30px 20px 40px;
+  border: none;
+  --field-margin: 40px;
+  > legend {
+    font-size: 0;
+    visibility: hidden;
+  }
+  @include mixin.responsive(tablet) {
+    padding: 30px 30px 50px;
+  }
+}
+
+.fields {
+  display: grid;
+  gap: 36px;
+}
+
+.field-title {
+  margin: 0;
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: -.25px;
+  line-height: 1.15;
+}
+
+.field-description {
+  margin: 2px 0 0;
+  font-size: 12px;
+  color: var(--color-weak);
+  line-height: 1.25;
+  letter-spacing: -.25px;
+}
+
+.grid {
+  display: grid;
+  grid-auto-columns: 1fr;
+  grid-template-columns: repeat(var(--column, 1), 1fr);
+  gap: var(--grid-gap, 0);
+}
+
+.flex {
+  display: flex;
+  align-items: center;
+  gap: var(--flex-gap, 0);
+  &__full {
+    flex: 1;
+  }
+  &:is(ul) {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+}
+
+.label {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: var(--label-gap, 6px);
+  > span {
+    display: block;
+    line-height: 1.15;
+    font-size: 14px;
+    font-weight: 500;
+  }
+}
+
+.field-basic {
+  display: grid;
+  gap: 20px;
+  &__header {
+    margin-bottom: -8px;
+  }
+}
+
+.field-checks {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(var(--column, 2), 1fr);
+  gap: 12px;
+  @include mixin.responsive(tablet) {
+    --column: 3;
+  }
+}
+
+.field-switch {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+}
+
+.field-line {
+  display: block;
+  margin: 0;
+  border: none;
+  height: 1px;
+  transform: scaleY(.5);
+  background: linear-gradient(to right, transparent 50%, var(--color-field-line, hsl(0 0% 50%)) 50%);
+  background-size: 6px;
+  transform-origin: 0 0;
+  @include mixin.dark-mode() {
+    --color-field-line: hsl(0 0% 40%);
+  }
+}
+
+.required {
+  &:before {
+    content: '* ';
+    color: var(--color-key);
+  }
+}

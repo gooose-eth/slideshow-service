@@ -1,33 +1,11 @@
 # slideshow-service
 
-Using slideshow service
-
+Slideshow service
 
 ## Install
 
-make `.env` file
-
-```shell
-yarn run ready
-```
-
-make database table
-
-```shell
-yarn run setup
-```
-
-
 ## Development
 
-Run php server
+## Production
 
-```shell
-yarn run start
-```
-
-Watch mode css & javascript
-
-```shell
-yarn run watch
-```
+### With PM2

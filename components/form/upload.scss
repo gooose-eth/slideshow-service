@@ -1,0 +1,101 @@
+@use '../../assets/scss/mixin';
+
+.form-upload {
+  --upload-bg: hsl(0 0% 92%);
+  --upload-shadow-glow: inset 0 2px 8px 0 hsl(0 0% 0% / 15%);
+  --upload-shadow-border: inset 0 0 0 1px hsl(0 0% 0% / 20%);
+  --upload-shadow-outline: 0 0 0 2px hsl(0 0% 0% / 0%);
+  --upload-radius: 2px;
+  position: relative;
+  display: block;
+  height: 40px;
+  cursor: pointer;
+  box-sizing: border-box;
+  background-color: var(--upload-bg);
+  border-radius: var(--upload-radius);
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+  &:after {
+    content: '';
+    display: block;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    box-shadow: var(--upload-shadow-border), var(--upload-shadow-outline), var(--upload-shadow-glow);
+    pointer-events: none;
+    border-radius: var(--upload-radius);
+    transition: box-shadow 120ms ease-out;
+  }
+  &:focus-within {
+    --upload-shadow-border: inset 0 0 0 1px hsl(0 0% 100% / 50%);
+    --upload-shadow-outline: 0 0 0 2px hsl(var(--color-key-hsl) / 100%);
+  }
+  &__input {
+    display: block;
+    -webkit-appearance: none;
+    position: absolute;
+    left: 0;
+    top: 0;
+    opacity: 0;
+    overflow: hidden;
+    background: transparent;
+    border: none;
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
+    z-index: 20;
+    pointer-events: none;
+  }
+  &__body {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    align-items: center;
+    height: 100%;
+    pointer-events: none;
+    > svg {
+      display: block;
+      margin-left: 16px;
+      --icon-size: 18px;
+      --icon-stroke: 1.5;
+      --icon-color: var(--color-base);
+    }
+    > em {
+      display: block;
+      font-style: normal;
+      font-size: 14px;
+      font-weight: 500;
+      padding: 0 0 0 6px;
+      line-height: 1.15;
+    }
+    > i {
+      display: flex;
+      align-items: center;
+      width: 40px;
+      background-color: var(--color-key);
+      height: 100%;
+      border-top-right-radius: var(--upload-radius);
+      border-bottom-right-radius: var(--upload-radius);
+      --icon-color: hsl(0 0% 100%);
+      --icon-size: 20px;
+      --icon-stroke: 1.75;
+      > svg {
+        display: block;
+        margin: 0 auto;
+      }
+    }
+  }
+  &--disabled {
+    opacity: .5;
+    cursor: not-allowed;
+  }
+
+  @include mixin.dark-mode() {
+    --upload-bg: hsl(0 0% 7%);
+    --upload-shadow-border: inset 0 0 0 1px hsl(0 0% 100% / 12%);
+    &:focus-within {
+      --upload-shadow-border: inset 0 0 0 1px hsl(0 0% 0% / 50%);
+    }
+  }
+}
