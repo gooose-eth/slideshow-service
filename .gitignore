@@ -16,3 +16,4 @@ package-lock.json
 0
 *.log
 nuxt.d.ts
+cmd.sh

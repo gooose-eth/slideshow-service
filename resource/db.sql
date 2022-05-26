@@ -6,7 +6,7 @@ create table `slideshow` (
   `address` varchar(30) not null comment 'Watch address',
   `title` varchar(120) not null,
   `description` varchar(255) default null,
-  `slideshow` longtext not null comment 'Slideshow json data',
+  `slideshow` longtext not null comment 'Slideshow JSON data',
   `password` varchar(120) not null comment 'Slideshow password',
   `salt` varchar(120) not null comment 'Salt for password',
   `thumbnail` varchar(100) default null comment 'Thumbnail image address',
