@@ -17,7 +17,7 @@
       <Meta name="mobile-web-app-capable" content="yes"/>
       <Meta name="theme-color" content="currentColor"/>
       <Link rel="shortcut icon" href="/favicon.ico"/>
-      <Link rel="icon" type="image/x-icon" href="/images/head/slideshow-256x256.png"/>
+      <Link rel="icon" type="image/x-icon" href="/images/head/app-icon.png"/>
       <Link rel="apple-touch-icon" href="/images/head/slideshow-512x512.png"/>
       <Link rel="apple-touch-startup-image" href="/images/head/slideshow-512x512.png"/>
       <Link rel="manifest" href="/manifest.json"/>

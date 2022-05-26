@@ -1,5 +1,5 @@
 // circular-std
-$dir: '/fonts/ortsa/';
+$dir: '/fonts/ortsa';
 @mixin font-loader-ortsa($weight-name, $weight)
 {
   // ortsa font - 30(light), 45(regular), 60(medium), 75(bold), 90(black)
@@ -27,7 +27,7 @@ $dir: '/fonts/ortsa/';
 @include font-loader-ortsa('90', 900); // black
 
 // Pretendard
-$dir: '/fonts/pretendard/';
+$dir: '/fonts/pretendard';
 @mixin font-loader($weight-name, $weight)
 {
   @font-face {
