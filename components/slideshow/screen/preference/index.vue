@@ -81,7 +81,7 @@ const bodyComponent: any = computed(() => {
     case 'slides':
       return defineAsyncComponent(() => import('./slides.vue'));
     case 'style':
-      return defineAsyncComponent(() => import('./style.vue'));
+      return defineAsyncComponent(() => import('./styles.vue'));
     case 'data':
       return defineAsyncComponent(() => import('./data/index.vue'));
     case 'keyboard':

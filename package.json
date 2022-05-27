@@ -7,7 +7,6 @@
   "license": "MIT",
   "scripts": {
     "tool": "node ./resource/tool.js",
-    "setup": "node ./resource/tool.js setup",
     "dev": "nuxi dev",
     "build": "rm -rf .nuxt && rm -rf .output && nuxi build",
     "start": "node .output/server/index.mjs"

@@ -33,4 +33,4 @@ const props = defineProps({
 const emits = defineEmits([ 'update:modelValue', 'blur:modelValue' ]);
 </script>
 
-<style src="./checkbox.scss" lang="scss" scoped></style>
+<style src="./form-checkbox.scss" lang="scss" scoped></style>

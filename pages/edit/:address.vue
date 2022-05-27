@@ -15,7 +15,7 @@
     mode="edit"
     :address="route.params.address"
     :show-close-button="false"
-    :processing="processingAuth"
+    :processing="Boolean(processingAuth)"
     @submit="onSubmitAuthorization"/>
 </div>
 </template>
@@ -37,7 +37,7 @@ const data = dataStore();
 const preference = preferenceStore();
 const usePreference = usePreferenceStore();
 const isAuth: any = ref(false);
-const processingAuth: any = ref(false);
+const processingAuth = ref(false);
 
 async function authorization(): Promise<any>
 {

@@ -34,4 +34,4 @@ function onClickItem(key)
 }
 </script>
 
-<style src="./radio.scss" lang="scss" scoped></style>
+<style src="./form-radio.scss" lang="scss" scoped></style>

@@ -96,7 +96,7 @@ function onSelectFile(e)
   state.file = e[0];
 }
 
-async function onSubmit(e)
+async function onSubmit()
 {
   state.processing = true;
   try

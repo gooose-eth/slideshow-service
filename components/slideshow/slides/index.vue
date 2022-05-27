@@ -16,7 +16,7 @@
     :move-pos="swipePosition"
     @animation-control="onAnimationControl"
     @change-active="onChangeActive"/>
-  <Caption v-if="visibleCaption"/>
+  <Captions v-if="visibleCaption"/>
   <Controller
     v-if="visibleController"
     :disabled="animated"
@@ -39,7 +39,7 @@ import { ref, computed, onMounted, onUnmounted, watch } from 'vue';
 import { currentStore, dataStore, preferenceStore, windowsStore } from '~/store/slideshow';
 import { moveNumber } from '~/libs/slideshow';
 import Images from './images.vue';
-import Caption from './caption.vue';
+import Captions from './captions.vue';
 import Paginate from './paginate.vue';
 import Controller from './controller.vue';
 

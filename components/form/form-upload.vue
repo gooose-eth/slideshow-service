@@ -55,4 +55,4 @@ defineExpose({
 });
 </script>
 
-<style src="./upload.scss" lang="scss" scoped></style>
+<style src="./form-upload.scss" lang="scss" scoped></style>

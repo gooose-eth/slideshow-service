@@ -79,4 +79,4 @@ watch(() => preference.slides.captionAnimationType, value => {
 });
 </script>
 
-<style src="./caption.scss" lang="scss" scoped></style>
+<style src="./captions.scss" lang="scss" scoped></style>

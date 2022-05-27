@@ -52,7 +52,6 @@
 import { ref } from 'vue';
 import { getValueFromType } from '~/libs/util';
 
-const name = 'FormText';
 const props = defineProps({
   type: { type: String, default: 'text' }, // text,tel
   name: String,
@@ -90,4 +89,4 @@ defineExpose({
 });
 </script>
 
-<style src="./text.scss" lang="scss" scoped></style>
+<style src="./form-text.scss" lang="scss" scoped></style>

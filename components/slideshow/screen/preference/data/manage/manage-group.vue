@@ -109,7 +109,7 @@
             type="url"
             name="pref_slidesUrl"
             id="pref_slidesUrl"
-            placeholder="URL을 입력하세요."
+            placeholder="URL 주소를 입력하세요."
             :required="true"
             v-model="state.form.slidesUrl"
             @update:modelValue="onInputEvent"/>
@@ -164,10 +164,10 @@ function onUpdateKey(str: string): void
 {
   onInputEvent();
   if (!str) state.error.key = true;
-  state.error.key = !/^[a-zA-Z0-9_]+$/.test(str);
+  state.error.key = !/^\w+$/.test(str);
 }
 
-function onSubmit(e: SubmitEvent): void
+function onSubmit(): void
 {
   try
   {

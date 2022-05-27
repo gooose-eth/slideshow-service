@@ -211,7 +211,7 @@ function onClickOpenThumbnailImage(): void
 }
 
 onMounted(() => {
-  $title.value.focus();
+  // $title.value.focus();
 });
 </script>
 
