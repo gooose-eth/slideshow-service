@@ -108,6 +108,17 @@
         </div>
         <FormSwitch v-model="fields.public" name="public" id="public"/>
       </div>
+<!--      <div v-if="current.createMode" class="field-switch">-->
+<!--        <div class="field-switch__body button" @click="onClickOpenAgree">-->
+<!--          <p class="label field__label">-->
+<!--            <label>약관 동의하기</label>-->
+<!--          </p>-->
+<!--          <p class="help field__help">-->
+<!--            슬라이드쇼 약관 내용을 보려면 클릭하세요.-->
+<!--          </p>-->
+<!--        </div>-->
+<!--        <FormSwitch v-model="fields.agree" name="agree" id="agree" :required="true"/>-->
+<!--      </div>-->
     </fieldset>
     <nav class="post__nav">
       <ButtonBasic @click="windows.save = false">닫기</ButtonBasic>
@@ -143,6 +154,7 @@ const fields = reactive({
   thumbnail: data.field.thumbnail || '',
   address: data.field.address || '',
   public: data.field.public,
+  agree: false,
 });
 const processing = ref(false);
 const headerTitle = computed(() => {
@@ -210,8 +222,13 @@ function onClickOpenThumbnailImage(): void
   newLink(fields.thumbnail);
 }
 
+function onClickOpenAgree(): void
+{
+  console.log('onClickOpenAgree()');
+}
+
 onMounted(() => {
-  // $title.value.focus();
+  $title.value.focus();
 });
 </script>
 

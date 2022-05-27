@@ -34,7 +34,7 @@
   }
   &__nav {
     position: sticky;
-    bottom: 0;
+    bottom: -1px;
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: 8px;
@@ -114,6 +114,20 @@
   align-items: center;
   .help {
     margin: 4px 0 0;
+  }
+  &__body {
+    &.button {
+      cursor: pointer;
+      user-select: none;
+      color: var(--color-key);
+      transition: opacity 120ms ease-out;
+      label {
+        cursor: pointer;
+      }
+      &:active {
+        opacity: .5;
+      }
+    }
   }
 }
 

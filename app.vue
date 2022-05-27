@@ -55,12 +55,4 @@ nuxtApp.hook('page:finish', (): void => {
 
 // setup
 if (process.server) service.setup();
-const { data } = await useAsyncData('setup', () => $fetch('/api/setup', {
-  method: 'post',
-  body: {
-    mode: getRouteMode(), // default,watch,admin
-  },
-}));
-const { success } = data.value;
-if (!success) throw new Error('Error setup');
 </script>
