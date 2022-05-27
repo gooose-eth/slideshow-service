@@ -4,14 +4,15 @@
 
 import { setupResource, useResource } from '../../init.js';
 import { getItems, getCount } from '../../db/queries.js';
+import { capture } from '../../libs/error.js';
 
 let res;
 
 export default async e => {
-  await setupResource(e);
-  res = useResource();
   try
   {
+    await setupResource(e);
+    res = useResource();
     const { page, size, field, q, publicFilter } = res.body;
     const op = {
       page,
@@ -36,11 +37,12 @@ export default async e => {
       items,
     };
   }
-  catch (e)
+  catch (err)
   {
+    await capture(['/api/slideshow/index.post.js', 'default()'], err);
     return {
       success: false,
-      message: e.message,
+      message: 'Failed get data index.',
     };
   }
 };

@@ -1,0 +1,11 @@
+User-agent: *
+Allow: /
+Allow: /about
+Allow: /watch?
+Allow: /watch/?
+Disallow: /admin?
+Disallow: /admin/?
+Disallow: /create?
+Disallow: /create/?
+Disallow: /edit?
+Disallow: /edit/?

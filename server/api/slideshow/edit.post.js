@@ -7,6 +7,7 @@ import { getItem, edit } from '../../db/queries.js';
 import { checkPassword, createPassword } from '../../libs/password.js';
 import { makeToken, updateToken, checkToken, getCookie } from '../../libs/token.js';
 import { checkImage, testUrl, replaceQuot } from '../../libs/util.js';
+import { capture } from '../../libs/error.js';
 
 let res;
 
@@ -154,9 +155,10 @@ export default async e => {
   }
   catch(err)
   {
+    await capture(['/api/slideshow/edit.post.js', 'default()'], err);
     return {
       success: false,
-      message: err.message,
+      message: 'Failed edit data.',
     };
   }
 };

@@ -6,6 +6,7 @@ import { setupResource, useResource } from '../../init.js';
 import { create } from '../../db/queries.js';
 import { createPassword, uniqueId } from '../../libs/password.js';
 import { testUrl, checkImage, replaceQuot } from '../../libs/util.js';
+import { capture } from '../../libs/error.js';
 
 let res;
 
@@ -70,9 +71,10 @@ export default async e => {
   }
   catch (err)
   {
+    await capture(['/api/slideshow/create.post.js', 'default()'], err);
     return {
       success: false,
-      message: err.message,
+      message: 'Failed create data.',
     };
   }
 };
