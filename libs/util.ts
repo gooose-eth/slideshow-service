@@ -64,6 +64,7 @@ export function copyToClipboard(str: string): Promise<void>
     }
     else
     {
+      alert('복사할 수 었습니다.');
       reject();
     }
   });
