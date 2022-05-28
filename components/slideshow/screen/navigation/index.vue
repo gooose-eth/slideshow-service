@@ -163,6 +163,7 @@ function onClickContextItem(key: string): void
       route(key);
       break;
     case 'share':
+      console.log(service.url, data.field.address)
       let url = `${service.url.replace(/\/$/, '')}/watch/${data.field.address}`;
       copyToClipboard(url).then(() => alert('주소가 복사되었습니다.'));
       break;
