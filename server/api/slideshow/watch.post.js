@@ -4,6 +4,7 @@
 
 import { setupResource, useResource } from '../../init.js';
 import { getItem } from '../../db/queries.js';
+import { disconnect } from '../../db/connect.js';
 import { checkPassword } from '../../libs/password.js';
 import { getCookie, updateToken, makeToken, checkToken } from '../../libs/token.js';
 import { capture } from '../../libs/error.js';
@@ -121,20 +122,26 @@ async function updateLog(evt, body)
 export default async e => {
   try
   {
+    let result;
     await setupResource(e);
     res = useResource();
     switch (res.body.mode)
     {
       case 'fetch':
-        return await getFetchItem();
+        result = await getFetchItem();
+        disconnect();
+        return result;
       case 'submit-authorization':
-        return await submitAuthorization();
+        result = await submitAuthorization();
+        disconnect();
+        return result;
       default:
         throw new Error('NO-MODE');
     }
   }
   catch (err)
   {
+    disconnect();
     await capture(['/api/slideshow/watch.post.js', 'default()'], err);
     return {
       success: false,

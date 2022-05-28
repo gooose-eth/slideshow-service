@@ -4,6 +4,7 @@
 
 import { setupResource, useResource, checkAuthorization } from '../../init.js';
 import { remove } from '../../db/queries.js';
+import { disconnect } from '../../db/connect.js';
 import { clearCookie } from '../../libs/token.js';
 import { capture } from '../../libs/error.js';
 
@@ -18,6 +19,7 @@ export default async e => {
     await checkAuthorization();
     clearCookie(res.evt, res.body.address);
     await remove(res.body.address);
+    disconnect();
     return {
       success: true,
     };
@@ -25,6 +27,7 @@ export default async e => {
   catch (err)
   {
     await capture(['/api/slideshow/delete.post.js', 'default()'], err);
+    disconnect();
     return {
       success: false,
       message: 'Failed delete data.',

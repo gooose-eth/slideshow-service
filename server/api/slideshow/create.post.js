@@ -7,6 +7,7 @@ import { create } from '../../db/queries.js';
 import { createPassword, uniqueId } from '../../libs/password.js';
 import { testUrl, checkImage, replaceQuot } from '../../libs/util.js';
 import { capture } from '../../libs/error.js';
+import { disconnect } from "~/server/db/connect.js";
 
 let res;
 
@@ -64,7 +65,9 @@ export default async e => {
     switch (res.body.mode)
     {
       case 'submit':
-        return await submitCreate();
+        let result = await submitCreate();
+        disconnect();
+        return result;
       default:
         throw new Error('NO-MODE');
     }
@@ -72,6 +75,7 @@ export default async e => {
   catch (err)
   {
     await capture(['/api/slideshow/create.post.js', 'default()'], err);
+    disconnect();
     return {
       success: false,
       message: 'Failed create data.',

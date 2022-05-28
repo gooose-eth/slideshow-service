@@ -69,6 +69,7 @@ import { readyPreferenceStore, windowsStore } from '~/store/slideshow';
 import { FormRadio, FormText } from '~/components/form';
 import { pureObject } from '~/libs/object';
 import { checkTree, objectToString } from '~/libs/slideshow';
+import { captureError } from '~/libs/error';
 import ButtonIcon from './button-icon.vue';
 import Manage from './manage/index.vue';
 import { ModalWrap, ModalBody } from '~/components/modal';
@@ -107,7 +108,7 @@ function onChangeMode(key: string): void
   }
   catch(e)
   {
-    if (process.dev) console.error(e.message);
+    captureError(['/components/slideshow/screen/preference/data/index.vue', 'onChangeMode()'], 'error', e.message);
     alert('데이터가 잘못되었습니다.');
   }
 }

@@ -1,7 +1,7 @@
 import mariadb from 'mariadb';
 import { useResource } from '../init.js';
 
-let conn;
+let pool, conn;
 export const tableNames = {
   slideshow: 'slideshow',
 };
@@ -43,15 +43,29 @@ export async function connect(multiple = false)
   let env = getENV();
   if (!env) throw new Error('FAIL-CONNECT-DATABASE');
   const { host, port, userName, password, database, timezone } = env;
-  conn = await mariadb.createConnection({
-    host,
-    port,
-    user: userName,
-    password,
-    database,
-    timezone,
-    multipleStatements: multiple,
-    dateStrings: 'date',
-  });
+  if (!pool)
+  {
+    pool = mariadb.createPool({
+      host,
+      port,
+      user: userName,
+      password,
+      database,
+      timezone,
+      multipleStatements: multiple,
+      dateStrings: 'date',
+      connectionLimit: 5
+    });
+  }
+  if (!conn) conn = await pool.getConnection();
   return conn;
+}
+
+export function disconnect()
+{
+  if (conn)
+  {
+    conn.release();
+    conn = undefined;
+  }
 }

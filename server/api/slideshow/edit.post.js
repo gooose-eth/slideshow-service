@@ -4,6 +4,7 @@
 
 import { setupResource, useResource, checkAuthorization } from '../../init.js';
 import { getItem, edit } from '../../db/queries.js';
+import { disconnect } from '../../db/connect.js';
 import { checkPassword, createPassword } from '../../libs/password.js';
 import { makeToken, updateToken, checkToken, getCookie } from '../../libs/token.js';
 import { checkImage, testUrl, replaceQuot } from '../../libs/util.js';
@@ -139,22 +140,30 @@ function checkParams()
 export default async e => {
   try
   {
+    let result;
     await setupResource(e);
     res = useResource();
     switch (res.body.mode)
     {
       case 'authorization':
-        return await authorization();
+        result = await authorization();
+        disconnect();
+        return result;
       case 'submit-authorization':
-        return await submitAuthorization();
+        result = await submitAuthorization();
+        disconnect();
+        return result;
       case 'submit':
-        return await submitEdit();
+        result = await submitEdit();
+        disconnect();
+        return result;
       default:
         throw new Error('NO-MODE');
     }
   }
   catch(err)
   {
+    disconnect();
     await capture(['/api/slideshow/edit.post.js', 'default()'], err);
     return {
       success: false,
