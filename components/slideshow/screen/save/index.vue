@@ -159,6 +159,7 @@ import { ModalWrap, ModalBody } from '~/components/modal';
 import Agree from '~/components/agree/index.vue';
 
 const $title = ref();
+const $thumbnail = ref();
 const $agree = ref();
 const emits = defineEmits([ 'close' ]);
 const router = useRouter();
@@ -217,8 +218,18 @@ async function onSubmit(_evt): Promise<void>
     }
     if (!!fields.thumbnail)
     {
-      // TODO: 썸네일 주소가 있다면 진짜 이미지 파일이 있는지 검사하기
-      // TODO: 이미지가 없는데 값이 들어가니 귀찮은 일이 벌어지는거 같다.
+      try
+      {
+        let res: any = await $fetch(fields.thumbnail);
+        if (!/^image/.test(res.type)) throw new Error('error');
+      }
+      catch (e)
+      {
+        alert('썸네일 이미지 주소가 잘못되었습니다. 올바른 주소를 입력해주세요.');
+        $thumbnail.value.focus();
+        processing.value = false;
+        return;
+      }
     }
     let { success, message, address } = await $fetch(`/api/slideshow/${current.mode}`, {
       method: 'post',
