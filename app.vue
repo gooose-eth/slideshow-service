@@ -38,21 +38,10 @@ const service = serviceStore();
 
 if (process.client) initCustomEvent();
 
-function getRouteMode(): string
-{
-  switch (route.name)
-  {
-    case 'create':
-      return route.name;
-    default:
-      return 'default';
-  }
-}
-
 nuxtApp.hook('page:finish', (): void => {
   window.scrollTo(0, 0);
 });
 
 // setup
-if (process.server) service.setup();
+service.setup();
 </script>

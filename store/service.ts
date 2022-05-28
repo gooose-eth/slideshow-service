@@ -5,16 +5,19 @@ export const serviceStore = defineStore('service', {
   state(): Types.Service
   {
     return {
-      title: '슬라이드쇼',
-      description: '이미지 슬라이드쇼 서비스',
-      url: 'https://slideshow.redgoose.me',
+      title: '',
+      description: '',
+      url: '',
     };
   },
   actions: {
     setup(): void
     {
-      if (!process.env) return;
-      this.url = process.env.URL;
+      const config = <any>useRuntimeConfig().public;
+      const { SERVICE_NAME, SERVICE_DESCRIPTION, SERVICE_URL } = config;
+      this.title = SERVICE_NAME;
+      this.description = SERVICE_DESCRIPTION;
+      this.url = SERVICE_URL;
     },
   },
 });

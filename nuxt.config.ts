@@ -1,6 +1,7 @@
 import { defineNuxtConfig } from 'nuxt';
 
 const {
+  SERVICE_NAME, SERVICE_DESCRIPTION, SERVICE_URL,
   COOKIE_AGE_DAY, COOKIE_PREFIX,
   INDEX_SIZE,
   DB_HOST, DB_PORT, DB_DATABASE, DB_USERNAME, DB_PASSWORD, TIMEZONE_OFFSET,
@@ -16,6 +17,9 @@ export default defineNuxtConfig({
     '@pinia/nuxt',
   ],
   publicRuntimeConfig: {
+    SERVICE_NAME,
+    SERVICE_DESCRIPTION,
+    SERVICE_URL,
     index: {
       size: Number(INDEX_SIZE),
     },

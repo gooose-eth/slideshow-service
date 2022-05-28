@@ -1,6 +1,6 @@
 {
   "name": "slideshow-service",
-  "version": "2.0.4",
+  "version": "2.0.5",
   "repository": "https://github.com/redgoose-dev/slideshow-service.git",
   "author": "redgoose <scripter@me.com>",
   "type": "module",
