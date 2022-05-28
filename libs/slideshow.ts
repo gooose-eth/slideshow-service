@@ -1,4 +1,5 @@
-import { pureObject } from '~/libs/object';
+import { pureObject } from './object';
+import { captureError } from './error';
 import type { Preference } from '~/store/slideshow.d';
 
 interface Slide {
@@ -141,6 +142,7 @@ export function checkPreference(item: Preference): boolean
   catch(e)
   {
     if (process.dev) console.error(e.message);
+    captureError(['/libs/slideshow.ts', 'checkPreference()'], 'error', e.message);
     return false;
   }
 }

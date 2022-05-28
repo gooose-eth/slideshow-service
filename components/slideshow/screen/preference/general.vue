@@ -215,7 +215,7 @@ function onClickRestore(): void
       }
       catch(e)
       {
-        if (process.dev) console.error(e.message);
+        captureError(['/components/slideshow/screen/preference/general.vue', 'onClickRestore()'], 'error', e.message);
         alert('복원에 실패했습니다.');
       }
     };

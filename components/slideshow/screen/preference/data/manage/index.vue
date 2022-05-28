@@ -100,6 +100,7 @@
 <script lang="ts" setup>
 import { reactive, computed } from 'vue';
 import { pureObject } from '~/libs/object';
+import { captureError } from '~/libs/error';
 import Icon from '~/components/icon/index.vue';
 import { ButtonBasic } from '~/components/button';
 import { ModalWrap, ModalBody } from '~/components/modal';
@@ -227,7 +228,7 @@ function onSubmitGroup(res: any): void
   }
   catch(e)
   {
-    if (process.dev) console.error(e.message);
+    captureError(['/components/slideshow/screen/preference/data/manage/index.vue', 'onSubmitGroup()'], 'error', e.message);
     alert('처리에 문제가 생겼습니다.');
   }
 }
@@ -287,7 +288,7 @@ function onSubmitSlide(res)
   }
   catch(e)
   {
-    if (process.dev) console.error(e.message);
+    captureError(['/components/slideshow/screen/preference/data/manage/index.vue', 'onSubmitSlide()'], 'error', e.message);
     alert('처리에 문제가 생겼습니다.');
   }
 }

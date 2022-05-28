@@ -16,15 +16,15 @@
 </label>
 </template>
 
-<script setup>
-const name = 'FormSwitch';
-const props = defineProps({
-  name: { type: String, required: true },
-  id: String,
-  disabled: Boolean,
-  required: Boolean,
-  modelValue: Boolean,
-});
+<script lang="ts" setup>
+const $input = ref();
+const props = defineProps<{
+  name: string
+  id?: string
+  disabled?: boolean
+  required?: boolean
+  modelValue?: boolean
+}>();
 const emits = defineEmits([ 'update:modelValue', 'blur:modelValue' ]);
 </script>
 

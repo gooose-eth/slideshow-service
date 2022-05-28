@@ -29,7 +29,7 @@
     transition: background-color 300ms ease-out, box-shadow 200ms ease-out;
     outline: none;
     border: none;
-    &:focus-visible {
+    &:focus {
       --switch-shadow-border: inset 0 0 0 1px hsl(0 0% 100% / 40%);
       --switch-shadow-outline: 0 0 0 2px var(--color-key);
     }
@@ -69,7 +69,7 @@
       &:checked {
         --switch-shadow-border: inset 0 0 0 1px hsl(0 0% 100% / 0%);
       }
-      &:focus-visible {
+      &:focus {
         --switch-shadow-border: inset 0 0 0 1px hsl(0 0% 0% / 0%);
       }
     }

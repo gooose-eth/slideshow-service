@@ -72,6 +72,7 @@
 import { ref, reactive, onMounted, onUnmounted } from 'vue';
 import { getFileData, checkTree } from '~/libs/slideshow';
 import { assetsStore, windowsStore } from '~/store/slideshow';
+import { captureError } from '~/libs/error';
 import { FormRadio, FormText, FormUpload } from '~/components/form';
 import { ButtonBasic } from '~/components/button';
 import PopupHeader from './popup-header.vue';
@@ -136,7 +137,7 @@ async function onSubmit()
   }
   catch(e)
   {
-    if (process.dev) console.error(e.message);
+    captureError(['/components/slideshow/screen/preference/data/import-data.vue', 'onSubmit()'], 'error', e.message);
     alert('데이터를 가져오는데 실패했습니다.');
     state.processing = false;
   }

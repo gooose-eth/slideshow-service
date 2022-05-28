@@ -32,6 +32,7 @@
 
 <script lang="ts" setup>
 import { serialize } from '~/libs/string';
+import { captureError } from '~/libs/error';
 import ErrorItems from '~/components/error/items.vue';
 import Item from '~/components/pages/index/item.vue';
 import Pagination from '~/components/navigation/pagination.vue';
@@ -71,7 +72,7 @@ async function fetch(): Promise<void>
   }
   catch(e)
   {
-    if (process.dev) console.error(e.message);
+    captureError(['/pages/index.vue', 'fetch()'], 'error', e.message);
     error.value = '오류가 발생했어요!';
   }
 }

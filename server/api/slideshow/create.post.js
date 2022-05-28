@@ -8,6 +8,7 @@ import { createPassword, uniqueId } from '../../libs/password.js';
 import { testUrl, checkImage, replaceQuot } from '../../libs/util.js';
 import { capture } from '../../libs/error.js';
 import { disconnect } from "~/server/db/connect.js";
+import { CODE } from '../../../libs/error.ts';
 
 let res;
 
@@ -78,7 +79,7 @@ export default async e => {
     disconnect();
     return {
       success: false,
-      message: 'Failed create data.',
+      message: CODE[err.message] || 'Failed create data.',
     };
   }
 };

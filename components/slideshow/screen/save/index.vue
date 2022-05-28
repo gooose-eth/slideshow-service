@@ -108,17 +108,22 @@
         </div>
         <FormSwitch v-model="fields.public" name="public" id="public"/>
       </div>
-<!--      <div v-if="current.createMode" class="field-switch">-->
-<!--        <div class="field-switch__body button" @click="onClickOpenAgree">-->
-<!--          <p class="label field__label">-->
-<!--            <label>약관 동의하기</label>-->
-<!--          </p>-->
-<!--          <p class="help field__help">-->
-<!--            슬라이드쇼 약관 내용을 보려면 클릭하세요.-->
-<!--          </p>-->
-<!--        </div>-->
-<!--        <FormSwitch v-model="fields.agree" name="agree" id="agree" :required="true"/>-->
-<!--      </div>-->
+      <div v-if="current.createMode" class="field-switch">
+        <div class="field-switch__body button" @click="agreeWindow = true">
+          <p class="label field__label">
+            <label>약관 동의하기</label>
+          </p>
+          <p class="help field__help">
+            슬라이드쇼 약관 내용을 보려면 클릭하세요.
+          </p>
+        </div>
+        <FormSwitch
+          ref="$agree"
+          v-model="fields.agree"
+          name="agree"
+          id="agree"
+          :required="true"/>
+      </div>
     </fieldset>
     <nav class="post__nav">
       <ButtonBasic @click="windows.save = false">닫기</ButtonBasic>
@@ -130,6 +135,16 @@
       </ButtonBasic>
     </nav>
   </form>
+  <transition name="modal-fade">
+    <ModalWrap
+      v-if="agreeWindow"
+      :full-screen="false"
+      @close="agreeWindow = false">
+      <ModalBody>
+        <Agree @close="agreeWindow = false"/>
+      </ModalBody>
+    </ModalWrap>
+  </transition>
 </article>
 </template>
 
@@ -137,16 +152,20 @@
 import { ref, computed, reactive, onMounted } from 'vue';
 import { currentStore, windowsStore, preferenceStore, dataStore } from '~/store/slideshow';
 import { newLink } from '~/libs/util';
+import { captureError } from '~/libs/error';
 import { ButtonBasic } from '~/components/button';
 import { FormText, FormSwitch } from '~/components/form';
+import { ModalWrap, ModalBody } from '~/components/modal';
+import Agree from '~/components/agree/index.vue';
 
 const $title = ref();
+const $agree = ref();
+const emits = defineEmits([ 'close' ]);
 const router = useRouter();
 const current = currentStore();
 const preference = preferenceStore();
 const data = dataStore();
 const windows = windowsStore();
-const emits = defineEmits([ 'close' ]);
 const fields = reactive({
   title: data.field.title || '',
   description: data.field.description || '',
@@ -168,6 +187,7 @@ const headerTitle = computed(() => {
       return '슬라이드쇼';
   }
 });
+const agreeWindow = ref(false);
 
 async function onSubmit(_evt): Promise<void>
 {
@@ -188,6 +208,18 @@ async function onSubmit(_evt): Promise<void>
       },
     };
     if (current.editMode) params.address = data.field.address;
+    if (current.createMode && !fields.agree)
+    {
+      alert('약관 동의해주세요!');
+      $agree.value.focus();
+      processing.value = false;
+      return;
+    }
+    if (!!fields.thumbnail)
+    {
+      // TODO: 썸네일 주소가 있다면 진짜 이미지 파일이 있는지 검사하기
+      // TODO: 이미지가 없는데 값이 들어가니 귀찮은 일이 벌어지는거 같다.
+    }
     let { success, message, address } = await $fetch(`/api/slideshow/${current.mode}`, {
       method: 'post',
       responseType: 'json',
@@ -211,7 +243,7 @@ async function onSubmit(_evt): Promise<void>
   }
   catch(e)
   {
-    if (process.dev) console.error(e.message);
+    captureError(['/components/slideshow/screen/save/index.vue', 'onSubmit()'], 'error', e.message);
     alert(`슬라이드쇼 ${current.label} 실패했습니다.`);
     processing.value = false;
   }
@@ -220,11 +252,6 @@ async function onSubmit(_evt): Promise<void>
 function onClickOpenThumbnailImage(): void
 {
   newLink(fields.thumbnail);
-}
-
-function onClickOpenAgree(): void
-{
-  console.log('onClickOpenAgree()');
 }
 
 onMounted(() => {

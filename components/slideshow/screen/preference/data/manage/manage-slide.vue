@@ -99,6 +99,7 @@
 import { ref, reactive, onMounted, onUnmounted } from 'vue';
 import { validUrl } from '~/libs/string';
 import { windowsStore } from '~/store/slideshow';
+import { captureError } from '~/libs/error';
 import PopupHeader from '../popup-header.vue';
 import { ButtonBasic } from '~/components/button';
 import { FormText } from '~/components/form';
@@ -158,7 +159,7 @@ function onSubmit(): void
   }
   catch(e)
   {
-    if (process.dev) console.error(e.message);
+    captureError(['/components/slideshow/screen/preference/data/manage/manage-slide.vue', 'onSubmit()'], 'error', e.message);
     alert('처리에 문제가 생겼습니다.');
   }
 }

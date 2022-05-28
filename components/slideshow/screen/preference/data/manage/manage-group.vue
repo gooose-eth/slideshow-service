@@ -130,6 +130,7 @@
 <script lang="ts" setup>
 import { reactive, onMounted, onUnmounted } from 'vue';
 import { windowsStore } from '~/store/slideshow';
+import { captureError } from '~/libs/error';
 import { ButtonBasic } from '~/components/button';
 import { FormText, FormRadio } from '~/components/form';
 import PopupHeader from '../popup-header.vue';
@@ -179,7 +180,7 @@ function onSubmit(): void
   }
   catch(e)
   {
-    if (process.dev) console.error(e.message);
+    captureError(['/components/slideshow/screen/preference/data/manage/manage-group.vue', 'onSubmit()'], 'error', e.message);
     alert('처리에 문제가 생겼습니다.');
   }
 }

@@ -9,6 +9,7 @@ import { checkPassword, createPassword } from '../../libs/password.js';
 import { makeToken, updateToken, checkToken, getCookie } from '../../libs/token.js';
 import { checkImage, testUrl, replaceQuot } from '../../libs/util.js';
 import { capture } from '../../libs/error.js';
+import { CODE } from '../../../libs/error.ts';
 
 let res;
 
@@ -167,7 +168,7 @@ export default async e => {
     await capture(['/api/slideshow/edit.post.js', 'default()'], err);
     return {
       success: false,
-      message: 'Failed edit data.',
+      message: CODE[err.message] || 'Failed edit data.',
     };
   }
 };

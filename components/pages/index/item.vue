@@ -13,7 +13,7 @@
       :height="180"
       :alt="props.title"
       onerror="this.src='/images/index/img-thumbnail-error.jpg'">
-    <IconRandom v-else icon-name="image"/>
+    <IconRandom v-else/>
   </figure>
   <div class="item__body">
     <em>{{props.date}}</em>

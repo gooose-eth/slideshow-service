@@ -6,6 +6,7 @@ import { setupResource, useResource } from '../../init.js';
 import { getItems, getCount } from '../../db/queries.js';
 import { disconnect } from '../../db/connect.js';
 import { capture } from '../../libs/error.js';
+import { CODE } from '../../../libs/error.ts';
 
 let res;
 
@@ -45,7 +46,7 @@ export default async e => {
     await capture(['/api/slideshow/index.post.js', 'default()'], err);
     return {
       success: false,
-      message: 'Failed get data index.',
+      message: CODE[err.message] || 'Failed get data index.',
     };
   }
 };

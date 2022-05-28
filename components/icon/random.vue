@@ -5,9 +5,6 @@
 <script lang="ts" setup>
 import Icon from './index.vue';
 
-const props = defineProps<{
-  iconName: string
-}>()
 const list = [
   'x', 'cast', 'file', 'droplet', 'frown',
   'folder', 'database', 'file', 'copy', 'command',

@@ -8,6 +8,7 @@ import { disconnect } from '../../db/connect.js';
 import { checkPassword } from '../../libs/password.js';
 import { getCookie, updateToken, makeToken, checkToken } from '../../libs/token.js';
 import { capture } from '../../libs/error.js';
+import { CODE } from '../../../libs/error.ts';
 
 let res;
 
@@ -145,7 +146,7 @@ export default async e => {
     await capture(['/api/slideshow/watch.post.js', 'default()'], err);
     return {
       success: false,
-      message: 'Failed get data.',
+      message: CODE[err.message] || 'Failed get data.',
     };
   }
 }

@@ -5,6 +5,7 @@
 import { setupResource, useResource, checkAuthorization } from '../../init.js';
 import { clearCookie } from '../../libs/token.js';
 import { capture } from '../../libs/error.js';
+import { CODE } from '../../../libs/error.ts';
 
 let res;
 
@@ -25,7 +26,7 @@ export default async (e) => {
     await capture(['/api/slideshow/logout.post.js', 'default()'], err);
     return {
       success: false,
-      message: 'Failed logout.',
+      message: CODE[err.message] || 'Failed logout.',
     };
   }
 };

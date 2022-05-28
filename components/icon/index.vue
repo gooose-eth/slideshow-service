@@ -15,7 +15,6 @@
 import { computed } from 'vue';
 import * as src from './src';
 
-const name = 'Icon';
 const props = defineProps<{
   iconName: string,
 }>();

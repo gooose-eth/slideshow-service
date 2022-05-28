@@ -37,6 +37,7 @@ import Authorization from '~/components/authorization/index.vue';
 const $slideshow = ref();
 const $authorization = ref();
 const config = useRuntimeConfig();
+const error = useError();
 const route = useRoute();
 const service = serviceStore();
 const current = currentStore();

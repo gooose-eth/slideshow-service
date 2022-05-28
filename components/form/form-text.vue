@@ -52,6 +52,7 @@
 import { ref } from 'vue';
 import { getValueFromType } from '~/libs/util';
 
+const $root = ref();
 const props = defineProps({
   type: { type: String, default: 'text' }, // text,tel
   name: String,
@@ -72,7 +73,6 @@ const props = defineProps({
   modelValue: [ String, Number, Boolean, Array ],
 });
 const emits = defineEmits([ 'update:modelValue', 'blur:modelValue' ]);
-const $root = ref();
 
 function onChange(e: InputEvent)
 {

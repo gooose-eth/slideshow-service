@@ -7,6 +7,7 @@ import { remove } from '../../db/queries.js';
 import { disconnect } from '../../db/connect.js';
 import { clearCookie } from '../../libs/token.js';
 import { capture } from '../../libs/error.js';
+import { CODE } from '../../../libs/error.ts';
 
 let res;
 
@@ -30,7 +31,7 @@ export default async e => {
     disconnect();
     return {
       success: false,
-      message: 'Failed delete data.',
+      message: CODE[err.message] || 'Failed delete data.',
     };
   }
 };
