@@ -58,13 +58,22 @@ export function fullscreen(sw: boolean): void
 export function copyToClipboard(str: string): Promise<void>
 {
   return new Promise((resolve, reject) => {
-    if (navigator.clipboard)
+    try
     {
-      navigator.clipboard.writeText(str).then(resolve);
+      if (navigator.clipboard)
+      {
+        console.log(str)
+        navigator.clipboard.writeText(str).then(resolve);
+      }
+      else
+      {
+        console.log('복사할 수 없습니다.');
+        reject();
+      }
     }
-    else
+    catch(e)
     {
-      alert('복사할 수 었습니다.');
+      console.log('=======>', e);
       reject();
     }
   });
