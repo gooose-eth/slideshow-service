@@ -40,9 +40,16 @@
         </ModalBody>
       </ModalWrap>
     </transition>
-<!--    <div v-if="!!debug" class="debug">-->
-<!--      <pre>{{debug}}</pre>-->
-<!--    </div>-->
+    <transition name="modal-fade">
+      <ModalWrap v-if="windows.share" @close="windows.share = false">
+        <ModalBody>
+          <Share @close="windows.share = false"/>
+        </ModalBody>
+      </ModalWrap>
+    </transition>
+    <div v-if="!!debug" class="debug">
+      <pre>{{debug}}</pre>
+    </div>
   </teleport>
 </div>
 </template>
@@ -56,8 +63,9 @@ import Preference from './screen/preference/index.vue';
 import { ModalWrap, ModalBody } from '~/components/modal';
 import Groups from './screen/groups/index.vue';
 import Thumbnail from './screen/thumbnail/index.vue';
-import Save from './screen/save/index.vue';
 import Loading from '~/components/loading/intro.vue';
+import Save from './screen/save/index.vue';
+import Share from './share/index.vue';
 
 const $navigation = ref();
 const $slides = ref();

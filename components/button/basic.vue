@@ -12,14 +12,14 @@
 </button>
 </template>
 
-<script setup>
+<script lang="ts" setup>
 const name = 'ButtonBasic';
-const props = defineProps({
-  type: { type: String, default: 'button' }, // button,reset,submit
-  title: String,
-  color: String, // key
-  disabled: Boolean,
-});
+const props = defineProps<{
+  type: string // button,reset,submit
+  title?: string
+  color?: string // key
+  disabled?: boolean
+}>();
 const emits = defineEmits([ 'click' ]);
 </script>
 

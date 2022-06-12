@@ -3,7 +3,7 @@
  */
 
 import { setupResource, useResource, checkAuthorization } from '../../init.js';
-import { remove } from '../../db/queries.js';
+import { remove } from '../../db/slideshow.js';
 import { disconnect } from '../../db/connect.js';
 import { clearCookie } from '../../libs/token.js';
 import { capture } from '../../libs/error.js';

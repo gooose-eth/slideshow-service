@@ -1,5 +1,5 @@
 import { checkToken } from './libs/token.js';
-import { getItem } from './db/queries.js';
+import { getItem } from './db/slideshow.js';
 
 export let evt;
 export let body;

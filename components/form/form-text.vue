@@ -59,7 +59,7 @@ const props = defineProps({
   id: String,
   placeholder: String,
   required: Boolean,
-  min: Number,
+  min: [ Number, String ],
   max: Number,
   step: Number,
   maxlength: Number,
@@ -85,6 +85,7 @@ function focus()
 
 // set expose
 defineExpose({
+  $ref: () => { return $root.value },
   focus,
 });
 </script>

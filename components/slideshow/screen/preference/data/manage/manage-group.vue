@@ -118,7 +118,10 @@
     </div>
     <nav class="manage-group__bottom">
       <div>
-        <ButtonBasic type="submit" color="key">
+        <ButtonBasic
+          type="submit"
+          :title="props.form.type === 'add' ? '그룹추가' : '그룹수정'"
+          color="key">
           {{props.form.type === 'add' ? '그룹추가' : '그룹수정'}}
         </ButtonBasic>
       </div>

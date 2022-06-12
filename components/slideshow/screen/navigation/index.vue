@@ -53,19 +53,28 @@
             미리보기
           </button>
         </li>
-        <li v-if="!!data.field.address">
-          <button
-            type="button"
-            @click="onClickContextItem('share')">
-            주소 복사하기
-          </button>
-        </li>
         <li v-if="current.watchMode">
           <button type="button" @click="onClickContextItem('edit')">
             수정하기
           </button>
         </li>
-        <li v-if="!!data.field.token">
+        <template v-if="!!data.field.address">
+          <li>
+            <button
+              v-if="data.logined"
+              type="button"
+              @click="onClickContextItem('make-share')">
+              공유주소 만들기
+            </button>
+            <button
+              v-else
+              type="button"
+              @click="onClickContextItem('share')">
+              주소 복사하기
+            </button>
+          </li>
+        </template>
+        <li v-if="!!data.logined">
           <button
             type="button"
             class="danger"
@@ -160,6 +169,7 @@ function onClickContextItem(key: string): void
       route(!!history.state.back ? 'slideshowService' : 'slideshowServiceNewWindow');
       break;
     case 'preview':
+    case 'make-share':
       route(key);
       break;
     case 'share':
@@ -211,6 +221,10 @@ function route(key: string): void
     case 'service':
       if (!confirm('슬라이드쇼로 돌아갈까요?')) return;
       router.push('/').then();
+      break;
+    case 'make-share':
+      switchActiveMenu(false);
+      windows.share = true;
       break;
   }
 }

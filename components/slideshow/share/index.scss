@@ -1,0 +1,100 @@
+@use '../../../assets/scss/mixin';
+
+.make-share {
+  position: relative;
+  height: 100%;
+  padding: 42px 32px 0;
+  box-sizing: border-box;
+  background: var(--color-bg);
+  overflow: auto;
+  &__header {
+    text-align: center;
+    user-select: none;
+    h1 {
+      margin: 0;
+      font-size: 28px;
+      font-weight: 800;
+      letter-spacing: -.5px;
+      line-height: 1.15;
+    }
+    p {
+      margin: 4px 0 0;
+      font-size: 13px;
+      line-height: 1.25;
+      color: var(--color-weak);
+    }
+  }
+  &__form {
+    margin: 32px 0 0;
+    > fieldset {
+      display: grid;
+      margin: 0;
+      padding: 0;
+      border: none;
+      gap: 30px;
+      > legend {
+        position: absolute;
+        font-size: 0;
+      }
+    }
+  }
+  &__nav {
+    --button-height: 44px;
+    position: sticky;
+    bottom: -1px;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
+    padding: 0 32px;
+    margin: 36px -32px 0;
+    box-sizing: border-box;
+    background-color: var(--color-bg);
+  }
+  @include mixin.responsive(tablet) {
+    width: 75vw;
+    max-width: 460px;
+    padding: 50px;
+    border-radius: 8px;
+    box-shadow: 0 2px 20px 0 hsl(0 0% 0% / 20%), 0 0 0 1px hsl(0 0% 0% / 15%);
+  }
+}
+
+.field {
+  &__body {
+    margin: 8px 0 0;
+  }
+  .help {
+    margin: 6px 0 0;
+  }
+  .slideshow-title {
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 1.15;
+    letter-spacing: -.25px;
+  }
+}
+
+.label {
+  margin: 0;
+  line-height: 1.15;
+  > label {
+    font-size: 15px;
+    font-weight: 600;
+  }
+}
+
+.help {
+  margin: 0;
+  font-size: 13px;
+  color: var(--color-weak);
+  line-height: 1.15;
+}
+
+.permission-checks {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+}
+

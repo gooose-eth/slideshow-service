@@ -66,6 +66,8 @@
             :maxlength="255"
             placeholder="이미지 주소를 입력하세요."/>
           <ButtonBasic
+            type="button"
+            title="이미지 열기"
             :disabled="fields.thumbnail.length <= 0"
             @click="onClickOpenThumbnailImage">
             이미지 열기
@@ -126,9 +128,15 @@
       </div>
     </fieldset>
     <nav class="post__nav">
-      <ButtonBasic @click="windows.save = false">닫기</ButtonBasic>
+      <ButtonBasic
+        type="button"
+        title="닫기"
+        @click="windows.save = false">
+        닫기
+      </ButtonBasic>
       <ButtonBasic
         type="submit"
+        :title="current.label"
         :disabled="processing"
         color="key">
         {{processing ? '처리중..' : current.label}}
@@ -156,7 +164,7 @@ import { captureError } from '~/libs/error';
 import { ButtonBasic } from '~/components/button';
 import { FormText, FormSwitch } from '~/components/form';
 import { ModalWrap, ModalBody } from '~/components/modal';
-import Agree from '~/components/agree/index.vue';
+import Agree from '~/components/slideshow/agree/index.vue';
 
 const $title = ref();
 const $thumbnail = ref();

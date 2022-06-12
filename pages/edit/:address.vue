@@ -25,7 +25,7 @@ import { serviceStore } from '~/store/service';
 import { currentStore, dataStore, preferenceStore, usePreferenceStore } from '~/store/slideshow';
 import { captureError, CODE } from '~/libs/error';
 import Slideshow from '~/components/slideshow/index.vue';
-import Authorization from '~/components/authorization/index.vue';
+import Authorization from '~/components/slideshow/authorization/index.vue';
 
 const $slideshow = ref();
 const $authorization = ref();

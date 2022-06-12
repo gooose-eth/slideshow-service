@@ -3,7 +3,7 @@
  */
 
 import { setupResource, useResource } from '../../init.js';
-import { getItem } from '../../db/queries.js';
+import { getItem } from '../../db/slideshow.js';
 import { disconnect } from '../../db/connect.js';
 import { checkPassword } from '../../libs/password.js';
 import { getCookie, updateToken, makeToken, checkToken } from '../../libs/token.js';

@@ -46,12 +46,15 @@
     <nav class="authorization__nav">
       <ButtonBasic
         type="submit"
+        :title="labels.submit"
         :color="submitClassName"
         :disabled="props.processing">
         {{props.processing ? '처리중..' : labels.submit}}
       </ButtonBasic>
       <ButtonBasic
         v-if="props.showCloseButton"
+        type="button"
+        title="닫기"
         @click="emits('close')">
         닫기
       </ButtonBasic>

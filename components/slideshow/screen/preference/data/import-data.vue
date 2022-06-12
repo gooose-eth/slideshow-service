@@ -58,6 +58,7 @@
       <div>
         <ButtonBasic
           type="submit"
+          title="데이터 가져오기"
           :color="state.processing ? '' : 'key'"
           :disabled="state.processing">
           {{state.processing ? '처리중..' : '데이터 가져오기'}}

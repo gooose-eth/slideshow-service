@@ -125,8 +125,19 @@
           </p>
         </header>
         <div class="grid import-data">
-          <ButtonBasic color="key" @click="onClickBackup">백업</ButtonBasic>
-          <ButtonBasic @click="onClickRestore">복원</ButtonBasic>
+          <ButtonBasic
+            type="button"
+            title="백업"
+            color="key"
+            @click="onClickBackup">
+            백업
+          </ButtonBasic>
+          <ButtonBasic
+            type="button"
+            title="복원"
+            @click="onClickRestore">
+            복원
+          </ButtonBasic>
         </div>
       </div>
       <div class="field-basic">
@@ -138,7 +149,11 @@
             모든 설정과 슬라이드 데이터를 재설정합니다.
           </p>
         </header>
-        <ButtonBasic color="danger" @click="onClickReset">
+        <ButtonBasic
+          type="button"
+          title="슬라이드쇼 재설정"
+          color="danger"
+          @click="onClickReset">
           슬라이드쇼 재설정
         </ButtonBasic>
       </div>
@@ -151,7 +166,11 @@
             이 슬라이드쇼의 데이터를 전부 삭제합니다. 삭제하면 복구할 수 없습니다.
           </p>
         </header>
-        <ButtonBasic color="danger" @click="onClickDeleteSlideshow">
+        <ButtonBasic
+          type="button"
+          title="슬라이드쇼 삭제하기"
+          color="danger"
+          @click="onClickDeleteSlideshow">
           슬라이드쇼 삭제하기
         </ButtonBasic>
       </div>

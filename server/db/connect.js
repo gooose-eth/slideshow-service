@@ -4,6 +4,7 @@ import { useResource } from '../init.js';
 let pool, conn;
 export const tableNames = {
   slideshow: 'slideshow',
+  address: 'address',
 };
 
 /**

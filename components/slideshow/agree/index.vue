@@ -7,7 +7,11 @@
     <pre class="agree__text">{{text}}</pre>
   </div>
   <nav class="agree__nav">
-    <ButtonBasic color="key" @click="emits('close')">
+    <ButtonBasic
+      type="button"
+      title="닫기"
+      color="key"
+      @click="emits('close')">
       닫기
     </ButtonBasic>
   </nav>

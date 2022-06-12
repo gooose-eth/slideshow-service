@@ -9,9 +9,9 @@ import type * as Types from './slideshow.d';
  * 슬라이드쇼 설정
  */
 export const preferenceStore = defineStore('slideshowPreference', {
-  state()
+  state(): Types.Preference
   {
-    return <Types.Preference>pureObject(defaults.preference);
+    return pureObject(defaults.preference);
   },
   getters: {
     pure(): object
@@ -182,6 +182,10 @@ export const dataStore = defineStore('slideshowData', {
       const current = currentStore();
       return this.groups[current.tree]?.slides?.length > 0;
     },
+    logined(): boolean
+    {
+      return !!this.field.token && !!this.field.address;
+    },
   },
   actions: {
     update(src): void
@@ -278,12 +282,13 @@ export const windowsStore = defineStore('slideshowWindows', {
   state(): Types.Windows
   {
     return {
-      keys: [ 'preference', 'thumbnail', 'group', 'save' ],
+      keys: [ 'preference', 'thumbnail', 'group', 'save', 'share' ],
       children: [],
       preference: false,
       thumbnail: false,
       group: false,
       save: false,
+      share: false,
     };
   },
   getters: {
@@ -306,10 +311,9 @@ export const windowsStore = defineStore('slideshowWindows', {
     destroy(): void
     {
       this.children = [];
-      this.preference = false;
-      this.thumbnail = false;
-      this.group = false;
-      this.save = false;
+      this.keys.forEach((key: string) => {
+        this[key] = false;
+      });
     },
   },
 });

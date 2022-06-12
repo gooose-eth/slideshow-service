@@ -1,0 +1,52 @@
+@use '../../../assets/scss/mixin';
+
+.created {
+  margin: 32px 0 0;
+  &__nav {
+    margin: 36px 0 0;
+  }
+}
+
+.field {
+  &__body {
+    margin: 8px 0 0;
+  }
+  .help {
+    margin: 6px 0 0;
+  }
+}
+
+.label {
+  margin: 0;
+  line-height: 1.15;
+  > label {
+    font-size: 15px;
+    font-weight: 600;
+  }
+}
+
+.help {
+  margin: 0;
+  font-size: 13px;
+  color: var(--color-weak);
+  line-height: 1.15;
+}
+
+.copy-address {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 8px;
+  &::v-deep(.button-basic) {
+    min-width: unset;
+    padding-left: 0;
+    padding-right: 0;
+    aspect-ratio: 1 / 1;
+    svg {
+      display: block;
+      margin: 0 auto;
+      --icon-size: 18px;
+      --icon-stroke: 2;
+      --icon-color: hsl(0 0% 100%);
+    }
+  }
+}

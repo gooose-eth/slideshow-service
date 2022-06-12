@@ -82,6 +82,7 @@ export interface Windows {
   thumbnail: boolean
   group: boolean
   save: boolean
+  share: boolean
 }
 
 export interface Assets {

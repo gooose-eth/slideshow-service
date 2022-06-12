@@ -61,7 +61,11 @@
     </section>
   </div>
   <nav class="add-tree">
-    <ButtonBasic title="그룹추가" color="key" @click="onAddGroup">
+    <ButtonBasic
+      type="button"
+      title="그룹추가"
+      color="key"
+      @click="onAddGroup">
       그룹추가
     </ButtonBasic>
   </nav>

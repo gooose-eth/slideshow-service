@@ -3,7 +3,7 @@
  */
 
 import { setupResource, useResource } from '../../init.js';
-import { getItems, getCount } from '../../db/queries.js';
+import { getItems, getCount } from '../../db/slideshow.js';
 import { disconnect } from '../../db/connect.js';
 import { capture } from '../../libs/error.js';
 import { CODE } from '../../../libs/error.ts';

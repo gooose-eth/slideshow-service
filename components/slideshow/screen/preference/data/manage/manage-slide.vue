@@ -24,7 +24,10 @@
             :required="false"
             v-model="state.form.src"
             @update:modelValue="onInputEvent"/>
-          <ButtonBasic type="button" @click="onClickCheckUrl('src')">
+          <ButtonBasic
+            type="button"
+            title="URL 열기"
+            @click="onClickCheckUrl('src')">
             URL 열기
           </ButtonBasic>
         </div>
@@ -46,7 +49,10 @@
             placeholder="URL을 입력하세요."
             v-model="state.form.thumbnail"
             @update:modelValue="onInputEvent"/>
-          <ButtonBasic type="button" @click="onClickCheckUrl('thumbnail')">
+          <ButtonBasic
+            type="button"
+            title="URL 열기"
+            @click="onClickCheckUrl('thumbnail')">
             URL 열기
           </ButtonBasic>
         </div>
@@ -86,7 +92,10 @@
     </div>
     <nav class="manage-slide__bottom">
       <div>
-        <ButtonBasic type="submit" color="key">
+        <ButtonBasic
+          type="submit"
+          :title="props.form.type === 'add' ? '추가하기' : '수정하기'"
+          color="key">
           {{props.form.type === 'add' ? '추가하기' : '수정하기'}}
         </ButtonBasic>
       </div>

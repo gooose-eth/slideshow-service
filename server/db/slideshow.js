@@ -60,7 +60,7 @@ export async function create(src)
   try
   {
     const conn = await connect(false);
-    let sql = `insert into ${tableNames.slideshow}(\`key\`, address, title, description, slideshow, password, salt, thumbnail, \`public\`, regdate, \`update\`) values (null, \"${src.address}\", \"${src.title}\", \"${src.description}\", \"${src.slideshow}\", '${src.password}', '${src.salt}', '${src.thumbnail}', '${src.public}', now(), now())`;
+    let sql = `insert into ${tableNames.slideshow} values (null, \"${src.address}\", \"${src.title}\", \"${src.description}\", \"${src.slideshow}\", '${src.password}', '${src.salt}', '${src.thumbnail}', '${src.public}', now(), now())`;
     await conn.query(sql);
   }
   catch(e)

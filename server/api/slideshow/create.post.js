@@ -3,11 +3,11 @@
  */
 
 import { setupResource, useResource } from '../../init.js';
-import { create } from '../../db/queries.js';
+import { create } from '../../db/slideshow.js';
+import { disconnect } from '../../db/connect.js';
 import { createPassword, uniqueId } from '../../libs/password.js';
 import { testUrl, checkImage, replaceQuot } from '../../libs/util.js';
 import { capture } from '../../libs/error.js';
-import { disconnect } from "~/server/db/connect.js";
 import { CODE } from '../../../libs/error.ts';
 
 let res;
