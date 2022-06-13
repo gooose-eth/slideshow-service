@@ -225,6 +225,7 @@ export const currentStore = defineStore('slideshowCurrent', {
       autoplay: defaults.preference.slides.autoplay,
       swiped: false,
       loading: true,
+      public: false,
     };
   },
   getters: {

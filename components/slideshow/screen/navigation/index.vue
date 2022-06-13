@@ -67,7 +67,7 @@
               공유주소 만들기
             </button>
             <button
-              v-else
+              v-else-if="!current.public"
               type="button"
               @click="onClickContextItem('share')">
               주소 복사하기

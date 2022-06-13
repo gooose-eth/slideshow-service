@@ -49,7 +49,7 @@ const processingAuth: any = ref(false);
 
 async function fetch(): Promise<any>
 {
-  let token: string;
+  let token: string, res: any;
   const { address } = route.params;
   if (process.server)
   {
@@ -61,19 +61,36 @@ async function fetch(): Promise<any>
     });
     token = cookie.value?.token;
   }
-  let { success, data, message } = await $fetch(`/api/slideshow/watch`, {
-    method: 'post',
-    responseType: 'json',
-    body: {
-      mode: 'fetch',
-      address,
-      token,
-    },
-  });
-  if (!success) throw new Error(message);
-  if (!data) return;
-  await updateStore(data);
-  isAuth.value = true;
+  if (/^key-/.test(<string>address))
+  {
+    // with public key
+    res = await $fetch(`/api/slideshow/public-address/watch`, {
+      method: 'post',
+      responseType: 'json',
+      body: {
+        key: address,
+      },
+    });
+    if (!res.success) throw new Error(res.message);
+    if (!res.data) return;
+    await updateStore(res.data.item);
+    isAuth.value = true;
+    current.public = true;
+  }
+  else
+  {
+    // normal
+    res = await $fetch(`/api/slideshow/watch`, {
+      method: 'post',
+      responseType: 'json',
+      body: { mode: 'fetch', address, token },
+    });
+    if (!res.success) throw new Error(res.message);
+    if (!res.data) return;
+    await updateStore(res.data);
+    isAuth.value = true;
+    current.public = false;
+  }
 }
 
 async function onSubmitAuthorization(fields: { address: string, password: string }): Promise<void>

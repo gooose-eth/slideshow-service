@@ -29,7 +29,7 @@
   margin: 0;
   font-size: 13px;
   color: var(--color-weak);
-  line-height: 1.15;
+  line-height: 1.2;
 }
 
 .copy-address {
@@ -49,4 +49,11 @@
       --icon-color: hsl(0 0% 100%);
     }
   }
+}
+
+.success-copy {
+  margin: 4px 0 16px;
+  font-size: 13px;
+  color: var(--color-key);
+  font-weight: 600;
 }

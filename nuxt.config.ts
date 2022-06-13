@@ -5,6 +5,7 @@ const {
   COOKIE_AGE_DAY, COOKIE_PREFIX,
   INDEX_SIZE,
   DB_HOST, DB_PORT, DB_DATABASE, DB_USERNAME, DB_PASSWORD, TIMEZONE_OFFSET,
+  TIMEZONE,
 } = process.env;
 
 // https://v3.nuxtjs.org/docs/directory-structure/nuxt.config
@@ -34,6 +35,7 @@ export default defineNuxtConfig({
       userName: DB_USERNAME,
       password: DB_PASSWORD,
       timezone: TIMEZONE_OFFSET,
-    }
+    },
+    TIMEZONE,
   },
 });

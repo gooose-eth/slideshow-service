@@ -31,7 +31,7 @@ async function authorization()
     token = cookie?.token;
   }
   if (!token) throw new Error('NO-TOKEN');
-  item = await getItem({ address: res.body.address });
+  item = await getItem(res.body.address);
   check = checkToken(token, item.salt);
   if (!check) throw new Error('INVALID-TOKEN');
   item.slideshow = JSON.parse(decodeURIComponent(item.slideshow));
@@ -60,10 +60,7 @@ async function submitAuthorization()
   let item, check, token;
   if (!res.body.address) throw new Error('NO-ADDRESS');
   if (!res.body.password) throw new Error('NO-PASSWORD');
-  item = await getItem({
-    address: res.body.address,
-    field: '*',
-  });
+  item = await getItem(res.body.address);
   check = checkPassword(res.body.password, item.password, item.salt);
   if (!check) throw new Error('NOT-MATCH-PASSWORD');
   token = makeToken(item.salt);

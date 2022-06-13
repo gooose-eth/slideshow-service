@@ -73,6 +73,7 @@ export interface Current {
   autoplay: boolean
   swiped: boolean
   loading: boolean
+  public: boolean
 }
 
 export interface Windows {

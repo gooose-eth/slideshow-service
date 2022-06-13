@@ -34,10 +34,7 @@ export async function checkAuthorization(salt = undefined)
     if (!token) throw new Error('no token in header');
     if (!salt)
     {
-      let item = await getItem({
-        address: body.address,
-        field: 'salt',
-      });
+      let item = await getItem(body.address, 'salt');
       if (!item.salt) throw new Error('no salt in database');
       salt = item.salt;
     }

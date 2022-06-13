@@ -6,6 +6,7 @@ import { setupResource, useResource } from '../../init.js';
 import { getItem } from '../../db/slideshow.js';
 import { disconnect } from '../../db/connect.js';
 import { checkPassword } from '../../libs/password.js';
+import { convertSlideshowResultData } from '../../libs/data.js';
 import { getCookie, updateToken, makeToken, checkToken } from '../../libs/token.js';
 import { capture } from '../../libs/error.js';
 import { CODE } from '../../../libs/error.ts';
@@ -18,25 +19,8 @@ let res;
  */
 async function getFetchItem()
 {
-  function makeResultData(item)
-  {
-    return {
-      address: item.address,
-      title: item.title,
-      description: item.description,
-      slideshow: item.slideshow,
-      thumbnail: item.thumbnail,
-      public: item.public,
-      regdate: item.regdate,
-      update: item.update,
-    };
-  }
-
   let item, token, check, data;
-  item = await getItem({
-    address: res.body.address,
-    field: '*',
-  });
+  item = await getItem(res.body.address);
   if (!item) throw new Error('NO-SLIDESHOW');
   item.slideshow = JSON.parse(decodeURIComponent(item.slideshow));
   if (item.public === 0)
@@ -54,7 +38,7 @@ async function getFetchItem()
     if (token)
     {
       check = checkToken(token, item.salt);
-      data = makeResultData(item);
+      data = convertSlideshowResultData(item);
       data.token = token;
       if (check)
       {
@@ -76,7 +60,7 @@ async function getFetchItem()
     updateLog(res.evt, res.body).then();
     return {
       success: true,
-      data: makeResultData(item),
+      data: convertSlideshowResultData(item),
     };
   }
 }
@@ -90,10 +74,7 @@ async function submitAuthorization()
   let item, check, token;
   if (!res.body.address) throw new Error('NO-ADDRESS');
   if (!res.body.password) throw new Error('NO-PASSWORD');
-  item = await getItem({
-    address: res.body.address,
-    field: '*',
-  });
+  item = await getItem(res.body.address);
   check = checkPassword(res.body.password, item.password, item.salt);
   if (!check) throw new Error('NOT-MATCH-PASSWORD');
   token = makeToken(item.salt);

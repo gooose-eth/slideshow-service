@@ -1,3 +1,4 @@
+import crypto from 'crypto';
 import { useResource } from '../init.js';
 
 let res;
@@ -23,6 +24,16 @@ export function getCookie(evt, address)
     cookie = null;
   }
   return cookie;
+}
+
+/**
+ * make token
+ * @param {string} salt
+ * @return {string}
+ */
+export function makeToken(salt)
+{
+  return salt.slice(start, start + length);
 }
 
 /**
@@ -66,17 +77,6 @@ export function clearCookie(evt, address)
   deleteCookie(evt, `${res.env.COOKIE_PREFIX}${address}`);
 }
 
-
-/**
- * make token
- * @param {string} salt
- * @return {string}
- */
-export function makeToken(salt)
-{
-  return salt.slice(start, start + length);
-}
-
 /**
  * check token
  * @param {string} token
@@ -86,4 +86,14 @@ export function makeToken(salt)
 export function checkToken(token, salt)
 {
   return token === salt.slice(start, start + length);
+}
+
+/**
+ * make public token
+ * @return {string}
+ */
+export function makePublicToken()
+{
+  let salt = crypto.randomBytes(64).toString('hex');
+  return salt.slice(start, start + length);
 }

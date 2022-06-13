@@ -7,7 +7,9 @@
       {{message}}
     </p>
     <nav class="error-screen__nav">
-      <a href="/">첫화면으로 이동하기</a>
+      <ButtonBasic type="button" title="첫화면으로 이동하기" color="key" @click="onClickHome">
+        첫화면으로 이동하기
+      </ButtonBasic>
     </nav>
   </div>
 </article>
@@ -15,8 +17,8 @@
 
 <script lang="ts" setup>
 import { CODE, labels } from '~/libs/error';
+import { ButtonBasic } from '~/components/button';
 
-const router = useRouter();
 const error = useError();
 const message = computed(() => {
   if (labels[CODE[error.value.message]]) return labels[error.value.message];
@@ -27,12 +29,23 @@ const code = computed(() => {
   if (String(error.value.statusCode) === '404') return '404';
   switch (CODE[error.value.message])
   {
+    case CODE['INVALID-ADDRESS']:
+      return '400';
+    case CODE['EXPIRED-KEY']:
+      return '401';
+    case CODE['NOT-PERMISSION']:
+      return '403';
     case CODE['NO-SLIDESHOW']:
       return '404';
     default:
       return '500';
   }
 });
+
+function onClickHome()
+{
+  location.href = '/';
+}
 </script>
 
 <style lang="scss" scoped>

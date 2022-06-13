@@ -3,41 +3,43 @@
  */
 
 import { setupResource, useResource, checkAuthorization } from '../../../init.js';
-import { create } from '../../../db/address.js';
+import { getItem } from '../../../db/slideshow.js';
+import { create } from '../../../db/publicKey.js';
 import { disconnect } from '../../../db/connect.js';
+import { makePublicToken } from '../../../libs/token.js';
 import { capture } from '../../../libs/error.js';
 import { CODE } from '../../../../libs/error.ts';
 
 let res;
 
-function checkBody()
-{
-  if (!res.body.expiry) throw new Error('no expiry');
-  if (res.body.permission?.length <= 0) throw new Error('no permission');
-}
-
 export default async e => {
   try
   {
-    let check, token;
+    let item;
     await setupResource(e);
     res = useResource();
     if (!res.body.address) throw new Error('NO-ADDRESS');
     // check authorization
     await checkAuthorization();
     // check body
-    checkBody();
+    if (!res.body.expiry) throw new Error('no expiry');
+    // check item
+    item = await getItem(res.body.address, 'address');
+    if (item.address !== res.body.address) throw new Error('INVALID-ADDRESS');
+    const publicKey = makePublicToken();
+    // insert item
     await create({
-      token: '', // 독창적인 구조로 문자 만들기(노트참고)
-      address: '', // 슬라이드쇼 주소
-      permission: '', // 권한(watch,edit,delete)
-      expiry: '', // 0000-00-00
+      token: publicKey,
+      address: res.body.address,
+      expiry: res.body.expiry,
     });
-    // TODO: 인증검사
-    // TODO: 데이터 추가
-    // TODO: 결과출력
+    disconnect();
     return {
       success: true,
+      data: {
+        key: publicKey,
+        address: res.body.address,
+      },
     };
   }
   catch (err)

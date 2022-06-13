@@ -38,14 +38,14 @@ export async function getItems(op)
 
 /**
  * get slideshow item
- * @param {object} op
+ * @param {string} address
+ * @param {string} field
  * @return {Promise<object|null>}
  */
-export async function getItem(op)
+export async function getItem(address, field = '*')
 {
   const conn = await connect(false);
-  const { address, field } = op;
-  let sql = `select ${field || '*'} from ${tableNames.slideshow} where address="${address}"`;
+  let sql = `select ${field} from ${tableNames.slideshow} where address="${address}"`;
   const [ item ] = await conn.query(sql);
   return item || null;
 }
