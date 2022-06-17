@@ -1,6 +1,6 @@
 {
   "name": "slideshow-service",
-  "version": "2.1.0",
+  "version": "2.1.1",
   "repository": "https://github.com/redgoose-dev/slideshow-service.git",
   "author": "redgoose <scripter@me.com>",
   "type": "module",
@@ -25,13 +25,13 @@
     "@pinia/nuxt": "^0.1.9",
     "dotenv": "^16.0.1",
     "express": "^4.18.1",
-    "h3": "^0.7.8",
+    "h3": "^0.7.9",
     "mariadb": "^3.0.0",
     "ohmyfetch": "^0.4.18",
     "pinia": "^2.0.14"
   },
   "devDependencies": {
-    "nuxt": "^3.0.0-rc.3",
+    "nuxt": "^3.0.0-rc.4",
     "sass": "^1.52.3"
   }
 }
