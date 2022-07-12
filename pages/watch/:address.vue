@@ -34,6 +34,11 @@ import { captureError, CODE } from '~/libs/error';
 import Slideshow from '~/components/slideshow/index.vue';
 import Authorization from '~/components/slideshow/authorization/index.vue';
 
+definePageMeta({
+  pageTransition: false,
+  layout: 'slideshow',
+});
+
 const $slideshow = ref();
 const $authorization = ref();
 const config = useRuntimeConfig();
@@ -182,9 +187,6 @@ onMounted(async () => {
 });
 
 // actions
-definePageMeta({
-  layout: 'slideshow',
-});
 await fetch();
 </script>
 

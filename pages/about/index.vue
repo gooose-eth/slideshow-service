@@ -67,7 +67,7 @@
     </picture>
   </figure>
   <p>
-    안타깝게도 현재로써는 사진을 직접 올릴 수 없고 <u>서버에 올라온 사진 URL주소를 입력</u>해야 합니다.<br/>
+    안타깝게도 현재로써는 사진을 직접 올릴 수 없고 <u>서버에 올라온 사진 URL 주소를 입력</u>해야 합니다.<br/>
     사진주소는 필수로 적어야 하지만 나머지 항목은 필요하면 입력하고, <code>추가하기</code>버튼을 누르면 그룹 목록에서 슬라이드가 추가됩니다.
   </p>
   <figure>
@@ -152,6 +152,10 @@
 
 <script lang="ts" setup>
 import { serviceStore } from '~/store/service';
+
+definePageMeta({
+  pageTransition: false,
+});
 
 const service = serviceStore();
 </script>

@@ -21,6 +21,11 @@ import { pureObject } from '~/libs/object';
 import * as defaults from '~/libs/defaults';
 import Slideshow from '~/components/slideshow/index.vue';
 
+definePageMeta({
+  pageTransition: false,
+  layout: 'slideshow',
+});
+
 const $slideshow = ref();
 const service = serviceStore();
 const preference = preferenceStore();
@@ -43,9 +48,4 @@ current.keyboardEvent = def.preference.keyboard.enabled;
 current.autoplay = def.preference.slides.autoplay;
 current.loading = false;
 usePreference.setup('create');
-
-// actions
-definePageMeta({
-  layout: 'slideshow',
-});
 </script>

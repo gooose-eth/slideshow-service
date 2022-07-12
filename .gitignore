@@ -17,3 +17,4 @@ package-lock.json
 *.log
 nuxt.d.ts
 cmd.sh
+bun.lockb
