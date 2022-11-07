@@ -2,12 +2,19 @@
 .idea/
 .vscode/
 node_modules/
-dist/
+.nuxt/
+.output/
+.history/
+.data/
 
 # files
 .DS_Store
 yarn.lock
 package-lock.json
-bun.lockb
-.env.local
+.env
+!resource/.env
+0
+*.log
+nuxt.d.ts
 cmd.sh
+bun.lockb
