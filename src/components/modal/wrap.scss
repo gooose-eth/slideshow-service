@@ -1,0 +1,43 @@
+@use '../../assets/scss/mixins';
+
+.modal {
+  position: fixed;
+  z-index: 999999;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  overflow: auto;
+  box-sizing: border-box;
+  cursor: zoom-out;
+  background-color: var(--color-bg);
+  @include mixins.responsive(tablet) {
+    display: grid;
+    place-content: center;
+    background-color: hsl(var(--color-bg-hsl) / 50%);
+    @include mixins.background-blur(16px);
+  }
+}
+
+// transition
+.modal-enter-active,
+.modal-leave-active {
+  transition: opacity 200ms ease-out;
+}
+.modal-enter-from,
+.modal-leave-to {
+  opacity: 0;
+}
+
+// set class to global
+:global(.mode-modal) {
+  overflow: hidden;
+}
+:global(.mode-modal > body) {
+  overflow: hidden;
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+}

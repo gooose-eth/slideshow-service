@@ -33,6 +33,7 @@ const router = createRouter({
       component: () => import('../pages/about/index.vue'),
       meta: { layout: 'default', active: 'about' },
     },
+    // TODO: /register/
     {
       path: '/manage/',
       name: 'Manage',

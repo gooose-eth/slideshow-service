@@ -30,7 +30,8 @@
     "isbot": "^3.6.3",
     "mariadb": "^3.0.2",
     "ohmyfetch": "^0.4.21",
-    "pug": "^3.0.2"
+    "pug": "^3.0.2",
+    "web3": "^1.8.0"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^3.2.0",

@@ -6,7 +6,7 @@ import cookieParser from 'cookie-parser'
 import { createServer } from 'vite'
 import { openServerMessage, isDev, getEnv } from './libs/entry-assets.js'
 import serviceServer from './service/main.js'
-import { searchEngine, allowSearchEngine } from  './search-engine/main.js'
+import { searchEngine } from  './search-engine/main.js'
 
 const __dirname = path.resolve()
 
@@ -31,7 +31,7 @@ async function development(app)
   serviceServer(app)
   // global route
   app.use('*', async (req, res, next) => {
-    if (!!(isbot(req.get('user-agent')) && allowSearchEngine(req.baseUrl)))
+    if (!!isbot(req.get('user-agent')))
     {
       searchEngine(app)
       next()

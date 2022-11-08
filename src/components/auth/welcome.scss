@@ -1,0 +1,27 @@
+@use '../../assets/scss/mixins';
+
+.welcome {
+  display: grid;
+  place-content: center;
+  height: 100%;
+  padding: 0;
+  box-sizing: border-box;
+  text-align: center;
+  &__title {
+    margin: 0;
+    text-align: center;
+    line-height: 1;
+  }
+  &__image {
+    margin: 0;
+  }
+  &__description {
+    margin: 0;
+  }
+  &__nav {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 24px 0 0;
+  }
+}

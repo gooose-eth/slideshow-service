@@ -1,7 +1,8 @@
 <template>
-<article>
+<div v-if="serviceError">error</div>
+<component v-else :is="layout">
   <router-view/>
-</article>
+</component>
 </template>
 
 <script setup>
@@ -31,9 +32,9 @@ if (!window.DEV)
 {
   onErrorCaptured((e) => {
     console.error('onErrorCaptured', e)
-  // captureError([ 'app.vue', 'setup()' ], 'error', e)
-  // serviceError.value = (typeof e === 'string') ? { message: e } : { message: e.message }
-  return false
-})
+    // captureError([ 'app.vue', 'setup()' ], 'error', e)
+    serviceError.value = (typeof e === 'string') ? { message: e } : { message: e.message }
+    return false
+  })
 }
 </script>

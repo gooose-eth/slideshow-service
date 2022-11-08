@@ -7,7 +7,7 @@ import App from './app.vue'
 import './assets/scss/main.scss'
 
 // setup pinia
-const pinia = createPinia();
+const pinia = createPinia()
 
 // render screen
 const app = createApp(App)
