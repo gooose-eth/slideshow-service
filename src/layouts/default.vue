@@ -6,7 +6,6 @@
         <Symbol/>
       </router-link>
     </h1>
-    <AuthWeb3/>
     <nav class="header__nav">
       <ul>
         <li>
@@ -33,7 +32,6 @@
 
 <script setup>
 import { ref } from 'vue'
-import AuthWeb3 from '../components/auth/web3.vue'
 import Symbol from '../components/layout/symbol.vue'
 
 const year = ref((new Date()).getFullYear())
