@@ -65,15 +65,10 @@
   -webkit-tap-highlight-color: transparent;
 }
 // hover event
-@mixin mouse-event($mode)
+@mixin hover()
 {
-  @if ($mode == hover) {
-    @media (hover: hover) {
-      &:hover { @content; }
-    }
-  }
-  @else if ($mode == active) {
-    &:active { @content; }
+  @media (hover: hover) {
+    &:hover { @content; }
   }
 }
 

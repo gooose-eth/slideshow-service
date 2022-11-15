@@ -10,22 +10,10 @@ const router = createRouter({
       meta: { layout: 'default', active: 'home' },
     },
     {
-      path: '/watch/:address/',
+      path: '/watch/:srl/',
       name: 'Watch',
-      component: () => import('../pages/watch/:address.vue'),
+      component: () => import('../pages/watch/:srl.vue'),
       meta: { layout: 'slideshow', active: 'watch' },
-    },
-    {
-      path: '/create/',
-      name: 'Create',
-      component: () => import('../pages/create/index.vue'),
-      meta: { layout: 'slideshow', active: 'create' },
-    },
-    {
-      path: '/edit/:address/',
-      name: 'Edit',
-      component: () => import('../pages/edit/:address.vue'),
-      meta: { layout: 'slideshow', active: 'edit' },
     },
     {
       path: '/about/',
@@ -33,12 +21,23 @@ const router = createRouter({
       component: () => import('../pages/about/index.vue'),
       meta: { layout: 'default', active: 'about' },
     },
-    // TODO: /register/
     {
-      path: '/manage/',
+      path: '/admin/',
       name: 'Manage',
-      component: () => import('../pages/manage/index.vue'),
-      meta: { layout: 'default', active: 'manage' },
+      component: () => import('../pages/admin/index.vue'),
+      meta: { layout: 'default', active: 'admin' },
+    },
+    {
+      path: '/admin/create/',
+      name: 'Create',
+      component: () => import('../pages/create/index.vue'),
+      meta: { layout: 'slideshow', active: 'create' },
+    },
+    {
+      path: '/admin/edit/:srl/',
+      name: 'Edit',
+      component: () => import('../pages/edit/:address.vue'),
+      meta: { layout: 'slideshow', active: 'edit' },
     },
   ],
 })

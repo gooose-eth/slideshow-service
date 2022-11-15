@@ -15,7 +15,7 @@
   },
   "nodemonConfig": {
     "delay": 1000,
-    "ignore": ["src/**/*", "dist/**/*"]
+    "ignore": [ "src/**/*", "dist/**/*" ]
   },
   "engines": {
     "node": "16"
