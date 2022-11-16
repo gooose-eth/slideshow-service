@@ -8,12 +8,12 @@ export let instance
 // setup model api
 export function setup()
 {
-  const { VITE_API_URL, VITE_API_TOKEN } = getEnv()
+  const { VITE_API_URL, VITE_TOKEN_PUBLIC } = getEnv()
   instance = $fetch.create({
     baseURL: filteringHostname(VITE_API_URL),
     responseType: 'json',
     headers: {
-      'Authorization': `Bearer ${VITE_API_TOKEN}`,
+      'Authorization': `Bearer ${VITE_TOKEN_PUBLIC}`,
     },
     retry: 1,
   })
