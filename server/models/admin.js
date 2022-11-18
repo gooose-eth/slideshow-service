@@ -57,35 +57,95 @@ export async function modelAdminItems({ token, page })
   return result
 }
 
+/**
+ * model admin create item
+ *
+ * @param {string} token
+ * @param {object} body
+ * @return {Promise<any>}
+ */
 export async function modelAdminCreateItem({ token, body })
 {
-  let result = {}
-  const env = getEnv()
-  console.log(token, body)
-  // const res = await instance(`/json/`, {
-  //   method: 'post',
-  //   headers: {
-  //     'Authorization': `Bearer ${token}`,
-  //   },
-  //   body,
-  // })
-  // if (res?.success)
-  // {
-  //   //
-  // }
-  return {}
+  const res = await instance(`/json/`, {
+    method: 'post',
+    headers: {
+      'Authorization': `Bearer ${token}`,
+    },
+    body,
+  })
+  if (res?.success)
+  {
+    return {
+      success: true,
+      srl: res.srl
+    }
+  }
+  else
+  {
+    throw {
+      success: false,
+      status: ERROR_CODE.FAILED_CREATE,
+      message: 'failed create slide',
+    }
+  }
 }
 
-export async function modelAdminEditItem({})
+/**
+ * model admin edit item
+ *
+ * @param {string} token
+ * @param {number} srl
+ * @param {object} body
+ * @return {Promise<any>}
+ */
+export async function modelAdminEditItem({ token, srl, body })
 {
-  return {}
+  const res = await instance(`/json/${srl}/edit/`, {
+    method: 'post',
+    headers: {
+      'Authorization': `Bearer ${token}`,
+    },
+    body,
+  })
+  if (res.success)
+  {
+    return { success: true }
+  }
+  else
+  {
+    throw {
+      success: false,
+      status: ERROR_CODE.FAILED_EDIT,
+      message: 'failed edit slide',
+    }
+  }
 }
 
-export async function modelAdminDeleteItem({})
+/**
+ * model admin delete item
+ *
+ * @param {string} token
+ * @param {number} srl
+ * @return {Promise<any>}
+ */
+export async function modelAdminDeleteItem({ token, srl })
 {
-  return {}
+  const res = await instance(`/json/${srl}/delete/`, {
+    method: 'post',
+    headers: {
+      'Authorization': `Bearer ${token}`,
+    },
+  })
+  if (res.success)
+  {
+    return { success: true }
+  }
+  else
+  {
+    throw {
+      success: false,
+      status: ERROR_CODE.FAILED_DELETE,
+      message: 'failed delete slide',
+    }
+  }
 }
-
-// TODO: 슬라이드 만들기
-// TODO: 슬라이드 수정
-// TODO: 슬라이드 삭제

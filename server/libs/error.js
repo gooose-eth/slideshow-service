@@ -20,10 +20,11 @@ export function register(res, err)
       message = 'Not found item'
       break
     case ERROR_CODE.UNKNOWN:
-    case ERROR_CODE.FAILED_UPDATE:
+    case ERROR_CODE.FAILED_EDIT:
+    case ERROR_CODE.FAILED_DELETE:
     default:
       status = 500
-      message = 'Service error'
+      message = (dev && err.message) ? err.message : 'Service error'
       break
   }
   // console

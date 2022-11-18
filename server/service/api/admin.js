@@ -1,4 +1,4 @@
-import { modelAdminItems, modelAdminCreateItem } from '../../models/admin.js'
+import { modelAdminItems, modelAdminCreateItem, modelAdminEditItem, modelAdminDeleteItem } from '../../models/admin.js'
 import * as error from '../../libs/error.js'
 
 export async function adminIndex(req, res)
@@ -37,10 +37,35 @@ export async function adminCreateItem(req, res)
 
 export async function adminEditItem(req, res)
 {
-  res.json({ foo: 'admin/create-item' })
+  try
+  {
+    let result = await modelAdminEditItem({
+      token: req.cookies['goose-manager-token'] || undefined,
+      srl: req.params?.srl || undefined,
+      body: req.body,
+    })
+    res.json(result)
+  }
+  catch (e)
+  {
+    let err = error.register(res, e)
+    res.status(err.status).json(err)
+  }
 }
 
 export async function adminDeleteItem(req, res)
 {
-  res.json({ foo: 'admin/delete-item' })
+  try
+  {
+    let result = await modelAdminDeleteItem({
+      token: req.cookies['goose-manager-token'] || undefined,
+      srl: req.params?.srl || undefined,
+    })
+    res.json(result)
+  }
+  catch (e)
+  {
+    let err = error.register(res, e)
+    res.status(err.status).json(err)
+  }
 }
