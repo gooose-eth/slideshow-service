@@ -103,6 +103,8 @@ async function server()
   process.env.TZ = env.VITE_TIMEZONE
   // set cookie
   app.use(cookieParser())
+  // set body
+  app.use(express.json())
   // render app
   app = dev ? await development(app) : production(app)
   // listen server
