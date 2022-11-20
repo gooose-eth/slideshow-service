@@ -22,10 +22,10 @@ const router = createRouter({
       meta: { layout: 'default', active: 'about' },
     },
     {
-      path: '/admin/',
+      path: '/manage/',
       name: 'Manage',
-      component: () => import('../pages/admin/index.vue'),
-      meta: { layout: 'default', active: 'admin' },
+      component: () => import('../pages/manage/index.vue'),
+      meta: { layout: 'default', active: 'manage' },
     },
     {
       path: '/admin/create/',

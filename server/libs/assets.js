@@ -5,4 +5,5 @@ export const ERROR_CODE = {
   FAILED_EDIT: 'failedEdit',
   FAILED_DELETE: 'failedDelete',
   NO_ITEMS: 'noItems',
+  NO_PERMISSION: 'noPermission',
 }

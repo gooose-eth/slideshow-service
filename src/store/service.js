@@ -1,12 +1,10 @@
 import { defineStore } from 'pinia'
 
-export const accountStore = defineStore('service', {
+export const adminStore = defineStore('admin', {
   state()
   {
     return {
-      address: undefined,
-      provider: undefined,
-      network: undefined,
+      isAuth: false,
     }
   },
 })

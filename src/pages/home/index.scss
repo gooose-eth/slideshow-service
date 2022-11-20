@@ -8,6 +8,9 @@
     font-size: 0;
   }
   &__error {}
+  &__paginate {
+    margin: 42px 0 0;
+  }
   @include mixins.responsive(tablet) {
     margin: 42px 0 82px;
   }

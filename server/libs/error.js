@@ -15,6 +15,10 @@ export function register(res, err)
       status = 204
       message = 'No items'
       break
+    case ERROR_CODE.NO_PERMISSION:
+      status = 403
+      message = 'Forbidden'
+      break
     case ERROR_CODE.NOT_FOUND:
       status = 404
       message = 'Not found item'

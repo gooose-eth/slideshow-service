@@ -1,12 +1,12 @@
 <template>
-<article class="home">
-  <h1 class="home__title">Slideshow items</h1>
+<article v-if="admin.isAuth" class="manage">
+  <h1 class="manage__title">Slides Manage</h1>
   <Loading v-if="loading" message="불러오는 중.."/>
   <template v-else>
     <Error
       v-if="!!error"
       :message="error"
-      class="home__error"/>
+      class="manage__error"/>
     <Items v-else-if="index.items?.length > 0">
       <Item
         v-for="(item,key) in computedIndex"
@@ -17,9 +17,9 @@
       v-else
       type="empty"
       message="슬라이드가 없어요!"
-      class="home__empty"/>
+      class="manage__empty"/>
   </template>
-  <nav v-if="index.total > 0" class="home__paginate">
+  <nav v-if="index.total > 0" class="manage__paginate">
     <Pagination
       :model-value="Number(route.query.page || 1)"
       :total="index.total"
@@ -28,15 +28,20 @@
       @update:modelValue="onChangePage"/>
   </nav>
 </article>
+<Error
+  v-else
+  type="permission"
+  message="출입금지"
+  class="manage__permission"/>
 </template>
 
 <script setup>
 import { ref, reactive, onMounted, computed } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
 import { adminStore } from '../../store/service.js'
-import { serialize } from '../../libs/string.js'
-import { captureError } from '../../libs/error.js'
 import { $get } from '../../libs/api.js'
+import { captureError } from '../../libs/error.js'
+import { serialize } from '../../libs/string.js'
 import Loading from '../../components/loading/index.vue'
 import Error from '../../components/error/index.vue'
 import Items from '../../components/items/index.vue'
@@ -61,7 +66,7 @@ async function fetching()
   try
   {
     loading.value = true
-    let res = await $get('/api/', {
+    let res = await $get('/api/manage/', {
       page: Number(route.query?.page || 1),
     })
     index.items = res.items

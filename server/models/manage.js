@@ -16,13 +16,13 @@ function filteringSlides(src)
 }
 
 /**
- * model admin
+ * model manage
  *
  * @param {string} token
  * @param {number} page
  * @return {Promise<object>}
  */
-export async function modelAdminItems({ token, page })
+export async function modelManageItems({ token, page })
 {
   let result = {
     total: 0,
@@ -58,13 +58,13 @@ export async function modelAdminItems({ token, page })
 }
 
 /**
- * model admin create item
+ * model manage create item
  *
  * @param {string} token
  * @param {object} body
  * @return {Promise<any>}
  */
-export async function modelAdminCreateItem({ token, body })
+export async function modelManageCreateItem({ token, body })
 {
   const res = await instance(`/json/`, {
     method: 'post',
@@ -91,14 +91,14 @@ export async function modelAdminCreateItem({ token, body })
 }
 
 /**
- * model admin edit item
+ * model manage edit item
  *
  * @param {string} token
  * @param {number} srl
  * @param {object} body
  * @return {Promise<any>}
  */
-export async function modelAdminEditItem({ token, srl, body })
+export async function modelManageEditItem({ token, srl, body })
 {
   const res = await instance(`/json/${srl}/edit/`, {
     method: 'post',
@@ -122,13 +122,13 @@ export async function modelAdminEditItem({ token, srl, body })
 }
 
 /**
- * model admin delete item
+ * model manage delete item
  *
  * @param {string} token
  * @param {number} srl
  * @return {Promise<any>}
  */
-export async function modelAdminDeleteItem({ token, srl })
+export async function modelManageDeleteItem({ token, srl })
 {
   const res = await instance(`/json/${srl}/delete/`, {
     method: 'post',
