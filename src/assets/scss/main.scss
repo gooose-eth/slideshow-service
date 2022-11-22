@@ -8,9 +8,11 @@
   --color-bg: hsl(var(--color-bg-hsl));
   --color-base-hsl: 0 0% 13%;
   --color-base: hsl(var(--color-base-hsl));
+  --color-edge-hsl: 0 0% 0%;
+  --color-edge: hsl(var(--color-edge-hsl));
   --color-weak-hsl: 0 0% 40%;
   --color-weak: hsl(var(--color-weak-hsl));
-  --color-key-hsl: 153 75% 42%;
+  --color-key-hsl: 350 70% 41%;
   --color-key: hsl(var(--color-key-hsl));
   --color-invert-hsl: 0 0% 100%;
   --color-invert: hsl(var(--color-invert-hsl));
@@ -27,10 +29,11 @@
     color-scheme: dark;
     --color-bg-hsl: 0 0% 13%;
     --color-base-hsl: 0 0% 94%;
+    --color-edge-hsl: 0 0% 100%;
     --color-weak-hsl: 0 0% 60%;
     --color-key-hsl: 148 73% 39%;
     --color-invert-hsl: 0 0% 0%;
-    --color-danger-hsl: 4 80% 44%;
+    --color-danger-hsl: 4 90% 52%;
     --color-shape-hsl: 0 0% 9%;
   }
 }

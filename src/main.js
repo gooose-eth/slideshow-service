@@ -1,10 +1,14 @@
 import { createApp } from 'vue'
 import { createPinia } from 'pinia'
-import router from './router'
+import router from './router/index.js'
+import { initCustomEvent } from './libs/util.js'
 import App from './app.vue'
 
 // set stylesheet
 import './assets/scss/main.scss'
+
+// initialize custom event
+initCustomEvent()
 
 // setup pinia
 const pinia = createPinia()

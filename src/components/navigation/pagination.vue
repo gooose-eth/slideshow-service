@@ -1,5 +1,9 @@
 <template>
-<nav class="pagination">
+<nav
+  :class="[
+    'pagination',
+    pageBlockTotal <= 0 && 'pagination--hide',
+  ]">
   <button
     type="button"
     title="to first page"

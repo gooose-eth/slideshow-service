@@ -1,8 +1,11 @@
 <template>
 <article v-if="admin.isAuth" class="manage">
-  <h1 class="manage__title">Slides Manage</h1>
-  <Loading v-if="loading" message="불러오는 중.."/>
-  <template v-else>
+  <h1 class="manage__title">Manage Slides</h1>
+  <Loading
+    v-if="loading"
+    message="불러오는 중.."
+    class="manage__loading"/>
+  <div v-else class="manage__body">
     <Error
       v-if="!!error"
       :message="error"
@@ -11,19 +14,22 @@
       <Item
         v-for="(item,key) in computedIndex"
         :key="key"
-        :src="item"/>
+        :src="item"
+        :manage="true"
+        @edit="onEditItem"
+        @remove="onRemoveItem"/>
     </Items>
     <Error
       v-else
       type="empty"
       message="슬라이드가 없어요!"
       class="manage__empty"/>
-  </template>
+  </div>
   <nav v-if="index.total > 0" class="manage__paginate">
     <Pagination
       :model-value="Number(route.query.page || 1)"
       :total="index.total"
-      :size="20"
+      :size="indexItems.size"
       :range="5"
       @update:modelValue="onChangePage"/>
   </nav>
@@ -36,9 +42,9 @@
 </template>
 
 <script setup>
-import { ref, reactive, onMounted, computed } from 'vue'
+import { ref, reactive, onMounted, computed, watch } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
-import { adminStore } from '../../store/service.js'
+import { adminStore, indexItemsStore } from '../../store/service.js'
 import { $get } from '../../libs/api.js'
 import { captureError } from '../../libs/error.js'
 import { serialize } from '../../libs/string.js'
@@ -51,6 +57,7 @@ import Pagination from '../../components/navigation/pagination.vue'
 const router = useRouter()
 const route = useRoute()
 const admin = adminStore()
+const indexItems = indexItemsStore()
 const loading = ref(false)
 const error = ref(null)
 const index = reactive({
@@ -91,9 +98,22 @@ function onChangePage(page)
   router.push(`./${serialize(params, true)}`);
 }
 
+async function onRemoveItem(srl)
+{
+  if (!confirm('정말로 이 슬라이드를 삭제할까요?')) return
+  console.log('TODO: onRemoveItem()', srl)
+}
+
+function onEditItem(srl)
+{
+  console.log('TODO: onEditItem()', srl)
+}
+
 onMounted(() => {
   fetching().then()
 })
+
+watch(() => route.query.page, () => fetching())
 </script>
 
 <style src="./index.scss" lang="scss" scoped></style>

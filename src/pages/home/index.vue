@@ -1,8 +1,11 @@
 <template>
 <article class="home">
   <h1 class="home__title">Slideshow items</h1>
-  <Loading v-if="loading" message="불러오는 중.."/>
-  <template v-else>
+  <Loading
+    v-if="loading"
+    message="불러오는 중.."
+    class="home__loading"/>
+  <div v-else class="home__body">
     <Error
       v-if="!!error"
       :message="error"
@@ -18,12 +21,12 @@
       type="empty"
       message="슬라이드가 없어요!"
       class="home__empty"/>
-  </template>
+  </div>
   <nav v-if="index.total > 0" class="home__paginate">
     <Pagination
       :model-value="Number(route.query.page || 1)"
       :total="index.total"
-      :size="20"
+      :size="indexItems.size"
       :range="5"
       @update:modelValue="onChangePage"/>
   </nav>
@@ -31,9 +34,9 @@
 </template>
 
 <script setup>
-import { ref, reactive, onMounted, computed } from 'vue'
+import { ref, reactive, onMounted, computed, watch } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
-import { adminStore } from '../../store/service.js'
+import { adminStore, indexItemsStore } from '../../store/service.js'
 import { serialize } from '../../libs/string.js'
 import { captureError } from '../../libs/error.js'
 import { $get } from '../../libs/api.js'
@@ -46,6 +49,7 @@ import Pagination from '../../components/navigation/pagination.vue'
 const router = useRouter()
 const route = useRoute()
 const admin = adminStore()
+const indexItems = indexItemsStore()
 const loading = ref(false)
 const error = ref(null)
 const index = reactive({
@@ -89,6 +93,8 @@ function onChangePage(page)
 onMounted(() => {
   fetching().then()
 })
+
+watch(() => route.query.page, () => fetching())
 </script>
 
 <style src="./index.scss" lang="scss" scoped></style>

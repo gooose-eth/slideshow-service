@@ -1,11 +1,11 @@
 @use '../../assets/scss/mixins';
 
 .item {
+  position: relative;
   --index-item-radius: 4px;
   --index-item-shadow-line: 0 0 0 1px hsl(0 0% 0% / 5%);
   --index-item-shadow-glow: 0 0 24px 0 hsl(0 0% 0% / 15%);
   --index-item-background: hsl(0 0% 100%);
-  position: relative;
   display: grid;
   grid-template-rows: auto auto;
   border-radius: var(--index-item-radius);
@@ -80,6 +80,11 @@
       letter-spacing: -.5px;
       @include mixins.text-single-line();
     }
+  }
+  &__dropdown {
+    position: absolute;
+    right: 12px;
+    top: 12px;
   }
   @include mixins.responsive(tablet) {
     &__body {

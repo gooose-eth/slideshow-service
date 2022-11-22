@@ -1,0 +1,12 @@
+html.mode-slideshow {
+  overflow: hidden;
+  body {
+    position: fixed;
+    overflow: hidden;
+    width: 100vw;
+    height: 100vh;
+    @supports (-webkit-touch-callout: none) {
+      height: -webkit-fill-available;
+    }
+  }
+}

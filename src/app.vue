@@ -1,6 +1,6 @@
 <template>
 <div v-if="serviceError">error</div>
-<component v-else :is="layout">
+<component v-else-if="layout" :is="layout">
   <router-view/>
 </component>
 </template>
@@ -8,14 +8,16 @@
 <script setup>
 import { ref, computed, onErrorCaptured } from 'vue'
 import { useRoute } from 'vue-router'
+import { serviceStore } from './store/service.js'
 import LayoutDefault from './layouts/default.vue'
 import LayoutSlideshow from './layouts/slideshow.vue'
 import LayoutBlank from './layouts/blank.vue'
 
 const route = useRoute()
+const service = serviceStore()
 const serviceError = ref(undefined)
 const layout = computed(() => {
-  let layoutName = route.meta.layout || 'default'
+  let layoutName = route.meta.layout || undefined
   switch (layoutName) {
     case 'default':
       return LayoutDefault
@@ -28,7 +30,7 @@ const layout = computed(() => {
 })
 
 // children component error
-if (!window.DEV)
+if (!service.dev)
 {
   onErrorCaptured((e) => {
     console.error('onErrorCaptured', e)
