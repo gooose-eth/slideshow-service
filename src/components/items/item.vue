@@ -20,7 +20,6 @@
     v-if="props.manage"
     :options="[
       { label: 'Edit', value: 'edit-slide' },
-      { label: 'Delete', value: 'delete-slide', color: 'danger' },
     ]"
     class="item__dropdown"
     @action="onSelectContext"/>
@@ -54,9 +53,6 @@ function onSelectContext(key)
   {
     case 'edit-slide':
       emits('edit', srl.value)
-      break
-    case 'delete-slide':
-      emits('remove', srl.value)
       break
   }
 }

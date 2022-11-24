@@ -5,28 +5,35 @@
 </template>
 
 <script setup>
-import { computed, onMounted, onBeforeUnmount } from 'vue'
+import { computed, watch, onMounted, onBeforeUnmount } from 'vue'
 import { preferenceStore } from '../store/slideshow.js'
 
 const preference = preferenceStore()
-let $html = undefined
+let $html
 const theme = computed(() => (preference.style?.screenColor ? `theme-${preference.style.screenColor}` : ''))
+
+function updateTheme(newValue, oldValue)
+{
+  if (oldValue) $html.classList.remove(oldValue)
+  if (newValue) $html.classList.add(newValue)
+}
 
 onMounted(() => {
   $html = document.querySelector('html')
-  if ($html)
-  {
-    $html.classList.add('mode-slideshow')
-    $html.classList.add(theme.value)
-  }
+  if (!$html) return
+  $html.classList.add('mode-slideshow')
+  updateTheme(theme.value)
 })
 onBeforeUnmount(() => {
-  if ($html)
-  {
-    $html.classList.remove('mode-slideshow')
-    $html.classList.remove(theme.value)
-    $html = undefined
-  }
+  if (!$html) return
+  $html.classList.remove('mode-slideshow')
+  if (theme?.value) $html.classList.remove(theme.value)
+  $html = undefined
+})
+
+watch(() => theme.value, (value, oldValue) => {
+  if (oldValue === value) return
+  updateTheme(value, oldValue)
 })
 </script>
 

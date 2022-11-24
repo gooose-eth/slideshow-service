@@ -100,3 +100,23 @@ export function initCustomEvent()
   window.on = document.on = Element.prototype.on = events.on
   window.off = document.off = Element.prototype.off = events.off
 }
+
+/**
+ * get value from type
+ *
+ * @param {string} type
+ * @param {string} value
+ * @return {any}
+ */
+export function getValueFromType(type, value)
+{
+  switch (type)
+  {
+    case 'boolean':
+      return (value === 'true')
+    case 'number':
+      return Number(value)
+    default:
+      return value
+  }
+}

@@ -17,14 +17,6 @@
       <Icon name="folder"/>
     </button>
   </div>
-  <div v-if="data.existSlide" class="navigation__item">
-    <button
-      type="button"
-      title="슬라이드 목록"
-      @click="route('open-thumbnail')">
-      <Icon name="grid"/>
-    </button>
-  </div>
   <div v-if="preference.general.visibleHudContents.menu" class="navigation__item">
     <button
       type="button"
@@ -35,6 +27,13 @@
     </button>
     <div :class="[ 'navigation-context', activeMenu && 'navigation-context--on' ]">
       <ul>
+        <li v-if="data.existSlide">
+          <button
+            type="button"
+            @click="route('open-thumbnail')">
+            슬라이드 목록
+          </button>
+        </li>
         <li>
           <button type="button" @click="route('open-preference')">
             환경설정
@@ -53,27 +52,6 @@
             미리보기
           </button>
         </li>
-        <li v-if="current.watchMode">
-          <button type="button" @click="onClickContextItem('edit')">
-            수정하기
-          </button>
-        </li>
-        <template v-if="!!data.field.address">
-          <li>
-            <button
-              v-if="data.logined"
-              type="button"
-              @click="onClickContextItem('make-share')">
-              공유주소 만들기
-            </button>
-            <button
-              v-else-if="!current.public"
-              type="button"
-              @click="onClickContextItem('share')">
-              주소 복사하기
-            </button>
-          </li>
-        </template>
         <li>
           <button
             type="button"
@@ -85,12 +63,12 @@
       </ul>
     </div>
   </div>
-  <div v-if="!current.watchMode" class="navigation__item">
+  <div v-if="data.field.admin" class="navigation__item">
     <button
       type="button"
-      :title="`슬라이드쇼 ${current.label}`"
+      :title="`슬라이드쇼 저장하기`"
       class="active"
-      @click="route('open-save')">
+      @click="save">
       <Icon name="save"/>
     </button>
   </div>
@@ -102,7 +80,7 @@ import { ref, computed, onMounted, onUnmounted } from 'vue'
 import { useRouter } from 'vue-router'
 import { serviceStore } from '../../store/service.js'
 import { preferenceStore, currentStore, dataStore, windowsStore } from '../../store/slideshow.js'
-import { fullscreen, copyToClipboard } from '../../libs/util.js'
+import { fullscreen } from '../../libs/util.js'
 import Icon from '../../components/icon/index.vue'
 
 const router = useRouter()
@@ -162,15 +140,7 @@ function onClickContextItem(key)
       route(!!history.state.back ? 'slideshowService' : 'slideshowServiceNewWindow')
       break
     case 'preview':
-    case 'make-share':
       route(key)
-      break
-    case 'share':
-      let url = `${service.url.replace(/\/$/, '')}/watch/${data.field.address}`
-      copyToClipboard(url).then(() => alert('주소가 복사되었습니다.'))
-      break
-    case 'edit':
-      location.href = `/edit/${data.field.address}`
       break
   }
 }
@@ -190,7 +160,7 @@ function route(key)
       window.open('/')
       break
     case 'preview':
-      window.open(`/watch/${data.field.address}`)
+      window.open(`/watch/${data.field.srl}/`)
       break
     case 'open-thumbnail':
       switchActiveMenu(false)
@@ -204,17 +174,9 @@ function route(key)
       switchActiveMenu(false)
       windows.preference = true
       break
-    case 'open-save':
-      switchActiveMenu(false)
-      windows.save = true
-      break
     case 'service':
       if (!confirm('슬라이드쇼로 돌아갈까요?')) return
       router.push('/').then()
-      break
-    case 'make-share':
-      switchActiveMenu(false)
-      windows.share = true
       break
   }
 }
@@ -223,6 +185,14 @@ function route(key)
 function blur()
 {
   switchActiveMenu(false)
+}
+
+// save
+async function save()
+{
+  if (!confirm('정말로 슬라이드를 저장할까요?')) return
+  // TODO: 슬라이드 저장하기
+  console.log('save()')
 }
 
 // lifecycles

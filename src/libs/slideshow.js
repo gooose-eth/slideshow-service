@@ -48,7 +48,7 @@ export function checkTree(src)
  *
  * @param {any} src
  * @param {number} space
- * @return {string}
+ * @return {string|undefined}
  */
 export function objectToString(src, space = 2)
 {

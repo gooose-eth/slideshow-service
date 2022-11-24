@@ -16,8 +16,7 @@
         :key="key"
         :src="item"
         :manage="true"
-        @edit="onEditItem"
-        @remove="onRemoveItem"/>
+        @edit="onEditItem"/>
     </Items>
     <Error
       v-else
@@ -107,6 +106,7 @@ async function onRemoveItem(srl)
 function onEditItem(srl)
 {
   console.log('TODO: onEditItem()', srl)
+  router.push(`/manage/edit/${srl}/`)
 }
 
 onMounted(() => {

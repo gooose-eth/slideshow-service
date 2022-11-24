@@ -1,0 +1,195 @@
+@use '../../../../assets/scss/mixins';
+
+.data-slides {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  box-sizing: border-box;
+  background-color: hsl(0 0% 95%);
+  display: grid;
+  &__empty {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 15px;
+    height: 120px;
+    color: var(--color-weak);
+    user-select: none;
+  }
+  @include mixins.responsive(tablet) {
+    gap: 8px;
+    padding: 16px;
+  }
+  @include mixins.dark-mode() {
+    background-color: hsl(0 0% 0% / 10%);
+  }
+}
+
+.data-slide {
+  position: relative;
+  display: grid;
+  align-items: center;
+  box-sizing: border-box;
+  background: var(--color-bg);
+  &:nth-child(n+2) {
+    border-top: 1px dashed var(--tree-shape-color);
+  }
+  &__handle {
+    display: none;
+  }
+  &__body {
+    min-width: 0;
+    padding: 16px;
+    h3 {
+      margin: 0 0 2px;
+      font-size: 14px;
+      letter-spacing: -.5px;
+      line-height: 1.15;
+      font-weight: 600;
+      @include mixins.text-single-line();
+      &.none {
+        opacity: .3;
+      }
+    }
+    p {
+      margin: 0 0 8px;
+      font-size: 11px;
+      line-height: 1.15;
+      color: var(--color-weak);
+      @include mixins.text-single-line();
+    }
+    nav {
+      display: flex;
+      margin: -4px -6px;
+      a {
+        display: block;
+        padding: 4px 6px;
+        text-align: center;
+        font-size: 12px;
+        line-height: 1;
+        font-weight: 700;
+        text-decoration: none;
+        transition: opacity var(--speed-button-active) ease-out;
+        @include mixins.button-extends();
+        &:hover,
+        &:focus-visible {
+          text-decoration: underline;
+        }
+      }
+    }
+  }
+  &__nav {
+    display: none;
+  }
+  @include mixins.responsive(tablet) {
+    grid-template-columns: 64px 1fr auto;
+    margin: 0;
+    border-radius: var(--size-shape-radius);
+    box-shadow: 0 0 8px 0 hsl(0 0% 0% / 15%), inset 0 0 0 1px hsl(0 0% 87%);
+    background-color: var(--color-bg);
+    &:nth-child(n+2) {
+      border-top: none;
+    }
+    @include mixins.hover() {
+      box-shadow: 0 0 12px 0 hsl(0 0% 0% / 15%), inset 0 0 0 1px var(--color-key);
+      .data-slide__nav {
+        opacity: 1;
+        pointer-events: auto;
+      }
+    }
+    &__handle {
+      display: block;
+      margin-left: 12px;
+      i {
+        display: block;
+        margin: 0 auto;
+        padding: 12px 0;
+        cursor: move;
+        transition: opacity var(--speed-button-active) ease-out;
+        box-sizing: border-box;
+        &:active {
+          opacity: .5;
+        }
+      }
+      --icon-color: var(--color-base);
+      --icon-size: 18px;
+      --icon-stroke: 1.5;
+      svg {
+        display: block;
+        margin: 0 auto;
+      }
+    }
+    &__body {
+      padding-left: 12px;
+    }
+    &__nav {
+      display: flex;
+      align-items: center;
+      margin-right: 12px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 200ms ease-out;
+      button {
+        display: block;
+        width: 30px;
+        height: 30px;
+        margin: 0;
+        padding: 0;
+        font-size: 0;
+        background: none;
+        border: none;
+        border-radius: var(--size-shape-radius);
+        transition: opacity var(--speed-button-active) ease-out;
+        --icon-size: 16px;
+        --icon-stroke: 2;
+        --icon-color: var(--color-base);
+        @include mixins.button-extends();
+        &:active {
+          opacity: .5;
+        }
+        &:focus-visible {
+          box-shadow: 0 0 0 2px var(--color-key);
+        }
+        svg {
+          display: block;
+          margin: 0 auto;
+        }
+        &.edit {}
+        &.remove {
+          --icon-size: 20px;
+        }
+      }
+    }
+    &--start {
+      opacity: .5;
+    }
+    &--placeholder {
+      &:after {
+        content: '';
+        display: block;
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        background: hsl(0 0% 75%);
+        box-sizing: border-box;
+        border-radius: var(--size-shape-radius);
+      }
+    }
+  }
+  @include mixins.dark-mode() {
+    @include mixins.responsive(tablet) {
+      background: hsl(0 0% 8%);
+      box-shadow: 0 0 15px 0 hsl(0 0% 0% / 30%), 0 0 0 1px hsl(0 0% 100% / 8%);
+      &:hover {
+        box-shadow: 0 0 12px 0 hsl(0 0% 0% / 15%), inset 0 0 0 1px hsl(var(--color-key-hsl) / 100%);
+      }
+      &--placeholder {
+        &:after {
+          background: hsl(0 0% 18%);
+        }
+      }
+    }
+  }
+}

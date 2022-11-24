@@ -1,0 +1,33 @@
+@use '../../assets/scss/mixins';
+
+.information {
+  > figure {
+    margin: 0 0 20px;
+    user-select: none;
+    img {
+      display: block;
+      margin: 0 auto;
+      max-width: 75%;
+      zoom: .5;
+    }
+  }
+  > p {
+    margin: 20px 0;
+    font-size: 14px;
+    line-height: 1.45;
+    font-weight: 500;
+  }
+  > ul {
+    display: grid;
+    gap: 6px;
+    margin: 20px 0;
+    padding: 0 0 0 22px;
+    font-size: 14px;
+    line-height: 1.45;
+    font-weight: 500;
+    li {
+      position: relative;
+      padding: 0;
+    }
+  }
+}

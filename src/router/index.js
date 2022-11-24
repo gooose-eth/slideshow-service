@@ -28,16 +28,16 @@ const router = createRouter({
       meta: { layout: 'default', active: 'manage' },
     },
     {
-      path: '/admin/create/',
+      path: '/manage/create/',
       name: 'Create',
       component: () => import('../pages/create/index.vue'),
-      meta: { layout: 'slideshow', active: 'create' },
+      meta: { layout: 'slideshow', active: 'manage' },
     },
     {
-      path: '/admin/edit/:srl/',
+      path: '/manage/edit/:srl/',
       name: 'Edit',
       component: () => import('../pages/edit/:address.vue'),
-      meta: { layout: 'slideshow', active: 'edit' },
+      meta: { layout: 'slideshow', active: 'manage' },
     },
   ],
 })

@@ -1,5 +1,5 @@
 <template>
-<div v-if="serviceError">error</div>
+<div v-if="serviceError"><pre>{{serviceError}}</pre></div>
 <component v-else-if="layout" :is="layout">
   <router-view/>
 </component>
@@ -30,13 +30,10 @@ const layout = computed(() => {
 })
 
 // children component error
-if (!service.dev)
-{
-  onErrorCaptured((e) => {
-    console.error('onErrorCaptured', e)
-    // captureError([ 'app.vue', 'setup()' ], 'error', e)
-    serviceError.value = (typeof e === 'string') ? { message: e } : { message: e.message }
-    return false
-  })
-}
+onErrorCaptured((e) => {
+  // if (service.dev) return true
+  console.error('ERROR: onErrorCaptured', e)
+  serviceError.value = (typeof e === 'string') ? { message: e } : { message: e.message }
+  return false
+})
 </script>

@@ -4,31 +4,6 @@ import { checkPreference, checkTree } from '../libs/slideshow'
 import * as defaults from '../libs/defaults'
 import { getStorage, setStorage } from '../libs/storage'
 
-export const watchItemStore = defineStore('watch-item', {
-  state()
-  {
-    return {
-      srl: undefined,
-      title: '',
-      description: '',
-      regdate: '',
-      thumbnail: '',
-      admin: false,
-    }
-  },
-  actions: {
-    destroy()
-    {
-      this.srl = undefined
-      this.title = ''
-      this.description = ''
-      this.regdate = ''
-      this.thumbnail = ''
-      this.admin = false
-    },
-  },
-})
-
 /**
  * 슬라이드쇼 설정
  */
@@ -133,34 +108,20 @@ export const usePreferenceStore = defineStore('slideshowUsePreference', {
       general: true,
       slides: true,
       style: true,
-      data: true,
+      data: false,
       keyboard: true,
       information: true,
     }
   },
   actions: {
-    setup(mode)
+    destroy()
     {
-      switch (mode)
-      {
-        case 'create':
-        case 'edit':
-          this.general = true
-          this.slides = true
-          this.style = true
-          this.data = true
-          this.keyboard = true
-          this.information = true
-          break
-        case 'watch':
-          this.general = true
-          this.slides = true
-          this.style = true
-          this.data = false
-          this.keyboard = true
-          this.information = true
-          break
-      }
+      this.general = true
+      this.slides = true
+      this.style = true
+      this.data = false
+      this.keyboard = true
+      this.information = true
     },
   },
 })
@@ -175,13 +136,12 @@ export const dataStore = defineStore('slideshowData', {
   {
     return {
       field: {
-        address: '',
+        srl: NaN,
         title: '',
         description: '',
         regdate: '',
         thumbnail: '',
-        public: true,
-        token: '',
+        admin: false,
       },
       groups: pureObject(defaults.groups),
     }
@@ -199,16 +159,16 @@ export const dataStore = defineStore('slideshowData', {
     slide()
     {
       const current = currentStore()
-      return this.groups[current.tree].slides[current.activeSlide]
+      return this.groups[current.tree]?.slides[current.activeSlide] || undefined
     },
     existSlide()
     {
       const current = currentStore()
       return this.groups[current.tree]?.slides?.length > 0
     },
-    logined() // TODO: 단어 고치기
+    isAdmin()
     {
-      return !!this.field.token && !!this.field.address
+      return this.field.admin
     },
   },
   actions: {
@@ -220,13 +180,12 @@ export const dataStore = defineStore('slideshowData', {
     },
     resetFields()
     {
-      this.field.address = ''
+      this.field.srl = NaN
       this.field.title = ''
       this.field.description = ''
       this.field.regdate = ''
       this.field.thumbnail = ''
-      this.field.public = true
-      this.field.token = ''
+      this.field.admin = false
     },
     destroy()
     {
@@ -269,12 +228,12 @@ export const currentStore = defineStore('slideshowCurrent', {
     editMode()
     {
       const data = dataStore()
-      return this.mode === 'edit' && !!data.field?.address
+      return this.mode === 'edit' && data.field.srl > 0
     },
     watchMode()
     {
       const data = dataStore()
-      return this.mode === 'watch' && !!data.field?.address
+      return this.mode === 'watch' && data.field.srl > 0
     },
   },
   actions: {
@@ -282,6 +241,7 @@ export const currentStore = defineStore('slideshowCurrent', {
     {
       this[key] = value
       const data = dataStore()
+      // TODO: 수정예정
       const storage = getStorage(data.field.address)
       setStorage(data.field.address, {
         ...storage,
