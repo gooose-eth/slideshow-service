@@ -14,6 +14,9 @@
         <li>
           <router-link to="/about/" title="슬라이드쇼 소개">소개</router-link>
         </li>
+        <li>
+          <a href="https://redgoose.me" title="붉은거위 사이트 바로가기" target="_blank">붉은거위</a>
+        </li>
       </ul>
     </nav>
   </header>

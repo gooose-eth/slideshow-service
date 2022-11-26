@@ -44,6 +44,8 @@
   }
   &__nav {
     --size-middle-padding: 2px;
+    display: flex;
+    justify-content: center;
     margin: 16px 0 0;
     ul {
       display: flex;
