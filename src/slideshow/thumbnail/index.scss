@@ -42,7 +42,7 @@
       position: relative;
     }
     button {
-      --item-shadow-1: inset 0 0 0 4px hsl(var(--color-key-hsl) / 0%);
+      --item-shadow-1: inset 0 0 0 1px hsl(var(--color-key-hsl) / 0%);
       position: relative;
       display: block;
       width: 100%;
@@ -69,7 +69,7 @@
         transition: box-shadow 150ms ease-out;
       }
       &:focus-visible:before {
-        --item-shadow-1: inset 0 0 0 2px hsl(var(--color-key-hsl) / 100%);
+        --item-shadow-1: inset 0 0 0 1px hsl(var(--color-key-hsl) / 100%);
       }
       @include mixins.hover() {
         --item-shadow-1: inset 0 0 0 1px hsl(var(--color-weak-hsl) / 75%);

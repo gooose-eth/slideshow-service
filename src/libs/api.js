@@ -15,15 +15,25 @@ function setup()
 export async function $get(url, params)
 {
   if (!instance) setup()
-  let res = await instance(url, {
+  return await instance(url, {
     method: 'get',
     query: params,
   })
-  return res
 }
 
-export async function post(url, data, options)
+export async function $post(url, data, options)
 {
   if (!instance) setup()
-  console.log('post')
+  return await instance(url, {
+    method: 'post',
+    body: data,
+  })
+}
+
+export function formData(src)
+{
+  if (!src) return null
+  let data = new FormData()
+  Object.keys(src).forEach(o => data.append(o, src[o]))
+  return data
 }

@@ -173,8 +173,6 @@ export function checkPreference(item)
   }
   catch(e)
   {
-    // TODO: dev 값을 고쳐야할듯하다.
-    if (process.dev) console.error(e.message)
     captureError(['/libs/slideshow.ts', 'checkPreference()'], 'error', e.message)
     return false
   }

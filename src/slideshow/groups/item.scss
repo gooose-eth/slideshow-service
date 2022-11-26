@@ -3,7 +3,7 @@
 .group-item {
   --item-height: 90px;
   --item-shadow-1: 0 0 12px 0 hsl(0 0% 0% / 15%);
-  --item-shadow-2: 0 0 0 1px hsl(0 0% 0% / 5%);
+  --item-shadow-2: 0 0 0 .5px hsl(0 0% 0% / 5%);
   &__wrap {
     display: grid;
     grid-template-columns: var(--item-height) 1fr;
@@ -18,22 +18,22 @@
     transition: box-shadow 200ms ease-out;
     @include mixins.button-extends();
     @include mixins.hover() {
-      --item-shadow-2: 0 0 0 1px hsl(0 0% 0% / 35%);
+      --item-shadow-2: 0 0 0 .5px hsl(0 0% 0% / 35%);
     }
     &:focus-visible {
       --item-shadow-2: 0 0 0 3px var(--color-key);
     }
     &:active {
-      --item-shadow-2: 0 0 0 1px hsl(0 0% 0% / 35%);
+      --item-shadow-2: 0 0 0 .5px hsl(0 0% 0% / 35%);
     }
     &.selected {
       background-color: var(--color-key);
       cursor: auto;
       @include mixins.hover() {
-        --item-shadow-2: 0 0 0 1px hsl(0 0% 0% / 0);
+        --item-shadow-2: 0 0 0 .5px hsl(0 0% 0% / 0);
       }
       &:active {
-        --item-shadow-2: 0 0 0 1px hsl(0 0% 0% / 0);
+        --item-shadow-2: 0 0 0 .5px hsl(0 0% 0% / 0);
       }
       .group-item {
         &__body {
@@ -119,7 +119,7 @@
   @include mixins.dark-mode() {
     --item-bg: hsl(0 0% 18%);
     --item-shadow-1: 0 0 12px 0 hsl(0 0% 0% / 25%);
-    --item-shadow-2: 0 0 0 1px hsl(0 0% 0% / 15%);
+    --item-shadow-2: 0 0 0 .5px hsl(0 0% 0% / 15%);
     &__image {
       background: hsl(0 0% 25%);
     }
@@ -130,7 +130,7 @@
     &__wrap {
       @include mixins.hover() {
         &:not(.selected) {
-          --item-shadow-2: 0 0 0 1px hsl(0 0% 100% / 35%);
+          --item-shadow-2: 0 0 0 .5px hsl(0 0% 100% / 35%);
         }
       }
       &.selected {

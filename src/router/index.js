@@ -21,24 +21,6 @@ const router = createRouter({
       component: () => import('../pages/about/index.vue'),
       meta: { layout: 'default', active: 'about' },
     },
-    {
-      path: '/manage/',
-      name: 'Manage',
-      component: () => import('../pages/manage/index.vue'),
-      meta: { layout: 'default', active: 'manage' },
-    },
-    {
-      path: '/manage/create/',
-      name: 'Create',
-      component: () => import('../pages/create/index.vue'),
-      meta: { layout: 'slideshow', active: 'manage' },
-    },
-    {
-      path: '/manage/edit/:srl/',
-      name: 'Edit',
-      component: () => import('../pages/edit/:address.vue'),
-      meta: { layout: 'slideshow', active: 'manage' },
-    },
   ],
 })
 

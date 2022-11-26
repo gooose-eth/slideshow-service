@@ -47,11 +47,14 @@
 
 <script setup>
 import { ref, computed, nextTick, watch, onMounted, onBeforeUnmount } from 'vue'
+import { useRoute } from 'vue-router'
 import { preferenceStore, usePreferenceStore, currentStore, dataStore, windowsStore } from '../store/slideshow.js'
 import { serviceStore } from '../store/service.js'
 import { getStorage } from '../libs/storage.js'
 import { checkTree } from '../libs/slideshow.js'
 import { captureError, CODE } from '../libs/error.js'
+import { pureObject } from '../libs/util.js'
+import * as defaults from '../libs/defaults.js'
 import Slides from './slides/index.vue'
 import Empty from './slides/empty.vue'
 import Navigation from './ui/navigation.vue'
@@ -61,6 +64,7 @@ import Groups from './groups/index.vue'
 import Thumbnail from './thumbnail/index.vue'
 import Loading from '../components/loading/index.vue'
 
+const route = useRoute()
 const service = serviceStore()
 const $navigation = ref()
 const $slides = ref()
@@ -177,12 +181,13 @@ function checkSlideshowData()
     if (!src) throw new Error('no-data')
     if (!(src.srl > 0)) throw new Error('no-srl')
     if (!src.title) throw new Error('no-title')
-    if (props.mode === 'edit')
+    let jsonKeys = Object.keys(src.json)
+    if (!(jsonKeys.length > 0))
     {
-      if (!src.admin) throw new Error(CODE['NO-PERMISSION'])
-      let jsonKeys = Object.keys(src.json)
-      if (!(jsonKeys.length > 0)) return false
+      if (!src.admin) throw new Error('no-data')
+      return false
     }
+
     if (src.json)
     {
       if (!src.json.group) throw new Error('no-slide-group')
@@ -207,9 +212,15 @@ async function setup(newJsonData = false)
 
   if (newJsonData)
   {
-    // TODO: 새로운 json 데이터를 만든다.
+    const pureDefaults = pureObject(defaults)
+    json = {
+      group: 'default',
+      preference: pureDefaults.preference,
+      tree: pureDefaults.groups,
+    }
   }
 
+  if (!(json?.preference && json.tree)) return
   // update store - preference
   preference.general = json.preference.general
   preference.slides = json.preference.slides
@@ -247,8 +258,25 @@ async function setup(newJsonData = false)
     if (storage?.current)
     {
       if (storage.current.tree) current.tree = storage.current.tree
-      if (storage.current.autoplay) current.autoplay = storage.current.autoplay
+      if (storage.current.autoplay !== undefined)
+      {
+        current.autoplay = storage.current.autoplay === true
+      }
+      if (storage.current.slide !== undefined)
+      {
+        current.activeSlide = storage.current.slide
+      }
     }
+  }
+
+  // update with route query
+  if (route.query.group)
+  {
+    current.tree = route.query.group
+  }
+  if (route.query.group && !!route.query.slide)
+  {
+    current.activeSlide = Number(route.query.slide)
   }
 
   await nextTick()
@@ -287,7 +315,7 @@ function destroy()
 
 onMounted(() => {
   if (!props.src) return
-  setup().then()
+  setup(!(props.src.json?.preference)).then()
 })
 onBeforeUnmount(() => {
   destroy()

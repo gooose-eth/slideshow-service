@@ -19,7 +19,8 @@
             id="pref_slideshowAddress"
             :value="address"
             :read-only="true"
-            :size="16"/>
+            :size="16"
+            @click="onClickAddress"/>
         </div>
       </div>
       <hr class="field-line">
@@ -113,6 +114,51 @@
         </li>
       </ul>
     </div>
+    <template v-if="data.isAdmin">
+      <hr class="field-line">
+      <div class="field-basic">
+        <header class="field-basic__header">
+          <h2 class="field-title">
+            <label>백업 및 복원</label>
+          </h2>
+          <p class="field-description">
+            슬라이드쇼의 모든 데이터를 가져오거나 내보냅니다.
+          </p>
+        </header>
+        <div class="grid import-data">
+          <ButtonBasic
+            type="button"
+            title="백업"
+            color="key"
+            @click="onClickBackup">
+            백업
+          </ButtonBasic>
+          <ButtonBasic
+            type="button"
+            title="복원"
+            @click="onClickRestore">
+            복원
+          </ButtonBasic>
+        </div>
+      </div>
+      <div class="field-basic">
+        <header class="field-basic__header">
+          <h2 class="field-title">
+            <label>재설정</label>
+          </h2>
+          <p class="field-description">
+            모든 설정과 슬라이드 데이터를 재설정합니다.
+          </p>
+        </header>
+        <ButtonBasic
+          type="button"
+          title="슬라이드쇼 재설정"
+          color="danger"
+          @click="onClickReset">
+          슬라이드쇼 재설정
+        </ButtonBasic>
+      </div>
+    </template>
   </div>
 </fieldset>
 </template>
@@ -121,13 +167,81 @@
 import { computed } from 'vue'
 import { readyPreferenceStore, dataStore, currentStore } from '../../store/slideshow.js'
 import { serviceStore } from '../../store/service.js'
+import { twoDigit } from '../../libs/string.js'
+import { pureObject } from '../../libs/util.js'
+import { captureError } from '../../libs/error.js'
 import { FormText, FormSwitch, FormCheckbox } from '../../components/form'
+import ButtonBasic from '../../components/button/basic.vue'
 
 const service = serviceStore()
 const readyPreference = readyPreferenceStore()
 const data = dataStore()
 const current = currentStore()
 const address = computed(() => (`${service.url}/watch/${data.field.srl}/`))
+
+function onClickAddress(e)
+{
+  const $el = e.target
+  $el.setSelectionRange(0, $el.value.length)
+}
+
+function onClickBackup()
+{
+  if (!confirm('정말 모든 데이터를 백업할까요?\n백업한 내용은 `JSON` 파일로 저장됩니다.')) return
+  const { general, slides, style, data, keyboard } = readyPreference
+  let result = pureObject({
+    preference: { general, slides, style, keyboard },
+    tree: data,
+  })
+  const date = new Date()
+  let dateFormat = `${date.getFullYear()}${twoDigit(date.getMonth() + 1)}${twoDigit(date.getDate())}`
+  const element = document.createElement('a')
+  element.setAttribute('href', `data:text/json;charset=utf-8,${encodeURIComponent(JSON.stringify(result, null, 2))}`)
+  element.setAttribute('download', `slideshow_${dateFormat}.json`)
+  element.click()
+}
+
+function onClickRestore()
+{
+  const el = document.createElement('input')
+  el.setAttribute('type', 'file')
+  el.setAttribute('accept', 'application/json')
+  el.addEventListener('change', e => {
+    if (e.target.files.length <= 0)
+    {
+      alert('선택한 파일이 없습니다.')
+      return
+    }
+    const file = (e.target).files[0]
+    const reader = new FileReader()
+    reader.onload = e => {
+      try
+      {
+        let json = JSON.parse(String((e.target).result))
+        if (!confirm('정말 모든 데이터를 복원할까요?\n이 작업은 현재 데이터가 모두 삭제됩니다.')) return
+        if (!(json.preference || json.tree)) throw new Error('no data')
+        readyPreference.restore({
+          ...json.preference,
+          data: json.tree,
+        })
+        alert('복원을 끝냈습니다.\n설정을 확인해보시고 "적용하기" 버튼을 누르면 적용됩니다.')
+      }
+      catch(e)
+      {
+        captureError(['/slideshow/preference/general.vue', 'onClickRestore()'], 'error', e.message)
+        alert('복원에 실패했습니다.')
+      }
+    }
+    reader.readAsText(file)
+  }, false)
+  el.click()
+}
+
+function onClickReset()
+{
+  if (!confirm('정말로 모든 설정과 슬라이드 데이터를 초기화 하겠습니까?')) return
+  readyPreference.reset()
+}
 </script>
 
 <style src="./preference.scss" lang="scss" scoped></style>

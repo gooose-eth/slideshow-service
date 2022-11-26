@@ -47,17 +47,12 @@
             전체화면
           </button>
         </li>
-        <li v-if="current.editMode">
-          <button type="button" @click="onClickContextItem('preview')">
-            미리보기
-          </button>
-        </li>
         <li>
           <button
             type="button"
             class="active"
             @click="onClickContextItem('slideshowService')">
-            슬라이드쇼로 바로가기
+            슬라이드쇼 바로가기
           </button>
         </li>
       </ul>
@@ -78,9 +73,11 @@
 <script setup>
 import { ref, computed, onMounted, onUnmounted } from 'vue'
 import { useRouter } from 'vue-router'
+import { $post } from '../../libs/api.js'
 import { serviceStore } from '../../store/service.js'
 import { preferenceStore, currentStore, dataStore, windowsStore } from '../../store/slideshow.js'
 import { fullscreen } from '../../libs/util.js'
+import { captureError, CODE, labels } from '../../libs/error.js'
 import Icon from '../../components/icon/index.vue'
 
 const router = useRouter()
@@ -139,9 +136,6 @@ function onClickContextItem(key)
     case 'slideshowService':
       route(!!history.state.back ? 'slideshowService' : 'slideshowServiceNewWindow')
       break
-    case 'preview':
-      route(key)
-      break
   }
 }
 function onTouchStart(e)
@@ -158,9 +152,6 @@ function route(key)
       break
     case 'slideshowServiceNewWindow':
       window.open('/')
-      break
-    case 'preview':
-      window.open(`/watch/${data.field.srl}/`)
       break
     case 'open-thumbnail':
       switchActiveMenu(false)
@@ -191,8 +182,24 @@ function blur()
 async function save()
 {
   if (!confirm('정말로 슬라이드를 저장할까요?')) return
-  // TODO: 슬라이드 저장하기
-  console.log('save()')
+  try
+  {
+    let slideshow = {
+      group: current.tree,
+      preference: preference.pure,
+      tree: data.pureGroups,
+    }
+    let res = await $post(`/api/manage/edit/${data.field.srl}/`, {
+      json: JSON.stringify(slideshow),
+    })
+    if (!res.success) throw new Error(CODE.FAILED_SAVE)
+    alert('슬라이드쇼를 저장했습니다.')
+  }
+  catch(e)
+  {
+    captureError(['/slideshow/ui/navigation.vue', 'save()'], 'error', e.message)
+    alert(labels[CODE.FAILED_SAVE])
+  }
 }
 
 // lifecycles

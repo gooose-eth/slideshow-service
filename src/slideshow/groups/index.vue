@@ -31,12 +31,14 @@
 
 <script setup>
 import { computed, onMounted, onUnmounted } from 'vue'
+import { useRouter, useRoute } from 'vue-router'
 import { dataStore, currentStore, windowsStore, preferenceStore } from '../../store/slideshow.js'
 import { sleep } from '../../libs/util.js'
 import Icon from '../../components/icon/index.vue'
 import Item from './item.vue'
 
-// const emits = defineEmits([ 'change', 'close' ])
+const route = useRoute()
+const router = useRouter()
 const data = dataStore()
 const current = currentStore()
 const windows = windowsStore()
@@ -74,6 +76,7 @@ async function onClickChange(key)
   current.tree = key
   current.activeSlide = 0
   current.update('tree', key)
+  await router.replace(`/watch/${route.params.srl}/?group=${key}`)
   await sleep(80)
   current.loading = false
 }

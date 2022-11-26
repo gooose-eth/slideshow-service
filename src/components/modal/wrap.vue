@@ -39,7 +39,7 @@ function onTouchStart(e)
     place-content: center;
     background-color: hsl(var(--color-bg-hsl) / 75%);
     cursor: zoom-out;
-    @include mixins.background-blur(8px);
+    @include mixins.background-blur(24px);
     &--full {
       display: block;
       cursor: auto;

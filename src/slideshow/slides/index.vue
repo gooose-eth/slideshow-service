@@ -36,13 +36,17 @@
 
 <script setup>
 import { ref, computed, onMounted, onUnmounted, watch } from 'vue'
+import { useRouter, useRoute } from 'vue-router'
 import { currentStore, dataStore, preferenceStore, windowsStore } from '../../store/slideshow.js'
 import { moveNumber } from '../../libs/slideshow.js'
+import { serialize } from '../../libs/string.js'
 import Images from './images.vue'
 import Captions from './captions.vue'
 import Paginate from './paginate.vue'
 import Controller from './controller.vue'
 
+const router = useRouter()
+const route = useRoute()
 const $images = ref()
 const current = currentStore()
 const data = dataStore()
@@ -78,7 +82,7 @@ let mounted = false
 let push = false
 
 // check active number
-let active = preference.slides.initialNumber
+let active = (current.activeSlide !== undefined) ? current.activeSlide : preference.slides.initialNumber
 current.activeSlide = !!checkActive(active) ? active : 0
 
 // private methods
@@ -248,8 +252,14 @@ function change(n, userAnimationType = undefined)
 {
   if (animated.value || !checkActive(n) || !$images.value) return
   current.activeSlide = n
+  current.update('slide', n)
   runAutoplay(false)
   $images.value.play(n, userAnimationType)
+  let query = {
+    ...route.query,
+    slide: String(n),
+  }
+  router.replace(`/watch/${route.params.srl}/${serialize(query, true)}`)
 }
 
 function prev()

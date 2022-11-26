@@ -241,9 +241,8 @@ export const currentStore = defineStore('slideshowCurrent', {
     {
       this[key] = value
       const data = dataStore()
-      // TODO: 수정예정
-      const storage = getStorage(data.field.address)
-      setStorage(data.field.address, {
+      const storage = getStorage(`slide#${data.field.srl}`)
+      setStorage(`slide#${data.field.srl}`, {
         ...storage,
         current: {
           ...(storage?.current ? storage.current : {}),

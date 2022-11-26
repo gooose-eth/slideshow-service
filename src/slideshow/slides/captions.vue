@@ -56,6 +56,7 @@ function playTransition(type)
           shuffle($description.value, {
             text: data.slide?.description || '',
             fps: preference.slides.captionAnimationSpeed,
+            randomTextType: 'pattern',
           })
         }, 300)
       }

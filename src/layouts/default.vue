@@ -14,9 +14,6 @@
         <li>
           <router-link to="/about/" title="슬라이드쇼 소개">소개</router-link>
         </li>
-        <li v-if="admin.isAuth">
-          <router-link to="/manage/" title="관리">관리</router-link>
-        </li>
       </ul>
     </nav>
   </header>
