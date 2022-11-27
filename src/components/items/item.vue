@@ -28,7 +28,6 @@
 
 <script setup>
 import { computed } from 'vue'
-import { dateFormat } from '../../libs/string.js'
 import { iconRandomPick } from '../icon/assets.js'
 import Icon from '../icon/index.vue'
 import Dropdown from './dropdown.vue'
@@ -38,12 +37,13 @@ const props = defineProps({
   manage: Boolean,
 })
 const emits = defineEmits([ 'edit', 'remove' ])
+const _date = new Intl.DateTimeFormat('fr-CA', {
+  year: 'numeric', month: '2-digit', day: '2-digit',
+})
 const srl = computed(() => (props.src.srl || undefined))
 const title = computed(() => (props.src.title || undefined))
 const description = computed(() => (props.src.description || undefined))
-const date = computed(() => {
-  return dateFormat(new Date(props.src.regdate), '{yyyy}-{MM}-{dd}')
-})
+const date = computed(() => _date.format(new Date(props.src.regdate)))
 const image = computed(() => (props.src.thumbnail || undefined))
 const emptyIcon = computed(() => iconRandomPick())
 

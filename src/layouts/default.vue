@@ -9,13 +9,13 @@
     <nav class="header__nav">
       <ul>
         <li>
-          <router-link to="/" title="슬라이드 목록">슬라이드</router-link>
+          <router-link to="/" title="슬라이드 목록">Slides</router-link>
         </li>
         <li>
-          <router-link to="/about/" title="슬라이드쇼 소개">소개</router-link>
+          <router-link to="/about/" title="슬라이드쇼 소개">About</router-link>
         </li>
         <li>
-          <a href="https://redgoose.me" title="붉은거위 사이트 바로가기" target="_blank">붉은거위</a>
+          <a href="https://redgoose.me" title="붉은거위 사이트 바로가기" target="_blank">redgoose</a>
         </li>
       </ul>
     </nav>

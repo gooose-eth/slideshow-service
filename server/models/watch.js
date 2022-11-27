@@ -7,7 +7,7 @@ import { ERROR_CODE } from '../libs/assets.js'
  * @param {number} srl
  * @return {Promise<object>}
  */
-export async function modelWatch({ srl })
+export async function modelWatch(srl)
 {
   if (!(srl > 0))
   {

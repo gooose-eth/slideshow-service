@@ -1,8 +1,3 @@
-export function twoDigit(day)
-{
-  return `0${day}`.slice(-2)
-}
-
 export function serialize(obj, usePrefix = false)
 {
   let str = []

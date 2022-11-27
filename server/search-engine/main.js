@@ -1,10 +1,7 @@
 import * as path from 'path'
 import { Router } from 'express'
 import { isDev } from '../libs/entry-assets.js'
-import { pageHome } from './pages/home.js'
-// import { pageNests } from './pages/nests.js'
-// import { pageArticle } from './pages/article.js'
-// import { pageNotFound } from './pages/pageNotFound.js'
+import { pageHome, pageWatch, pageAbout, pageNotFound } from './pages/index.js'
 
 // set base
 const router = Router({ strict: false })
@@ -13,10 +10,9 @@ const __dirname = path.resolve('server/search-engine')
 
 // set routers
 router.get('/', pageHome)
-// router.get('/nest/:nestId/', pageNests)
-// router.get('/nest/:nestId/:categorySrl/', pageNests)
-// router.get('/article/:srl/', pageArticle)
-// router.get('*', pageNotFound)
+router.get('/watch/:srl(\\d+)/', pageWatch)
+router.get('/about/', pageAbout)
+router.get('*', pageNotFound)
 
 /**
  * search engine

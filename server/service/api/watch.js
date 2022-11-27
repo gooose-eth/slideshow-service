@@ -7,11 +7,8 @@ export async function watch(req, res)
 {
   try
   {
-    let srl = Number(req.params.srl)
     const env = getEnv()
-    let result = await modelWatch({
-      srl,
-    })
+    let result = await modelWatch(Number(req.params.srl))
     const user = parseJson(req.cookies[env.VITE_COOKIE_ADMIN_USER])
     result.admin = Boolean(user?.admin)
     res.json(result)

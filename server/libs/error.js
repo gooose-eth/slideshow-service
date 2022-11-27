@@ -1,6 +1,7 @@
 import { ERROR_CODE } from './assets.js'
-import { dateFormat } from './date.js'
 import { isDev } from './entry-assets.js'
+
+const _date = new Intl.DateTimeFormat('ko', { dateStyle: 'medium', timeStyle: 'medium' })
 
 export function register(res, err)
 {
@@ -36,7 +37,7 @@ export function register(res, err)
   {
     console.group('> SERVICE ERROR')
     console.error(`- Status: [${status}] ${err.status || 'unknown error'}`)
-    console.error(`- Date: ${dateFormat(date, '{yyyy}-{MM}-{dd} {hh}:{mm}:{ss}')}`)
+    console.error(`- Date: ${_date.format(date)}`)
     console.error(`- URL: ${res.req.url}`)
     console.error(`- Message: ${err.message}`)
     console.groupEnd()

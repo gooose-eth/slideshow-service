@@ -256,7 +256,7 @@ function change(n, userAnimationType = undefined)
   runAutoplay(false)
   $images.value.play(n, userAnimationType)
   let query = {
-    ...route.query,
+    group: current.tree,
     slide: String(n),
   }
   router.replace(`/watch/${route.params.srl}/${serialize(query, true)}`)
