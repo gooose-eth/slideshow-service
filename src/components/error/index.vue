@@ -2,7 +2,7 @@
   <article class="error">
     <figure class="error__icon">
       <Icon v-if="props.type === 'empty'" name="alert-circle"/>
-      <Icon v-if="props.type === 'permission'" name="alert-triangle"/>
+      <Icon v-else-if="props.type === 'permission'" name="alert-triangle"/>
       <Icon v-else name="frown"/>
     </figure>
     <header class="error__header">
