@@ -1,18 +1,24 @@
 <template>
-<div v-if="serviceError"><pre>{{serviceError}}</pre></div>
+<ServiceError
+  v-if="serviceError"
+  :status="serviceError.status"
+  :message="serviceError.message"
+  class="service-error"/>
 <component v-else-if="layout" :is="layout">
   <router-view/>
 </component>
 </template>
 
 <script setup>
-import { ref, computed, onErrorCaptured } from 'vue'
+import { ref, computed, nextTick, onErrorCaptured } from 'vue'
 import { useRoute } from 'vue-router'
 import _router from './router'
 import { serviceStore } from './store/service.js'
+import { CODE } from './libs/error.js'
 import LayoutDefault from './layouts/default.vue'
 import LayoutSlideshow from './layouts/slideshow.vue'
 import LayoutBlank from './layouts/blank.vue'
+import ServiceError from './components/error/service.vue'
 
 const route = useRoute()
 const service = serviceStore()
@@ -32,14 +38,33 @@ const layout = computed(() => {
 
 // children component error
 onErrorCaptured((e) => {
-  // if (service.dev) return true
-  console.error('ERROR: onErrorCaptured', e)
-  serviceError.value = (typeof e === 'string') ? { message: e } : { message: e.message }
+  if (service.dev) console.error('onErrorCaptured', e)
+  let status = 500
+  let message = (typeof e === 'string') ? e : e.message
+  switch (message)
+  {
+    default:
+    case CODE['INVALID-SLIDESHOW-DATA']:
+      status = 500
+      message = service.dev ? message : 'Unknown error'
+      break
+  }
+  serviceError.value = {
+    status,
+    message,
+  }
   return false
 })
 
 // change router event
-_router.beforeEach((to, from) => {
-  if (serviceError.value) serviceError.value = undefined
+_router.beforeEach(async (to, from) => {
+  if (serviceError.value) location.reload()
 })
 </script>
+
+<style lang="scss" scoped>
+.error {
+  height: 100vh;
+  box-sizing: border-box;
+}
+</style>
