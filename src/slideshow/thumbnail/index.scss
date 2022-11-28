@@ -1,0 +1,188 @@
+@use '../../assets/scss/mixins';
+
+.thumbnail {
+  box-sizing: border-box;
+  height: 100%;
+  background: var(--color-bg);
+  overflow: auto;
+  cursor: auto;
+  &__header {
+    margin: 0 auto;
+    padding: 36px 16px 20px;
+    text-align: center;
+    max-width: 1000px;
+    user-select: none;
+    h1 {
+      margin: 0 30px;
+      font-size: 30px;
+      letter-spacing: -.5px;
+      line-height: 1.05;
+      font-weight: 800;
+      @include mixins.text-single-line();
+    }
+    p {
+      margin: 2px auto 0;
+      font-size: 11px;
+      font-weight: 400;
+      line-height: 1.25;
+      letter-spacing: -.25px;
+      color: var(--color-weak);
+      @include mixins.text-single-line();
+    }
+  }
+  &__index {
+    list-style: none;
+    margin: 0 auto;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(var(--column, 2), 1fr);
+    gap: var(--gap, 4px);
+    user-select: none;
+    li {
+      position: relative;
+    }
+    button {
+      --item-shadow-1: inset 0 0 0 1px hsl(var(--color-key-hsl) / 0%);
+      position: relative;
+      display: block;
+      width: 100%;
+      aspect-ratio: 4 / 3;
+      font-size: 0;
+      padding: 0;
+      margin: 0;
+      border: none;
+      background: var(--color-shape);
+      border-radius: 0;
+      @include mixins.button-extends();
+      &:before {
+        content: '';
+        position: absolute;
+        z-index: 2;
+        display: block;
+        left: 0;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        box-shadow: var(--item-shadow-1);
+        pointer-events: none;
+        box-sizing: border-box;
+        transition: box-shadow 150ms ease-out;
+      }
+      &:focus-visible:before {
+        --item-shadow-1: inset 0 0 0 1px hsl(var(--color-key-hsl) / 100%);
+      }
+      @include mixins.hover() {
+        --item-shadow-1: inset 0 0 0 1px hsl(var(--color-weak-hsl) / 75%);
+      }
+      &:disabled {
+        cursor: default;
+        --item-shadow-1: inset 0 0 0 6px hsl(var(--color-key-hsl) / 100%);
+      }
+    }
+    img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+  &__empty {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    --icon-stroke: .5;
+    --icon-size: 100px;
+    --icon-color: var(--color-base);
+    > svg {
+      display: block;
+      margin: 0 auto;
+    }
+    > p {
+      margin: 10px 0 0;
+      text-align: center;
+      font-size: 16px;
+      letter-spacing: -.25px;
+      font-weight: 600;
+      line-height: 1.15;
+    }
+  }
+  &__close {
+    position: fixed;
+    z-index: 2;
+    top: 4px;
+    right: 4px;
+    display: block;
+    margin: 0;
+    padding: 0;
+    background: hsl(var(--color-bg-hsl) / 75%);
+    width: 48px;
+    aspect-ratio: 1 / 1;
+    border: none;
+    border-radius: 2px;
+    --button-close-size: 54px;
+    --icon-size: 36px;
+    --icon-stroke: 1;
+    &:focus-visible {
+      box-shadow: 0 0 0 2px var(--color-key);
+    }
+    @include mixins.button-extends();
+    &:active {
+      opacity: .5;
+    }
+    @include mixins.background-blur(4px);
+    svg {
+      display: block;
+      margin: 0 auto;
+    }
+  }
+  @include mixins.responsive(tablet) {
+    padding: 64px 60px;
+    &__header {
+      padding: 0 0 32px;
+      h1 {
+        margin: 0 auto;
+        font-size: 42px;
+        letter-spacing: -1px;
+      }
+      p {
+        font-size: 13px;
+      }
+    }
+    &__index {
+      --column: 3;
+      --gap: 10px;
+      button {
+        border-radius: 2px;
+        overflow: hidden;
+        &:before {
+          border-radius: 2px;
+        }
+      }
+    }
+    &__empty {
+      --icon-size: 120px;
+      --icon-stroke: .5;
+      > p {
+        margin-top: 16px;
+        font-size: 20px;
+        font-weight: 500;
+      }
+    }
+    &__close {
+      top: 24px;
+      right: 24px;
+      width: 64px;
+      --icon-size: 48px;
+      --icon-stroke: .75;
+    }
+  }
+  @include mixins.responsive(desktop) {
+    padding: 60px 64px;
+    &__index {
+      max-width: 1440px;
+      --column: 4;
+      --gap: 16px;
+    }
+  }
+}

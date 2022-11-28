@@ -1,0 +1,22 @@
+@use '../../assets/scss/mixins';
+
+.home {
+  margin: 32px 0 72px;
+  &__title {
+    position: absolute;
+    margin: 0;
+    font-size: 0;
+  }
+  &__paginate {
+    margin: 52px 0 0;
+  }
+  @include mixins.responsive(tablet) {
+    margin: 52px 0 82px;
+    &__body {
+      min-height: 420px;
+    }
+    &__loading {
+      max-height: 420px;
+    }
+  }
+}

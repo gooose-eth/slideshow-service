@@ -1,0 +1,35 @@
+@use '../../../assets/scss/mixins';
+
+.preference-data {
+  height: 100%;
+  box-sizing: border-box;
+  padding-bottom: 20px;
+  @include mixins.responsive(tablet) {
+    padding-bottom: 30px;
+  }
+}
+
+.manage-tree {
+  display: grid;
+  grid-template-rows: auto 1fr;
+  gap: 8px;
+  height: 100%;
+  &__toolbar {
+    display: grid;
+    grid-template-columns: auto auto;
+    justify-content: space-between;
+  }
+  &__body {
+    margin: 0;
+  }
+  &__error-message {
+    margin: 4px 0 0;
+    color: var(--color-danger);
+    font-weight: 500;
+    font-size: 13px;
+  }
+}
+
+.advanced-source[type=textarea] {
+  height: 100%;
+}

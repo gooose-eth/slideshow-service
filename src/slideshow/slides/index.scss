@@ -1,0 +1,37 @@
+@use '../../assets/scss/mixins';
+
+.slideshow-slides {
+  user-select: none;
+  &__paginate {
+    position: fixed;
+    z-index: 2;
+    right: 16px;
+    bottom: 10px;
+  }
+  &.swipe-move {
+    cursor: grabbing;
+  }
+  &--horizontal {
+    .controller {
+      display: none;
+    }
+  }
+  @include mixins.responsive(tablet) {
+    &__paginate {
+      right: 30px;
+      bottom: 28px;
+    }
+    &.swipe-move {
+      .slideshow-slides {
+        &__controller {
+          pointer-events: none;
+        }
+      }
+    }
+    &--horizontal {
+      .controller {
+        display: block;
+      }
+    }
+  }
+}

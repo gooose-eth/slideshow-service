@@ -1,0 +1,19 @@
+doctype html
+html(lang="ko")
+  head
+    include ./layout/head
+  body
+    main
+      include ./layout/header
+      if error && error.status
+        include ./components/error
+      else if tree
+        article
+          header
+            h1 #{tree.name}
+            p #{tree.description}
+          ul
+            each o in tree.slides
+              li
+                include ./components/watch-item
+      include ./layout/footer

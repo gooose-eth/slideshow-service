@@ -1,0 +1,21 @@
+@use '../../../assets/scss/mixins';
+
+.import-data {
+  display: grid;
+  grid-template-rows: auto 1fr;
+  height: 100%;
+  background-color: var(--color-bg);
+  box-sizing: border-box;
+  &__bottom {
+    margin: 40px 0 0;
+    display: grid;
+    place-content: center;
+  }
+  @include mixins.responsive(tablet) {
+    width: 540px;
+    height: 360px;
+    overflow: hidden;
+    border-radius: 2px;
+    box-shadow: 0 0 0 1px hsl(0 0% 0% / 15%), 0 2px 16px hsl(0 0% 0% / 25%);
+  }
+}
