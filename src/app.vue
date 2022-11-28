@@ -8,6 +8,7 @@
 <script setup>
 import { ref, computed, onErrorCaptured } from 'vue'
 import { useRoute } from 'vue-router'
+import _router from './router'
 import { serviceStore } from './store/service.js'
 import LayoutDefault from './layouts/default.vue'
 import LayoutSlideshow from './layouts/slideshow.vue'
@@ -35,5 +36,10 @@ onErrorCaptured((e) => {
   console.error('ERROR: onErrorCaptured', e)
   serviceError.value = (typeof e === 'string') ? { message: e } : { message: e.message }
   return false
+})
+
+// change router event
+_router.beforeEach((to, from) => {
+  if (serviceError.value) serviceError.value = undefined
 })
 </script>
