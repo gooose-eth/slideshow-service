@@ -279,6 +279,10 @@ async function setup(newJsonData = false)
     current.activeSlide = Number(route.query.slide)
   }
 
+  // select tree
+  await data.selectedTree()
+
+  // tick
   await nextTick()
 
   // on keyboard event

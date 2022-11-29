@@ -1,8 +1,10 @@
 import { defineStore } from 'pinia'
-import { pureObject } from '../libs/util'
-import { checkPreference, checkTree } from '../libs/slideshow'
-import * as defaults from '../libs/defaults'
-import { getStorage, setStorage } from '../libs/storage'
+import { $fetch } from 'ohmyfetch'
+import { pureObject } from '../libs/util.js'
+import { CODE } from '../libs/error.js'
+import { checkPreference, checkTree, checkSlideItems } from '../libs/slideshow.js'
+import * as defaults from '../libs/defaults.js'
+import { getStorage, setStorage } from '../libs/storage.js'
 
 /**
  * 슬라이드쇼 설정
@@ -144,6 +146,7 @@ export const dataStore = defineStore('slideshowData', {
         admin: false,
       },
       groups: pureObject(defaults.groups),
+      selected: [],
     }
   },
   getters: {
@@ -153,18 +156,17 @@ export const dataStore = defineStore('slideshowData', {
     },
     slides()
     {
-      const current = currentStore()
-      return this.groups[current.tree].slides
+      return this.selected
     },
     slide()
     {
       const current = currentStore()
-      return this.groups[current.tree]?.slides[current.activeSlide] || undefined
+      return this.selected[current.activeSlide] || undefined
     },
     existSlide()
     {
       const current = currentStore()
-      return this.groups[current.tree]?.slides?.length > 0
+      return this.selected?.length > 0
     },
     isAdmin()
     {
@@ -177,6 +179,7 @@ export const dataStore = defineStore('slideshowData', {
       src = pureObject(src)
       if (!checkTree(src)) throw new Error('Failed check slides')
       this.groups = src
+      this.selectedTree().then()
     },
     resetFields()
     {
@@ -189,7 +192,31 @@ export const dataStore = defineStore('slideshowData', {
     },
     destroy()
     {
+      this.selected = []
+      this.groups = pureObject(defaults.groups)
       this.resetFields()
+    },
+    async selectedTree()
+    {
+      const current = currentStore()
+      const slides = this.groups[current.tree]?.slides || undefined
+      if (!slides) return
+      if (Array.isArray(slides))
+      {
+        this.selected = slides
+      }
+      else
+      {
+        try
+        {
+          let res = await $fetch(slides, { responseType: 'json' })
+          checkSlideItems(res)
+          this.selected = res
+        }
+        catch (_) {
+          throw new Error(CODE['INVALID-SLIDESHOW-DATA'])
+        }
+      }
     },
   },
 })
@@ -209,6 +236,7 @@ export const currentStore = defineStore('slideshowCurrent', {
       swiped: false,
       loading: true,
       public: false,
+      slides: [],
     }
   },
   getters: {

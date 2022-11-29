@@ -33,7 +33,7 @@ const props = defineProps({
   src: String,
   name: String,
   description: String,
-  count: { type: Number, required: true },
+  count: Number,
   selected: { type: Boolean, required: true },
 })
 const emits = defineEmits([ 'select' ])

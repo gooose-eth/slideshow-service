@@ -51,8 +51,8 @@ const index = computed(() => {
       case 'object':
         const slides = item.slides
         if (!slides) return false
-        const firstSlide = (slides.length > 0) ? slides[0] : null
-        let src = firstSlide ? (firstSlide.thumbnail || firstSlide.src) : null
+        const firstSlide = (Array.isArray(slides) && slides.length > 0) ? slides[0] : undefined
+        let src = firstSlide ? (firstSlide.thumbnail || firstSlide.src) : undefined
         return {
           key,
           name: item.name,
@@ -71,11 +71,13 @@ let saveAutoplay = false
 async function onClickChange(key)
 {
   if (!confirm('선택한 슬라이드로 사용할까요?\n슬라이드를 변경하면 다시 시작합니다.')) return
+  const data = dataStore()
   windows.group = false
   current.loading = true
   current.tree = key
   current.activeSlide = 0
   current.update('tree', key)
+  await data.selectedTree()
   await router.replace(`/watch/${route.params.srl}/?group=${key}`)
   await sleep(80)
   current.loading = false

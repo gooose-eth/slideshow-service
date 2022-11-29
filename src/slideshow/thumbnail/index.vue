@@ -41,7 +41,7 @@ const current = currentStore()
 const windows = windowsStore()
 const title = computed(() => (data.groups[current.tree].name))
 const description = computed(() => (data.groups[current.tree].description))
-const index = computed(() => (data.groups[current.tree].slides))
+const index = computed(() => data.selected)
 let saveAutoplay = false
 
 function onSelect(n)
