@@ -28,6 +28,8 @@ export async function modelHome({ page })
     query: {
       field: 'srl,name,description,path,regdate',
       category: Number(env.VITE_JSON_CATEGORY),
+      order: 'srl',
+      sort: 'desc',
       limit: `${(page-1)*size},${size}`,
     },
   })
