@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia'
 import { $fetch } from 'ohmyfetch'
-import { pureObject } from '../libs/util.js'
+import { pureObject, shuffleItemsFromArray } from '../libs/util.js'
 import { CODE } from '../libs/error.js'
 import { checkPreference, checkTree, checkSlideItems } from '../libs/slideshow.js'
 import * as defaults from '../libs/defaults.js'
@@ -198,22 +198,27 @@ export const dataStore = defineStore('slideshowData', {
     },
     async selectedTree()
     {
+      const preference = preferenceStore()
       const current = currentStore()
-      const slides = this.groups[current.tree]?.slides || undefined
+      let slides = this.groups[current.tree]?.slides || undefined
       if (!slides) return
       if (Array.isArray(slides))
       {
-        this.selected = slides
+        let newSlides = pureObject(slides)
+        this.selected = preference.slides.random ? shuffleItemsFromArray(newSlides) : newSlides
       }
       else
       {
         try
         {
+          current.loading = true
           let res = await $fetch(slides, { responseType: 'json' })
           checkSlideItems(res)
-          this.selected = res
+          this.selected = preference.slides.random ? shuffleItemsFromArray(res) : res
+          current.loading = false
         }
         catch (_) {
+          current.loading = false
           throw new Error(CODE['INVALID-SLIDESHOW-DATA'])
         }
       }
@@ -236,7 +241,6 @@ export const currentStore = defineStore('slideshowCurrent', {
       swiped: false,
       loading: true,
       public: false,
-      slides: [],
     }
   },
   getters: {

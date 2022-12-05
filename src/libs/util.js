@@ -120,3 +120,9 @@ export function getValueFromType(type, value)
       return value
   }
 }
+
+export function shuffleItemsFromArray(items)
+{
+  const shuffled = [...items].sort(() => 0.5 - Math.random())
+  return shuffled.slice(0, items.length)
+}

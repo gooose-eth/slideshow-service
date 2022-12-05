@@ -14,6 +14,7 @@ export const preference = {
   },
   slides: {
     initialNumber: 0,
+    random: false,
     animationType: 'horizontal', // none,fade,horizontal
     animationSpeed: 500,
     captionAnimationType: 'none', // none,shuffle

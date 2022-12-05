@@ -2,4 +2,9 @@
 
 Slideshow service
 
-새로운 버전 준비중..
+
+## using docker
+
+- `./cmd.sh build`: build amd64
+- `./cmd.sh upload`: upload to server
+- `./cmd.sh upgrade`: upgrade server (build,upload,update)

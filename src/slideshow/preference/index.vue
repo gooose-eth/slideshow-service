@@ -121,6 +121,7 @@ function onSubmit()
     {
       current.tree = Object.keys(data.groups)[0]
     }
+    data.selectedTree().then()
     // save storage
     if (current.watchMode)
     {

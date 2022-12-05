@@ -25,6 +25,18 @@
         </label>
       </div>
     </div>
+    <div class="field-switch">
+      <header>
+        <h2 class="field-title">
+          <label for="pref_random">무작위로 섞기</label>
+        </h2>
+        <p class="field-description">슬라이드 순서를 무작위로 섞습니다.</p>
+      </header>
+      <FormSwitch
+        name="pref_random"
+        id="pref_random"
+        v-model="readyPreference.slides.random"/>
+    </div>
     <hr class="field-line">
     <div class="field-basic">
       <header class="field-basic__header">
