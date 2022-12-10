@@ -12,8 +12,11 @@ html(lang="ko")
           header
             h1 #{tree.name}
             p #{tree.description}
-          ul
-            each o in tree.slides
-              li
-                include ./components/watch-item
+          if Array.isArray(tree.slides)
+            ul
+              each o in tree.slides
+                li
+                  include ./components/watch-item
+          else if tree.slides
+            p Slides url: #{tree.slides}
       include ./layout/footer
