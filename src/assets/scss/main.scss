@@ -27,7 +27,7 @@
   --font-eng: 'ortsa', 'Helvetica Neue', Helvetica, Arial, sans-serif;
   @include mixins.dark-mode(true) {
     color-scheme: dark;
-    --color-bg-hsl: 0 0% 13%;
+    --color-bg-hsl: 0 0% 18%;
     --color-base-hsl: 0 0% 94%;
     --color-edge-hsl: 0 0% 100%;
     --color-weak-hsl: 0 0% 60%;

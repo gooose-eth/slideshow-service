@@ -174,12 +174,15 @@ export const dataStore = defineStore('slideshowData', {
     },
   },
   actions: {
-    update(src)
+    async update(src)
     {
       src = pureObject(src)
       if (!checkTree(src)) throw new Error('Failed check slides')
+      const current = currentStore()
+      current.loading = true
       this.groups = src
-      this.selectedTree().then()
+      await this.selectedTree()
+      current.loading = false
     },
     resetFields()
     {
@@ -201,26 +204,36 @@ export const dataStore = defineStore('slideshowData', {
       const preference = preferenceStore()
       const current = currentStore()
       let slides = this.groups[current.tree]?.slides || undefined
+      let newSlides
       if (!slides) return
-      if (Array.isArray(slides))
+      try
       {
-        let newSlides = pureObject(slides)
+        if (Array.isArray(slides))
+        {
+          newSlides = pureObject(slides)
+        }
+        else
+        {
+          newSlides = await $fetch(slides, { responseType: 'json' })
+        }
+        checkSlideItems(newSlides)
+        newSlides = newSlides.map((o,k) => ({
+          ...o,
+          key: k + 1,
+        }))
         this.selected = preference.slides.random ? shuffleItemsFromArray(newSlides) : newSlides
       }
-      else
+      catch (_)
       {
-        try
-        {
-          current.loading = true
-          let res = await $fetch(slides, { responseType: 'json' })
-          checkSlideItems(res)
-          this.selected = preference.slides.random ? shuffleItemsFromArray(res) : res
-          current.loading = false
-        }
-        catch (_) {
-          current.loading = false
-          throw new Error(CODE['INVALID-SLIDESHOW-DATA'])
-        }
+        current.loading = false
+        throw new Error(CODE['INVALID-SLIDESHOW-DATA'])
+      }
+    },
+    getSlideIndex(key)
+    {
+      for (let i=0; i < this.selected.length; i++)
+      {
+        if (Number(this.selected[i].key) === Number(key)) return i
       }
     },
   },

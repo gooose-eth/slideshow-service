@@ -34,6 +34,7 @@ import { computed, onMounted, onUnmounted } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
 import { dataStore, currentStore, windowsStore, preferenceStore } from '../../store/slideshow.js'
 import { sleep } from '../../libs/util.js'
+import { serialize } from '../../libs/string.js'
 import Icon from '../../components/icon/index.vue'
 import Item from './item.vue'
 
@@ -75,10 +76,11 @@ async function onClickChange(key)
   windows.group = false
   current.loading = true
   current.tree = key
-  current.activeSlide = 0
-  current.update('tree', key)
   await data.selectedTree()
-  await router.replace(`/watch/${route.params.srl}/?group=${key}`)
+  current.update('tree', key)
+  current.activeSlide = data.getSlideIndex(1)
+  let query = { group: key, slide: 1 }
+  await router.replace(`/watch/${route.params.srl}/${serialize(query, true)}`)
   await sleep(80)
   current.loading = false
 }

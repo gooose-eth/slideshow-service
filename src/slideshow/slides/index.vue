@@ -28,7 +28,7 @@
     @pointerdown.stop=""/>
   <Paginate
     v-if="visiblePaginate"
-    :total="data.slides.length"
+    :total="data.selected.length"
     :current="current.activeSlide"
     class="slideshow-slides__paginate"/>
 </article>
@@ -60,7 +60,7 @@ const showPrevButton = computed(() => {
 })
 const showNextButton = computed(() => {
   if (preference.slides.loop) return true
-  return data.slides.length - 1 > current.activeSlide
+  return data.selected.length - 1 > current.activeSlide
 })
 const visibleCaption = computed(() => {
   const { hud, visibleHudContents } = preference.general
@@ -68,7 +68,7 @@ const visibleCaption = computed(() => {
 })
 const visibleController = computed(() => {
   const { hud, visibleHudContents } = preference.general
-  if (data.slides.length <= 1) return false
+  if (data.selected.length <= 1) return false
   return hud && visibleHudContents.controller
 })
 const visiblePaginate = computed(() => {
@@ -102,7 +102,7 @@ function onChangeActive(n)
 
 function checkActive(n)
 {
-  return !!data.slides[n]
+  return !!data.selected[n]
 }
 
 function onPointerStart(e)
@@ -111,7 +111,7 @@ function onPointerStart(e)
   push = true
   if (!preference.slides.swipe) return
   if (preference.slides.animationType !== 'horizontal') return
-  if (data.slides.length <= 2) return
+  if (data.selected.length <= 2) return
   runAutoplay(false)
   swipeMeta = {
     dist: 0,
@@ -126,7 +126,7 @@ function onPointerMove(e)
 {
   if (!push) return
   if (animated.value || !current.swiped) return
-  if (data.slides.length <= 2) return
+  if (data.selected.length <= 2) return
   swipeMeta.moveX = Math.floor(e.clientX)
   const screenWidth = window.innerWidth
   const dist = swipeMeta.moveX - swipeMeta.startX
@@ -146,7 +146,7 @@ function onPointerEnd(e)
   }
 
   if (animated.value || !current.swiped) return
-  if (data.slides.length <= 2) return
+  if (data.selected.length <= 2) return
 
   push = false
   const screenWidth = window.innerWidth
@@ -244,8 +244,8 @@ function runAutoplay(sw)
 
 function isActiveSide(dir)
 {
-  if (!(data.slides && data.slides.length > 0)) return
-  return (!dir && current.activeSlide === 0) || (dir && current.activeSlide >= data.slides.length - 1)
+  if (!(data.selected && data.selected.length > 0)) return
+  return (!dir && current.activeSlide === 0) || (dir && current.activeSlide >= data.selected.length - 1)
 }
 
 function change(n, userAnimationType = undefined)
@@ -257,7 +257,7 @@ function change(n, userAnimationType = undefined)
   $images.value.play(n, userAnimationType)
   let query = {
     group: current.tree,
-    slide: String(n),
+    slide: String(data.selected[n].key),
   }
   router.replace(`/watch/${route.params.srl}/${serialize(query, true)}`)
 }
@@ -265,14 +265,14 @@ function change(n, userAnimationType = undefined)
 function prev()
 {
   if (!data.existSlide) return
-  let n = moveNumber(data.slides.length, current.activeSlide - 1, preference.slides.loop)
+  let n = moveNumber(data.selected.length, current.activeSlide - 1, preference.slides.loop)
   change(n)
 }
 
 function next()
 {
   if (!data.existSlide) return
-  let n = moveNumber(data.slides.length, current.activeSlide + 1, preference.slides.loop)
+  let n = moveNumber(data.selected.length, current.activeSlide + 1, preference.slides.loop)
   change(n)
 }
 

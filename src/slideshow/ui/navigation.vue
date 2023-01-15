@@ -17,6 +17,14 @@
       <Icon name="folder"/>
     </button>
   </div>
+  <div v-if="data.existSlide" class="navigation__item">
+    <button
+      type="button"
+      title="슬라이드 목록"
+      @click="route('open-thumbnail')">
+      <Icon name="grid"/>
+    </button>
+  </div>
   <div v-if="preference.general.visibleHudContents.menu" class="navigation__item">
     <button
       type="button"
@@ -27,13 +35,6 @@
     </button>
     <div :class="[ 'navigation-context', activeMenu && 'navigation-context--on' ]">
       <ul>
-        <li v-if="data.existSlide">
-          <button
-            type="button"
-            @click="route('open-thumbnail')">
-            슬라이드 목록
-          </button>
-        </li>
         <li>
           <button type="button" @click="route('open-preference')">
             환경설정

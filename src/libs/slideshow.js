@@ -173,7 +173,7 @@ export function checkPreference(item)
   }
   catch(e)
   {
-    captureError(['/libs/slideshow.ts', 'checkPreference()'], 'error', e.message)
+    captureError(['/libs/slideshow.js', 'checkPreference()'], 'error', e.message)
     return false
   }
 }

@@ -1,6 +1,6 @@
 {
   "name": "slideshow.redgoose.me",
-  "version": "3.0.2",
+  "version": "3.0.3",
   "repository": "https://github.com/redgoose-dev/slideshow.redgoose.me.git",
   "author": "redgoose <scripter@me.com>",
   "type": "module",
@@ -35,8 +35,8 @@
     "@vitejs/plugin-vue": "^4.0.0",
     "nodemon": "^2.0.20",
     "pinia": "^2.0.28",
-    "sass": "^1.56.2",
-    "vite": "^4.0.0",
+    "sass": "^1.57.1",
+    "vite": "^4.0.4",
     "vue": "^3.2.45",
     "vue-router": "^4.1.6"
   }

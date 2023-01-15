@@ -1,7 +1,7 @@
 <template>
 <article class="thumbnail" @click.stop="">
   <header v-if="title" class="thumbnail__header">
-    <h1>{{title}}</h1>
+    <h2>{{title}}</h2>
     <p v-if="description">{{description}}</p>
   </header>
   <div class="thumbnail__body">

@@ -274,16 +274,18 @@ async function setup(newJsonData = false)
   {
     current.tree = route.query.group
   }
-  if (route.query.group && !!route.query.slide)
-  {
-    current.activeSlide = Number(route.query.slide)
-  }
 
   // select tree
   await data.selectedTree()
 
   // tick
   await nextTick()
+
+  // set active slide
+  if (route.query.group && !isNaN(Number(route.query.slide)))
+  {
+    current.activeSlide = data.getSlideIndex(route.query.slide)
+  }
 
   // on keyboard event
   if (preference.keyboard.enabled)

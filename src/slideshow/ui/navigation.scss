@@ -19,14 +19,14 @@
       @include mixins.background-blur(8px);
       --icon-color: hsl(0 0% 0% / 75%);
       --icon-stroke: 1.75;
-      --icon-size: 22px;
-      svg {
+      --icon-size: 20px;
+      .icon {
         display: block;
         margin: 0 auto;
-        &[aria-labelledby=settings],
-        &[aria-labelledby=folder],
-        &[aria-labelledby=grid] {
-          --icon-size: 20px;
+        &--settings,
+        &--folder,
+        &--grid {
+          --icon-size: 18px;
         }
       }
       @include mixins.hover() {
