@@ -19,4 +19,9 @@ const app = createApp(App)
   .use(router)
   .mount('#app')
 
+// setup service worker
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('/sw.js')
+}
+
 export default app
