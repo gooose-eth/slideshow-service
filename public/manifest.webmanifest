@@ -1,30 +1,18 @@
 {
   "short_name": "Slideshow",
   "name": "붉은거위 / 슬라이드쇼",
-  "version": "3.0.4",
+  "version": "3.0.5",
   "icons": [
     {
-      "src": "/images/slideshow-256x256.png",
-      "type": "image/png",
-      "sizes": "256x256",
+      "src": "/images/slideshow-1024x1024.webp",
+      "type": "image/webp",
+      "sizes": "1024x1024",
       "purpose": "any"
     },
     {
-      "src": "/images/slideshow-512x512.png",
-      "type": "image/png",
-      "sizes": "512x512",
-      "purpose": "any"
-    },
-    {
-      "src": "/images/slideshow-256x256-mask.png",
-      "type": "image/png",
-      "sizes": "256x256",
-      "purpose": "maskable"
-    },
-    {
-      "src": "/images/slideshow-512x512-mask.png",
-      "type": "image/png",
-      "sizes": "512x512",
+      "src": "/images/slideshow-1024x1024-mask.webp",
+      "type": "image/webp",
+      "sizes": "1024x1024",
       "purpose": "maskable"
     }
   ],

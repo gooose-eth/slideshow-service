@@ -69,6 +69,9 @@ function production(app)
   app.use(express.static(outDir, {
     index: false,
     extensions: [ 'html' ],
+    dotfiles: 'ignore',
+    maxAge: '30d',
+    redirect: false,
   }))
   // service route
   app.use((req, res, next) => {

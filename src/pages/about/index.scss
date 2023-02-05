@@ -71,18 +71,3 @@
     }
   }
 }
-
-.section-line {
-  --line-size-a: 6px;
-  --line-size-b: 10px;
-  --line-color: hsl(0 0% 0% / 25%);
-  margin: 72px 0;
-  height: 1px;
-  border: none;
-  background-image:
-    linear-gradient(to right, var(--line-color) var(--line-size-a), transparent 1px);
-  background-size: var(--line-size-b) 30px;
-  @include mixins.dark-mode() {
-    --line-color: hsl(0 0% 100% / 30%);
-  }
-}
