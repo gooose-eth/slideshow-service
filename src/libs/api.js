@@ -1,11 +1,11 @@
-import { $fetch } from 'ohmyfetch'
+import { ofetch } from 'ofetch'
 
 let instance
 
 function setup()
 {
   if (instance) return
-  instance = $fetch.create({
+  instance = ofetch.create({
     baseURL: '/',
     retry: 1,
     responseType: 'json',

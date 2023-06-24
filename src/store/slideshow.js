@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia'
-import { $fetch } from 'ohmyfetch'
+import { ofetch } from 'ofetch'
 import { pureObject, shuffleItemsFromArray } from '../libs/util.js'
 import { CODE } from '../libs/error.js'
 import { checkPreference, checkTree, checkSlideItems } from '../libs/slideshow.js'
@@ -214,7 +214,7 @@ export const dataStore = defineStore('slideshowData', {
         }
         else
         {
-          newSlides = await $fetch(slides, { responseType: 'json' })
+          newSlides = await ofetch(slides, { responseType: 'json' })
         }
         checkSlideItems(newSlides)
         newSlides = newSlides.map((o,k) => ({

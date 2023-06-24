@@ -71,7 +71,7 @@
 
 <script setup>
 import { ref, reactive, onMounted, onUnmounted } from 'vue'
-import { $fetch } from 'ohmyfetch'
+import { ofetch } from 'ofetch'
 import { getFileData, checkTree } from '../../../libs/slideshow.js'
 import { assetsStore, windowsStore } from '../../../store/slideshow.js'
 import { captureError } from '../../../libs/error.js'
@@ -113,7 +113,7 @@ async function onSubmit()
           $address.value.focus()
           throw new Error('no address')
         }
-        res = await $fetch(state.address, { responseType: 'json' })
+        res = await ofetch(state.address, { responseType: 'json' })
         break
       case 'file':
         if (!state.file)
