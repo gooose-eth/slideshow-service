@@ -7,7 +7,7 @@
         v-if="image"
         :src="image"
         :alt="title"
-        onerror="this.src='/images/img-thumbnail-error.jpg'"/>
+        onerror="this.src='/images/img-thumbnail-error.webp'"/>
       <Icon v-else :name="emptyIcon"/>
     </figure>
     <div class="item__body">

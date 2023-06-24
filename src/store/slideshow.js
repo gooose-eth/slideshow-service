@@ -5,6 +5,7 @@ import { CODE } from '../libs/error.js'
 import { checkPreference, checkTree, checkSlideItems } from '../libs/slideshow.js'
 import * as defaults from '../libs/defaults.js'
 import { getStorage, setStorage } from '../libs/storage.js'
+import { serialize } from '../libs/string.js'
 
 /**
  * 슬라이드쇼 설정
@@ -165,7 +166,6 @@ export const dataStore = defineStore('slideshowData', {
     },
     existSlide()
     {
-      const current = currentStore()
       return this.selected?.length > 0
     },
     isAdmin()
@@ -221,7 +221,14 @@ export const dataStore = defineStore('slideshowData', {
           ...o,
           key: k + 1,
         }))
-        this.selected = preference.slides.random ? shuffleItemsFromArray(newSlides) : newSlides
+        if (preference.slides.random)
+        {
+          this.selected = shuffleItemsFromArray(newSlides)
+        }
+        else
+        {
+          this.selected = newSlides
+        }
       }
       catch (_)
       {
@@ -301,6 +308,11 @@ export const currentStore = defineStore('slideshowCurrent', {
       this.tree = 'default'
       this.loading = true
     },
+    updateRouteQuery(router, route, value)
+    {
+      const query = value ? serialize(value, true) : ''
+      router.replace(`/watch/${route.params.srl}/${query}`).then()
+    }
   },
 })
 

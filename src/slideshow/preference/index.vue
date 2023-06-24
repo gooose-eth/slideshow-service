@@ -24,14 +24,12 @@
 </template>
 
 <script setup>
-import { ref, computed, watch, onMounted, onUnmounted, defineAsyncComponent, nextTick } from 'vue'
+import { ref, computed, watch, onMounted, onUnmounted, defineAsyncComponent } from 'vue'
 import { windowsStore, currentStore, preferenceStore, readyPreferenceStore, dataStore } from '../../store/slideshow.js'
-import { pureObject } from '../../libs/util.js'
-import { setStorage, getStorage } from '../../libs/storage.js'
-import { captureError } from '../../libs/error.js'
 import Icon from '../../components/icon/index.vue'
 import Side from './side.vue'
 
+const emits = defineEmits([ 'change', 'submit' ])
 const $content = ref()
 const windows = windowsStore()
 const current = currentStore()
@@ -105,43 +103,8 @@ function onClose()
 async function onSubmit()
 {
   if (!confirm('설정을 적용하시겠습니까?')) return
-  // close window
   onClose()
-  try
-  {
-    current.loading = true
-    // update preference
-    preference.update(pureObject({
-      general: readyPreference.general,
-      slides: readyPreference.slides,
-      style: readyPreference.style,
-      keyboard: readyPreference.keyboard,
-    }))
-    // update tree
-    await data.update(readyPreference.data)
-    // check and update group
-    if (!Object.keys(data.groups).filter(key => (key === current.tree)).length)
-    {
-      current.tree = Object.keys(data.groups)[0]
-    }
-    await data.selectedTree()
-    // save storage
-    if (current.watchMode)
-    {
-      const storage = getStorage(`slide#${data.field.srl}`)
-      setStorage(`slide#${data.field.srl}`, {
-        ...storage,
-        preference: preference.pure,
-      })
-    }
-    current.loading = false
-  }
-  catch(e)
-  {
-    current.loading = false
-    captureError(['slideshow/preference/index.vue', 'onSubmit()'], 'error', e.message)
-    alert('오류가 발생하여 적용하지 못했습니다.')
-  }
+  emits('submit')
 }
 
 // lifecycles

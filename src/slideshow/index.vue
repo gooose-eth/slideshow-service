@@ -7,7 +7,7 @@
   v-else
   :class="[
     'container',
-    preference.general.hoverVisibleHud && 'container--hover',
+    _preference.general.hoverVisibleHud && 'container--hover',
   ]">
   <Slides
     v-if="data.existSlide"
@@ -15,7 +15,7 @@
     class="container__slides"/>
   <Empty v-else/>
   <Navigation
-    v-if="preference.general.hud"
+    v-if="_preference.general.hud"
     ref="$navigation"
     class="container__navigation"/>
 </div>
@@ -23,7 +23,7 @@
   <transition name="modal-fade">
     <ModalWrap v-if="windows.preference" @close="windows.preference = false">
       <ModalBody>
-        <Preference/>
+        <Preference @submit="onSubmitPreference"/>
       </ModalBody>
     </ModalWrap>
   </transition>
@@ -48,9 +48,9 @@
 <script setup>
 import { ref, computed, nextTick, watch, onMounted, onBeforeUnmount } from 'vue'
 import { useRoute } from 'vue-router'
-import { preferenceStore, usePreferenceStore, currentStore, dataStore, windowsStore } from '../store/slideshow.js'
+import { preferenceStore, readyPreferenceStore, usePreferenceStore, currentStore, dataStore, windowsStore } from '../store/slideshow.js'
 import { serviceStore } from '../store/service.js'
-import { getStorage } from '../libs/storage.js'
+import { getStorage, setStorage } from '../libs/storage.js'
 import { checkTree } from '../libs/slideshow.js'
 import { captureError, CODE } from '../libs/error.js'
 import { pureObject } from '../libs/util.js'
@@ -75,7 +75,8 @@ const props = defineProps({
 })
 const emits = defineEmits([ 'open-save' ])
 const current = currentStore()
-const preference = preferenceStore()
+const _preference = preferenceStore()
+const _readyPreference = readyPreferenceStore()
 const usePreference = usePreferenceStore()
 const data = dataStore()
 const windows = windowsStore()
@@ -125,7 +126,7 @@ function onKeyup(e)
         $slides.value.next()
         break
       case 'KeyA': // a
-        if (data.existSlide && preference.slides.autoplay)
+        if (data.existSlide && _preference.slides.autoplay)
         {
           current.update('autoplay', !current.autoplay)
         }
@@ -143,7 +144,7 @@ function onKeyup(e)
         }
         break
       case 'KeyH': // h
-        preference.general.hud = !preference.general.hud
+        _preference.general.hud = !_preference.general.hud
         break
       case 'KeyS': // s
         switch (current.mode)
@@ -222,10 +223,10 @@ async function setup(newJsonData = false)
 
   if (!(json?.preference && json.tree)) return
   // update store - preference
-  preference.general = json.preference.general
-  preference.slides = json.preference.slides
-  preference.style = json.preference.style
-  preference.keyboard = json.preference.keyboard
+  _preference.general = json.preference.general
+  _preference.slides = json.preference.slides
+  _preference.style = json.preference.style
+  _preference.keyboard = json.preference.keyboard
   // update store - data
   data.groups = json.tree
   // update store - data fields
@@ -238,9 +239,9 @@ async function setup(newJsonData = false)
   // update store - current
   current.mode = props.mode
   current.tree = json.group
-  current.activeSlide = preference.slides.initialNumber
-  current.keyboardEvent = preference.keyboard.enabled
-  current.autoplay = preference.slides.autoplay
+  current.activeSlide = _preference.slides.initialNumber
+  current.keyboardEvent = _preference.keyboard.enabled
+  current.autoplay = _preference.slides.autoplay
   // update store - usePreference
   if (data.field.admin) usePreference.data = true
 
@@ -250,10 +251,10 @@ async function setup(newJsonData = false)
     const storage = getStorage(`slide#${data.field.srl}`)
     if (storage?.preference)
     {
-      preference.general = storage.preference.general
-      preference.slides = storage.preference.slides
-      preference.style = storage.preference.style
-      preference.keyboard = storage.preference.keyboard
+      _preference.general = storage.preference.general
+      _preference.slides = storage.preference.slides
+      _preference.style = storage.preference.style
+      _preference.keyboard = storage.preference.keyboard
     }
     if (storage?.current)
     {
@@ -261,10 +262,6 @@ async function setup(newJsonData = false)
       if (storage.current.autoplay !== undefined)
       {
         current.autoplay = storage.current.autoplay === true
-      }
-      if (storage.current.slide !== undefined)
-      {
-        current.activeSlide = storage.current.slide
       }
     }
   }
@@ -288,7 +285,7 @@ async function setup(newJsonData = false)
   }
 
   // on keyboard event
-  if (preference.keyboard.enabled)
+  if (_preference.keyboard.enabled)
   {
     window.addEventListener('keyup', onKeyup)
     window.addEventListener('keydown', onKeydown)
@@ -303,10 +300,43 @@ async function setup(newJsonData = false)
   current.loading = false
 }
 
+async function onSubmitPreference()
+{
+  try
+  {
+    // update preference
+    _preference.update(pureObject({
+      general: _readyPreference.general,
+      slides: _readyPreference.slides,
+      style: _readyPreference.style,
+      keyboard: _readyPreference.keyboard,
+    }))
+    // save storage
+    if (current.watchMode)
+    {
+      const storage = getStorage(`slide#${data.field.srl}`)
+      setStorage(`slide#${data.field.srl}`, {
+        ...storage,
+        preference: _preference.pure,
+      })
+    }
+    // reset slideshow
+    destroy()
+    await nextTick()
+    await setup(false)
+  }
+  catch(e)
+  {
+    current.loading = false
+    captureError(['slideshow/index.vue', 'onSubmitPreference()'], 'error', e.message)
+    alert('오류가 발생하여 적용하지 못했습니다.')
+  }
+}
+
 function destroy()
 {
   // off keyboard event
-  if (preference.keyboard.enabled)
+  if (_preference.keyboard.enabled)
   {
     window.removeEventListener('keyup', onKeyup)
     window.removeEventListener('keydown', onKeydown)
@@ -315,7 +345,7 @@ function destroy()
   current.destroy()
   windows.destroy()
   data.destroy()
-  preference.destroy()
+  _preference.destroy()
   usePreference.destroy()
 }
 

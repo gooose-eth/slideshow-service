@@ -39,7 +39,6 @@ import { ref, computed, onMounted, onUnmounted, watch } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
 import { currentStore, dataStore, preferenceStore, windowsStore } from '../../store/slideshow.js'
 import { moveNumber } from '../../libs/slideshow.js'
-import { serialize } from '../../libs/string.js'
 import Images from './images.vue'
 import Captions from './captions.vue'
 import Paginate from './paginate.vue'
@@ -252,14 +251,12 @@ function change(n, userAnimationType = undefined)
 {
   if (animated.value || !checkActive(n) || !$images.value) return
   current.activeSlide = n
-  current.update('slide', n)
   runAutoplay(false)
   $images.value.play(n, userAnimationType)
-  let query = {
+  current.updateRouteQuery(router, route, {
     group: current.tree,
     slide: String(data.selected[n].key),
-  }
-  router.replace(`/watch/${route.params.srl}/${serialize(query, true)}`)
+  })
 }
 
 function prev()

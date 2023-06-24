@@ -79,8 +79,7 @@ async function onClickChange(key)
   await data.selectedTree()
   current.update('tree', key)
   current.activeSlide = data.getSlideIndex(1)
-  let query = { group: key, slide: 1 }
-  await router.replace(`/watch/${route.params.srl}/${serialize(query, true)}`)
+  current.updateRouteQuery(router, route, { group: key, slide: 1 })
   await sleep(80)
   current.loading = false
 }

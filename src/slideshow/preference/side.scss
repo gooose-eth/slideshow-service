@@ -67,6 +67,6 @@
     }
   }
   @include mixins.dark-mode() {
-    --preference-side-bg: hsl(0 0% 19%);
+    --preference-side-bg: hsl(0 0% 15%);
   }
 }
