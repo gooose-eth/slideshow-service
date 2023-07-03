@@ -12,8 +12,8 @@ case "$1" in
 
   upgrade)
     docker buildx build --platform=linux/amd64 -t redgoose/slideshow.redgoose.me:latest .
-    docker save redgoose/slideshow.redgoose.me:latest | ssh -C goose@redgoose.me 'cd ~/docker/slideshow && docker-compose down && 
-docker load && docker-compose up -d && cd ../service && ./cmd.sh service reload'
+    docker save redgoose/slideshow.redgoose.me:latest | ssh -C goose@redgoose.me 'cd ~/docker/slideshow && docker-compose down &&
+docker load && docker-compose up -d && cd ~/docker/service && ./cmd.sh service reload'
     ;;
 
   *)

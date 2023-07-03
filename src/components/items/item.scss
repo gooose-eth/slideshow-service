@@ -93,7 +93,7 @@
   }
   @include mixins.dark-mode() {
     --index-item-background: hsl(0 0% 5%);
-    --index-item-image-background: hsl(0 0% 18%);
+    --index-item-image-background: hsl(0 0% 24%);
     --index-item-shadow-line: 0 0 0 1px hsl(0 0% 0% / 10%);
     --index-item-shadow-glow: 0 0 24px 0 hsl(0 0% 0% / 15%);
     @include mixins.hover() {

@@ -206,7 +206,7 @@ function checkSlideshowData()
   }
 }
 
-async function setup(newJsonData = false)
+async function setup(newJsonData = false, tree = undefined)
 {
   const { src } = props
   let { json } = src
@@ -228,7 +228,7 @@ async function setup(newJsonData = false)
   _preference.style = json.preference.style
   _preference.keyboard = json.preference.keyboard
   // update store - data
-  data.groups = json.tree
+  data.groups = tree || json.tree
   // update store - data fields
   data.field.srl = Number(src.srl)
   data.field.title = src.title
@@ -320,10 +320,16 @@ async function onSubmitPreference()
         preference: _preference.pure,
       })
     }
+    // save temp data
+    let tempData
+    if (data.field.admin)
+    {
+      tempData = pureObject(_readyPreference.data)
+    }
     // reset slideshow
     destroy()
     await nextTick()
-    await setup(false)
+    await setup(false, tempData)
   }
   catch(e)
   {

@@ -174,16 +174,6 @@ export const dataStore = defineStore('slideshowData', {
     },
   },
   actions: {
-    async update(src)
-    {
-      src = pureObject(src)
-      if (!checkTree(src)) throw new Error('Failed check slides')
-      const current = currentStore()
-      current.loading = true
-      this.groups = src
-      await this.selectedTree()
-      current.loading = false
-    },
     resetFields()
     {
       this.field.srl = NaN
