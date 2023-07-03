@@ -7,12 +7,13 @@ case "$1" in
     ;;
 
   upload)
-    docker save redgoose/slideshow.redgoose.me:latest | ssh -C goose@redgoose.me 'cd www && docker load'
+    docker save redgoose/slideshow.redgoose.me:latest | ssh -C goose@redgoose.me 'cd ~/docker/slideshow && docker load'
     ;;
 
   upgrade)
     docker buildx build --platform=linux/amd64 -t redgoose/slideshow.redgoose.me:latest .
-    docker save redgoose/slideshow.redgoose.me:latest | ssh -C goose@redgoose.me 'cd www && docker-compose down && docker load && docker-compose up -d && cd ../service && ./cmd.sh service reload'
+    docker save redgoose/slideshow.redgoose.me:latest | ssh -C goose@redgoose.me 'cd ~/docker/slideshow && docker-compose down && 
+docker load && docker-compose up -d && cd ../service && ./cmd.sh service reload'
     ;;
 
   *)
