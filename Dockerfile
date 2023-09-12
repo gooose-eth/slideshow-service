@@ -1,5 +1,5 @@
-FROM node:20.3.1-slim
+FROM oven/bun:latest
 
 WORKDIR /app
 COPY . /app
-RUN npm install
+RUN bun install
