@@ -1,15 +1,15 @@
 {
   "name": "slideshow.redgoose.me",
-  "version": "3.0.9",
+  "version": "3.0.10",
   "repository": "https://github.com/redgoose-dev/slideshow.redgoose.me.git",
   "author": "redgoose <scripter@me.com>",
   "type": "module",
   "license": "ISC",
   "scripts": {
-    "dev": "bun server/entry.js --development",
+    "dev": "node server/entry.js --development",
     "prebuild": "rm -rf ./dist",
     "build": "vite build",
-    "start": "bun server/entry.js --production"
+    "start": "node server/entry.js --production"
   },
   "browserslist": [
     "> 1%",
