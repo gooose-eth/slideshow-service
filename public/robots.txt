@@ -1,7 +1,0 @@
-User-agent: *
-Allow: /
-Allow: /about
-Allow: /watch
-Disallow: /admin
-Disallow: /create
-Disallow: /edit

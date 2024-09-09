@@ -1,0 +1,123 @@
+// === Screen
+
+// responsive
+@mixin responsive($range)
+{
+  @if ($range == mobile-large) { @media (min-width: 640px) { @content; } }
+  @else if ($range == tablet) { @media (min-width: 900px) { @content; } }
+  @else if ($range == desktop) { @media (min-width: 1280px) { @content; } }
+  @else if ($range == desktop-large) { @media (min-width: 1440px) { @content; } }
+}
+
+// for retina
+@mixin retina()
+{
+  @media (-webkit-min-device-pixel-ratio: 2) { @content; }
+}
+
+// full height from viewport
+@mixin full-height()
+{
+  min-height: 100vh;
+  @supports (-webkit-touch-callout: none) {
+    min-height: -webkit-fill-available;
+  }
+}
+
+// dark mode
+@mixin dark-mode($root: false)
+{
+  @if ($root)
+  {
+    &.theme-dark {
+      @content;
+    }
+    &.theme-system,
+    &:not(.theme-dark):not(.theme-light) {
+      @media (prefers-color-scheme: dark) {
+        @content;
+      }
+    }
+  }
+  @else
+  {
+    html.theme-dark & {
+      @content;
+    }
+    @media (prefers-color-scheme: dark) {
+      html.theme-system &,
+      html:not(.theme-dark):not(.theme-light) & {
+        @content;
+      }
+    }
+  }
+}
+
+
+// === Button
+
+// button touch options
+@mixin button-extends()
+{
+  outline: none;
+  user-select: none;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+// hover event
+@mixin hover()
+{
+  @media (hover: hover) {
+    &:hover { @content; }
+  }
+}
+
+
+// === Typography
+
+@mixin text-single-line()
+{
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+
+// === Etc
+
+// background blur
+@mixin background-blur($size)
+{
+  @supports (backdrop-filter: blur($size)) {
+    backdrop-filter: blur($size);
+    @content;
+  }
+}
+
+@mixin disable-drag()
+{
+  -webkit-user-drag: none;
+  user-drag: none;
+}
+
+// custom scroll style
+@mixin custom-scroll-style()
+{
+  -webkit-overflow-scrolling: touch;
+  &::-webkit-scrollbar {
+    width: var(--scroll-size, 16px);
+  }
+  &::-webkit-scrollbar-thumb {
+    background-color: var(--scroll-color, hsl(0 0% 60%));
+    border-radius: calc(var(--scroll-size, 16px) * .5);
+    background-clip: padding-box;
+    border: var(--scroll-padding, 5px) solid transparent;
+  }
+  &::-webkit-scrollbar-track {
+    background-color: transparent;
+    box-shadow: inset 0 0 0 hsl(0 0% 0% / 0%);
+  }
+  @include dark-mode() {
+    --scroll-color: hsl(0 0% 30%);
+  }
+}

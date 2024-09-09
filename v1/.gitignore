@@ -6,6 +6,7 @@ dist/
 
 # files
 .DS_Store
+yarn.lock
 package-lock.json
 bun.lockb
 .env.local

@@ -1,0 +1,178 @@
+@use '../../../../assets/scss/mixins';
+
+.tree-items {
+  --tree-shape-color: hsl(0 0% 87%);
+  --tree-radius: 2px;
+  display: grid;
+  gap: 8px;
+  @include mixins.dark-mode() {
+    --tree-shape-color: hsl(0 0% 10%);
+  }
+}
+.tree-item {
+  border: 1px solid var(--tree-shape-color);
+  box-sizing: border-box;
+  border-radius: var(--tree-radius);
+  &__header {
+    position: sticky;
+    left: 0;
+    right: 0;
+    top: 0;
+    z-index: 2;
+    display: grid;
+    grid-template-columns: 58px 1fr;
+    align-items: center;
+    background-color: var(--tree-shape-color);
+    border-top-left-radius: calc(var(--tree-radius) - 1px);
+    border-top-right-radius: calc(var(--tree-radius) - 1px);
+  }
+  &__fold {
+    padding: 0;
+    button {
+      display: block;
+      margin: 0;
+      padding: 0;
+      aspect-ratio: 1 / 1;
+      width: 100%;
+      background: none;
+      border: none;
+      @include mixins.button-extends();
+      svg {
+        display: block;
+        margin: 0 auto;
+      }
+      &.fold {
+        --icon-stroke: 2;
+        --icon-size: 24px;
+        --icon-rotate: 0;
+        svg {
+          transform-origin: 50% 50%;
+          transition: transform 200ms ease-out;
+          will-change: transform;
+          transform: rotateX(var(--icon-rotate));
+        }
+        &--on {
+          --icon-rotate: 180deg;
+        }
+      }
+      &.minus {
+        cursor: default;
+      }
+    }
+  }
+  &__title {
+    margin: 0;
+    padding: 16px 0;
+    min-width: 0;
+    strong {
+      display: block;
+      font-size: 15px;
+      letter-spacing: -.5px;
+      font-weight: 700;
+      line-height: 1.15;
+      @include mixins.text-single-line();
+    }
+    span {
+      display: block;
+      margin: 3px 0 0;
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: -.5px;
+      line-height: 1.15;
+      color: var(--color-weak);
+      @include mixins.text-single-line();
+    }
+    b {
+      font-weight: 600;
+      &:before {
+        content: '[';
+      }
+      &:after {
+        content: ']';
+      }
+    }
+    em {
+      font-style: normal;
+      user-select: none;
+      &:before {
+        content: '(';
+      }
+      &:after {
+        content: ')';
+      }
+    }
+  }
+  &__nav {
+    display: none;
+    gap: 0;
+    align-items: center;
+    margin-right: 6px;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 200ms ease-out;
+    button {
+      display: block;
+      width: 34px;
+      height: 40px;
+      margin: 0;
+      padding: 0;
+      border: none;
+      box-sizing: border-box;
+      background: none;
+      transition: opacity var(--speed-button-active) ease-out, box-shadow var(--speed-button-active) ease-out;
+      border-radius: 2px;
+      --icon-color: var(--color-base);
+      --icon-stroke: 2;
+      @include mixins.button-extends();
+      &:active {
+        opacity: .5;
+      }
+      &:disabled {
+        cursor: default;
+        opacity: 1;
+      }
+      svg {
+        display: block;
+        margin: 0 auto;
+      }
+      &.add {
+        --icon-size: 20px;
+      }
+      &.edit {
+        --icon-size: 16px;
+      }
+      &.remove {
+        --icon-size: 20px;
+      }
+    }
+  }
+  @include mixins.responsive(tablet) {
+    &__header {
+      grid-template-columns: 58px 1fr auto;
+    }
+    &__nav {
+      display: flex;
+    }
+    &:hover {
+      .tree-item {
+        &__nav {
+          opacity: 1;
+          pointer-events: auto;
+        }
+      }
+    }
+  }
+}
+
+.add-tree {
+  display: none;
+  @include mixins.responsive(tablet) {
+    display: block;
+    position: sticky;
+    z-index: 3;
+    left: 0;
+    right: 0;
+    bottom: 24px;
+    margin-top: 36px;
+  }
+}

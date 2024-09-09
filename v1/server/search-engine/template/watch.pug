@@ -1,0 +1,22 @@
+doctype html
+html(lang="ko")
+  head
+    include ./layout/head
+  body
+    main
+      include ./layout/header
+      if error && error.status
+        include ./components/error
+      else if tree
+        article
+          header
+            h1 #{tree.name}
+            p #{tree.description}
+          if Array.isArray(tree.slides)
+            ul
+              each o in tree.slides
+                li
+                  include ./components/watch-item
+          else if tree.slides
+            p Slides url: #{tree.slides}
+      include ./layout/footer

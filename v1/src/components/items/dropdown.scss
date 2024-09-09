@@ -1,0 +1,112 @@
+@use '../../assets/scss/mixins';
+
+.dropdown {
+  &__summary {
+    list-style: none;
+    &::-webkit-details-marker {
+      display:none;
+    }
+    display: grid;
+    place-content: center;
+    background-color: var(--color-invert);
+    width: 36px;
+    height: 36px;
+    font-size: 0;
+    border-radius: 4px;
+    cursor: pointer;
+    box-shadow:
+      0 6px 12px hsl(0 0% 0% / 10%),
+      0 2px 6px hsl(0 0% 0% / 5%),
+      0 0 0 .5px hsl(0 0% 0% / 15%);
+    --icon-size: 18px;
+    --icon-color: var(--color-edge);
+    --icon-stroke: 2;
+    transition: box-shadow 200ms ease-out, background-color 200ms ease-out;
+    @include mixins.hover() {
+      box-shadow:
+        0 6px 12px hsl(var(--color-key-hsl) / 10%),
+        0 2px 6px hsl(var(--color-key-hsl) / 5%),
+        0 0 0 .5px hsl(var(--color-key-hsl) / 100%);
+    }
+    &:active {
+      --icon-color: var(--color-key);
+    }
+    &:deep(.icon) {
+      transition: color 200ms ease-out;
+    }
+  }
+  &__context {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    ul {
+      position: absolute;
+      top: 2px;
+      right: 0;
+      margin: 0;
+      padding: 8px 0;
+      list-style: none;
+      background-color: var(--color-invert);
+      border-radius: 4px;
+      min-width: 120px;
+      box-shadow:
+        0 6px 12px hsl(0 0% 0% / 8%),
+        0 4px 6px hsl(0 0% 0% / 8%),
+        0 0 0 .5px hsl(0 0% 0% / 10%);
+    }
+    button {
+      display: block;
+      width: 100%;
+      margin: 0;
+      padding: 6px 16px;
+      text-align: left;
+      background-color: hsl(var(--color-base-hsl) / 0%);
+      border: none;
+      font-size: 12px;
+      line-height: 1.15;
+      box-sizing: border-box;
+      font-weight: 500;
+      @include mixins.button-extends();
+      transition: background-color 200ms ease-out;
+      &.danger {
+        color: var(--color-danger);
+      }
+      &.key {
+        color: var(--color-key);
+      }
+      @include mixins.hover() {
+        background-color: hsl(var(--color-base-hsl) / 8%);
+      }
+    }
+  }
+  &[open] {
+    .dropdown {
+      &__summary {
+        background-color: var(--color-key);
+        --icon-color: var(--color-invert);
+      }
+    }
+  }
+  @include mixins.dark-mode() {
+    &__context {
+      ul {
+        box-shadow:
+          0 6px 12px hsl(0 0% 0% / 20%),
+          0 4px 6px hsl(0 0% 0% / 20%),
+          0 0 0 .5px hsl(0 0% 0% / 30%);
+      }
+      button {
+        @include mixins.hover() {
+          background-color: hsl(var(--color-edge-hsl) / 15%);
+        }
+      }
+    }
+    &[open] {
+      .dropdown {
+        &__summary {
+          --icon-color: var(--color-edge);
+        }
+      }
+    }
+  }
+}

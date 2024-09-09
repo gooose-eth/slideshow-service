@@ -1,0 +1,10 @@
+if (o.thumbnail)
+  figure
+    img(src=o.thumbnail alt=o.title)
+h3
+  a(href=`/watch/${o.srl}/`) #{o.title}
+if (o.description)
+  p #{o.description}
+dl
+  dt regdate
+  dd #{o.regdate}

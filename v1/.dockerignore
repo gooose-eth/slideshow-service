@@ -1,0 +1,21 @@
+# directories
+/dist
+/node_modules
+/.idea
+/.git
+
+# files
+.editorconfig
+.gitignore
+package-lock.json
+yarn.lock
+bun.lockb
+README.md
+.DS_Store
+.env.local
+cmd.sh
+README.md
+docker-compose.yml
+0
+Dockerfile
+.dockerignore

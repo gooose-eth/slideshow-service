@@ -1,0 +1,20 @@
+doctype html
+html(lang="ko")
+  head
+    include ./layout/head
+  body
+    main
+      include ./layout/header
+      if error && error.status
+        include ./components/error
+      else
+        if items && items.length > 0
+          section
+            h1 items
+            ul
+              each o in items
+                li
+                  include ./components/index-item
+        if paginate && paginate.length > 0
+          include ./components/paginate
+      include ./layout/footer

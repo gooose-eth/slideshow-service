@@ -1,0 +1,26 @@
+{
+  "short_name": "Slideshow",
+  "name": "붉은거위 / 슬라이드쇼",
+  "version": "3.0.5",
+  "icons": [
+    {
+      "src": "/images/slideshow-1024x1024.webp",
+      "type": "image/webp",
+      "sizes": "1024x1024",
+      "purpose": "any"
+    },
+    {
+      "src": "/images/slideshow-1024x1024-mask.webp",
+      "type": "image/webp",
+      "sizes": "1024x1024",
+      "purpose": "maskable"
+    }
+  ],
+  "id": "/",
+  "start_url": "/",
+  "description": "사진 슬라이드쇼 서비스. 사진 앨범들을 감상할 수 있다.",
+  "display": "standalone",
+  "theme_color": "#111111",
+  "background_color": "#fafbfc",
+  "orientation": "portrait"
+}

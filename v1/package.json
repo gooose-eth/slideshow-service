@@ -1,0 +1,33 @@
+{
+  "name": "slideshow.redgoose.me",
+  "version": "3.0.10",
+  "repository": "https://github.com/redgoose-dev/slideshow.redgoose.me.git",
+  "author": "redgoose <scripter@me.com>",
+  "type": "module",
+  "license": "ISC",
+  "scripts": {
+    "dev": "node server/entry.js --development",
+    "prebuild": "rm -rf ./dist",
+    "build": "vite build",
+    "start": "node server/entry.js --production"
+  },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions"
+  ],
+  "dependencies": {
+    "cookie-parser": "^1.4.6",
+    "express": "^4.18.2",
+    "isbot": "^3.6.12",
+    "ofetch": "^1.1.1",
+    "pug": "^3.0.2"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^4.2.3",
+    "pinia": "^2.1.4",
+    "sass": "^1.63.6",
+    "vite": "^4.3.9",
+    "vue": "^3.3.4",
+    "vue-router": "^4.2.2"
+  }
+}

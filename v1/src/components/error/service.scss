@@ -1,0 +1,50 @@
+@use '../../assets/scss/mixins';
+
+.service-error {
+  display: grid;
+  height: 100vh;
+  box-sizing: border-box;
+  place-content: center;
+  user-select: none;
+  &__wrap {
+    text-align: center;
+    padding: 0 0 24px;
+  }
+  figure {
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    --icon-size: 140px;
+    --icon-stroke: 1.5;
+    --icon-color: var(--color-key);
+  }
+  h1 {
+    margin: 20px 0 0;
+    font-family: var(--font-eng);
+    font-size: 36px;
+    line-height: 1;
+    letter-spacing: -1px;
+    color: var(--color-edge);
+  }
+  p {
+    margin: 12px 0 0;
+    font-size: 15px;
+    line-height: 1;
+    font-weight: 600;
+  }
+  @include mixins.responsive(tablet) {
+    &__wrap {
+      padding-bottom: 36px;
+    }
+    figure {
+      --icon-size: 160px;
+    }
+    h1 {
+      margin-top: 32px;
+      font-size: 52px;
+    }
+    p {
+      font-size: 16px;
+    }
+  }
+}
