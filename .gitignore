@@ -3,9 +3,14 @@
 .vscode/
 node_modules/
 dist/
+.output/
+.svelte-kit/
+build/
 
 # files
 .DS_Store
+yarn.lock
 package-lock.json
 bun.lockb
 .env.local
+Thumbs.db
