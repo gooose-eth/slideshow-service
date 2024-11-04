@@ -1,14 +1,12 @@
 # directories
 .idea/
+.vscode/
 node_modules/
-.AppleDouble/
 dist/
-data/
-tmp/
 
 # files
 .DS_Store
-.env.local
+yarn.lock
+package-lock.json
 bun.lockb
-docker-compose.yml
-action.sh
+.env.local
