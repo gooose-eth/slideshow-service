@@ -7,7 +7,7 @@
   "type": "module",
   "license": "MIT",
   "scripts": {
-    "app-install": "bun run --bun resource/install.js",
+    "setup": "bun run --bun resource/install.js",
     "dev": "NODE_ENV=development bun run --bun server/index.js",
     "prebuild": "rm -rf ./dist",
     "build": "bunx --bun vite build",

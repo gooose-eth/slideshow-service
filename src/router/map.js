@@ -39,7 +39,7 @@ const manager = [
     meta: { active: 'slideshow' },
   },
   {
-    path: '/setting/',
+    path: '/setting/general/',
     meta: { active: 'setting' },
   },
   {
