@@ -2,7 +2,7 @@ import express from 'express'
 import cookieParser from 'cookie-parser'
 import { isDev } from './libs/util.js'
 import { openServerMessage } from './libs/server.js'
-import routes from './routes/index.js'
+import routes from './routes.js'
 
 const { VITE_HOST, VITE_PORT, VITE_DIR_OUT } = Bun.env
 
