@@ -7,3 +7,9 @@ export const cookie = {
   prefix: 'slideshow',
   options: {},
 }
+
+export const uploadFields = {
+  original: 'original',
+  cover: 'cover',
+  cache: 'cache',
+}

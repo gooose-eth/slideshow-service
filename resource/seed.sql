@@ -2,11 +2,12 @@
 CREATE TABLE `slideshow` (
     `id` INTEGER NOT NULL UNIQUE,
     `code` TEXT NOT NULL UNIQUE, -- 유니크한 코드
-    `title` TEXT NOT NULL, -- 제목
+    `title` TEXT NULL, -- 제목
     `description` TEXT NULL, -- 설명
     `slides` TEXT NOT NULL DEFAULT '[]', -- 슬라이드 목록
     `preference` TEXT NOT NULL DEFAULT '{}', -- 슬라이드쇼 환경설정
     `json` TEXT NOT NULL DEFAULT '{}', -- 그 외의 값들
+    `status` TEXT NOT NULL, -- 상태
     `regdate` TEXT NOT NULL,
     `updated_at` TEXT NOT NULL,
     PRIMARY KEY (`id` AUTOINCREMENT)
@@ -21,6 +22,7 @@ CREATE TABLE `file` (
     `type` TEXT NOT NULL, -- 파일 타입
     `size` INTEGER NOT NULL, -- 파일 용량
     `json` TEXT NOT NULL DEFAULT '{}', -- 파일의 정보 (날짜,이미지사이즈)
+    `mode` TEXT NOT NULL, -- 모드
     `regdate` TEXT NOT NULL,
     `updated_at` TEXT NOT NULL,
     PRIMARY KEY (`id` AUTOINCREMENT),
